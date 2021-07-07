@@ -1,0 +1,67 @@
+\usepackage{xspace}
+\usepackage{bm}
+\usepackage{amsmath,amsthm,amssymb}
+
+\newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right|}}
+\newcommand{\ket}[1]{\ensuremath{\left|  #1 \right\rangle}}
+\newcommand{\braket}[2]{\ensuremath{\langle#1|#2\rangle}}
+\newcommand{\ketbra}[2]{\ensuremath{\ket{#1}\!\bra{#2}}}
+
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fadings}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.markings}
+
+\newcommand{\zxcalculus}{ZX-calculus\xspace}
+\newcommand{\zxdiagram}{ZX-diagram\xspace}
+\newcommand{\zxdiagrams}{ZX-diagrams\xspace}
+
+\newcommand{\SpiderRule}{\ensuremath{(\bm f)}\xspace}
+\newcommand{\FusionRule}{\SpiderRule}
+\newcommand{\PiRule}{\ensuremath{(\bm \pi)}\xspace}
+\newcommand{\CopyRule}{\ensuremath{(\bm c)}\xspace}
+\newcommand{\HadamardRule}{\ensuremath{(\bm{h})}\xspace}
+\newcommand{\IdentityRule}{\ensuremath{(\bm{i1})}\xspace}
+\newcommand{\IdRule}{\IdentityRule}
+\newcommand{\HCancelRule}{\ensuremath{(\bm{i2})}\xspace}
+\newcommand{\IdIIRule}{\HCancelRule}
+\newcommand{\HHRule}{\HCancelRule}
+\newcommand{\BialgRule}{\ensuremath{(\bm b)}\xspace}
+\newcommand{\BialgebraRule}{\BialgRule}
+\newcommand{\SCRule}{\BialgRule}
+\newcommand{\StrongCompRule}{\BialgRule}
+\newcommand{\HopfRule}{\ensuremath{(\bm a)}\xspace}
+\newcommand{\AntipodeRule}{\HopfRule}
+\newcommand{\CompRule}{\HopfRule}
+\newcommand{\PiCopyRule}{\ensuremath{(\bm{\pi c})}\xspace}
+\newcommand{\LCompRule}{\ensuremath{(\bm{lc})}\xspace}
+
+%% small versions
+\newcommand{\antipoderule}{{\footnotesize\AntipodeRule}}
+\newcommand{\picopyrule}{{\footnotesize\PiCopyRule}}
+\newcommand{\comprule}{{\footnotesize\CompRule}}
+\newcommand{\hopfrule}{{\footnotesize\HopfRule}}
+\newcommand{\strongcomprule}{{\footnotesize\StrongCompRule}}
+\newcommand{\scrule}{{\footnotesize\SCRule}}
+\newcommand{\bialgebrarule}{{\footnotesize\BialgebraRule}}
+\newcommand{\bialgrule}{{\footnotesize\BialgRule}}
+\newcommand{\idiirule}{{\footnotesize\IdIIRule}}
+\newcommand{\hcancelrule}{{\footnotesize\HCancelRule}}
+\newcommand{\idrule}{{\footnotesize\IdRule}}
+\newcommand{\identityrule}{{\footnotesize\IdentityRule}}
+\newcommand{\hadamardrule}{{\footnotesize\HadamardRule}}
+\newcommand{\hhrule}{\hadamardrule}
+\newcommand{\copyrule}{\footnotesize\CopyRule}
+\newcommand{\pirule}{\footnotesize\PiRule}
+\newcommand{\spiderrule}{\footnotesize\SpiderRule}
+\newcommand{\fusionrule}{\footnotesize\SpiderRule}
+\newcommand{\lcomprule}{\footnotesize\LCompRule}
+
+\newcommand{\comp}[1]{\overline{#1}}
+
+\definecolor{zx_red}{RGB}{232, 165, 165}
+\definecolor{zx_green}{RGB}{216, 248, 216}
+
+%Make node for measuring in circuit
+\tikzset{meter/.append style={draw, inner sep=5, rectangle, font=\vphantom{A}, minimum width=20, line width=.4,
+ path picture={\draw[black] ([shift={(.1,.2)}]path picture bounding box.south west) to[bend left=70] ([shift={(-.1,.2)}]path picture bounding box.south east);\draw[black,-latex] ([shift={(0,.1)}]path picture bounding box.south) -- ([shift={(.25,-.05)}]path picture bounding box.north);}}}

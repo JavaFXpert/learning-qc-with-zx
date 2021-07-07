@@ -1,0 +1,55 @@
+% These fix ``Too many math alphabets'' error
+% See https://tex.stackexchange.com/questions/3676/too-many-math-alphabets-error
+\newcommand\hmmax{0}
+\newcommand\bmmax{0}
+
+\usepackage{amsmath,amsthm,amssymb,mathabx}
+\usepackage{xspace,enumerate,color,epsfig} 
+\usepackage{graphicx}
+%\usepackage{braket}
+
+\usepackage{stmaryrd}
+\usepackage{mathrsfs}
+
+\usepackage{keycommand}
+\usepackage{microtype}
+
+\usepackage{url}
+
+\usepackage[utf8]{inputenc}
+\usepackage{scrextend}
+\usepackage[english]{babel}
+
+\usepackage{xcolor}
+\definecolor{zx_green}{rgb}{216,248,216}
+\definecolor{zx_red}{rgb}{232,165,165}
+
+\usepackage{tikzit}
+\input{zx.tikzstyles}
+\input{zx.tikzdefs}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\id}{\text{id}}
+\newcommand{\st}{\text{St}}
+\newcommand{\eff}{\text{Eff}}
+
+\newcommand{\cl}[1]{\overline{#1}}
+\newcommand{\opp}{\text{op}}
+\newcommand{\sa}{\text{sa}}
+
+
+% \newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right|}}
+% \newcommand{\ket}[1]{\ensuremath{\left|  #1 \right\rangle}}
+% \newcommand{\braket}[2]{\ensuremath{\langle#1|#2\rangle}}
+% \newcommand{\ketbra}[2]{\ensuremath{\ket{#1}\!\bra{#2}}}
+
+\usepackage{bm}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\inn}{\langle}{\rangle}

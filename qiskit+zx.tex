@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage{tikzit}
+\input{preamble.tex}
+\input{zx.tikzstyles}
+
+\def\tikzscale{1.5}
+
+\begin{document}
+
+\tableofcontents
+
+\section{}
+\subsubsection{A \textbf{bit} of information}
+Say you were asked, ``Do you like pineapple on pizza?'', and you could respond only with either ``Yes'' or ``No''.
+In other words, you can only give one \textbf{bit} of information in response.
+A \textbf{bit} can have one of two possible values.  For example, these two values could be yes or no, true or false, on or off,...
+In computers, we call these two possible values 0 and 1.  If we have many bits, we can store many possible values.
+
+As an analogy, whenever you flip a light switch, you expect to either turn on a lightbulb, or turn off a lightbulb.
+Flipping the light switch thus flips the \textbf{bit} that represents the state of the lightbulb, between ``on'' and ``off'.
+Likewise, your computer is built from billions of these switches, called \textit{transistors}, like in Figure \ref{fig:tsmc}.
+\begin{figure}[h!]%%%note don't have permissions to use this image
+	\label{fig:tsmc}
+	\includegraphics[width=\columnwidth]{images/rainbowtsmc.jpg}
+	\caption{This semiconductor chip made by TSMC has been magnified exorbitantly.  Each transistor in this chip is so small, that if you lined up a thousand of them from end to end, it would be smaller than the width of a human hair!}
+\end{figure}
+
+\subsection{Diagrams}
+We use diagrams to describe what happens to a system over time.  We use here the convention of reading diagrams from bottom (earliest time) to top (latest time).
+\subsubsection{\textbf{Boxes} and \textbf{wires}}
+In diagrams, each \textbf{wire} carries information.  They can represent physical wires, such as the electrical wire which connects your light switch to your lightbulb.  They can also represent imaginary wires, such as the sound waves when you verbally answer the question, ``Do you like pineapple on pizza?''
+A \textbf{box} in our diagram represents a process: something that transforms inputs into outputs.
+These inputs and outputs are our wires!  Each wire has a \textbf{type}, and each input and output of a process must be of the right type.  For instance, for the process of doing laundry, the inputs and outputs are your clothes; you wouldn't put your trash through the laundry (hopefully).
+We draw boxes as trapezoids; shortly, we will see why this way of drawing them is useful.
+
+This box represents the switch process, which flips the input bit:
+\begin{equation*}{\scalebox{\tikzscale}{\tikzfig{switch_process}}}\end{equation*}
+\subsubsection{\textbf{States} and \textbf{tests}}
+A \textbf{state} is a process with no inputs.  In our diagrams, we draw a state as an isosceles triangle with the output wires on the base of the triangle.
+
+A lightbulb has two possible states: on and off.  If we wire up a lightbulb to our switch, flipping the switch turns on the lightbulb:
+\begin{equation}
+\label{eq:switch_on}
+{\scalebox{\tikzscale}{\tikzfig{switch_on}}}
+\end{equation}
+Likewise, we can flip the switch connected to a lit lightbulb to turn it off:
+\begin{equation}
+{\scalebox{\tikzscale}{\tikzfig{switch_off}}}
+\end{equation}
+An \textbf{effect} is a process with no outputs.  It can also be called a \textbf{test} because when applied to a state, it tests how likely the corresponding effect (i.e. outcome) is to occur.
+
+In our diagrams, we draw an effect as an upside-down state: an isosceles triangle with the input wires on the base of the triangle.  To apply an effect to a state, we connect the state and the effect with a wire.  This way, the output of the state is the same as the input to the effect.  In total, our diagram with an effect applied to a state has zero inputs and zero outputs --- this is called a \textbf{number}.  This number is equal to the probability that given that state, we observe that effect.
+
+For our lightbulb example, when the effect matches the state, this number equals 1:
+\begin{equation}
+{\scalebox{\tikzscale}{\tikzfig{lightbulb_test00}}}
+\end{equation}
+
+\begin{equation}
+\label{eq:lightbulb_test11}
+{\scalebox{\tikzscale}{\tikzfig{lightbulb_test11}}}
+\end{equation}
+On the other hand, when the effect is the opposite of the state, this number equals 0:
+\begin{equation}
+{\scalebox{\tikzscale}{\tikzfig{lightbulb_test01}}}
+\end{equation}
+\begin{equation}
+{\scalebox{\tikzscale}{\tikzfig{lightbulb_test10}}}
+\end{equation}
+
+\subsection{More diagrams}
+
+
+\subsubsection{Rewriting diagrams with equations}
+So far we have used diagrams in equations without stating what that means.  If we have two equal diagrams, whenever we see one of them, we can replace it with the other.
+
+This is handy in simplifying diagrams.  Below, we replace the diagram in the gray dotted box with a diagram equal to it, according to Equation \ref{eq:switch_on}.  We can then use Equation \ref{eq:lightbulb_test11} to rewrite the diagram to the number 1.  In other words, given the information that the lightbulb is working, we showed that after you flip the light switch connected to the off lightbulb, the probability that you observe the lightbulb to be on is 1.
+\begin{equation}
+{\scalebox{\tikzscale}{\tikzfig{lightbulb_simp}}}
+\end{equation}
+
+\subsection{A \textbf{qubit} of information}%alternative title: \subsubsection{One-qubit states and effects}
+\subsubsection{Z- and X- basis states and effects}
+Just as a bit is the smallest unit of information in a computer, a \textbf{qubit} is the smallest unit of information in a quantum computer.
+We can encode any bit as a qubit by mapping a bit with value 0 to the $\ket{0}$ (pronounced ``ket 0'') qubit state, and a bit with value 1 to the $\ket{1}$ (pronounced ``ket 1'') qubit state.  These are defined as:
+\begin{align}
+&\tikzfig{ket0}\\
+&\tikzfig{ket1}
+\end{align}
+Because they encode binary values, $\ket{0}$ and $\ket{1}$ are called computational basis (also called Z-basis) states.
+Flipping these diagrams upside-down gives $\bra{0}$ (``bra 0'') and $\bra{1}$ (``bra 1'') respectively:
+\begin{align}
+&\tikzfig{bra0}\\
+&\tikzfig{bra1}
+\end{align}
+Like how we observed the state of lightbulb in our earlier example, given a qubit Z-basis state (i.e. either $\ket{0}$ or $\ket{1}$), we can calculate the \textit{probability amplitude} of each outcome when measured in the Z-basis (i.e. either $\bra{0}$ or $\bra{1}$).  This is equal to the \textit{inner product} of the effect (bra row vector) and the state (ket column vector).
+\begin{align}
+&\tikzfig{braket00}\\
+&\tikzfig{braket01}\\
+&\tikzfig{braket10}\\
+&\tikzfig{braket11}
+\end{align}
+As one would expect, for a given state the probabilities of all measurement outcomes sum to 1: $\abs{0}^2 + \abs{1}^2 = 1$.  When the state and the measurement are both in the same basis, then the observed measurement outcome is always (i.e. probability 1) that of the state.
+
+In general, these probability amplitudes are complex numbers with norm between 0 and 1 inclusive.  The norm-squared of the amplitude is the probability of that measurement outcome for that quantum state.  Although in observing a physical system we can only ever observe real numbers, to describe quantum physics, we need complex numbers.
+
+A qubit is more powerful than a bit: it can be 0, 1, or ``anything in between''.  This property of qubits to encode information in-between two states is called \textbf{superposition}.
+We now introduce the two X-basis states, both of which you can think of as ``halfway between'' $\ket{0}$ and $\ket{1}$:
+\begin{align}
+&\tikzfig{ket+}\\
+&\tikzfig{ket-}
+\end{align}
+The X-basis states are both superpositions, i.e. a complex linear combination, of the Z-basis states, and vice versa:
+\begin{align}
+\ket{+} &= \frac{1}{\sqrt{2}} (\ket{0} + \ket{1})\\
+\ket{-} &= \frac{1}{\sqrt{2}} (\ket{0} - \ket{1})\\
+\ket{0} &= \frac{1}{\sqrt{2}} (\ket{+} + \ket{-})\\
+\ket{1} &= \frac{1}{\sqrt{2}} (\ket{+} - \ket{-})
+\end{align}
+Furthermore, they are \textit{uniform} superpositions: the norm-squared is the same across each of their complex coefficients.
+It is said that the Z- and X- basis states are \textit{mutually unbiased bases} because when measured in the other basis, the probability of any measurement outcome is uniformly $(\frac{1}{2})^2$, or $\frac{1}{2}$.
+
+%%% deutsch's algorithm here, to show a quantum computing application asap?
+
+
+We can represent any pure qubit state, denoted $\ket{p}$, as a column of two complex numbers:
+\begin{equation}
+\end{equation}
+
+\subsubsection{Inner products and Hilbert spaces}
+{\small\textit{This section will assume knowledge of vectors and matrices, and will introduce bra-ket notation alongside diagrammatic notation.  To brush up on the relevant linear algebra, visit \url{https://qiskit.org/textbook/ch-appendix/linear_algebra.html}}}
+
+Any pure quantum state of $n$ qubits is described by a column vector of $2^n$ complex numbers --- one for each possible binary string of length $n$.  In bra-ket notation, a \textit{ket} denoted $\ket{v}$.
+\begin{equation}
+\tikzfig{ket}
+\end{equation}
+$v_1,...,v_{2^n}$ are complex numbers.
+
+
+We are ready to start learning about our first diagrams of quantum processes! 
+
+
+
+\end{document}
