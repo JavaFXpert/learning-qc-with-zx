@@ -1,0 +1,74 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (7) at (-2, -0.5) {};
+		\node [style=none] (21) at (-0.25, -0.5) {};
+		\node [style=none] (22) at (-3.75, -0.5) {};
+		\node [style=none] (23) at (-2, -2.5) {};
+		\node [style=none] (50) at (-2, 1.25) {};
+		\node [style=none] (59) at (-0.25, 1.25) {};
+		\node [style=none] (60) at (-3.75, 1.25) {};
+		\node [style=none] (61) at (-2, 3.25) {};
+		\node [style=none] (73) at (-2, -0.5) {};
+		\node [style=none] (74) at (1.75, 0.5) {$=$};
+		\node [style=none] (86) at (4, 0.5) {\Large$1$};
+		\node [style=none] (87) at (-2.25, -1.75) {};
+		\node [style=none] (88) at (-1.75, -1.75) {};
+		\node [style=none] (89) at (-1.75, -2) {};
+		\node [style=none] (90) at (-2.25, -2) {};
+		\node [style=none] (91) at (-1.75, -0.75) {};
+		\node [style=filament] (92) at (-2, -1.25) {};
+		\node [style=none] (93) at (-2.25, -1.75) {};
+		\node [style=none] (94) at (-2, -2) {};
+		\node [style=none] (95) at (-2, -1.75) {};
+		\node [style=none] (96) at (-2.25, -0.75) {};
+		\node [style=none] (97) at (-2, -1.5) {};
+		\node [style=none] (98) at (-2.25, 1.75) {};
+		\node [style=none] (99) at (-1.75, 1.75) {};
+		\node [style=none] (100) at (-1.75, 1.5) {};
+		\node [style=none] (101) at (-2.25, 1.5) {};
+		\node [style=none] (102) at (-1.75, 2.75) {};
+		\node [style=filament] (103) at (-2, 2.25) {};
+		\node [style=none] (104) at (-2.25, 1.75) {};
+		\node [style=none] (105) at (-2, 1.5) {};
+		\node [style=none] (106) at (-2, 1.75) {};
+		\node [style=none] (107) at (-2.25, 2.75) {};
+		\node [style=none] (108) at (-2, 2) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (22.center) to (23.center);
+		\draw (23.center) to (21.center);
+		\draw (21.center) to (7.center);
+		\draw (7.center) to (22.center);
+		\draw (60.center) to (61.center);
+		\draw (61.center) to (59.center);
+		\draw (59.center) to (50.center);
+		\draw (50.center) to (60.center);
+		\draw [style=simple] (50.center) to (73.center);
+		\draw [style=gray] (87.center) to (90.center);
+		\draw [style=gray] (90.center) to (93.center);
+		\draw [style=gray] (89.center) to (88.center);
+		\draw [style=gray] (88.center) to (93.center);
+		\draw [style=gray] (90.center) to (94.center);
+		\draw [style=gray] (94.center) to (89.center);
+		\draw [style=gray] (89.center) to (94.center);
+		\draw [style=gray] (88.center) to (94.center);
+		\draw [style=gray] (95.center) to (90.center);
+		\draw [style=thin, in=-135, out=90, looseness=1.25] (93.center) to (96.center);
+		\draw [style=thin, in=30, out=150] (91.center) to (96.center);
+		\draw [style=thin, in=90, out=-45, looseness=1.25] (91.center) to (88.center);
+		\draw [style=double edge] (92) to (97.center);
+		\draw [style=gray] (98.center) to (101.center);
+		\draw [style=gray] (101.center) to (104.center);
+		\draw [style=gray] (100.center) to (99.center);
+		\draw [style=gray] (99.center) to (104.center);
+		\draw [style=gray] (101.center) to (105.center);
+		\draw [style=gray] (105.center) to (100.center);
+		\draw [style=gray] (100.center) to (105.center);
+		\draw [style=gray] (99.center) to (105.center);
+		\draw [style=gray] (106.center) to (101.center);
+		\draw [style=thin, in=-135, out=90, looseness=1.25] (104.center) to (107.center);
+		\draw [style=thin, in=30, out=150] (102.center) to (107.center);
+		\draw [style=thin, in=90, out=-45, looseness=1.25] (102.center) to (99.center);
+		\draw [style=double edge] (103) to (108.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

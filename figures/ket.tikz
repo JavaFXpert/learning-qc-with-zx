@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (74) at (11.75, 0) {$\coloneqq$};
+		\node [style=none] (86) at (10.25, 0) {\large$\ket{v}$};
+		\node [style=none] (128) at (5.25, -0.5) {};
+		\node [style=none] (129) at (7, -0.5) {};
+		\node [style=none] (131) at (5.25, -2.5) {};
+		\node [style=none] (136) at (5.25, -0.5) {};
+		\node [style=none] (159) at (8.5, 0) {$\coloneqq$};
+		\node [style=none] (160) at (5.25, 2) {};
+		\node [style=none] (161) at (5.25, -1.25) {\large$v$};
+		\node [style=none] (162) at (13.75, 0) {$\begin{bmatrix}v_{1}\\
+v_{2}\\
+\vdots\\ v_{2^n}\end{bmatrix}$};
+		\node [style=none] (163) at (4, -0.5) {};
+		\node [style=none] (164) at (4, -1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (131.center) to (129.center);
+		\draw (129.center) to (128.center);
+		\draw [style=simple] (160.center) to (136.center);
+		\draw [style=simple] (136.center) to (163.center);
+		\draw [style=simple] (163.center) to (164.center);
+		\draw [style=simple] (164.center) to (131.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
