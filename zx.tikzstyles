@@ -22,6 +22,7 @@
 \tikzstyle{tiny none}=[none, font={\tiny}]
 \tikzstyle{green ket}=[fill={rgb,255: red,216; green,248; blue,216}, draw=black, shape=isosceles triangle, tikzit fill={rgb,255: red,216; green,248; blue,216}, tikzit draw=black, inner sep=0 mm, outer sep=2 mm]
 \tikzstyle{filament}=[hadamard, draw=none, minimum height=0.01mm]
+\tikzstyle{unit circle}=[shape=circle, minimum size=42.5 mm, fill=none, draw={rgb,255: red,223; green,223; blue,223}, tikzit draw={rgb,255: red,223; green,223; blue,223}]
 
 % Edge styles
 \tikzstyle{directedarrow}=[draw={rgb,255: red,223; green,223; blue,223}, ->, tikzit draw={rgb,255: red,223; green,223; blue,223}, line width=1 pt]
@@ -38,3 +39,5 @@
 \tikzstyle{thin gray}=[-, draw={rgb,255: red,223; green,223; blue,223}, line width=0.05mm]
 \tikzstyle{less thin}=[-, line width=0.1mm]
 \tikzstyle{dashed gray edge}=[-, dashed edge, draw={rgb,255: red,223; green,223; blue,223}]
+\tikzstyle{light right directed arrow}=[->, directedarrow, draw={rgb,255: red,223; green,223; blue,223}, line width=0.2mm]
+\tikzstyle{diredge0.3}=[->, line width=0.3 mm]
