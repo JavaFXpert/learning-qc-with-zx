@@ -109,6 +109,19 @@ Apart from the unit circle, another way to visualize these two states is on a sp
 \ctikzfig{blochxyz}
 Because these states are on the positive and negative z-axis, we also call this basis the \textbf{Z basis}.
 \ctikzfig{bloch01}
+You might notice that the angle between these two states' vectors is $\frac{\pi}{2}$ radians (as determined by taking their inner product or plotting them on the unit circle); however, on the Bloch sphere the angle between these two states is $\pi$!
+Indeed, any angle on the Bloch sphere is twice what it would be if we had plotted the vector in 2D.
+While this may seem like an unnecessary complication now, we will later see how the Bloch sphere is very helpful in visualizing when our qubit states contain \textit{complex numbers}.
+
+
+\subsubsection{The qubit NOT gate}
+Recall how earlier we modelled how a light switch is a process which turns on an off lightbulb, and turns off an on lightbulb?
+That is the NOT operation on a bit.
+On a qubit, we also have a NOT operation which behaves as you expect:
+\ctikzfig{ket0switch}
+
+
+
 
 Flipping these diagrams upside-down gives $\bra{0}$ (``bra 0'') and $\bra{1}$ (``bra 1'') respectively:
 \begin{align}
