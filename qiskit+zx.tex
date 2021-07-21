@@ -7,6 +7,8 @@
 
 \newcommand{\kz}[1]{\ket{\,#1\,}}
 \newcommand{\kx}[1]{\ket{#1}}
+\newcommand{\bz}[1]{\bra{\,#1\,}}
+\newcommand{\bx}[1]{\bra{#1}}
 \newcommand{\mkzero}{\begin{bmatrix}1\\ 0\end{bmatrix}}
 \newcommand{\mkone}{\begin{bmatrix}0\\ 1\end{bmatrix}}
 \newcommand{\mkplus}{\large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ 1\end{bmatrix}}
@@ -98,8 +100,7 @@ Let us note a few of their properties:
 \begin{align}
 	\ket{v} &= a \kz0 + b \kz1\\
 	&= a \mkzero + b \mkone\\
-	&= \mab{a}{b}\\
-	&= \kx+
+	&= \mab{a}{b}
 \end{align}
 \end{itemize}
 They form an \textbf{orthonormal basis} for $\mathbb{R}_2$, the \textit{vector space} of real 2D vectors.
@@ -162,7 +163,7 @@ It is said that the Z- and X- basis states are \textit{mutually unbiased bases} 
 %%% deutsch's algorithm here, to show a quantum computing application asap?
 
 
-We can represent any pure qubit state, denoted $\ket{p}$, as a column of two complex numbers:
+We can represent any pure\footnote{We will later learn about \textit{mixed} qubit states, which are a mixture of pure qubit states.} qubit state, denoted $\ket{p}$, as a column of two complex numbers:
 \begin{equation}
 \end{equation}
 
