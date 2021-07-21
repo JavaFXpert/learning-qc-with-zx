@@ -52,7 +52,7 @@
 		\draw [style=gray, in=-90, out=15, looseness=0.50] (91.center) to (105.center);
 		\draw [style=dashed gray edge, in=-15, out=105, looseness=0.75] (105.center) to (101.center);
 		\draw [style=gray, bend right=45] (40.center) to (18.center);
-		\draw [style=gray, in=180, out=-90] (19.center) to (40.center);
+		\draw [style=gray, bend right=45] (19.center) to (40.center);
 		\draw [style=gray, in=-180, out=-75, looseness=0.50] (23.center) to (40.center);
 		\draw [style=dashed gray edge, in=-105, out=15, looseness=0.75] (40.center) to (36.center);
 		\draw [style=less thin gray] (110.center) to (111.center);
