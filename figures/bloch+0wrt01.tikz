@@ -1,0 +1,57 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (116) at (-2, 2.25) {};
+		\node [style=none] (118) at (-3.25, -3.5) {$\ket{+}$};
+		\node [style=none] (141) at (2.25, -1.75) {};
+		\node [style=none] (142) at (-6.25, -2.75) {};
+		\node [style=none] (143) at (-2.25, -6) {};
+		\node [style=none] (144) at (-2.5, 1) {};
+		\node [style=none] (145) at (-1.75, 1.5) {};
+		\node [style=none] (146) at (-1.75, -6) {};
+		\node [style=none] (147) at (-2, -6.5) {};
+		\node [style=none] (148) at (-2, 2) {};
+		\node [style=none] (149) at (1.75, -2.5) {};
+		\node [style=none] (150) at (-5.25, -2.75) {};
+		\node [style=none] (151) at (-5.75, -2) {};
+		\node [style=none] (152) at (1.75, -2) {};
+		\node [style=none] (153) at (2.25, -2.25) {};
+		\node [style=none] (154) at (-6.25, -2.25) {};
+		\node [style=none] (155) at (-2, -2.25) {};
+		\node [style=none] (156) at (-2, -2.25) {};
+		\node [style=none] (157) at (-3, -3.25) {};
+		\node [style=none] (158) at (-1.25, -1.5) {};
+		\node [style=none] (159) at (-6.5, -2.25) {};
+		\node [style=none] (160) at (2.5, -2.25) {};
+		\node [style=none] (161) at (-2, -6.75) {};
+		\node [style=none] (162) at (2.25, -2.25) {};
+		\node [style=none] (163) at (-2, -2.25) {};
+		\node [style=none] (189) at (2.25, -2.25) {};
+		\node [style=none] (190) at (-2, -2.25) {};
+		\node [style=none] (191) at (-0.75, -1) {$\ket{-}$};
+		\node [style=none] (192) at (-2, 2.75) {$\ket{\,0\,}$};
+		\node [style=none] (193) at (-2, -7.25) {$\ket{\,1\,}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=gray, bend right=15, looseness=0.75] (144.center) to (143.center);
+		\draw [style=dashed gray edge, bend right=15, looseness=0.75] (146.center) to (145.center);
+		\draw [style=gray, bend right=15, looseness=0.75] (150.center) to (149.center);
+		\draw [style=dashed gray edge, bend right=15, looseness=0.75] (152.center) to (151.center);
+		\draw [style=gray, bend right=45] (148.center) to (142.center);
+		\draw [style=gray, bend right=45] (141.center) to (148.center);
+		\draw [style=gray, in=75, out=-165, looseness=0.75] (148.center) to (144.center);
+		\draw [style=dashed gray edge, in=0, out=105, looseness=0.50] (145.center) to (148.center);
+		\draw [style=gray, in=165, out=-75, looseness=0.75] (154.center) to (150.center);
+		\draw [style=dashed gray edge, in=90, out=-165, looseness=0.50] (151.center) to (154.center);
+		\draw [style=gray, in=-90, out=15, looseness=0.50] (149.center) to (153.center);
+		\draw [style=dashed gray edge, in=-15, out=105, looseness=0.75] (153.center) to (152.center);
+		\draw [style=gray, bend right=45] (147.center) to (141.center);
+		\draw [style=gray, bend right=45] (142.center) to (147.center);
+		\draw [style=gray, in=-180, out=-75, looseness=0.50] (143.center) to (147.center);
+		\draw [style=dashed gray edge, in=-105, out=15, looseness=0.75] (147.center) to (146.center);
+		\draw [style=less thin gray] (156.center) to (157.center);
+		\draw [style=less thin gray] (156.center) to (158.center);
+		\draw [style=less thin gray] (156.center) to (161.center);
+		\draw [style=less thin gray] (156.center) to (159.center);
+		\draw [style=less thin gray] (156.center) to (160.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

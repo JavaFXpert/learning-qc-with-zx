@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (3) at (7, -0.5) {};
+		\node [style=none] (4) at (5.75, -2) {};
+		\node [style=none] (6) at (8.5, 0) {$=$};
+		\node [style=none] (8) at (5.75, -1) {\large$0$};
+		\node [style=none] (10) at (4.5, -0.5) {};
+		\node [style=none] (13) at (12.5, -0.5) {};
+		\node [style=none] (14) at (11.25, -2) {};
+		\node [style=none] (15) at (11.25, -0.5) {};
+		\node [style=none] (17) at (11.25, -1) {\large$1$};
+		\node [style=none] (18) at (10, -0.5) {};
+		\node [style=none] (19) at (11.25, 2.75) {};
+		\node [style=none] (26) at (5.75, 2.75) {};
+		\node [style=none] (28) at (11.25, 2.25) {};
+		\node [style=none] (29) at (10.25, 0.25) {};
+		\node [style=none] (30) at (12.25, 0.25) {};
+		\node [style=none] (31) at (12.25, 1.5) {};
+		\node [style=none] (32) at (10.25, 1.5) {};
+		\node [style=none] (33) at (11.25, 1.5) {};
+		\node [style=none] (34) at (11.25, 0.25) {};
+		\node [style=none] (35) at (11.25, 1) {$\gate{NOT}$};
+		\node [style=none] (36) at (5.75, -0.5) {};
+		\node [style=none] (37) at (5.75, 2.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (4.center) to (3.center);
+		\draw [style=simple] (10.center) to (4.center);
+		\draw (14.center) to (13.center);
+		\draw [style=simple] (15.center) to (18.center);
+		\draw [style=simple] (18.center) to (14.center);
+		\draw [style=simple] (29.center) to (34.center);
+		\draw [style=simple] (34.center) to (30.center);
+		\draw [style=simple] (30.center) to (31.center);
+		\draw [style=simple] (31.center) to (33.center);
+		\draw [style=simple] (33.center) to (32.center);
+		\draw [style=simple] (32.center) to (29.center);
+		\draw [style=simple] (28.center) to (33.center);
+		\draw [style=simple, in=90, out=-90] (37.center) to (36.center);
+		\draw [style=simple, in=90, out=-90] (34.center) to (15.center);
+		\draw (3.center) to (36.center);
+		\draw [style=simple] (36.center) to (10.center);
+		\draw (13.center) to (15.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

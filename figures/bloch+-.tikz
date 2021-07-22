@@ -1,9 +1,8 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=none] (116) at (-2, 2.25) {};
-		\node [style=none] (118) at (-2, 2.75) {$\ket{\,0\,}$};
+		\node [style=none] (118) at (-3.25, -3.5) {$\ket{+}$};
 		\node [style=none] (138) at (12.75, -6.75) {};
-		\node [style=none] (140) at (12.75, -7.25) {$\ket{\,1\,}$};
 		\node [style=none] (141) at (2.25, -1.75) {};
 		\node [style=none] (142) at (-6.25, -2.75) {};
 		\node [style=none] (143) at (-2.25, -6) {};
@@ -25,7 +24,7 @@
 		\node [style=none] (159) at (-6.5, -2.25) {};
 		\node [style=none] (160) at (2.5, -2.25) {};
 		\node [style=none] (161) at (-2, -6.75) {};
-		\node [style=none] (162) at (-2, 2) {};
+		\node [style=none] (162) at (-2.75, -3) {};
 		\node [style=none] (163) at (-2, -2.25) {};
 		\node [style=none] (164) at (17, -1.75) {};
 		\node [style=none] (165) at (8.5, -2.75) {};
@@ -48,9 +47,10 @@
 		\node [style=none] (182) at (8.25, -2.25) {};
 		\node [style=none] (183) at (17.25, -2.25) {};
 		\node [style=none] (184) at (12.75, 2.25) {};
-		\node [style=none] (185) at (12.75, -6.5) {};
+		\node [style=none] (185) at (13.5, -1.5) {};
 		\node [style=none] (186) at (12.75, -2.25) {};
 		\node [style=none] (187) at (12.75, 2.75) {};
+		\node [style=none] (188) at (14, -1) {$\ket{-}$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=gray, bend right=15, looseness=0.75] (144.center) to (143.center);

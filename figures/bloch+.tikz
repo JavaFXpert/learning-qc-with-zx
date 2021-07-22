@@ -22,15 +22,18 @@
 		\node [style=none] (138) at (2.5, -2.25) {};
 		\node [style=none] (139) at (-2, -6.75) {};
 		\node [style=none] (140) at (-2, 2.25) {};
-		\node [style=none] (40) at (-2, -6.5) {};
+		\node [style=none] (41) at (2.25, -2.25) {};
 		\node [style=none] (110) at (-2, -2.25) {};
-		\node [style=none] (115) at (-2, -6.75) {};
-		\node [style=none] (117) at (-2, -7.25) {$\ket{\,1\,}$};
-		\node [style=none] (118) at (-2, 2.75) {};
+		\node [style=none] (116) at (-2, 2.25) {};
+		\node [style=none] (141) at (-2, 2.75) {};
+		\node [style=none] (142) at (-2, -7.25) {};
+		\node [style=none] (143) at (-3.25, -3.5) {$\ket{+}$};
+		\node [style=none] (144) at (-2.75, -3) {};
+		\node [style=none] (145) at (-2, -2.25) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw [style=less thin gray] (134.center) to (139.center);
-		\draw [style=less thin gray] (110.center) to (115.center);
+		\draw [style=less thin gray, in=90, out=-90] (140.center) to (134.center);
+		\draw [style=less thin gray] (116.center) to (110.center);
 		\draw [style=gray, bend right=15, looseness=0.75] (122.center) to (121.center);
 		\draw [style=dashed gray edge, bend right=15, looseness=0.75] (124.center) to (123.center);
 		\draw [style=gray, bend right=15, looseness=0.75] (128.center) to (127.center);
@@ -49,9 +52,9 @@
 		\draw [style=dashed gray edge, in=-105, out=15, looseness=0.75] (125.center) to (124.center);
 		\draw [style=less thin gray] (134.center) to (135.center);
 		\draw [style=less thin gray] (134.center) to (136.center);
-		\draw [style=less thin gray] (140.center) to (134.center);
+		\draw [style=less thin gray] (134.center) to (139.center);
 		\draw [style=less thin gray] (134.center) to (137.center);
 		\draw [style=less thin gray] (134.center) to (138.center);
-		\draw [style=diredge0.3] (110.center) to (40.center);
+		\draw [style=diredge0.3] (145.center) to (144.center);
 	\end{pgfonlayer}
 \end{tikzpicture}
