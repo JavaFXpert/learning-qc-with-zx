@@ -31,7 +31,6 @@
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=less thin gray] (134.center) to (139.center);
 		\draw [style=less thin gray] (110.center) to (115.center);
-		\draw [style=diredge0.3] (110.center) to (40.center);
 		\draw [style=gray, bend right=15, looseness=0.75] (122.center) to (121.center);
 		\draw [style=dashed gray edge, bend right=15, looseness=0.75] (124.center) to (123.center);
 		\draw [style=gray, bend right=15, looseness=0.75] (128.center) to (127.center);
@@ -53,5 +52,6 @@
 		\draw [style=less thin gray] (140.center) to (134.center);
 		\draw [style=less thin gray] (134.center) to (137.center);
 		\draw [style=less thin gray] (134.center) to (138.center);
+		\draw [style=diredge0.3] (110.center) to (40.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

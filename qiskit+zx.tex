@@ -5,6 +5,7 @@
 
 \def\tikzscale{1.5}
 
+\newcommand{\abs}[1]{{\big\vert} #1 {\big\vert}}
 \newcommand{\kz}[1]{\ket{\,#1\,}}
 \newcommand{\kx}[1]{\ket{#1}}
 \newcommand{\bz}[1]{\bra{\,#1\,}}
@@ -56,13 +57,14 @@ A lightbulb has two possible states: on and off.  If we wire up a lightbulb to o
 \end{equation}
 Likewise, we can flip the switch connected to a lit lightbulb to turn it off:
 \begin{equation}
+\label{eq:switch_off}
 {\scalebox{\tikzscale}{\tikzfig{switch_off}}}
 \end{equation}
-A \textbf{test}\footnote{In the wild\cite{PQP}, another word for it is \textbf{effect}.} is a process with no outputs.  When a test is applied to a state, it tests how likely the corresponding effect (i.e. outcome) is to occur.
+A \textbf{test}\footnote{In the wild\cite{PQP}, another word for it is \textbf{effect}.} is a process with no outputs.  When a test is applied to a state, it tests how likely the corresponding outcome is to occur.
 
-In our diagrams, we draw an effect as an upside-down state: an isosceles triangle with the input wires on the base of the triangle.  To apply an effect to a state, we connect the state and the effect with a wire.  This way, the output of the state is the same as the input to the effect.  In total, our diagram with an effect applied to a state has zero inputs and zero outputs --- this is called a \textbf{number}.  This number encodes the probability that given that state, we observe that effect.
+In our diagrams, we draw a test as an upside-down state: an isosceles triangle with the input wires on the base of the triangle.  To apply a test to a state, we connect the state and the test with a wire.  This way, the output of the state is the same as the input to the test.  In total, our diagram with a test applied to a state has zero inputs and zero outputs --- this is called a \textbf{number}.  This number encodes the probability that given that state, the outcome observed is the outcome being tested for.
 
-For our lightbulb example, when the effect matches the state, this number equals 1:
+For our lightbulb example, when the test matches the state, this number equals 1:
 \begin{equation}
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_test00}}}
 \end{equation}
@@ -71,7 +73,7 @@ For our lightbulb example, when the effect matches the state, this number equals
 \label{eq:lightbulb_test11}
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_test11}}}
 \end{equation}
-On the other hand, when the effect is the opposite of the state, this number equals 0:
+On the other hand, when the test is the opposite of the state, this number equals 0:
 \begin{equation}
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_test01}}}
 \end{equation}
@@ -79,14 +81,16 @@ On the other hand, when the effect is the opposite of the state, this number equ
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_test10}}}
 \end{equation}
 
-\subsection{A \textbf{qubit} of information}%alternative title: \subsubsection{One-qubit states and effects}
-%\subsubsection{Z- and X- basis states and effects}% I think this title is intimidating
+\subsection{A \textbf{qubit} of information}
+\subsubsection{Classical states and tests}
 Having learned about states and tests in general, we are now ready to start tackling quantum states and tests.  Alongside gaining intuition from our diagrams, we will learn how to use \textit{bra-ket notation} (also called Dirac notation, as it was created by Paul Dirac so a physicist could represent vectors).  Thankfully, this new jargon is simple: kets are what we call states, and bras are what we call tests!
 
 Just as a bit is the smallest unit of information in a computer, a \textbf{qubit} is the smallest unit of information in a quantum computer.
 We can encode any bit as a qubit by mapping a bit with value 0 to the $\kz0$ (pronounced ``ket 0'') qubit state, and a bit with value 1 to the $\kz1$ (pronounced ``ket 1'') qubit state.  These are defined as:
 \begin{align}
+\label{eq:ket0}
 &\tikzfig{ket0}\\
+\label{eq:ket1}
 &\tikzfig{ket1}
 \end{align}
 
@@ -108,7 +112,7 @@ We call this basis the \textbf{computational basis} because they encode a qubit 
 
 Apart from the unit circle, another way to visualize these two states is on a sphere called the \textbf{Bloch sphere}.
 \ctikzfig{blochxyz}
-Because these states are on the positive and negative z-axis, we also call this basis the \textbf{Z basis}.
+In addition to calling this basis for qubit states the computational basis, we also call it the \textbf{Z basis}.  This is because these states are on the positive and negative z-axis of the Bloch sphere.
 \ctikzfig{bloch01}
 You might notice that the angle between these two states' vectors is $\frac{\pi}{2}$ radians (as determined by taking their inner product or plotting them on the unit circle); however, on the Bloch sphere the angle between these two states is $\pi$!
 Indeed, any angle on the Bloch sphere is twice what it would be if we had plotted the vector in 2D.
@@ -116,26 +120,46 @@ While this may seem like an unnecessary complication now, we will later see how 
 
 
 \subsubsection{The qubit NOT gate}
-Recall how earlier we modelled how a light switch is a process which turns on an off lightbulb, and turns off an on lightbulb?
+Recall how earlier in Equations \ref{eq:switch_on} and \ref{eq:switch_off}, we modelled how a light switch is a process which turns on an off lightbulb, and turns off an on lightbulb?
 That is the NOT operation on a bit.
 On a qubit, we also have a NOT operation which behaves as you expect:
-\ctikzfig{ket0switch}
+\begin{equation}
+	{\scalebox{\tikzscale}{\tikzfig{ket0switch}}}
+\end{equation}
+\begin{equation}
+	{\scalebox{\tikzscale}{\tikzfig{ket1switch}}}
+\end{equation}
+When your qubit is in one of the classical states (corresponding to the two possible values a bit can have on a classical computer), the NOT gate is the bit flip gate: if you interpret 0 as false and 1 as true, then not true is false and not false is true.
 
-
-
-
-Flipping these diagrams upside-down gives $\bra{0}$ (``bra 0'') and $\bra{1}$ (``bra 1'') respectively:
+As in our lightbulb example, when we flip a diagram of a state upside-down, we get a diagram of a test.
+Flipping our diagrams of $\kz0$ and $\kz1$ in Equations \ref{eq:ket0} and \ref{eq:ket1} upside-down gives $\bz0$ (``bra 0'') and $\bz1$ (``bra 1'') respectively:
 \begin{align}
 &\tikzfig{bra0}\\
 &\tikzfig{bra1}
 \end{align}
-Like how we observed the state of lightbulb in our earlier example, given a qubit Z-basis state (i.e. either $\kz0$ or $\kz1$), we can calculate the \textit{probability amplitude} of each outcome when measured in the Z-basis (i.e. either $\bra{0}$ or $\bra{1}$).  The probability amplitude is equal to the \textit{inner product} of the bra-ket pair --- the effect (bra row vector) and the state (ket column vector).  How we draw it is, we connect the state and the effect wire to obtain a number:
+
+We can connect the wire from state to test to get a number:
 \begin{align}
-&\tikzfig{braket00}\\
-&\tikzfig{braket01}\\
-&\tikzfig{braket10}\\
-&\tikzfig{braket11}
+	&\tikzfig{braket00}\\
+	&\tikzfig{braket01}\\
+	&\tikzfig{braket10}\\
+	&\tikzfig{braket11}
 \end{align}
+This number is the \text{inner product} of the bra vector and the ket vector.
+
+You can observe one similarity between bra-ket notation here and conditional probability: the notation of a vertical line in-between.  For events \textsf{A} and \textsf{B},
+\begin{equation}
+	\text{Pr}(\,\textsf{A}\,|\,\textsf{B}\,) \coloneqq \text{Probability of \textsf{A} given \textsf{B}}
+\end{equation}
+This is by design.  In general, given a \textit{normalized}\footnote{We'll give a mathematical definition of this later.  Intuitively, you want your states and tests to be normalized so that you don't break the rules of the universe governing probabilities.} state $\ket{\,s\,}$ and test $\bra{\,t\,}$ pair, the probability that you observe the outcome $\bra{\,t\,}$ you were testing for, given the state is $\ket{\,s\,}$, is
+\begin{equation}
+	\text{Pr}(\,t\,|\,s\,) = \abs{\langle \,t\,|\,s\,\rangle}^2
+\end{equation}
+Note that the probability is the \textit{norm-squared} of the inner product.  This inner product is called a \textbf{probability amplitude}, or amplitude for short.
+So far, we have only seen probability amplitudes of either 0 or 1, which happen to satisfy $\abs{0}^2 = 0$ and $\abs{1}^2 = 1$.  In general, a probability amplitude is a complex number with norm between 0 and 1 inclusive.
+
+%% Like how we observed the state of lightbulb in our earlier example, given a qubit Z-basis state (i.e. either $\kz0$ or $\kz1$), we can calculate the \textit{probability amplitude} of each outcome when measured in the Z-basis (i.e. either $\bz0$ or $\bz1$).  The probability amplitude is equal to the \textit{inner product} of the bra-ket pair --- the test (bra row vector) and the state (ket column vector).  How we draw it is, we connect the state and the test wire to obtain a number:
+
 
 
 %%% This paragraph needs to be introduced later, basis is out of nowhere
@@ -144,12 +168,20 @@ Like how we observed the state of lightbulb in our earlier example, given a qubi
 %%%This paragraph needs to be introduced later and less dense
 %%%In general, these probability amplitudes are complex numbers with norm between 0 and 1 inclusive.  The norm-squared of the amplitude is the probability of that measurement outcome for that quantum state.  Although in observing a physical system we can only ever observe real numbers, to describe quantum physics, we need complex numbers.
 
-A qubit is more powerful than a bit: it can be 0, 1, or ``anything in between''.  This property of qubits to encode information in-between two states is called \textbf{superposition}.
-We now introduce the two X-basis states, both of which you can think of as ``halfway between'' $\kz0$ and $\kz1$:
+So far, we have gotten comfortable with the qubit states which encode the classical bit states 0 and 1.  Yet if all we do with qubits is represent binary values, we are using a quantum bit to do exactly what a classical bit does.  We now demystify the math of one of the key features of quantum computing: \textit{superposition}.
+A qubit is more powerful than a bit.  Informally, it can be 0, 1, or ``anything in-between''.  \textbf{Superposition} is this property of quantum states to encode information ``in-between'' states.  You might also hear people call a superposition of states, a \textit{mixture} of states.
+%%%when you visualize qubit states on the Bloch sphere, you can observe that the point on the Bloch sphere corresponding to that state is in-between the points of states it is a superposition of.
+We now introduce the two \textbf{X basis} states, both of which you can think of as ``halfway in-between'' $\kz0$ and $\kz1$:
 \begin{align}
 &\tikzfig{ket+}\\
 &\tikzfig{ket-}
 \end{align}
+
+On the Bloch sphere, they are on the positive and negative x-axis:
+\ctikzfig{bloch+-}
+On the Bloch sphere they are on the equator --- exactly ``halfway in-between'' the Z basis states:
+\ctikzfig{bloch+-wrt01}
+
 The X-basis states are both superpositions, i.e. a complex linear combination, of the Z-basis states, and vice versa:
 \begin{align}
 \ket{+} &= \frac{1}{\sqrt{2}} (\kz0 + \kz1)\\
