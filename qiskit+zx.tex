@@ -1,9 +1,12 @@
 \documentclass{article}
 \usepackage{tikzit}
+\usepackage{float}
 \input{preamble.tex}
 \input{zx.tikzstyles}
 
 \def\tikzscale{1.5}
+
+\newtheorem{example}{Example}
 
 \newcommand{\abs}[1]{{\big\vert} #1 {\big\vert}}
 \newcommand{\kz}[1]{\ket{\,#1\,}}
@@ -34,7 +37,7 @@ Likewise, your computer is built from billions of these switches, called \textit
 \begin{figure}[h!]%%%note don't have permissions to use this image
 	\label{fig:tsmc}
 	\includegraphics[width=\columnwidth]{images/rainbowtsmc.jpg}
-	\caption{This semiconductor chip made by TSMC has been magnified exorbitantly.  Each transistor in this chip is so small, that if you lined up a thousand of them from end to end, it would be smaller than the width of a human hair!}
+	\caption{This semiconductor chip made by TSMC has been magnified exorbitantly.  Each transistor in this chip is so small, that if you lined up a thousand of them from end to end, it would be smaller than the width of a human hair.}
 \end{figure}
 
 \subsection{Diagrams}
@@ -42,7 +45,7 @@ We use diagrams to describe what happens to a system over time.  We use here the
 \subsubsection{\textbf{Boxes} and \textbf{wires}}
 In diagrams, each \textbf{wire} carries information.  They can represent physical wires, such as the electrical wire which connects your light switch to your lightbulb.  They can also represent imaginary wires, such as the sound waves when you verbally answer the question, ``Do you like pineapple on pizza?''
 A \textbf{box} in our diagram represents a process: something that transforms inputs into outputs.
-These inputs and outputs are our wires!  Each wire has a \textbf{type}, and each input and output of a process must be of the right type.  For instance, for the process of doing laundry, the inputs and outputs are your clothes; you wouldn't put your trash through the laundry (hopefully).
+These inputs and outputs are our wires.  Each wire has a \textbf{type}, and each input and output of a process must be of the right type.  For instance, for the process of doing laundry, the inputs and outputs are your clothes; you wouldn't put your trash through the laundry (hopefully).
 We draw boxes as trapezoids; shortly, we will see why this way of drawing them is useful.
 
 This box represents the switch process, which flips the input bit:
@@ -83,7 +86,7 @@ On the other hand, when the test is the opposite of the state, this number equal
 
 \subsection{A \textbf{qubit} of information}
 \subsubsection{Classical states and tests}
-Having learned about states and tests in general, we are now ready to start tackling quantum states and tests.  Alongside gaining intuition from our diagrams, we will learn how to use \textit{bra-ket notation} (also called Dirac notation, as it was created by Paul Dirac so a physicist could represent vectors).  Thankfully, this new jargon is simple: kets are what we call states, and bras are what we call tests!
+Having learned about states and tests in general, we are now ready to start tackling quantum states and tests.  Alongside gaining intuition from our diagrams, we will learn how to use \textit{bra-ket notation} (also called Dirac notation, as it was created by Paul Dirac so a physicist could represent vectors).  Thankfully, this new jargon is simple: kets are what we call states, and bras are what we call tests.
 
 Just as a bit is the smallest unit of information in a computer, a \textbf{qubit} is the smallest unit of information in a quantum computer.
 We can encode any bit as a qubit by mapping a bit with value 0 to the $\kz0$ (pronounced ``ket 0'') qubit state, and a bit with value 1 to the $\kz1$ (pronounced ``ket 1'') qubit state.  These are defined as:
@@ -95,10 +98,13 @@ We can encode any bit as a qubit by mapping a bit with value 0 to the $\kz0$ (pr
 \end{align}
 
 Let us plot them on the unit circle of the real 2D plane.
-\ctikzfig{unitcircle01}
+\begin{figure}
+	\label{fig:unitcircle}
+	\ctikzfig{unitcircle01}
+\end{figure}
 Let us note a few of their properties:
 \begin{itemize}
-\item They are \textit{orthogonal}: the angle between them is $\frac{\pi}{2}$ radians.
+\item They are \textit{orthogonal}: on the unit circle there is a right angle between them.
 \item They are \textit{normalized}: they have a vector norm, or length, of 1.
 \item They \textit{span} the real 2D plane: you can get any arbitrary 2D vector $\vec{v}$ of real numbers by taking their linear combination
 \begin{align}
@@ -106,18 +112,24 @@ Let us note a few of their properties:
 	&= a \mkzero + b \mkone\\
 	&= \mab{a}{b}
 \end{align}
+where $a$ and $b$ are complex numbers\footnote{Mathematicians might call them coefficients, and physicists might call them probability amplitudes.}.
 \end{itemize}
 They form an \textbf{orthonormal basis} for $\mathbb{R}_2$, the \textit{vector space} of real 2D vectors.
 We call this basis the \textbf{computational basis} because they encode a qubit as a bit.
 
-Apart from the unit circle, another way to visualize these two states is on a sphere called the \textbf{Bloch sphere}.
-\ctikzfig{blochxyz}
+Apart from the unit circle, another way to visualize these two states is on a sphere called the \textbf{Bloch sphere}, which looks like:
+\begin{figure}
+	\label{fig:blochsphere}
+	\ctikzfig{blochxyz}	
+\end{figure}
 In addition to calling this basis for qubit states the computational basis, we also call it the \textbf{Z basis}.  This is because these states are on the positive and negative z-axis of the Bloch sphere.
-\ctikzfig{bloch01}
-You might notice that the angle between these two states' vectors is $\frac{\pi}{2}$ radians (as determined by taking their inner product or plotting them on the unit circle); however, on the Bloch sphere the angle between these two states is $\pi$!
+\begin{figure}
+	\ctikzfig{bloch01}	
+\end{figure}
+You might notice that on the Bloch sphere, the angle between these two states is $\pi$, or $180\deg$.  However, when you take the inner product of the vectors in Equations \ref{eq:ket0} and \ref{eq:ket0}, or plot them on the unit circle as in Figure \ref{fig:unitcircle}, the angle between these two states' vectors is $\frac{\pi}{2}$ radians ($90\deg$).
 Indeed, any angle on the Bloch sphere is twice what it would be if we had plotted the vector in 2D.
-While this may seem like an unnecessary complication now, we will later see how the Bloch sphere is very helpful in visualizing when our qubit states contain \textit{complex numbers}.
-
+While this may seem like an unnecessary complication now, we will later see how the Bloch sphere helps us visualize when our qubit states contain \textit{complex numbers}.
+Throughout this text we will use radians instead of degrees, and adopt the convention of angles being angles on the Bloch sphere.
 
 \subsubsection{The qubit NOT gate}
 Recall how earlier in Equations \ref{eq:switch_on} and \ref{eq:switch_off}, we modelled how a light switch is a process which turns on an off lightbulb, and turns off an on lightbulb?
@@ -129,7 +141,9 @@ On a qubit, we also have a NOT operation which behaves as you expect:
 \begin{equation}
 	{\scalebox{\tikzscale}{\tikzfig{ket1switch}}}
 \end{equation}
-When your qubit is in one of the classical states (corresponding to the two possible values a bit can have on a classical computer), the NOT gate is the bit flip gate: if you interpret 0 as false and 1 as true, then not true is false and not false is true.
+When your qubit is in one of the classical states (corresponding to the two possible values a bit can have on a classical computer), the NOT gate is the bit flip gate: if you interpret 0 as false and 1 as true, then not true is false and not false is true.  The NOT gate flips the $\kz0$ state to the $\kz1$ state, and the $\kz1$ state to the $\kz0$ state.
+
+What does the NOT gate do to a qubit state in general?  What it does is rotate the state vector on the Bloch sphere half a rotation about the x-axis; the axes are labelled in Figure \ref{fig:blochsphere}.  That is why the NOT gate is also called the \textbf{X gate}, as we will call it from now on.
 
 As in our lightbulb example, when we flip a diagram of a state upside-down, we get a diagram of a test.
 Flipping our diagrams of $\kz0$ and $\kz1$ in Equations \ref{eq:ket0} and \ref{eq:ket1} upside-down gives $\bz0$ (``bra 0'') and $\bz1$ (``bra 1'') respectively:
@@ -153,6 +167,7 @@ You can observe one similarity between bra-ket notation here and conditional pro
 \end{equation}
 This is by design.  In general, given a \textit{normalized}\footnote{We'll give a mathematical definition of this later.  Intuitively, you want your states and tests to be normalized so that you don't break the rules of the universe governing probabilities.} state $\ket{\,s\,}$ and test $\bra{\,t\,}$ pair, the probability that you observe the outcome $\bra{\,t\,}$ you were testing for, given the state is $\ket{\,s\,}$, is
 \begin{equation}
+	\label{eq:braketprob}
 	\text{Pr}(\,t\,|\,s\,) = \abs{\langle \,t\,|\,s\,\rangle}^2
 \end{equation}
 Note that the probability is the \textit{norm-squared} of the inner product.  This inner product is called a \textbf{probability amplitude}, or amplitude for short.
@@ -171,33 +186,82 @@ So far, we have only seen probability amplitudes of either 0 or 1, which happen 
 So far, we have gotten comfortable with the qubit states which encode the classical bit states 0 and 1.  Yet if all we do with qubits is represent binary values, we are using a quantum bit to do exactly what a classical bit does.  We now demystify the math of one of the key features of quantum computing: \textit{superposition}.
 A qubit is more powerful than a bit.  Informally, it can be 0, 1, or ``anything in-between''.  \textbf{Superposition} is this property of quantum states to encode information ``in-between'' states.  You might also hear people call a superposition of states, a \textit{mixture} of states.
 %%%when you visualize qubit states on the Bloch sphere, you can observe that the point on the Bloch sphere corresponding to that state is in-between the points of states it is a superposition of.
-We now introduce the two \textbf{X basis} states, both of which you can think of as ``halfway in-between'' $\kz0$ and $\kz1$:
+We now introduce the two \textbf{X basis} states, $\kx+$ and $\kx-$:
 \begin{align}
 &\tikzfig{ket+}\\
 &\tikzfig{ket-}
 \end{align}
 
-On the Bloch sphere, they are on the positive and negative x-axis:
-\ctikzfig{bloch+-}
-On the Bloch sphere they are on the equator --- exactly ``halfway in-between'' the Z basis states:
-\ctikzfig{bloch+-wrt01}
-
-The X-basis states are both superpositions, i.e. a complex linear combination, of the Z-basis states, and vice versa:
+Perhaps you can guess what happens when given an X-basis state, you test for an X-basis state:\nopagebreak
 \begin{align}
-\ket{+} &= \frac{1}{\sqrt{2}} (\kz0 + \kz1)\\
-\ket{-} &= \frac{1}{\sqrt{2}} (\kz0 - \kz1)\\
-\kz0 &= \frac{1}{\sqrt{2}} (\ket{+} + \ket{-})\\
-\kz1 &= \frac{1}{\sqrt{2}} (\ket{+} - \ket{-})
+	&\tikzfig{braket++}\\
+	&\tikzfig{braket--}\\
+	&\tikzfig{braket+-}\\
+	&\tikzfig{braket-+}
 \end{align}
-Furthermore, they are \textit{uniform} superpositions: the norm-squared is the same across each of their complex coefficients.
-It is said that the Z- and X- basis states are \textit{mutually unbiased bases} because when measured in the other basis, the probability of any measurement outcome is uniformly $(\frac{1}{2})^2$, or $\frac{1}{2}$.
 
-%%% deutsch's algorithm here, to show a quantum computing application asap?
+On the Bloch sphere, they are on the positive and negative x-axis:
+\begin{figure}[H]
+	\ctikzfig{bloch+-}
+\end{figure}
 
+You can think of the X-basis states as being exactly ``halfway in-between'' the Z-basis states.  Indeed, on the Bloch sphere, $\kz0$ and $\kz1$ are respectively on the north and south poles, while $\kx+$ and $\kx-$ are on the equator:
+\begin{figure}[H]
+	\ctikzfig{bloch+-wrt01}
+\end{figure}
 
-We can represent any pure\footnote{We will later learn about \textit{mixed} qubit states, which are a mixture of pure qubit states.} qubit state, denoted $\ket{p}$, as a column of two complex numbers:
-\begin{equation}
-\end{equation}
+In other words, the X-basis states are both \textbf{superpositions}, i.e. a complex linear combination, of the Z-basis states:
+\begin{align}
+\ket{+} &= \frac{1}{\sqrt{2}} (\kz0 + \kz1) \label{eq:kp01} \\
+\ket{-} &= \frac{1}{\sqrt{2}} (\kz0 - \kz1) \label{eq:km01} \\
+\end{align}
+Nicely, the Z-basis states are in turn both superpositions of the X-basis states:
+\begin{align}
+\kz0 &= \frac{1}{\sqrt{2}} (\ket{+} + \ket{-}) \label{eq:k0pm} \\
+\kz1 &= \frac{1}{\sqrt{2}} (\ket{+} - \ket{-}) \label{eq:k1pm}
+\end{align}
+
+Furthermore, Equations~\ref{eq:kp01}~to~\ref{eq:k1pm} above are \textit{uniform} superpositions --- each probability amplitude (i.e. coefficient) has the same magnitude of $\frac{1}{\sqrt{2}}$.
+What this means is that the inner product of an X-basis state with a Z-basis state has magnitude $\frac{1}{\sqrt{2}}$:
+\begin{align}
+&\tikzfig{braket0+}\\
+&\tikzfig{braket1+}\\
+&\tikzfig{braket0-}\\
+&\tikzfig{braket1-} \label{eq:braket1-}
+\end{align}
+As we learned in Equation \ref{eq:braketprob}, the norm-squared of the probability amplitude is the probability you observe the outcome you're testing for.    Let's see this through an example.
+
+\begin{example}
+\label{ex:pr1m}
+If your state is $\kx-$, and you test for $\kz1$, what is the probability you observe $\kz1$?
+
+\textnormal{From Equation \ref{eq:braketprob}, we know that the probability of observing $\kz1$ when the state is $\kx-$ is $\abs{\langle\,1,\,|-\rangle}^2$.  In Equation \ref{eq:braket1-}, we found that $\langle\,1,\,|-\rangle = \texttt{-}\frac{1}{\sqrt{2}}$.  Therefore, the probability is $\abs{\langle\,1,\,|-\rangle}^2 = \frac{1}{2}$.}
+\end{example}
+
+You'll find that if you test for $\kz0$ when the state is $\kx-$, the probability is also $\frac{1}{2}$.  We've now arrived at the physical meaning of why we say that the X-basis states are ``halfway in-between'' the Z-basis states!  This leads us to the very important of quantum measurement...
+
+\subsection{Quantum Measurement}
+So far, we have talked about the mathematical description of the Z- and X- basis qubit states.  Now, let's talk about what is going on physically.
+All around us are ``quantum states''.  You are made up of perhaps an octillion (10\^27) molecules.  At any time, each molecule has its own quantum state.  However, in our macroscopic (at least compared to the length scale of individual molecules) world, we simply observe the collection of those molecules --- you!
+
+Quantum effects only become relevant at really tiny length scales.  The size of today's transistors is just about small enough that quantum effects come into play.
+\textit{Classical mechanics} is sufficient to describe most of physics on the length scale of us humans.  We need \textit{quantum mechanics} to describe physics on the length scale of atoms and molecules.
+
+To explore quantum measurement, we'll start with one of the earliest experiments in the history of quantum physics: the Stern-Gerlach experiment~\cite{Gerlach_Stern_1922}.  In fact, it was the first experiment where separate quantum states were directly observed!
+
+Otto Stern designed this experiment, which Walther Gerlach carried out, where silver atoms were sent through an inhomogenous (different strength at different points in space) magnetic field and then hit a detector screen.  What happened, was that half of the atoms were deflected up, and half of the atoms were deflected down.  Interestingly, none of the atoms were observed at the height in-between.  This suggested that each silver atom had as an intrinsic property specifying which of the two directions it would be deflected in this experiment.  This property is \textbf{quantized} because when it is observed, its possible values are discrete rather than a continuous distribution.  If the atoms were instead spinning magnetic dipoles, they would be deflected by the magnetic field in a direction according to their spin, although the physics are different.  Due to this analogy, this quantized value of the atom is called spin.
+
+Due to the magnetic field (say it's oriented so its north pole is in the $+$z direction), atoms in a spin up quantum state would be deflected one way (up), and atoms in a spin down quantum state would be deflected the opposite way (down).
+
+As we saw from Example \ref{ex:pr1m}, the Z- and X- bases have the property that when measured in the other of the two bases, the probability of any measurement outcome is uniformly $\frac{1}{2}$.  For this reason, the Z- and X- bases are called \textit{mutually unbiased bases} with respect to each other.  We've now learned enough about mathematically describing quantum two-state systems to elucidate the outcomes of this experiment.
+
+\begin{example}
+	
+\end{example}
+
+% We can represent any pure\footnote{We will later learn about \textit{mixed} qubit states, which are a mixture of pure qubit states.} qubit state, denoted $\ket{p}$, as a column of two complex numbers:
+% \begin{equation}
+% \end{equation}
 
 \subsection{More diagrams}
 
@@ -209,8 +273,6 @@ This is handy in simplifying diagrams.  Below, we replace the diagram in the gra
 \begin{equation}
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_simp}}}
 \end{equation}
-
-
 
 \subsubsection{Inner products and Hilbert spaces}
 {\small\textit{This section will assume knowledge of vectors and matrices, and will introduce bra-ket notation alongside diagrammatic notation.  To brush up on the relevant linear algebra, visit \url{https://qiskit.org/textbook/ch-appendix/linear_algebra.html}}}
@@ -224,5 +286,5 @@ $v_1,...,v_{2^n}$ are complex numbers.
 
 
 
-
+\bibliography{qiskit+zx.bib}
 \end{document}
