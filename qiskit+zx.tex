@@ -247,26 +247,30 @@ You'll find that if you test for $\kz0$ when the state is $\kx-$, the probabilit
 
 \subsection{Quantum Measurement}
 So far, we have talked about the mathematical description of the Z- and X- basis qubit states.  Now, let's talk about what is going on physically.
-All around us are ``quantum states''.  You are made up of perhaps an octillion (10\^27) molecules.  At any time, each molecule has its own quantum state.  However, in our macroscopic (at least compared to the length scale of individual molecules) world, we simply observe the collection of those molecules --- you!
+All around us are ``quantum states''.  You are made up of perhaps an octillion ($10^{27}$) molecules.  At any time, each molecule has its own quantum state.  However, in our macroscopic (at least compared to the length scale of individual molecules) world, we simply observe the collection of those molecules --- you!
 
 Quantum effects only become relevant at really tiny length scales.  The size of today's transistors is just about small enough that quantum effects come into play.
 \textit{Classical mechanics} is sufficient to describe most of physics on the length scale of us humans.  We need \textit{quantum mechanics} to describe physics on the length scale of atoms and molecules.
 
 To explore quantum measurement, we'll start with one of the earliest experiments in the history of quantum physics: the Stern-Gerlach experiment~\cite{Gerlach_Stern_1922}.  In fact, it was the first experiment where separate quantum states were directly observed!
 
-Otto Stern designed this experiment, which Walther Gerlach carried out, where silver atoms were sent through an inhomogenous (different strength at different points in space) magnetic field and then hit a detector screen.  What happened, was that half of the atoms were deflected up, and half of the atoms were deflected down.  Interestingly, none of the atoms were observed at the height in-between.  This suggested that each silver atom had as an intrinsic property specifying which of the two directions it would be deflected in this experiment.  This property is \textbf{quantized} because when it is observed, its possible values are discrete rather than a continuous distribution.  If the atoms were instead spinning magnetic dipoles, they would be deflected by the magnetic field in a direction according to their spin, although the physics are different.  Due to this analogy, this quantized value of the atom is called spin.
+Otto Stern designed this experiment, which Walther Gerlach carried out, where silver atoms were sent through an inhomogenous (different strength at different points in space) magnetic field and then hit a detector screen.  What happened, was that half of the atoms were deflected up, and half of the atoms were deflected down.  Interestingly, none of the atoms were observed at the height in-between.  This suggested that each silver atom had as an intrinsic property specifying which of the two directions it would be deflected in this experiment.  This property is \textbf{quantized} because when it is observed, its possible values are discrete rather than a continuous distribution.  If the atoms were instead spinning magnetic dipoles, they would be deflected by the magnetic field in a direction according to their spin, although the physics are different.  Due to this analogy, this quantized value of the atom is called \textit{spin}.
 
 Due to the magnetic field (say it's oriented so its north pole is in the $+$z direction), atoms in a spin up quantum state would be deflected one way (up), and atoms in a spin down quantum state would be deflected the opposite way (down).
 
-Up to now, given a qubit state, we have computed the probabilities of observing a certain outcome that we are testing for.  We will now learn about \textbf{orthonormal basis (ONB) measurement} --- a type of \textbf{quantum measurement} in which you observe exactly one of the outcomes in your chosen orthonormal basis of quantum states.  This is the type of quantum measurement you will use the most as a quantum computer scientist.  This is also the type of measurement done by the inhomogenous magnetic field in the Stern and Gerlach experiment.  When performing an ONB measurement, the probability of you observing each outcome is exactly as how we have been computing so far: taking the norm-squared of the braket between your test (one of the states in your orthonormal basis) and your quantum state.
+Up to now, given a qubit state, we have computed the probabilities of observing a certain outcome that we are testing for.  We will now learn about \textbf{orthonormal basis (ONB) measurement} --- a type of \textbf{quantum measurement} in which you observe exactly one of the outcomes in your chosen orthonormal basis of quantum states.  This is the type of quantum measurement you will use the most as a quantum computer scientist.  This is also the type of measurement done by the inhomogenous magnetic field in the Stern and Gerlach experiment.
 
-When you perform an ONB measurement, you are actually simultaneously testing for all of the states in your ONB.  You can only observe one of those states, which is your measurement outcome.  The weird part is, when your state is not one of those states in your ONB, it then becomes the state you observe in your ONB.
-%%% need to refine this explanation and create a ``collapse'' image
+When you perform an ONB measurement, you are actually simultaneously testing for all of the states in your ONB.  You can only observe one of those states, which is your measurement outcome.  The probability of you observing each outcome is exactly as how we have been computing so far: taking the norm-squared of the braket between your test (one of the states in your orthonormal basis) and your quantum state.
+
+After your ONB measurement, \textit{your state becomes the one that was your measurement outcome}.  Doesn't matter if your state was not one of the ones in your ONB --- if that case, the act of performing quantum measurement changes the very state you are measuring.
+
+At first, this may seem counterintuitive to our macroscopic world.  If you hold a ruler to find the position of a pin, you wouldn't expect the ruler to change where the pin is.  However, just to see the pin, you need to shine light on it.  Light is made up of photons which have momentum.  This momentum does nothing, as far as our eye can tell, to a massive (compared to the photon) object like the pin, but if it was instead a much smaller object with size comparable to that of photons, the momentum could be absorbed by it.  Therefore, your act of trying to see the pin can change the state of the pin.
+%%% need to refine this explanation, create a ``collapse'' image, and create a unit circle trig image
 
 As we saw from Example \ref{ex:pr1m}, the Z- and X- bases have the property that when measured in the other of the two bases, the probability of any measurement outcome is uniformly $\frac{1}{2}$.  For this reason, the Z- and X- bases are called \textit{mutually unbiased bases} with respect to each other.  We've now learned enough about mathematically describing quantum two-state systems to combine that understanding with what Stern and Gerlach observed.
 
 \begin{example}[Z-measurement then Z-measurement] \label{example:sterngerlachzz}
-Stern and Gerlach observed that each silver atom passing through their inhomogenous magnetic field in the z direction had a $\frac{1}{2}$ chance of being deflected upwards ($+$z direction), and a $\frac{1}{2}$ chance of being deflected downwards ($-$z direction).  They then took each silver atom that was deflected upwards, and sent that through another inhomogenous magnetic field in the z direction.  This second time, all the atoms were deflected in the same direction --- why?
+Stern and Gerlach observed that each silver atom passing through their inhomogenous magnetic field in the z direction had a $\frac{1}{2}$ chance of being deflected upwards ($+$z direction), and a $\frac{1}{2}$ chance of being deflected downwards ($-$z direction).  They then took each silver atom that was deflected upwards, and sent that through another inhomogenous magnetic field in the z direction.  This second time, all the atoms were deflected upwards --- why?
 
 \begin{figure}[h!]
 	\ctikzfig{sterngerlachzz}
@@ -278,7 +282,7 @@ Stern and Gerlach observed that each silver atom passing through their inhomogen
 \end{equation}
 From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1.  Therefore, all atoms that were deflected upwards after the first field, were also deflected upwards after the second field.}
 
-\textnormal{Following this logic, we expect that any number of Z-measurements done thereafter would continue to yield the $z_+$ state.  Of course, we are assuming no experimental error here.}
+\textnormal{Following this logic, we expect that any number of Z-measurements done thereafter would continue to yield the $z_+$ state.}
 \end{example}
 
 \begin{example}[Z-measurement then X-measurement] \label{example:sterngerlachzx}
@@ -289,7 +293,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 		\caption{This is what Stern and Gerlach saw when they sent a beam of silver atoms through the experimental setup of Example \ref{example:sterngerlachzx}.}
 	\end{figure}
 
-	\textnormal{Again, we use the $\kz0$ state to represent $z_+$, all atoms deflected upwards by the first field.  After those $z_+$ atoms traversed the second field (in the x-direction), the probability of observing $x_+$ was
+	\textnormal{Again, we use the $\kz0$ state to represent $z_+$, all atoms deflected upwards by the first field.  The $\kx+$ and $\kx-$ states are suitable to represent $x_+$ and $x_-$, the state of all atoms after the x-aligned magnetic field, because these states point in the $+x$ and $-x$ directions on the Bloch sphere.	After those $z_+$ atoms traversed the second field (in the x-direction), the probability of observing $x_+$ was
 	\begin{equation}
 		\text{Pr}(x_+|z_+) = \text{Pr}(+|\,0\,) = \abs{\langle+|\,0\,\rangle}^2
 	\end{equation}
@@ -308,7 +312,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 		\caption{This is what Stern and Gerlach saw when they sent a beam of silver atoms through the experimental setup of Example \ref{example:sterngerlachzxz}.}
 	\end{figure}
 
-	\textnormal{At the end of Example \ref{example:sterngerlachzx}, the state was $x_+$, which we worked out is the $kx+$ state.  After those $x_+$ atoms traversed the third field (in the z-direction), the probability of observing $z_+$ was
+	\textnormal{At the end of Example \ref{example:sterngerlachzx}, the state was $x_+$, which we worked out is the $\kx+$ state.  After those $x_+$ atoms traversed the third field (in the z-direction), the probability of observing $z_+$ was
 	\begin{equation}
 		\text{Pr}(z_+|x_+) = \text{Pr}(\,0\,|+) = \abs{\langle\,0\,|+\rangle}^2
 	\end{equation}
@@ -316,7 +320,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 	\begin{equation}
 		\text{Pr}(z_-|x_+) = \text{Pr}(\,1\,|+) = \abs{\langle\,1\,|+\rangle}^2
 	\end{equation}
-	From Equation \ref{eq:braket0+}, we know that $\langle\,0\,|+\rangle = \frac{1}{\sqrt{2}}$.  Likewise, $\langle\,1\,|+\rangle = \frac{1}{\sqrt{2}}$.  Therefore, all atoms that were in the $\kx+$ state after the second field, had a 50-50 chance of being deflected up or down after the third field.  Therefore, Stern and Gerlach were surprised because although the second of two consecutive Z-measurements yielded all $\kz0$ as we saw in Example \ref{example:sterngerlachzz}, the last of two Z-measurements with an X-measurement in-between yielded half $\kz0$ and half $\kz1$.}
+	From Equation \ref{eq:braket0+}, we know that $\langle\,0\,|+\rangle = \frac{1}{\sqrt{2}}$.  Likewise, $\langle\,1\,|+\rangle = \frac{1}{\sqrt{2}}$.  Therefore, all atoms that were in the $\kx+$ state after the second field, had a 50-50 chance of being deflected up or down by the third field.  Therefore, the reason for Stern and Gerlach's surprise was that although the second of two consecutive Z-measurements yielded all $\kz0$ as we saw in Example \ref{example:sterngerlachzz}, adding an X-measurement in-between the Z-measurements changed that to half $\kz0$ and half $\kz1$.}
 \end{example}
 
 % We can represent any pure\footnote{We will later learn about \textit{mixed} qubit states, which are a mixture of pure qubit states.} qubit state, denoted $\ket{p}$, as a column of two complex numbers:
@@ -324,7 +328,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 % \end{equation}
 
 \subsection{More diagrams}
-
+%%% I think this section is for conjugate transpose kind of things?
 
 \subsubsection{Rewriting diagrams with equations}
 So far we have used diagrams in equations without stating what that means.  If we have two equal diagrams, whenever we see one of them, we can replace it with the other.
