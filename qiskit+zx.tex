@@ -157,7 +157,7 @@ Flipping our diagrams of $\kz0$ and $\kz1$ in Equations \ref{eq:ket0} and \ref{e
 
 We can connect the wire from state to test to get a number:
 \begin{align}
-	&\tikzfig{braket00 \label{eq:braket00} }\\
+	&\tikzfig{braket00} \label{eq:braket00} \\
 	&\tikzfig{braket01}\\
 	&\tikzfig{braket10}\\
 	&\tikzfig{braket11}
@@ -174,6 +174,8 @@ This is by design.  In general, given a \textit{normalized}\footnote{We'll give 
 	\text{Pr}(\,t\,|\,s\,) = \abs{\langle \,t\,|\,s\,\rangle}^2
 \end{equation}
 Note that the probability is the \textit{norm-squared} of the inner product.  This inner product is called a \textbf{probability amplitude}, or amplitude for short.
+
+\subsubsection{The X-basis states}
 So far, we have only seen probability amplitudes of either 0 or 1, which happen to satisfy $\abs{0}^2 = 0$ and $\abs{1}^2 = 1$.  In general, a probability amplitude is a complex number with norm between 0 and 1 inclusive.
 
 %% Like how we observed the state of lightbulb in our earlier example, given a qubit Z-basis state (i.e. either $\kz0$ or $\kz1$), we can calculate the \textit{probability amplitude} of each outcome when measured in the Z-basis (i.e. either $\bz0$ or $\bz1$).  The probability amplitude is equal to the \textit{inner product} of the bra-ket pair --- the test (bra row vector) and the state (ket column vector).  How we draw it is, we connect the state and the test wire to obtain a number:
@@ -338,16 +340,19 @@ This is handy in simplifying diagrams.  Below, we replace the diagram in the gra
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_simp}}}
 \end{equation}
 
-\subsubsection{Inner products and Hilbert spaces}
+\subsection{The pure qubit state, in general}
+
+\subsubsection{The Y-basis states}
+
+
+\section{When you have more than one qubit}
 {\small\textit{This section will assume knowledge of vectors and matrices, and will introduce bra-ket notation alongside diagrammatic notation.  To brush up on the relevant linear algebra, visit \url{https://qiskit.org/textbook/ch-appendix/linear_algebra.html}}}
 
-Any pure quantum state of $n$ qubits is described by a column vector of $2^n$ complex numbers --- one for each possible binary string of length $n$.  In bra-ket notation, a \textit{ket} denoted $\ket{v}$.
+Any pure quantum state of $n$ qubits is described by a column vector of $2^n$ complex numbers --- one for each possible binary string of length $n$.  In bra-ket notation, this $n$ qubit state is denoted $\ket{v}$.
 \begin{equation}
 \tikzfig{ket}
 \end{equation}
 $v_1,...,v_{2^n}$ are complex numbers.
-
-
 
 
 \bibliography{qiskit+zx.bib}
