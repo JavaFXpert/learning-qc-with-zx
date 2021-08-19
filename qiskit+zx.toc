@@ -1,0 +1,16 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}}{1}{}%
+\contentsline {subsubsection}{\numberline {1.0.1}A \textbf {bit} of information}{1}{}%
+\contentsline {subsection}{\numberline {1.1}Diagrams}{2}{}%
+\contentsline {subsubsection}{\numberline {1.1.1}\textbf {Boxes} and \textbf {wires}}{2}{}%
+\contentsline {subsubsection}{\numberline {1.1.2}\textbf {States} and \textbf {tests}}{2}{}%
+\contentsline {subsection}{\numberline {1.2}A \textbf {qubit} of information}{4}{}%
+\contentsline {subsubsection}{\numberline {1.2.1}Classical states and tests}{4}{}%
+\contentsline {subsubsection}{\numberline {1.2.2}The qubit NOT gate}{7}{}%
+\contentsline {subsubsection}{\numberline {1.2.3}The X-basis states}{9}{}%
+\contentsline {subsection}{\numberline {1.3}Quantum Measurement}{13}{}%
+\contentsline {subsection}{\numberline {1.4}More diagrams}{17}{}%
+\contentsline {subsubsection}{\numberline {1.4.1}Rewriting diagrams with equations}{17}{}%
+\contentsline {subsection}{\numberline {1.5}The pure qubit state, in general}{17}{}%
+\contentsline {subsubsection}{\numberline {1.5.1}The Y-basis states}{17}{}%
+\contentsline {section}{\numberline {2}When you have more than one qubit}{17}{}%
