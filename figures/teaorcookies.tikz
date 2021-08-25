@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-1.5, 1.25) {};
+		\node [style=none] (1) at (-1.5, -1.25) {};
+		\node [style=none] (2) at (1.5, 0) {};
+		\node [style=none] (3) at (-1.25, 0.75) {};
+		\node [style=none] (4) at (-1.25, -0.75) {};
+		\node [style=none] (5) at (-2.25, 0.75) {};
+		\node [style=none] (6) at (-2.25, -0.75) {};
+		\node [style=none] (7) at (2.5, 0) {};
+		\node [style=none] (8) at (0, 0) {OR};
+		\node [style=none] (14) at (-4.25, -0.75) {I ${\cancel{\heartsuit}}$ cookies};
+		\node [style=none] (22) at (-3.75, 0.75) {I $\heartsuit$ tea};
+		\node [style=none] (23) at (5.75, 0) {I $\heartsuit$ (tea or cookies)};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple, in=240, out=0, looseness=1.25] (1.center) to (2.center);
+		\draw [style=simple, in=0, out=120, looseness=1.25] (2.center) to (0.center);
+		\draw [style=simple, bend left] (0.center) to (1.center);
+		\draw [style=simple] (5.center) to (3.center);
+		\draw [style=simple] (4.center) to (6.center);
+		\draw [style=simple] (2.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

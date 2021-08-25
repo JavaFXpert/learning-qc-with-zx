@@ -1,6 +1,7 @@
 \documentclass{article}
-\usepackage{tikzit}
+\usepackage{cancel}
 \usepackage{float}
+\usepackage{tikzit}
 \input{preamble.tex}
 \input{zx.tikzstyles}
 
@@ -24,7 +25,7 @@
 
 \tableofcontents
 
-\section{}
+\section{A bit of quantum}
 \subsubsection{A \textbf{bit} of information}
 Say you were asked, ``Do you like pineapple on pizza?'', and you could respond only with either ``Yes'' or ``No''.
 In other words, you can only give one \textbf{bit} of information in response.
@@ -339,6 +340,39 @@ This is handy in simplifying diagrams.  Below, we replace the diagram in the gra
 \begin{equation}
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_simp}}}
 \end{equation}
+
+\newpage
+\section{Recipe for one-qubit quantum circuits}
+You could say that a quantum circuit has three essential ingredients: states, gates, and measurements.
+In the last chapter, we initiated our preparation of these ingredients.
+\begin{itemize}
+	\item We learned how to represent a pure qubit state as a ket vector.
+	\item We got a sneak peek at our first quantum gate when we learned that the qubit NOT gate (a.k.a. X gate) switches $\kz0$ to $\kz1$, and $\kz1$ to $\kz0$.
+	\item We learned about how we can explain the funky physics of quantum measurement thanks to the probabilities we get when we test our quantum states for our chosen basis.
+\end{itemize}
+
+You may have noticed that for states and measurements, we have introduced how to compute them, but we haven't looked at any mathematical definitions of quantum gates yet.  Before we do, we'll first study classical gates before we discuss the differences between classical and quantum gates.
+
+\subsection{Classical logic gates}
+The transistors in your phone are constantly performing binary logic gates such as the NOT gate in our light switch example.  \textit{Binary} means that each input or output of these gates is one of two possible values, which we call 0 and 1 --- a bit.
+
+While the NOT gate has just one input, a binary logic gate can have more than one input.  Given the question ``Would you like tea or cookies?'', a programmer with a sense of humor could respond ``Yes'' or ``No''.  If you are thinking of the question as computing an OR gate\footnote{For some people, ``or'' in casual conversation is meant as either-or (a.k.a. mutually-exclusive-or a.k.a. XOR).  For clarity we'll use logic in conversation here taking them to have the same meaning as they do in binary logic, despite the many exceptions in colloquial English.}, your two inputs are 1) whether you would like tea, and 2) whether you would like cookies.  If you would like tea and no cookies, you would answer ``Yes''.  If you would like cookies and no tea, you would also answer ``Yes''.  If you would like both tea and cookies, you would answer ``Yes''.  If you would like neither tea nor cookies, you would answer ``No''.
+
+Like computer engineers do, we can use a circuit diagram to show the inputs and outputs.  The conventional circuit diagram symbol for the binary OR logic gate is shown in Figure \ref{ref:teaorcookies}.
+
+\begin{figure}[h!]
+	\label{ref:teaorcookies}
+	\ctikzfig{teaorcookies}
+	\caption{The OR gate here is drawn as its conventional circuit diagram symbol.  It has two input bits and one output bit.  For instance, if the two inputs are ``Yes'' for liking tea and ``No'' for liking cookies, the output is therefore ``Yes'' for liking tea or cookies.}
+\end{figure}
+
+We can also compactly list the above logic in a table called a \textit{truth table}.  A truth table for a logic gate has two columns: it displays the output(s) in the right column, given the input(s) in the left column.  We will use the convention of 1 meaning ``Yes'', and 0 meaning ``No''.  By letting 1) whether you would like tea, and 2) whether you would like cookies, be your two inputs, the right column of the truth table for the OR gate gives whether your answer to ``Would you like tea or cookies?'' is ``Yes'' or ``No''.  Figure \ref{fig:classical_logic_gates} gives the circuit diagram and truth table of the OR gate, and several of the other most important binary logic gates.
+\begin{figure}[h!]
+	\ctikzfig{classical_logic_gates}
+	\label{fig:classical_logic_gates}
+	\caption{Although it would be cumbersome to do so, you can directly express all computation done by your phone in terms of the gates here.  On the left side are the four diagrams representing the NOT, AND, OR, and XOR (``either or'') gate respectively.  The input(s) to each gate are on its left, and the output(s) are on its right.  On the right side, the \textit{truth table} for each gate is given.}
+\end{figure}
+
 
 \subsection{The pure qubit state, in general}
 
