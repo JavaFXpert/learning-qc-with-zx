@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (82) at (21.25, -17) {$=$};
+		\node [style=none] (91) at (22.25, -16.25) {};
+		\node [style=none] (92) at (22.25, -17.75) {};
+		\node [style=none] (93) at (23.25, -15.75) {};
+		\node [style=none] (94) at (23.25, -18.25) {};
+		\node [style=none] (95) at (26, -17) {};
+		\node [style=none] (96) at (23.25, -16.25) {};
+		\node [style=none] (97) at (23.25, -17.75) {};
+		\node [style=none] (98) at (24.5, -17) {AND};
+		\node [style=none] (99) at (27.5, -17) {};
+		\node [style=none] (101) at (21.25, -16.5) {\small{($\ref{eq:notnot}$)}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple, in=-90, out=0] (94.center) to (95.center);
+		\draw [style=simple, in=0, out=90] (95.center) to (93.center);
+		\draw [style=simple] (93.center) to (94.center);
+		\draw [style=simple] (91.center) to (96.center);
+		\draw [style=simple] (92.center) to (97.center);
+		\draw [style=simple] (95.center) to (99.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
