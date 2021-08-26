@@ -88,8 +88,8 @@
 		\node [style=none] (161) at (0, 2.75) {};
 		\node [style=none] (162) at (0, -2.75) {};
 		\node [style=none] (163) at (-4, -2.75) {};
-		\node [style=none] (164) at (8.5, 1.75) {\tiny{($\ref{eq:lightbulb_test11}$)}};
-		\node [style=none] (165) at (1.75, 1.75) {\tiny{($\ref{eq:switch_on}$)}};
+		\node [style=none] (164) at (8.5, 1.75) {\small{($\ref{eq:lightbulb_test11}$)}};
+		\node [style=none] (165) at (1.75, 1.75) {\small{($\ref{eq:switch_on}$)}};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (22.center) to (23.center);

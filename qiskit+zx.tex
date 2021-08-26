@@ -140,10 +140,10 @@ Recall how earlier in Equations \ref{eq:switch_on} and \ref{eq:switch_off}, we m
 That is the NOT operation on a bit.
 On a qubit, we also have a NOT operation which behaves as you expect:
 \begin{equation}
-	{\scalebox{\tikzscale}{\tikzfig{ket0switch}}}
+	\tikzfig{ket0switch}
 \end{equation}
 \begin{equation}
-	{\scalebox{\tikzscale}{\tikzfig{ket1switch}}}
+	\tikzfig{ket1switch}
 \end{equation}
 When your qubit is in one of the classical states (corresponding to the two possible values a bit can have on a classical computer), the NOT gate is the bit flip gate: if you interpret 0 as false and 1 as true, then not true is false and not false is true.  The NOT gate flips the $\kz0$ state to the $\kz1$ state, and the $\kz1$ state to the $\kz0$ state.
 
@@ -336,7 +336,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 \subsubsection{Rewriting diagrams with equations}
 So far we have used diagrams in equations without stating what that means.  If we have two equal diagrams, whenever we see one of them, we can replace it with the other.
 
-This is handy in simplifying diagrams.  Below, we replace the diagram in the gray dotted box with a diagram equal to it, according to Equation \ref{eq:switch_on}.  We can then use Equation \ref{eq:lightbulb_test11} to rewrite the diagram to the number 1.  In other words, given the information that the lightbulb is working, we showed that after you flip the light switch connected to the off lightbulb, the probability that you observe the lightbulb to be on is 1.
+This is handy in simplifying diagrams.  Below, we replace the diagram in the gray dashed box with a diagram equal to it, according to Equation \ref{eq:switch_on}.  We can then use Equation \ref{eq:lightbulb_test11} to rewrite the diagram to the number 1.  In other words, given the information that the lightbulb is working, we showed that after you flip the light switch connected to the off lightbulb, the probability that you observe the lightbulb to be on is 1.
 \begin{equation}
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_simp}}}
 \end{equation}
@@ -351,9 +351,10 @@ In the last chapter, we initiated our preparation of these ingredients.
 	\item We learned about how we can explain the funky physics of quantum measurement thanks to the probabilities we get when we test our quantum states for our chosen basis.
 \end{itemize}
 
-You may have noticed that for states and measurements, we have introduced how to compute them, but we haven't looked at any mathematical definitions of quantum gates yet.  Before we do, we'll first study classical gates before we discuss the differences between classical and quantum gates.
+You may have noticed that for states and measurements, we have introduced how to compute them, but we haven't looked at any mathematical definitions of quantum gates yet.  Before we do, we'll first study classical gates before we discuss the differences between classical and quantum gates.  Getting comfortable with classical circuit diagrams will help us relate to quantum circuits and appreciate their utility.
 
-\subsection{Classical logic gates}
+\subsection{Unlike classical gates, quantum gates are reversible}
+\subsubsection{Classical logic gates}
 The transistors in your phone are constantly performing binary logic gates such as the NOT gate in our light switch example.  \textit{Binary} means that each input or output of these gates is one of two possible values, which we call 0 and 1 --- a bit.
 
 While the NOT gate has just one input, a binary logic gate can have more than one input.  Given the question ``Would you like tea or cookies?'', a programmer with a sense of humor could respond ``Yes'' or ``No''.  If you are thinking of the question as computing an OR gate\footnote{For some people, ``or'' in casual conversation is meant as either-or (a.k.a. mutually-exclusive-or a.k.a. XOR).  For clarity we'll use logic in conversation here taking them to have the same meaning as they do in binary logic, despite the many exceptions in colloquial English.}, your two inputs are 1) whether you would like tea, and 2) whether you would like cookies.  If you would like tea and no cookies, you would answer ``Yes''.  If you would like cookies and no tea, you would also answer ``Yes''.  If you would like both tea and cookies, you would answer ``Yes''.  If you would like neither tea nor cookies, you would answer ``No''.
@@ -373,12 +374,83 @@ We can also compactly list the above logic in a table called a \textit{truth tab
 	\caption{Although it would be cumbersome to do so, you can directly express all computation done by your phone in terms of the gates here.  On the left side are the four diagrams representing the NOT, AND, OR, and XOR (``either or'') gate respectively.  The input(s) to each gate are on its left, and the output(s) are on its right.  On the right side, the \textit{truth table} for each gate is given.}
 \end{figure}
 
+As their inputs and outputs are all bit(s), you can apply these gates one after another.  For instance, when we apply the NOT gate after the AND gate, we get the NAND (``not and'') gate:
+\begin{equation}
+	\tikzfig{nand}
+\end{equation}
 
+Likewise, applying the NOT gate after the OR gate yields the NOR (``not or'') gate:
+\begin{equation}
+	\tikzfig{nor}
+\end{equation}
+
+The NAND gate is \textbf{universal}.  This means that you can do \underline{any} computation on bits using just this one gate.  The NOR gate is also universal.  Indeed, you can build all the necessary components of a computer of just NAND gates, and there are texts on how to do exactly that.  Putting physical hardware limitations aside, this concept of universality is important in quantum computing to know whether the quantum gates you can perform can be applied in such a way as to implement any quantum circuit.
+
+Furthermore, different circuits can perform the exact same logical operation.
+The simplest example is that two NOT gates is the same computation as applying no gates at all:
+\begin{equation}
+	\label{eq:notnot}
+	\tikzfig{notnot}
+\end{equation}
+
+Another example, well-known for binary operations, is \textit{deMorgan's laws}.  Given two bits \textsf{A} and \textsf{B}, deMorgan's laws consists of two equations:
+\begin{align}
+	\text{NOT(\textsf{A} AND \textsf{B})} &= \text{(NOT \textsf{A}) OR (NOT \textsf{B})} \\
+	\text{NOT(\textsf{A} OR \textsf{B})} &= \text{(NOT \textsf{A}) AND (NOT \textsf{B})}
+\end{align}
+You can check that these equations are correct by determining the truth table for both sides of the equation, then verifying that the truth tables are identical.  Given truth tables of all the gates in the circuit, you can obtain the truth table of the circuit via the following steps.  These steps are given for your reference as it may be helpful to be aware of truth tables when learning about quantum logic gates; however, we will not ask you to do this computation as it is rather tedious --- exponentially so in the number of input bits.
+\begin{enumerate}
+	\item Write all possible inputs in the left column.  For $n$ input bits, there should be $2^n$ possible inputs, because each bit can be either 0 or 1.
+	\item Choose a row of the truth table where the right column is empty, and set the bits of the inputs according to its left column.
+	\item Starting from the leftmost gates, from the gate's input(s), determine its output bit.  This can be done by looking up the truth table for that gate.
+	\item Pass on that gate's output as an input to the next gate, and repeat Step 3 for the next gate.  If there is no next gate, then this bit is an output bit.
+	\item When you have determined each output bit for these specific input bits, write the output in the right column of the row of the truth table you chose in Step 2.
+	\item Repeat Steps 2 to 5 until the truth table is complete.
+\end{enumerate}
+
+The more gates involved, the harder it is to keep track of all the parentheses.  This is where circuit diagrams come in handy to clearly and fully describe deMorgan's laws:
+\begin{align}
+	{\scalebox{0.84}{\tikzfig{demorganslaw1}}} \\
+	{\scalebox{0.84}{\tikzfig{demorganslaw2}}} \label{eq:demorganslaw2}
+\end{align}
+
+Most importantly of all, we can use these \textit{diagram rewrite rules} to simplify a circuit to one that does the exact same computation.  As an added bonus, being proficient at this helps us better understand the computation at hand.
+\begin{example}
+\label{example:nnorn}
+Without actually computing any truth table(s), what is the truth table of the circuit in this diagram?
+\begin{figure}
+	\ctikzfig{nnorn}
+	\label{fig:nnorn}
+	\caption{The circuit which Example \ref{example:nnorn} asks to find the truth table for}
+\end{figure}
+
+\textnormal{Thankfully, with the circuit diagram rewrite rules we have so far, we are ready to tackle this problem.  Whenever we draw a gray dashed box around a part of the diagram, it means that in the next step, we will substitute for that part of the diagram, another diagram which accomplishes the same computation.  The equation number of the diagram rewrite rule which permitted us to do this substitution is then indicated above the next equals sign.
+\begin{equation}
+\tikzfig{nnorn_simp1}
+\end{equation}
+\begin{equation}
+\tikzfig{nnorn_simp2}
+\end{equation}
+\begin{equation}
+\tikzfig{nnorn_simp3}
+\end{equation}
+Therefore, the given circuit has the same truth table as the AND gate.
+}
+\end{example}
+
+One observation to point out is that some of these classical logic gates are not \textit{reversible}.  For a gate $g$ to be reversible, there must exist a gate $g'$ (which can be same as or different to $g$) that can ``undo'' the computation done by $g$.  In other words, applying $g'$ after $g$ should be the same as if you applied no gates, i.e. the identity operation.  When you have more input bits than output bits, there are more possible inputs than possible outputs; therefore the gate cannot be reversible, as there is at least one possible output for which it is impossible to uniquely determine what the input was.
+
+Fun fact: the information lost when an irreversible gate is performed is dissipated as heat energy.  Next time your phone or computer heats up when performing intense computation, you know why.
+
+\subsubsection{Quantum gates}
+
+
+\newpage
 \subsection{The pure qubit state, in general}
 
 \subsubsection{The Y-basis states}
 
-
+\newpage
 \section{When you have more than one qubit}
 {\small\textit{This section will assume knowledge of vectors and matrices, and will introduce bra-ket notation alongside diagrammatic notation.  To brush up on the relevant linear algebra, visit \url{https://qiskit.org/textbook/ch-appendix/linear_algebra.html}}}
 
