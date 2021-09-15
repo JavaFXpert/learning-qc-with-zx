@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (11.75, 0) {$\coloneqq$};
+		\node [style=none] (1) at (10.25, 0) {\large$\ket{+i}$};
+		\node [style=none] (3) at (7, -0.5) {};
+		\node [style=none] (4) at (5.75, -2) {};
+		\node [style=none] (5) at (5.75, -0.5) {};
+		\node [style=none] (6) at (8.5, 0) {$\coloneqq$};
+		\node [style=none] (7) at (5.75, 1) {};
+		\node [style=none] (8) at (5.75, -1) {\large$+i$};
+		\node [style=none] (9) at (14, 0) {$\large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ i\end{bmatrix}$};
+		\node [style=none] (11) at (5.75, 1.75) {};
+		\node [style=none] (13) at (7, -0.5) {};
+		\node [style=none] (14) at (5.75, -2) {};
+		\node [style=none] (15) at (5.75, -0.5) {};
+		\node [style=none] (17) at (5.125, -0.5) {};
+		\node [style=none] (18) at (5.125, -1.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (4.center) to (3.center);
+		\draw [style=simple] (7.center) to (5.center);
+		\draw (14.center) to (13.center);
+		\draw [style=simple] (15.center) to (17.center);
+		\draw [style=simple] (17.center) to (18.center);
+		\draw [style=simple] (18.center) to (14.center);
+		\draw (3.center) to (5.center);
+		\draw (13.center) to (15.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
