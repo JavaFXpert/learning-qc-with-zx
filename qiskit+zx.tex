@@ -14,12 +14,13 @@
 \newcommand{\kx}[1]{\ket{#1}}
 \newcommand{\bz}[1]{\bra{\,#1\,}}
 \newcommand{\bx}[1]{\bra{#1}}
+\newcommand{\gate}[1]{\textbf{\textsf{#1}}}
 \newcommand{\mkzero}{\begin{bmatrix}1\\ 0\end{bmatrix}}
 \newcommand{\mkone}{\begin{bmatrix}0\\ 1\end{bmatrix}}
 \newcommand{\mkplus}{\large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ 1\end{bmatrix}}
 \newcommand{\mkminus}{\large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ -1\end{bmatrix}}
 \newcommand{\mab}[2]{\begin{bmatrix}#1\\ #2\end{bmatrix}}
-\newcommand{\gate}[1]{\textbf{\textsf{#1}}}
+\newcommand{\transpose}{\text{T}}
 
 \begin{document}
 
@@ -174,24 +175,12 @@ This is by design.  In general, given a \textit{normalized}\footnote{We'll give 
 	\label{eq:braketprob}
 	\text{Pr}(\,t\,|\,s\,) = \abs{\langle \,t\,|\,s\,\rangle}^2
 \end{equation}
-Note that the probability is the \textit{norm-squared} of the inner product.  This inner product is called a \textbf{probability amplitude}, or amplitude for short.
+In other words, the probability is the \textit{norm-squared} of the inner product.  This inner product is called a \textbf{probability amplitude}, or amplitude for short.
 
 \subsubsection{The X-basis states}
-So far, we have only seen probability amplitudes of either 0 or 1, which happen to satisfy $\abs{0}^2 = 0$ and $\abs{1}^2 = 1$.  In general, a probability amplitude is a complex number with norm between 0 and 1 inclusive.
-
-%% Like how we observed the state of lightbulb in our earlier example, given a qubit Z-basis state (i.e. either $\kz0$ or $\kz1$), we can calculate the \textit{probability amplitude} of each outcome when measured in the Z-basis (i.e. either $\bz0$ or $\bz1$).  The probability amplitude is equal to the \textit{inner product} of the bra-ket pair --- the test (bra row vector) and the state (ket column vector).  How we draw it is, we connect the state and the test wire to obtain a number:
-
-
-
-%%% This paragraph needs to be introduced later, basis is out of nowhere
-%As one would expect, for a given state the probabilities of all measurement outcomes sum to 1: $\abs{0}^2 + \abs{1}^2 = 1$.  When the state and the measurement are both in the same basis, then the observed measurement outcome is always (i.e. probability 1) that of the state.
-
-%%%This paragraph needs to be introduced later and less dense
-%%%In general, these probability amplitudes are complex numbers with norm between 0 and 1 inclusive.  The norm-squared of the amplitude is the probability of that measurement outcome for that quantum state.  Although in observing a physical system we can only ever observe real numbers, to describe quantum physics, we need complex numbers.
-
-So far, we have gotten comfortable with the qubit states which encode the classical bit states 0 and 1.  Yet if all we do with qubits is represent binary values, we are using a quantum bit to do exactly what a classical bit does.  We now demystify the math of one of the key features of quantum computing: \textit{superposition}.
+We have gotten comfortable with the qubit states which encode the classical bit states 0 and 1.  Yet if all we do with qubits is represent binary values, we are using a quantum bit to do exactly what a classical bit does.  We now demystify the math of one of the key features of quantum computing: \textit{superposition}.
 A qubit is more powerful than a bit.  Informally, it can be 0, 1, or ``anything in-between''.  \textbf{Superposition} is this property of quantum states to encode information ``in-between'' states.  You might also hear people call a superposition of states, a \textit{mixture} of states.
-%%%when you visualize qubit states on the Bloch sphere, you can observe that the point on the Bloch sphere corresponding to that state is in-between the points of states it is a superposition of.
+
 We now introduce the two \textbf{X basis} states, $\kx+$ and $\kx-$:
 \begin{align}
 &\tikzfig{ket+}\\
@@ -342,19 +331,7 @@ This is handy in simplifying diagrams.  Below, we replace the diagram in the gra
 \end{equation}
 
 \newpage
-\section{Recipe for one-qubit quantum circuits}
-You could say that a quantum circuit has three essential ingredients: states, gates, and measurements.
-In the last chapter, we initiated our preparation of these ingredients.
-\begin{itemize}
-	\item We learned how to represent a pure qubit state as a ket vector.
-	\item We got a sneak peek at our first quantum gate when we learned that the qubit NOT gate (a.k.a. X gate) switches $\kz0$ to $\kz1$, and $\kz1$ to $\kz0$.
-	\item We learned about how we can explain the funky physics of quantum measurement thanks to the probabilities we get when we test our quantum states for our chosen basis.
-\end{itemize}
-
-You may have noticed that for states and measurements, we have introduced how to compute them, but we haven't looked at any mathematical definitions of quantum gates yet.  Before we do, we'll first study classical gates before we discuss the differences between classical and quantum gates.  Getting comfortable with classical circuit diagrams will help us relate to quantum circuits and appreciate their utility.
-
-\subsection{Unlike classical gates, quantum gates are reversible}
-\subsubsection{Classical logic gates}
+\subsection{Classical logic gates}
 The transistors in your phone are constantly performing binary logic gates such as the NOT gate in our light switch example.  \textit{Binary} means that each input or output of these gates is one of two possible values, which we call 0 and 1 --- a bit.
 
 While the NOT gate has just one input, a binary logic gate can have more than one input.  Given the question ``Would you like tea or cookies?'', a programmer with a sense of humor could respond ``Yes'' or ``No''.  If you are thinking of the question as computing an OR gate\footnote{For some people, ``or'' in casual conversation is meant as either-or (a.k.a. mutually-exclusive-or a.k.a. XOR).  For clarity we'll use logic in conversation here taking them to have the same meaning as they do in binary logic, despite the many exceptions in colloquial English.}, your two inputs are 1) whether you would like tea, and 2) whether you would like cookies.  If you would like tea and no cookies, you would answer ``Yes''.  If you would like cookies and no tea, you would also answer ``Yes''.  If you would like both tea and cookies, you would answer ``Yes''.  If you would like neither tea nor cookies, you would answer ``No''.
@@ -442,13 +419,162 @@ One observation to point out is that some of these classical logic gates are not
 
 Fun fact: the information lost when an irreversible gate is performed is dissipated as heat energy.  Next time your phone or computer heats up when performing intense computation, you know why.
 
-\subsubsection{Quantum gates}
+\subsection{Quantum gates}
+\subsubsection{The X gate}
+\begin{figure}[h!]
+	\ctikzfig{unitcirclex}
+\end{figure}
+\begin{figure}[h!]
+	\ctikzfig{unitcirclexex}
+\end{figure}
 
+\newpage
+\subsubsection{The Z gate}
+\begin{figure}[h!]
+	\ctikzfig{unitcirclez}
+\end{figure}
+\begin{figure}[h!]
+	\ctikzfig{unitcirclezex}
+\end{figure}
+
+\newpage
+\subsubsection{The H gate}
+\begin{figure}[h!]
+	\ctikzfig{unitcirclehopposite}
+\end{figure}
+
+\begin{figure}[h!]
+	\ctikzfig{unitcirclehreflect}
+\end{figure}
 
 \newpage
 \subsection{The pure qubit state, in general}
+So far we have seen several examples of one-qubit states depicted on the unit circle and the Bloch sphere.  What do you need to depict any one-qubit state in general?
 
-\subsubsection{The Y-basis states}
+\subsubsection{Statevectors on the unit circle}
+Any vector $\kx{v}$ on the unit circle by definition has magnitude (length) 1.
+Its general form is
+\begin{equation}
+	\label{eq:onequbitpurerealform}
+	\tikzfig{ketv}
+\end{equation}
+where $a$ and $b$ are real numbers.
+When you perform a Z-basis measurement on a qubit whose statevector is of this form, according to Equation \ref{eq:braketprob}, the probability your outcome is $\kz0$ is
+\begin{align}
+	\text{Pr}(\,0\,|\,v\,) &= \abs{\langle \,0\,|\,v\,\rangle}^2\\
+	&= \abs{\bz0 \text{\large(}a\kz0 + b\kz1\text{\large)}}^2\\
+	&= \abs{a\,\langle \,0\,|\,0\,\rangle + b\,\langle \,0\,|\,1\,\rangle}^2\\
+	&= \abs{a + 0}^2\\
+	&= a^2
+\end{align}
+Likewise, the probability your outcome is $\kz1$ is $b^2$.  Since the only possible outcomes are $\kz0$ and $\kz1$, probability is conserved:
+\begin{equation}
+	a^2 + b^2 = 1
+\end{equation}
+Let's plot $\kx{v}$ on the unit circle.  In Figure \ref{fig:unitcircletriangle}, $a$ and $b$ are positive, but they can be any numbers from $-1$ to $1$ inclusive as long as they satisfy the above equation, or equivalently are on the unit circle.
+\begin{figure}[h!]
+	\label{fig:unitcircletriangle}
+	\ctikzfig{unitcircletriangle}
+	\caption{A one qubit statevector $\kx{v}$ of the form $a\kz0 + b\kz1$, where $a$ and $b$ are real numbers, plotted on the unit circle.  The vector $\vec{v}$ forms the hypotenuse of a right triangle with sides of length $\abs{a}$ and $\abs{b}$.}
+\end{figure}
+It helps to draw a right triangle where the hypotenuse is $\kx{v}$, and the sides are parallel with $\kz0$ and $\kz1$.
+Hence when $a$ and $b$ are real numbers, it is convenient to remember that the probabilities working out is simply the Pythagorean theorem:
+\begin{equation}
+	a^2 + b^2 = c^2
+\end{equation}
+where $a$ and $b$ are sides of the right triangle and $c$ is the hypotenuse.  In our case of a vector on the unit circle, meaning it has to have length 1, i.e. $c = 1$.
+
+\subsubsection{Statevectors on the Bloch sphere}
+The unit circle is not sufficient for our purposes.  That is because in general, a pure one qubit statevector is of the form
+\begin{equation}
+	\label{eq:onequbitpuregenform}
+	\tikzfig{ketpsi}
+\end{equation}
+where $\alpha$ and $\beta$ are complex numbers.
+Hence compared to Equation \ref{eq:onequbitpurerealform}, what's new is that coefficients can have imaginary components.  We celebrate this by chopping off the left corner of the triangle in our diagrams.  This will allow us to pictorially represent some key properties of complex vectors, as we will explore in the next section.
+
+We mentioned earlier that going from the unit circle to the Bloch sphere, you double the angles.  We can see this by looking at the slice of the Bloch sphere where the unit circle lives, outlined as a black circle in Figure \ref{fig:unitcircleinbloch}.
+Plotting the same statevector, the angle $\theta$ on the Bloch sphere in Figure \ref{fig:unitcircletriangle} is twice the angle $\Theta$ on the unit circle in Figure \ref{fig:unitcircleinbloch}, i.e. $\theta = 2 \Theta$.
+
+We can always plot a statevector with real coefficients on the Bloch sphere in three steps:
+\begin{enumerate}
+	\item Find the angle $\Theta = \text{arctan}(\frac{b}{a})$
+	\item Double that angle to get $\theta = 2 \Theta$
+	\item Starting from the $+z$ axis (where $\kz0$ is), rotate an angle of $\theta$ along this slice of the Bloch sphere where the unit circle lives
+\end{enumerate}
+
+\begin{figure}[h!]
+	\label{fig:unitcircleinbloch}
+	\ctikzfig{unitcircleinbloch}
+	\caption{A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must lie on the circle outlined in black here.}
+\end{figure}
+So if vectors on the Bloch sphere whose coefficients are real numbers lie on that circle, what about the rest of the sphere?
+The rest of the sphere is where the coefficients have imaginary components.
+Before we talk about the general form of any vector on the Bloch sphere, let us first get comfortable with probability amplitudes being complex numbers.
+
+Up until now, to obtain the test corresponding to a state, all we had to do was take the matrix transpose of the ket column vector to get the bra row vector.  That has been correct so far because we have been dealing just with real numbers.  In general, when the statevectors can have complex coefficients, we need to take the \textit{conjugate transpose}\footnote{As a refresher, this means to take the transpose where you also replace each number by its complex conjugate.  This way, when all the numbers are real, the conjugate transpose and transpose operations are identical.} of the ket to get the bra, and the conjugate transpose of the bra to get the ket.
+
+In the following example, we will introduce how we can perform transformations on our diagrams which correspond to transformations on our matrices.
+\begin{example}[Y-basis states]
+	What are the statevectors and diagrams corresponding to the complex conjugation, transpose, and conjugate transpose of $\kx{+i}$ and $\kx{-i}$, the Y-basis states introduced below?
+
+	\textnormal{While we have seen the Z- and X- basis states in action, we have yet to do anything with the y axis of the Bloch sphere.
+	The $+$y and $-$y axes respectively define two Y-basis states:
+	\begin{align}
+		\label{fig:ket+i}
+		\tikzfig{ket+i}\\
+		\label{fig:ket-i}
+		\tikzfig{ket-i}
+	\end{align}
+	It doesn't make sense to visualize this on the unit circle, where we don't have an intuitive way of plotting complex numbers.
+	On the Bloch sphere, they are simply the states corresponding to the $+$y and $-$y axes.
+	\begin{figure}
+		\ctikzfig{bloch+i-i}
+		\caption{$\kx{+i}$ and $\kx{-i}$ are plotted here on the Bloch sphere.}
+	\end{figure}
+	}
+
+	Complex conjugation:
+
+	\textnormal{The complex conjugation of a diagram is its horizontal reflection.  Taking the complex conjugate of each element of $\kx{+i}$ and $\kx{-i}$ respectively, we get
+	\begin{align}
+		\tikzfig{ket+iconj}\\
+		\tikzfig{ket-iconj}
+	\end{align}
+	}
+
+	Transpose:
+
+	\textnormal{The transpose of a diagram is its $180\deg$ rotation.  Taking the transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get
+	\begin{align}
+		\tikzfig{ket+itranspose}\\
+		\tikzfig{ket-itranspose}
+	\end{align}
+	}
+
+	Conjugate transpose:
+
+	\textnormal{The conjugate transpose\footnote{In some contexts, the word \textit{adjoint} is used interchangeably with conjugate transpose.} of a diagram is its horizontal reflection followed by $180\deg$ rotation, or equivalently its $180\deg$ rotation followed by horizontal reflection.  Taking the conjugate transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get their bra statevectors
+	\begin{align}
+		\tikzfig{bra+i}\\
+		\tikzfig{bra-i}
+	\end{align}
+	This is consistent, because both taking the conjugate and then the transpose, and taking the transpose then the conjugate, yield the conjugate transpose.
+	}
+\end{example}
+
+\newpage
+\section{Recipe for one-qubit quantum circuits}
+You could say that a quantum circuit has three essential ingredients: states, gates, and measurements.
+In the last chapter, we initiated our preparation of these ingredients.
+\begin{itemize}
+	\item We learned how to represent a pure qubit state as a ket vector.
+	\item We got a sneak peek at our first quantum gate when we learned that the qubit NOT gate (a.k.a. X gate) switches $\kz0$ to $\kz1$, and $\kz1$ to $\kz0$.
+	\item We learned about how we can explain the funky physics of quantum measurement thanks to the probabilities we get when we test our quantum states for our chosen basis.
+\end{itemize}
+
+You may have noticed that for states and measurements, we have introduced how to compute them, but we haven't looked at any mathematical definitions of quantum gates yet.  Before we do, we'll first study classical gates before we discuss the differences between classical and quantum gates.  Getting comfortable with classical circuit diagrams will help us relate to quantum circuits and appreciate their utility.
+
 
 \newpage
 \section{When you have more than one qubit}

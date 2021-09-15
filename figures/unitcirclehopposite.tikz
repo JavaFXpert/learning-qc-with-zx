@@ -1,0 +1,44 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=unit circle] (0) at (4.75, 1) {};
+		\node [style=none] (3) at (4.75, 1) {};
+		\node [style=none] (1) at (4.75, 5.25) {};
+		\node [style=none] (2) at (9, 1) {};
+		\node [style=none] (4) at (0.5, 1) {};
+		\node [style=none] (5) at (4.75, -3.25) {};
+		\node [style=none] (6) at (7.75, 4) {};
+		\node [style=none] (7) at (9.75, 1) {$\ket{\,0\,}$};
+		\node [style=none] (8) at (8.25, 4.5) {$\ket{+}$};
+		\node [style=none] (9) at (9, 1) {};
+		\node [style=none] (26) at (4.75, 1) {};
+		\node [style=none] (27) at (4.75, 5.25) {};
+		\node [style=none] (28) at (4.75, 5.75) {$\ket{\,1\,}$};
+		\node [style=none] (29) at (7.75, -2) {};
+		\node [style=none] (30) at (8.25, -2.5) {$\ket{-}$};
+		\node [style=none] (33) at (7.825, -1.925) {};
+		\node [style=none] (34) at (4.85, 5.25) {};
+		\node [style=none] (43) at (8.975, 1.125) {};
+		\node [style=none] (44) at (7.825, 3.9) {};
+		\node [style=none] (72) at (1.65, 3.925) {};
+		\node [style=none] (73) at (4.625, -3.25) {};
+		\node [style=none] (74) at (0.5, 0.875) {};
+		\node [style=none] (75) at (1.65, -1.9) {};
+		\node [style=none] (76) at (3.1, 4.925) {};
+		\node [style=none] (77) at (6.375, -2.925) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light right directed arrow] (1.center) to (3.center);
+		\draw [style=light right directed arrow] (2.center) to (3.center);
+		\draw [style=light right directed arrow] (5.center) to (3.center);
+		\draw [style=light right directed arrow] (4.center) to (3.center);
+		\draw [style=diredge0.3] (3.center) to (6.center);
+		\draw [style=diredge0.3] (3.center) to (9.center);
+		\draw [style=diredge0.3] (26.center) to (27.center);
+		\draw [style=diredge0.3] (26.center) to (29.center);
+		\draw [style=hadamard arrows] (34.center) to (33.center);
+		\draw [style=hadamard arrows] (44.center) to (43.center);
+		\draw [style=hadamard arrows] (73.center) to (72.center);
+		\draw [style=hadamard arrows] (75.center) to (74.center);
+		\draw [style=hadamard arrows] (77.center) to (76.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

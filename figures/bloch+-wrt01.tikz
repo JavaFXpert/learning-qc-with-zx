@@ -30,6 +30,10 @@
 		\node [style=none] (191) at (-0.75, -1) {$\ket{-}$};
 		\node [style=none] (192) at (-2, 2.75) {$\ket{\,0\,}$};
 		\node [style=none] (193) at (-2, -7.25) {$\ket{\,1\,}$};
+		\node [style=none] (194) at (-2, -2.25) {};
+		\node [style=none] (195) at (-2, -2.25) {};
+		\node [style=none] (196) at (-2, 2.25) {};
+		\node [style=none] (197) at (-2, -2.25) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=gray, bend right=15, looseness=0.75] (144.center) to (143.center);
@@ -53,5 +57,6 @@
 		\draw [style=less thin gray] (156.center) to (161.center);
 		\draw [style=less thin gray] (156.center) to (159.center);
 		\draw [style=less thin gray] (156.center) to (160.center);
+		\draw [style=less thin gray] (196.center) to (195.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

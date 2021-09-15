@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=unit circle] (14) at (13.75, 1) {};
+		\node [style=none] (15) at (13.75, 5.25) {};
+		\node [style=none] (16) at (18, 1) {};
+		\node [style=none] (17) at (13.75, 1) {};
+		\node [style=none] (18) at (9.5, 1) {};
+		\node [style=none] (19) at (13.75, -3.25) {};
+		\node [style=none] (20) at (13.75, 5.25) {};
+		\node [style=none] (22) at (13.75, 5.75) {$\ket{\,1\,}$};
+		\node [style=none] (23) at (18.75, 1) {$\ket{\,0\,}$};
+		\node [style=none] (27) at (18, 1) {};
+		\node [style=none] (53) at (16.75, 4) {};
+		\node [style=none] (54) at (10.75, -2) {};
+		\node [style=unit circle] (79) at (29.75, 1) {};
+		\node [style=none] (80) at (29.75, 5.25) {};
+		\node [style=none] (81) at (34, 1) {};
+		\node [style=none] (82) at (29.75, 1) {};
+		\node [style=none] (83) at (25.5, 1) {};
+		\node [style=none] (84) at (29.75, -3.25) {};
+		\node [style=none] (90) at (32.75, -2) {};
+		\node [style=none] (91) at (33.25, -2.5) {$\ket{-}$};
+		\node [style=none] (94) at (29.75, 1) {};
+		\node [style=none] (95) at (26.75, 4) {};
+		\node [style=none] (96) at (26.25, 4.5) {$\texttt{-}\ket{-}$};
+		\node [style=none] (97) at (32.75, 4) {};
+		\node [style=none] (98) at (26.75, -2) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light right directed arrow] (15.center) to (17.center);
+		\draw [style=light right directed arrow] (16.center) to (17.center);
+		\draw [style=light right directed arrow] (19.center) to (17.center);
+		\draw [style=light right directed arrow] (18.center) to (17.center);
+		\draw [style=diredge0.3] (17.center) to (20.center);
+		\draw [style=diredge0.3] (17.center) to (27.center);
+		\draw [style=dashed edge] (53.center) to (54.center);
+		\draw [style=light right directed arrow] (80.center) to (82.center);
+		\draw [style=light right directed arrow] (81.center) to (82.center);
+		\draw [style=light right directed arrow] (84.center) to (82.center);
+		\draw [style=light right directed arrow] (83.center) to (82.center);
+		\draw [style=diredge0.3] (82.center) to (90.center);
+		\draw [style=diredge0.3] (94.center) to (95.center);
+		\draw [style=dashed edge] (97.center) to (98.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

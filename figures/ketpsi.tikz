@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (5.75, -0.5) {};
+		\node [style=none] (3) at (7, -0.5) {};
+		\node [style=none] (4) at (5.75, -2) {};
+		\node [style=none] (5) at (5.75, -0.5) {};
+		\node [style=none] (6) at (8, 0) {$=$};
+		\node [style=none] (7) at (5.75, 1) {};
+		\node [style=none] (8) at (5.75, -1) {\large$\psi$};
+		\node [style=none] (11) at (5.75, 1.75) {};
+		\node [style=none] (12) at (15, 0) {$\kx{\psi} = \begin{bmatrix}\alpha\\ \beta\end{bmatrix} = \alpha\begin{bmatrix}1\\ 0\end{bmatrix} + \beta\begin{bmatrix}0\\ 1\end{bmatrix} = \alpha\kz0 + \beta\kz1$};
+		\node [style=none] (13) at (5.125, -0.5) {};
+		\node [style=none] (14) at (5.125, -1.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (4.center) to (3.center);
+		\draw (3.center) to (2.center);
+		\draw [style=simple] (7.center) to (5.center);
+		\draw [style=simple] (5.center) to (13.center);
+		\draw [style=simple] (13.center) to (14.center);
+		\draw [style=simple] (14.center) to (4.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

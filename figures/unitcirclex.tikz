@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=unit circle] (0) at (4.75, 1) {};
+		\node [style=none] (1) at (4.75, 5.25) {};
+		\node [style=none] (2) at (9, 1) {};
+		\node [style=none] (3) at (4.75, 1) {};
+		\node [style=none] (4) at (0.5, 1) {};
+		\node [style=none] (5) at (4.75, -3.25) {};
+		\node [style=none] (6) at (7.75, 4) {};
+		\node [style=none] (7) at (8.25, 4.5) {$\ket{+}$};
+		\node [style=none] (8) at (1.75, -2) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light right directed arrow] (1.center) to (3.center);
+		\draw [style=light right directed arrow] (2.center) to (3.center);
+		\draw [style=light right directed arrow] (5.center) to (3.center);
+		\draw [style=light right directed arrow] (4.center) to (3.center);
+		\draw [style=diredge0.3] (3.center) to (6.center);
+		\draw [style=dashed edge] (6.center) to (8.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
