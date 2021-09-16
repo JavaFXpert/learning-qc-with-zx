@@ -101,9 +101,9 @@ We can encode any bit as a qubit by mapping a bit with value 0 to the $\kz0$ (pr
 
 Let us plot them on the unit circle of the real 2D plane.
 \begin{figure}
-	\label{fig:unitcircle}
 	\ctikzfig{unitcircle01}
 	\caption{$\kz0$ and $\kz1$ are plotted here on the unit circle.}
+	\label{fig:unitcircle}
 \end{figure}
 Let us note a few of their properties:
 \begin{itemize}
@@ -122,9 +122,9 @@ We call this basis the \textbf{computational basis} because they encode a qubit 
 
 Apart from the unit circle, another way to visualize these two states is on a sphere called the \textbf{Bloch sphere}, which looks like:
 \begin{figure}
-	\label{fig:blochsphere}
 	\ctikzfig{blochxyz}	
 	\caption{This is what the Bloch sphere looks like.}
+	\label{fig:blochsphere}
 \end{figure}
 In addition to calling this basis for qubit states the computational basis, we also call it the \textbf{Z basis}.  This is because these states are on the positive and negative z-axis of the Bloch sphere.
 \begin{figure}
@@ -183,8 +183,10 @@ A qubit is more powerful than a bit.  Informally, it can be 0, 1, or ``anything 
 
 We now introduce the two \textbf{X basis} states, $\kx+$ and $\kx-$:
 \begin{align}
+\label{eq:ket+}
 &\tikzfig{ket+}\\
 &\tikzfig{ket-}
+\label{eq:ket-}
 \end{align}
 
 Perhaps you can guess what happens when given an X-basis state, you test for an X-basis state:\nopagebreak
@@ -339,16 +341,16 @@ While the NOT gate has just one input, a binary logic gate can have more than on
 Like computer engineers do, we can use a circuit diagram to show the inputs and outputs.  The conventional circuit diagram symbol for the binary OR logic gate is shown in Figure \ref{ref:teaorcookies}.
 
 \begin{figure}[h!]
-	\label{ref:teaorcookies}
 	\ctikzfig{teaorcookies}
 	\caption{The OR gate here is drawn as its conventional circuit diagram symbol.  It has two input bits and one output bit.  For instance, if the two inputs are ``Yes'' for liking tea and ``No'' for liking cookies, the output is therefore ``Yes'' for liking tea or cookies.}
+	\label{ref:teaorcookies}
 \end{figure}
 
 We can also compactly list the above logic in a table called a \textit{truth table}.  A truth table for a logic gate has two columns: it displays the output(s) in the right column, given the input(s) in the left column.  We will use the convention of 1 meaning ``Yes'', and 0 meaning ``No''.  By letting 1) whether you would like tea, and 2) whether you would like cookies, be your two inputs, the right column of the truth table for the OR gate gives whether your answer to ``Would you like tea or cookies?'' is ``Yes'' or ``No''.  Figure \ref{fig:classical_logic_gates} gives the circuit diagram and truth table of the OR gate, and several of the other most important binary logic gates.
 \begin{figure}[h!]
 	\ctikzfig{classical_logic_gates}
-	\label{fig:classical_logic_gates}
 	\caption{Although it would be cumbersome to do so, you can directly express all computation done by your phone in terms of the gates here.  On the left side are the four diagrams representing the NOT, AND, OR, and XOR (``either or'') gate respectively.  The input(s) to each gate are on its left, and the output(s) are on its right.  On the right side, the \textit{truth table} for each gate is given.}
+	\label{fig:classical_logic_gates}
 \end{figure}
 
 As their inputs and outputs are all bit(s), you can apply these gates one after another.  For instance, when we apply the NOT gate after the AND gate, we get the NAND (``not and'') gate:
@@ -397,8 +399,8 @@ Most importantly of all, we can use these \textit{diagram rewrite rules} to simp
 Without actually computing any truth table(s), what is the truth table of the circuit in this diagram?
 \begin{figure}
 	\ctikzfig{nnorn}
-	\label{fig:nnorn}
 	\caption{The circuit which Example \ref{example:nnorn} asks to find the truth table for}
+	\label{fig:nnorn}
 \end{figure}
 
 \textnormal{Thankfully, with the circuit diagram rewrite rules we have so far, we are ready to tackle this problem.  Whenever we draw a gray dashed box around a part of the diagram, it means that in the next step, we will substitute for that part of the diagram, another diagram which accomplishes the same computation.  The equation number of the diagram rewrite rule which permitted us to do this substitution is then indicated above the next equals sign.
@@ -473,9 +475,9 @@ Likewise, the probability your outcome is $\kz1$ is $b^2$.  Since the only possi
 \end{equation}
 Let's plot $\kx{v}$ on the unit circle.  In Figure \ref{fig:unitcircletriangle}, $a$ and $b$ are positive, but they can be any numbers from $-1$ to $1$ inclusive as long as they satisfy the above equation, or equivalently are on the unit circle.
 \begin{figure}[h!]
-	\label{fig:unitcircletriangle}
 	\ctikzfig{unitcircletriangle}
 	\caption{A one qubit statevector $\kx{v}$ of the form $a\kz0 + b\kz1$, where $a$ and $b$ are real numbers, plotted on the unit circle.  The vector $\vec{v}$ forms the hypotenuse of a right triangle with sides of length $\abs{a}$ and $\abs{b}$.}
+	\label{fig:unitcircletriangle}
 \end{figure}
 It helps to draw a right triangle where the hypotenuse is $\kx{v}$, and the sides are parallel with $\kz0$ and $\kz1$.
 Hence when $a$ and $b$ are real numbers, it is convenient to remember that the probabilities working out is simply the Pythagorean theorem:
@@ -504,9 +506,9 @@ We can always plot a statevector with real coefficients on the Bloch sphere in t
 \end{enumerate}
 
 \begin{figure}[h!]
-	\label{fig:unitcircleinbloch}
 	\ctikzfig{unitcircleinbloch}
 	\caption{A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must lie on the circle outlined in black here.}
+	\label{fig:unitcircleinbloch}
 \end{figure}
 So if vectors on the Bloch sphere whose coefficients are real numbers lie on that circle, what about the rest of the sphere?
 The rest of the sphere is where the coefficients have imaginary components.
@@ -562,6 +564,14 @@ In the following example, we will introduce how we can perform transformations o
 	This is consistent, because both taking the conjugate and then the transpose, and taking the transpose then the conjugate, yield the conjugate transpose.
 	}
 \end{example}
+In the above example, our act of chopping off a side of our bra and ket triangles in our diagrams was put to use for our first time.  Moreover, for our diagrams read from bottom to top, when our diagrams are horizontally symmetric, it signifies that property of being self-conjugate.  Looking back at Equations \ref{eq:ket0}, \ref{eq:ket1}, \ref{eq:ket+}, and \ref{eq:ket-}, we used a horizontally symmetric triangle as our diagrams for the Z- and X- basis states.  This is because all states in the ZX slice of the Bloch sphere have real number coefficients, and thus are self-conjugate.
+
+Cheerfully, this adds the X-, Y-, and Z- basis states added to our toolbelt.
+\begin{figure}[h!]
+	\ctikzfig{blochxyzstates}
+	\caption{The X-, Y-, and Z- basis states correspond to the x-, y-, and z- axes of the Bloch sphere.}
+\end{figure}
+There is actually a more intuitive reason to visualize our states on a sphere.  In addition to using \textit{Cartesian coordinates} (the xyz axes system), we have another option available to us called \textit{spherical coordinates}.  This is more convenient for us to use, because the general form of a pure qubit state has a simple expression in spherical coordinates.
 
 \newpage
 \section{Recipe for one-qubit quantum circuits}
