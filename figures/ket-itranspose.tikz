@@ -3,7 +3,7 @@
 		\node [style=none] (0) at (12.25, 0) {$\coloneqq$};
 		\node [style=none] (1) at (10.25, 0) {\large$(\ket{-i})^{\transpose}$};
 		\node [style=none] (2) at (8.5, 0) {$\coloneqq$};
-		\node [style=none] (3) at (17.5, 0) {$(\large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1 & -i\end{bmatrix})^{\transpose} = \large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1 \\ -i\end{bmatrix}$};
+		\node [style=none] (3) at (17.5, 0) {$(\large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ -i\end{bmatrix})^{\transpose} = \large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1 & -i\end{bmatrix}$};
 		\node [style=none] (4) at (4.5, 0.25) {};
 		\node [style=none] (5) at (5.75, 1.75) {};
 		\node [style=none] (6) at (5.75, 0.25) {};

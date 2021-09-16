@@ -28,6 +28,7 @@
 \tikzstyle{hzshort}=[hz, minimum height=1.25mm, yshift=0.625mm, tikzit fill={rgb,255: red,216; green,248; blue,216}, tikzit draw=black, shape=rectangle, xshift=0.625mm]
 \tikzstyle{hxshort}=[hx, minimum height=1.25mm, yshift=0.625mm, tikzit fill={rgb,255: red,232; green,165; blue,165}, tikzit draw=black, shape=rectangle, xshift=0.625mm]
 \tikzstyle{dualizeroutside}=[fill=white, draw=black, shape=circle, inner sep=0.75 mm]
+\tikzstyle{zn}=[tikzit draw=black, draw=black, shape=zn, inner sep=2pt]
 
 % Edge styles
 \tikzstyle{directedarrow}=[draw={rgb,255: red,223; green,223; blue,223}, ->, tikzit draw={rgb,255: red,223; green,223; blue,223}, line width=1 pt]
