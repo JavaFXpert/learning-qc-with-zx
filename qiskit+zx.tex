@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{cancel}
 \usepackage{float}
+\usepackage{listings}
 \usepackage{tikzit}
 \input{preamble.tex}
 \input{zx.tikzstyles}
@@ -36,7 +37,7 @@ In computers, we call these two possible values 0 and 1.  If we have many bits, 
 As an analogy, whenever you flip a light switch, you expect to either turn on a lightbulb, or turn off a lightbulb.
 Flipping the light switch thus flips the \textbf{bit} that represents the state of the lightbulb, between ``on'' and ``off'.
 Likewise, your computer is built from billions of these switches, called \textit{transistors}, like in Figure \ref{fig:tsmc}.
-\begin{figure}[h!]%%%note don't have permissions to use this image
+\begin{figure}[H]%%%note don't have permissions to use this image
 	\label{fig:tsmc}
 	\includegraphics[width=\columnwidth]{images/rainbowtsmc.jpg}
 	\caption{This semiconductor chip made by TSMC has been magnified exorbitantly.  Each transistor in this chip is so small, that if you lined up a thousand of them from end to end, it would be smaller than the width of a human hair.}
@@ -126,7 +127,7 @@ Apart from the unit circle, another way to visualize these two states is on a sp
 	\caption{This is what the Bloch sphere looks like.}
 	\label{fig:blochsphere}
 \end{figure}
-In addition to calling this basis for qubit states the computational basis, we also call it the \textbf{Z basis}.  This is because these states are on the positive and negative z-axis of the Bloch sphere.
+In addition to calling this basis for qubit states the computational basis, we also call it the \textbf{Z basis}.  This is because the states $\kz0$ and $\kz1$, called the \textit{Z-basis states}, are respectively on the positive and negative z-axis of the Bloch sphere.
 \begin{figure}
 	\ctikzfig{bloch01}
 	\caption{$\kz0$ and $\kz1$ are plotted here on the Bloch sphere.}
@@ -160,9 +161,9 @@ Flipping our diagrams of $\kz0$ and $\kz1$ in Equations \ref{eq:ket0} and \ref{e
 We can connect the wire from state to test to get a number:
 \begin{align}
 	&\tikzfig{braket00} \label{eq:braket00} \\
-	&\tikzfig{braket01}\\
-	&\tikzfig{braket10}\\
-	&\tikzfig{braket11}
+	&\tikzfig{braket01} \label{eq:braket01} \\
+	&\tikzfig{braket10} \label{eq:braket10} \\
+	&\tikzfig{braket11} \label{eq:braket11} 
 \end{align}
 This number is the \text{inner product} of the bra vector and the ket vector.
 
@@ -175,13 +176,45 @@ This is by design.  In general, given a \textit{normalized}\footnote{We'll give 
 	\label{eq:braketprob}
 	\text{Pr}(\,t\,|\,s\,) = \abs{\langle \,t\,|\,s\,\rangle}^2
 \end{equation}
-In other words, the probability is the \textit{norm-squared} of the inner product.  This inner product is called a \textbf{probability amplitude}, or amplitude for short.
+This inner product is also called a \textbf{probability amplitude}, or amplitude for short.  The word "probability" follows form how you can always calculate the probability given a probability amplitude using Equation~\ref{eq:braketprob}, i.e. the probability is the \textit{norm-squared} of the probability amplitude.  This definition applies even when the probability amplitudes are complex numbers.  For now, we will stick with probability amplitudes which are real numbers, in which case the probability is simply the probability amplitude squared.
+
+On the other hand, it can help to think of the word "amplitude" visually.  When you have a state drawn on the unit circle, you can draw a vertical line to the x-axis.  The height of the right triangle you just formed is the probability amplitude when you test for the $\ket{1}$ state given your state.  Likewise, the base of that right triangle is the probability amplitude when you test for the $\ket{0}$ state.
+\begin{figure}[H]
+	\ctikzfig{unitcircletrinoangle}
+	\caption{A one qubit statevector $\kx{v}$ plotted on the unit circle.  The vector $\vec{v}$ forms the hypotenuse of a right triangle with sides of length $\abs{a}$ and $\abs{b}$.  Testing for the Z-basis states results in probability amplitudes of $\langle \,0\,|\,v\,\rangle = a$ and $\langle \,1\,|\,v\,\rangle = b$.}
+	\label{fig:unitcircletrinoangle}
+\end{figure}
 
 \subsubsection{The X-basis states}
 We have gotten comfortable with the qubit states which encode the classical bit states 0 and 1.  Yet if all we do with qubits is represent binary values, we are using a quantum bit to do exactly what a classical bit does.  We now demystify the math of one of the key features of quantum computing: \textit{superposition}.
 A qubit is more powerful than a bit.  Informally, it can be 0, 1, or ``anything in-between''.  \textbf{Superposition} is this property of quantum states to encode information ``in-between'' states.  You might also hear people call a superposition of states, a \textit{mixture} of states.
 
-We now introduce the two \textbf{X basis} states, $\kx+$ and $\kx-$:
+A special case we will see often is that of \textit{equal superposition}.  Consider the state
+\begin{equation}
+	\tikzfig{ket+unnorm}
+	\label{eq:ket+unnorm}
+\end{equation}
+
+It is the sum of $\ket{0}$ and $\ket{1}$:
+\begin{equation}
+	\tikzfig{ket+unnormsuperposition}
+	\label{eq:ket+unnormsuperposition}
+\end{equation}
+
+However, we will notice something goes wrong when we try to test the $\ket{+}$ state for itself:
+\begin{equation}
+	\tikzfig{braket++unnorm}
+	\label{eq:braket++unnorm}
+\end{equation}
+We should have gotten the number 1, corresponding to probability 1, but instead we got a number greater than 1.
+Somehow, we have calculated a probability of more than 1!
+To fix this error, we need to introduce the concept of \textit{normalization}.
+That means that we need to multiple our states by a constant factor so that if you test the state for itself, your test is successful 100\% of the time.
+The $\ket{0}$ state is already normalized, as we saw in Equation~\ref{eq:braket00}.
+To ensure the $\ket{+}$ state is normalized, we multiple by a factor of $\frac{1}{\sqrt{2}}$, which we will soon see fixes that issue.
+
+The $\ket{+}$ state is one of the \textbf{X-basis} states.  Just as the Z-basis states lie on the Z axis of the Bloch sphere, the X-basis states lie on the X axis of the Bloch sphere.
+We also introduce the other X-basis state, the $\ket{-}$ state.
 \begin{align}
 \label{eq:ket+}
 &\tikzfig{ket+}\\
@@ -189,7 +222,7 @@ We now introduce the two \textbf{X basis} states, $\kx+$ and $\kx-$:
 \label{eq:ket-}
 \end{align}
 
-Perhaps you can guess what happens when given an X-basis state, you test for an X-basis state:\nopagebreak
+Perhaps you can guess what happens when given an X-basis state, you test for an X-basis state. Hint: it's the same as what happened with the Z-basis states in Equations~\ref{eq:braket00}~to~\ref{eq:braket11}.\nopagebreak
 \begin{align}
 	&\tikzfig{braket++}\\
 	&\tikzfig{braket--}\\
@@ -246,6 +279,7 @@ All around us are ``quantum states''.  You are made up of perhaps an octillion (
 Quantum effects only become relevant at really tiny length scales.  The size of today's transistors is just about small enough that quantum effects come into play.
 \textit{Classical mechanics} is sufficient to describe most of physics on the length scale of us humans.  We need \textit{quantum mechanics} to describe physics on the length scale of atoms and molecules.
 
+\subsubsection{The First Quantum Measurement Experiment}
 To explore quantum measurement, we'll start with one of the earliest experiments in the history of quantum physics: the Stern-Gerlach experiment~\cite{Gerlach_Stern_1922}.  In fact, it was the first experiment where separate quantum states were directly observed!
 
 Otto Stern designed this experiment, which Walther Gerlach carried out, where silver atoms were sent through an inhomogenous (different strength at different points in space) magnetic field and then hit a detector screen.  What happened, was that half of the atoms were deflected up, and half of the atoms were deflected down.  Interestingly, none of the atoms were observed at the height in-between.  This suggested that each silver atom had as an intrinsic property specifying which of the two directions it would be deflected in this experiment.  This property is \textbf{quantized} because when it is observed, its possible values are discrete rather than a continuous distribution.  If the atoms were instead spinning magnetic dipoles, they would be deflected by the magnetic field in a direction according to their spin, although the physics are different.  Due to this analogy, this quantized value of the atom is called \textit{spin}.
@@ -266,12 +300,14 @@ As we saw from Example \ref{ex:pr1m}, the Z- and X- bases have the property that
 \begin{example}[Z-measurement then Z-measurement] \label{example:sterngerlachzz}
 Stern and Gerlach observed that each silver atom passing through their inhomogenous magnetic field in the z direction had a $\frac{1}{2}$ chance of being deflected upwards ($+$z direction), and a $\frac{1}{2}$ chance of being deflected downwards ($-$z direction).  They then took each silver atom that was deflected upwards, and sent that through another inhomogenous magnetic field in the z direction.  This second time, all the atoms were deflected upwards --- why?
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{sterngerlachzz}
 	\caption{This is what Stern and Gerlach saw when they sent a beam of silver atoms through the experimental setup of Example \ref{example:sterngerlachzz}.}
 \end{figure}
 
-\textnormal{All of the atoms deflected upwards by the first field (which was in the z-direction) were in the $z_+$ (spin up with respect to the z-axis) state, which we'll represent as the $\kz0$ state because the $\kz0$ state points in the $+$z direction on the Bloch sphere.  After those $z_+$ atoms traversed the second field (which was also in the z-direction), the probability of observing $z_+$ was \begin{equation}
+\textnormal{All of the atoms deflected upwards by the first field (which was in the z-direction) were in the $z_+$ (spin up with respect to the z-axis) state, which we'll represent as the $\kz0$ state because the $\kz0$ state points in the $+$z direction on the Bloch sphere.  After those $z_+$ atoms traversed the second field (which was also in the z-direction), the probability of observing $z_+$ was
+\begin{equation}
+	\label{eq:prob00}
 	\text{Pr}(\,0\,|\,0\,) = \abs{\langle\,0\,|\,0\,\rangle}^2
 \end{equation}
 From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1.  Therefore, all atoms that were deflected upwards after the first field, were also deflected upwards after the second field.}
@@ -282,7 +318,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 \begin{example}[Z-measurement then X-measurement] \label{example:sterngerlachzx}
 	Stern and Gerlach observed that each silver atom passing through their inhomogenous magnetic field in the z direction had a $\frac{1}{2}$ chance of being deflected upwards ($+$z direction), and a $\frac{1}{2}$ chance of being deflected downwards ($-$z direction).  They then took each silver atom that was deflected upwards, and sent that through another inhomogenous magnetic field, this time in the x direction.  This second time, $\frac{1}{2}$ the atoms were deflected in the $+$x direction and $\frac{1}{2}$ the atoms were deflected in the $-$x direction --- why?
 	
-	\begin{figure}[h!]
+	\begin{figure}[H]
 		\ctikzfig{sterngerlachzx}
 		\caption{This is what Stern and Gerlach saw when they sent a beam of silver atoms through the experimental setup of Example \ref{example:sterngerlachzx}.}
 	\end{figure}
@@ -301,7 +337,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 \begin{example}[Z-measurement then X-measurement then Z-measurement] \label{example:sterngerlachzxz}
 	After their setup in Example \ref{example:sterngerlachzx}, Stern and Gerlach sent the $x_+$ silver atoms through one more z-aligned inhomogenous magnetic field.  They were surprised at what they saw.  What did they see?
 	
-	\begin{figure}[h!]
+	\begin{figure}[H]
 		\ctikzfig{sterngerlachzxz}
 		\caption{This is what Stern and Gerlach saw when they sent a beam of silver atoms through the experimental setup of Example \ref{example:sterngerlachzxz}.}
 	\end{figure}
@@ -340,14 +376,14 @@ While the NOT gate has just one input, a binary logic gate can have more than on
 
 Like computer engineers do, we can use a circuit diagram to show the inputs and outputs.  The conventional circuit diagram symbol for the binary OR logic gate is shown in Figure \ref{ref:teaorcookies}.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{teaorcookies}
 	\caption{The OR gate here is drawn as its conventional circuit diagram symbol.  It has two input bits and one output bit.  For instance, if the two inputs are ``Yes'' for liking tea and ``No'' for liking cookies, the output is therefore ``Yes'' for liking tea or cookies.}
 	\label{ref:teaorcookies}
 \end{figure}
 
 We can also compactly list the above logic in a table called a \textit{truth table}.  A truth table for a logic gate has two columns: it displays the output(s) in the right column, given the input(s) in the left column.  We will use the convention of 1 meaning ``Yes'', and 0 meaning ``No''.  By letting 1) whether you would like tea, and 2) whether you would like cookies, be your two inputs, the right column of the truth table for the OR gate gives whether your answer to ``Would you like tea or cookies?'' is ``Yes'' or ``No''.  Figure \ref{fig:classical_logic_gates} gives the circuit diagram and truth table of the OR gate, and several of the other most important binary logic gates.
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{classical_logic_gates}
 	\caption{Although it would be cumbersome to do so, you can directly express all computation done by your phone in terms of the gates here.  On the left side are the four diagrams representing the NOT, AND, OR, and XOR (``either or'') gate respectively.  The input(s) to each gate are on its left, and the output(s) are on its right.  On the right side, the \textit{truth table} for each gate is given.}
 	\label{fig:classical_logic_gates}
@@ -423,29 +459,29 @@ Fun fact: the information lost when an irreversible gate is performed is dissipa
 
 \subsection{Quantum gates}
 \subsubsection{The X gate}
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{unitcirclex}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{unitcirclexex}
 \end{figure}
 
 \newpage
 \subsubsection{The Z gate}
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{unitcirclez}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{unitcirclezex}
 \end{figure}
 
 \newpage
 \subsubsection{The H gate}
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{unitcirclehopposite}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{unitcirclehreflect}
 \end{figure}
 
@@ -473,18 +509,19 @@ Likewise, the probability your outcome is $\kz1$ is $b^2$.  Since the only possi
 \begin{equation}
 	a^2 + b^2 = 1
 \end{equation}
-Let's plot $\kx{v}$ on the unit circle.  In Figure \ref{fig:unitcircletriangle}, $a$ and $b$ are positive, but they can be any numbers from $-1$ to $1$ inclusive as long as they satisfy the above equation, or equivalently are on the unit circle.
-\begin{figure}[h!]
-	\ctikzfig{unitcircletriangle}
-	\caption{A one qubit statevector $\kx{v}$ of the form $a\kz0 + b\kz1$, where $a$ and $b$ are real numbers, plotted on the unit circle.  The vector $\vec{v}$ forms the hypotenuse of a right triangle with sides of length $\abs{a}$ and $\abs{b}$.}
-	\label{fig:unitcircletriangle}
-\end{figure}
-It helps to draw a right triangle where the hypotenuse is $\kx{v}$, and the sides are parallel with $\kz0$ and $\kz1$.
+Let's review how we draw this geometrically, as we did in Figure~\ref{fig:unitcircletrinoangle} back when we first introduced probability amplitudes.  It helps to draw a right triangle where the hypotenuse is $\kx{v}$, and the sides are parallel with $\kz0$ and $\kz1$.
 Hence when $a$ and $b$ are real numbers, it is convenient to remember that the probabilities working out is simply the Pythagorean theorem:
 \begin{equation}
 	a^2 + b^2 = c^2
+	\label{eq:pythagorean}
 \end{equation}
-where $a$ and $b$ are sides of the right triangle and $c$ is the hypotenuse.  In our case of a vector on the unit circle, meaning it has to have length 1, i.e. $c = 1$.
+where $a$ and $b$ are sides of the right triangle and $c$ is the hypotenuse.  In our case of a normalized vector on the unit circle, it has to have length 1, i.e. $c = 1$.
+\begin{figure}[H]
+	\ctikzfig{unitcircletriangle}
+	\caption{A one qubit statevector $\kx{v}$ of the form $a\kz0 + b\kz1$, where $a$ and $b$ are real numbers, plotted on the unit circle.  The vector $\vec{v}$ forms the hypotenuse of a right triangle with sides of length $\abs{a}$ and $\abs{b}$.  The $a$ and $b$ shown in this figure are positive, but they can be any numbers from $-1$ to $1$ inclusive as long as they satisfy Equation~\ref{eq:pythagorean}, meaning they are on the unit circle.}
+	\label{fig:unitcircletriangle}
+\end{figure}
+
 
 \subsubsection{Statevectors on the Bloch sphere}
 The unit circle is not sufficient for our purposes.  That is because in general, a pure one qubit statevector is of the form
@@ -505,7 +542,7 @@ We can always plot a statevector with real coefficients on the Bloch sphere in t
 	\item Starting from the $+z$ axis (where $\kz0$ is), rotate an angle of $\theta$ along this slice of the Bloch sphere where the unit circle lives
 \end{enumerate}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{unitcircleinbloch}
 	\caption{A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must lie on the circle outlined in black here.}
 	\label{fig:unitcircleinbloch}
@@ -567,23 +604,105 @@ In the following example, we will introduce how we can perform transformations o
 In the above example, our act of chopping off a side of our bra and ket triangles in our diagrams was put to use for our first time.  Moreover, for our diagrams read from bottom to top, when our diagrams are horizontally symmetric, it signifies that property of being self-conjugate.  Looking back at Equations \ref{eq:ket0}, \ref{eq:ket1}, \ref{eq:ket+}, and \ref{eq:ket-}, we used a horizontally symmetric triangle as our diagrams for the Z- and X- basis states.  This is because all states in the ZX slice of the Bloch sphere have real number coefficients, and thus are self-conjugate.
 
 Cheerfully, this adds the X-, Y-, and Z- basis states added to our toolbelt.
-\begin{figure}[h!]
+\begin{figure}[H]
 	\ctikzfig{blochxyzstates}
 	\caption{The X-, Y-, and Z- basis states correspond to the x-, y-, and z- axes of the Bloch sphere.}
 \end{figure}
 There is actually a more intuitive reason to visualize our states on a sphere.  In addition to using \textit{Cartesian coordinates} (the xyz axes system), we have another option available to us called \textit{spherical coordinates}.  This is more convenient for us to use, because the general form of a pure qubit state has a simple expression in spherical coordinates.
+%%% TODO: spherical coordinates
 
 \newpage
 \section{Recipe for one-qubit quantum circuits}
-You could say that a quantum circuit has three essential ingredients: states, gates, and measurements.
-In the last chapter, we initiated our preparation of these ingredients.
+If a quantum circuit were a cookbook recipe, it would have three ingredients: states, gates, and measurements.
+How are we doing on meal prep?
 \begin{itemize}
 	\item We learned how to represent a pure qubit state as a ket vector.
-	\item We got a sneak peek at our first quantum gate when we learned that the qubit NOT gate (a.k.a. X gate) switches $\kz0$ to $\kz1$, and $\kz1$ to $\kz0$.
+	\item We got a sneak peek at our first quantum gates when we learned about how the X, Y, and Z gates are $\pi$ ($180^{\circ}$) rotations on the Bloch sphere.
 	\item We learned about how we can explain the funky physics of quantum measurement thanks to the probabilities we get when we test our quantum states for our chosen basis.
 \end{itemize}
+To pre-heat the oven, let us a free account at \url{https://quantum-computing.ibm.com/}.  Get excited!  We are about to create our first quantum circuit together and run it on a real quantum computer.
+When you log in, launch the IBM Quantum Composer and make a new circuit.
+First, your circuit needs a name that is not `Untitled circuit'.
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{images/NewCircuit_IBMQuantumComposer.PNG}
+\end{figure}
+The main section of the page is where you will build your circuit.  We will start with one qubit at a time, so go ahead and move your cursor to the right, over each of the bottom two letter q's and click the bin icon that appears.
 
-You may have noticed that for states and measurements, we have introduced how to compute them, but we haven't looked at any mathematical definitions of quantum gates yet.  Before we do, we'll first study classical gates before we discuss the differences between classical and quantum gates.  Getting comfortable with classical circuit diagrams will help us relate to quantum circuits and appreciate their utility.
+There should be one letter q left.  On the wire to its right, drag the \textit{measure} icon (the middlemost of the gray squares above).
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{images/Measure_IBMQuantumComposer.PNG}
+\end{figure}
+You'll see the section at the bottom left change when you apply this measurement to your qubit.  Because each qubit is initialized in the $\ket{0}$ state by default, the simulated measurement probability of measuring $\ket{0}$ is $100\%$, while for $\ket{1}$ it is $0\%$.  This is as we expect from when we first calculated probability amplitudes in Equations~\ref{eq:braket00} and \ref{eq:braket01}, and found the probability in Equation~\ref{eq:prob00}.
+
+Now we can try to do the same process of measuring, this time for the $\ket{1}$ state.  You may notice that although there is a gray icon above labelled $\ket{0}$ which is used to (re-)initialize a qubit to the $\ket{0}$ state, there is no icon labelled $\ket{1}$.  Instead, we will create it out of the operations we have.
+
+See the target icon, which is the leftmost blue icon?  That is the X gate, a.k.a. the NOT gate.  Instead of a target, sometimes in quantum circuits it is drawn as a box on the wire with the letter X in it.
+If you drag that X gate icon to your circuit, left of your measure icon, you will see the probabilities change from $100\%$ $\kz0$ to $100\%$ $\kz1$.
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{images/ket1_IBMQuantumComposer.PNG}
+\end{figure}
+
+You may have noticed that this whole time, every time you drag-'n'-drop any operation, the code to your right hand side changes.  Above it, the two drop-down code options are OpenQASM and Qiskit.
+
+\textit{OpenQASM} is short for open-source quantum assembly language.  It is an intermediate representation that quantum programs compile to.  While it is in this form, it is common to perform circuit optimization, which may take into consideration the capabilities of the hardware or simulation you are running on.  The open-source repository link for OpenQASM is at \url{https://github.com/QISKit/openqasm}.
+
+\textit{Qiskit} is short for Quantum Information Science Kit.  It is the most widely used quantum programming language, perhaps more accurately, a software development kit based in Python.  The open-source repository link for Qiskit is at \url{https://github.com/QISKit/}.
+
+Both OpenQASM and Qiskit are developed by IBM, which made waves when they were the first to release quantum computing hardware open-access on the cloud in 2017.  Since then, they have several dozen processors available on the cloud, and over one billion circuits run on them each day.
+
+Also above the code in IBM Quantum Composer is a link to `Open in Quantum Lab'.  Go ahead and click on that to enter the \textit{IBM Quantum Lab}.  Here you can explore, in your browser, running Jupyter notebooks with Qiskit ready to use.  We will use it here so this guide is platform-independent.  For development purposes, it is a good idea to set up a local environment sooner or later; the quick start for installation is at the bottom of the \url{https://qiskit.org/overview/} webpage.
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{images/HelloWorld_IBMQuantumLab.PNG}
+\end{figure}
+
+Let's first press the triangle above the Jupyter notebook to `Run the selected cells and advance'.
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{images/HelloWorld_run_IBMQuantumLab.PNG}
+\end{figure}
+Now let us delete the first line and the last two lines.  Instead, let us add the line
+\begin{lstlisting}[language=Python]
+	circuit.draw()
+\end{lstlisting}
+at the end of the cell, and re-run.  You should see the previous circuit composer display changed to an image of a quantum circuit.
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{images/HelloWorld-2_IBMQuantumLab.PNG}
+\end{figure}
+
+Something you may have noticed is that now, although our circuit has a measurement operation, we do not see the probabilities of all the measurement outcomes.  This is because the code so far creates a circuit, and we will need a few more lines to run this circuit.
+
+We will run our circuits on a simulator so there is not a queue to wait in to run on physical hardware, and so we can learn what the circuits do in a noise-free environment.  Real quantum computers today are noisy, which means that they are prone to errors when performing computations.  This is why you may have heard the term \textit{Noisy Intermediate-Scale Quantum} (NISQ) to describe quantum computing today.  The expectation is that in the coming years, the noise will be low enough so that \textit{fault-tolerance} can be achieved at scale, so that quantum error correction can be performed to suppress these errors.  Therefore, the engineering challenge of scaling up quantum computers is just as much reducing noise, as increasing the number of qubits and operations between them.
+
+To import the simulator, add `Aer' to our list of imports from Qiskit
+\begin{lstlisting}[language=Python]
+	from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit, Aer
+\end{lstlisting}
+and re-run that cell.  Then, in the cell below that, run
+\begin{lstlisting}[language=Python]
+	backend = Aer.get_backend('qasm_simulator')
+	job = backend.run(circuit)
+	result = job.result()
+	print(result.get_counts())
+\end{lstlisting}
+
+You should see the output in curly brackets.  This is the \textit{counts}, a dictionary in Python which stores measurement outcomes.  By default, it runs your circuit 1024 times.  How to interpret it, is that for each binary string key in the dictionary, it gives you the number of times for which that measurement outcome was observed.
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{images/HelloWorld-4_IBMQuantumLab.PNG}
+\end{figure}
+
+Just so our experiments (the name for running all these simulations) will roughly correspond to our probabilities, we can change the number of times of our circuit is run, i.e. the number of \textit{shots}, from 1024 to 100.  Keep in mind that because these are randomized, they will likely not be the exact probabilities, but they will reasonably close.  Although we could see the exact statevector, for instance if we instead used the \textit{statevector simulator}, using the QASM simulator is more realistic because on a real quantum computer, the state cannot be observed except through measurement outcomes.
+\begin{lstlisting}[language=Python]
+	job = backend.run(circuit, shots=100)
+\end{lstlisting}
+
+
+
+
+
+
+%At this time, if this is your first rodeo with Qiskit, check out the `Getting started with Qiskit' Jupyter notebook to walk through how to run your circuits on hardware, before we continue.  You can navigate to it by selecting the `New file +' button which opens up the Launcher.
+%\begin{figure}[H]
+%	\includegraphics[width=\columnwidth]{images/Launcher_IBMQuantumLab.PNG}
+%\end{figure}
 
 
 \newpage
