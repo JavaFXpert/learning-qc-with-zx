@@ -1,6 +1,9 @@
 \documentclass{article}
+\usepackage{animate}
 \usepackage{cancel}
 \usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
 \usepackage{listings}
 \usepackage{tikzit}
 \input{preamble.tex}
@@ -458,6 +461,8 @@ One observation to point out is that some of these classical logic gates are not
 Fun fact: the information lost when an irreversible gate is performed is dissipated as heat energy.  Next time your phone or computer heats up when performing intense computation, you know why.
 
 \subsection{Quantum gates}
+\subsubsection{The I gate}
+
 \subsubsection{The X gate}
 \begin{figure}[H]
 	\ctikzfig{unitcirclex}
@@ -465,6 +470,7 @@ Fun fact: the information lost when an irreversible gate is performed is dissipa
 \begin{figure}[H]
 	\ctikzfig{unitcirclexex}
 \end{figure}
+More general: X phase gate
 
 \newpage
 \subsubsection{The Z gate}
@@ -474,16 +480,28 @@ Fun fact: the information lost when an irreversible gate is performed is dissipa
 \begin{figure}[H]
 	\ctikzfig{unitcirclezex}
 \end{figure}
+More general: Z phase gate
 
 \newpage
 \subsubsection{The H gate}
 \begin{figure}[H]
-	\ctikzfig{unitcirclehopposite}
-\end{figure}
-
-\begin{figure}[H]
+	\label{fig:Hgate}
 	\ctikzfig{unitcirclehreflect}
 \end{figure}
+On the Bloch sphere, it's a $\pi$ rotation about the axis that is exactly halfway between the $x$-axis and the $z$-axis
+
+Animations from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}:
+\noindent%
+\begin{minipage}[t]{0.45\linewidth}
+	\begin{frame}{}
+		\animategraphics[controls,width=2in]{12}{images/HgateBlochrotations/animation-}{0}{120}
+	\end{frame}\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.45\linewidth}
+	\begin{frame}{}
+		\animategraphics[controls,width=2in]{20}{images/HgateEulerBloch/animation-}{0}{200}
+	\end{frame}
+\end{minipage}
 
 \newpage
 \subsection{The pure qubit state, in general}
@@ -637,12 +655,21 @@ You'll see the section at the bottom left change when you apply this measurement
 Now we can try to do the same process of measuring, this time for the $\ket{1}$ state.  You may notice that although there is a gray icon above labelled $\ket{0}$ which is used to (re-)initialize a qubit to the $\ket{0}$ state, there is no icon labelled $\ket{1}$.  Instead, we will create it out of the operations we have.
 
 See the target icon, which is the leftmost blue icon?  That is the X gate, a.k.a. the NOT gate.  Instead of a target, sometimes in quantum circuits it is drawn as a box on the wire with the letter X in it.
-If you drag that X gate icon to your circuit, left of your measure icon, you will see the probabilities change from $100\%$ $\kz0$ to $100\%$ $\kz1$.
+If you drag that X gate icon just left of where you dragged the measure icon, you will see the probabilities change from $100\%$ $\kz0$ to $100\%$ $\kz1$.
 \begin{figure}[H]
 	\includegraphics[width=\columnwidth]{images/ket1_IBMQuantumComposer.PNG}
+	\label{fig:myfirstcircuit}
 \end{figure}
 
-You may have noticed that this whole time, every time you drag-'n'-drop any operation, the code to your right hand side changes.  Above it, the two drop-down code options are OpenQASM and Qiskit.
+Behold the very first quantum circuit we have built together!  It combines our three ingredients in a recipe:
+\begin{enumerate}
+	\item We start with our first ingredient, a quantum state.
+	\item We apply to it one or more quantum gates.
+	\item At the end, we measure our qubits.
+\end{enumerate}
+This is the ``recipe template'' for building any quantum circuit in the \textbf{circuit model}.  There are other models of quantum computation, but this is the most well-known and commonly used.  Circuit diagrams in the circuit model are typically drawn like they are here: each qubit is initialized to some state denoted by a ket, then gate(s) (drawn as boxes labelled by the letter(s) of the gate's name) are applied sequentially along its wire to its right, and finally the wire ends when a measurement is made.  One exception is that circuit diagrams are usually in black and white --- the colors added shown here are arbitrary; feel free to \href{https://medium.com/qiskit/learn-how-to-customize-the-appearance-of-your-qiskit-circuits-with-accessibility-in-mind-b9b59fc039f3}{customize the appearance of your circuits} once we begin coding.  Throughout this text, we will present circuit diagrams in black and white, to contrast with other types of diagrams for which different colors have different meanings.
+
+As you can see, every time you drag-'n'-drop any operation, the code to your right hand side changes.  Above it, the two drop-down code options are OpenQASM and Qiskit.
 
 \textit{OpenQASM} is short for open-source quantum assembly language.  It is an intermediate representation that quantum programs compile to.  While it is in this form, it is common to perform circuit optimization, which may take into consideration the capabilities of the hardware or simulation you are running on.  The open-source repository link for OpenQASM is at \url{https://github.com/QISKit/openqasm}.
 
@@ -694,8 +721,65 @@ Just so our experiments (the name for running all these simulations) will roughl
 	job = backend.run(circuit, shots=100)
 \end{lstlisting}
 
+We will now see the H gate in action.  As we saw before in Figure~\ref{fig:Hgate}, it maps the $\kz0$ and $\kx{+}$ states to each other, and the $\kz1$ and $\kx{-}$ states to each other.  In other words, it maps each Z-basis state to the corresponding X-basis state, and vice versa.
+You can see through matrix multiplication that
+\begin{equation}
+	Z = H X H
+\end{equation}
+and
+\begin{equation}
+	X = H Z H
+\end{equation}
 
+It may seem rather cumbersome to multiply matrices each time we want to figure out what a sequence of gates is doing.  Not only is it unintuitive, but we will soon see that even with small numbers of qubits, the matrices get (exponentially) large, and therefore rapidly more computationally expensive to multiply.
 
+Thankfully, we do not have to resign ourselves to the tedium of multiplying matrices to understand what our quantum circuits are doing.  We just need to build up our toolbox so that we can use the right tool for the job.  To help us develop intuition for the Z- and X- bases, we will learn how to read, draw, and make deductions using \textbf{ZX-calculus} diagrams.  The qubit ZX-calculus is a pictorial language in which you can reason about all of qubit quantum computation.  As we continue learning, we will see how convenient of a tool these diagrams are.  As with the circuit model, we choose the convention of drawing and reading these diagrams from left to right.
+
+We have already met the $Z$ and $X$ gates.  But have you met them in color?  The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers\footnote{In this text we will use the colors light green and darker red, as to be easily distinguishable for the red-green colorblind}.  Rotations about the $z$-axis Bloch sphere are colored in green, whereas rotations around the $x$-axis of the Bloch sphere are colored in red.  In the ZX-calculus, we draw $Z$ and $X$ phase gates as green and red circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
+
+And thus, the $Z$ phase gate is drawn in the ZX-calculus as
+\begin{equation*}
+	\tikzfig{zxZphase}
+\end{equation*}
+The phase $\alpha$, in radians (i.e. any number in the range $[0,2\pi)$), is the angle of rotation about the $z$-axis on the Bloch sphere.
+In matrix form, the gate in terms of $\alpha$ is:
+\begin{equation}
+	Z(\alpha) = \begin{bmatrix}
+		1 & 0\\
+		0 & e^{i\alpha}
+	\end{bmatrix}
+\end{equation}
+This is the first example we have seen of a \textit{parametrized} gate.  This means that the gate takes in one or more parameters --- $\alpha$ in this case.
+
+For the special case when $\alpha = 0$, no rotation occurs.  The gate is the identity gate $\mathbb{I}$ because its matrix is equal to the identity matrix.  By convention, we leave out the phase label when $\alpha = 0$:
+\begin{equation}
+	\tikzfig{zxZI}	
+\end{equation}
+
+There are plenty of other special cases each interesting in their own way.  One case to point out now, is that when $\alpha = \pi$, we have the $Z$ gate.  The reason why the $Z$ gate is the same gate as the $Z(\pi)$ gate, is that the $Z$ gate rotates exactly halfway ($\pi$ radians) around the $z$-axis of the Bloch sphere.  Therefore, the $Z$ gate in the ZX-calculus is drawn as
+\begin{equation}
+	\tikzfig{zxZ}
+\end{equation}
+where the right hand side of the equation is how the $Z$ gate is drawn in the circuit model.
+
+In the opposite color, the $X$ phase gate is drawn in the ZX-calculus as
+\begin{equation*}
+	\tikzfig{zxXphase}
+\end{equation*}
+The phase $\alpha$ is now the angle of rotation about the $x$-axis on the Bloch sphere.
+
+We again have that $X(0) = \mathbb{I}$
+\begin{equation}
+	\tikzfig{zxXI}	
+\end{equation}
+and the $X$ gate is the same as the $X(\pi)$ gate.
+\begin{equation}
+	\tikzfig{zxX}
+\end{equation}
+
+% Color change rule
+
+% We know that the $\kz0$ and $\kz1$ states are the $Z$-basis states, while the $\kx+$ and $\kx-$ states are the $X$-basis states.
 
 
 

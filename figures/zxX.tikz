@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (1) at (-1.75, 0) {};
+		\node [style=none] (2) at (0, 0) {$\coloneqq$};
+		\node [style=X phase dot] (4) at (-3, 0) {$\pi$};
+		\node [style=none] (5) at (-4.25, 0) {};
+		\node [style=none] (6) at (4.25, 0) {};
+		\node [style=box] (7) at (3, 0) {$X$};
+		\node [style=none] (8) at (1.75, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (4) to (5.center);
+		\draw [style=simple] (4) to (1.center);
+		\draw [style=simple] (7) to (8.center);
+		\draw [style=simple] (7) to (6.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
