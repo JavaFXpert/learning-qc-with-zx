@@ -12,6 +12,8 @@
 \def\tikzscale{1.5}
 
 \newtheorem{example}{Example}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
 \newcommand*\conj[1]{\bar{#1}}
 \newcommand{\abs}[1]{{\big\vert} #1 {\big\vert}}
 \newcommand{\kz}[1]{\ket{\,#1\,}}
@@ -460,10 +462,88 @@ One observation to point out is that some of these classical logic gates are not
 
 Fun fact: the information lost when an irreversible gate is performed is dissipated as heat energy.  Next time your phone or computer heats up when performing intense computation, you know why.
 
-\subsection{Quantum gates}
-\subsubsection{The I gate}
+\subsection{Quantum gates, Part 1: Paulis}
+Historically, the most commonly encountered single-qubit gates go by one-letter names.
+We will now introduce the gates \{I, X, Y, Z\} as a \textit{group}.
+You may be used to using the word ``group'' in casual conversation as a collection of multiple individual entities, but the word ``group'' here is referring to the mathematical definition of a group.
+
+\begin{definition}[Group]
+	A \textit{group} is a set (i.e. a collection of elements which are unordered), along with a binary operation (i.e. has two inputs and one output) called the \textit{group operation}, satisfying all four conditions below:
+	\begin{itemize}
+		\item \textit{closure}: Applying the group operation to any two elements in the set, always outputs an element in the set.
+		\item \textit{associativity}: Let's call the group operation $\cdot$.  For any three elements of the group $a$, $b$, and $c$: $a \cdot (b \cdot c) = (a \cdot b) \cdot c$.
+		\item \textit{identity}: There is exactly one element of the set, where applying it with any element in the set (including with itself) via the group operation, always outputs that other element.
+		\item \textit{inverse}: For every element in the set, there is an element in the set such that applying the group operation to both elements outputs the identity element.
+	\end{itemize}
+\end{definition}
+Depending on the situation, sometimes closure is a given.
+
+We use and encounter groups all the time.  After all, our computers store and compute data using binary arithmetic, which works because of the following group:
+\begin{example}[Binary addition]
+	Check that the two numbers $\{0,1\}$ with addition modulo 2 (denoted by $+$) as the group operation is a group.
+
+	\textnormal{We check each of the following are satisfied:
+	\begin{itemize}
+		\item \textit{associativity}: is satisfied because addition is associative
+		\item \textit{closure}: $0+0=0$, $0+1=1$, $1+0=1$, and $1+1=0$ modulo 2 are all in the set $\{0,1\}$.
+		\item \textit{identity}: $0$ is the identity element, because $0+1=1+0=1$ and $0+0=0$ modulo 2
+		\item \textit{inverse}: $0$ and $1$ are both self-inverse, because $0+0=0$ and $1+1=0$ modulo 2
+	\end{itemize}
+	}
+\end{example}
+
+As an exercise, you can verify that the integers over addition (with identity element $0$) and the integers over multiplication (with identity element $1$) are both groups.  These are two examples of groups that have infinitely many elements, yet satisfy the closure property.
+
+We will see that we can group together operations on quantum computers too.  The following example, albeit a little silly, is a useful analogy for the group that you get from the four quantum gates that we will cover in this section.
+
+\begin{example}[Artificial gravity]
+	You are an astronaut in a room shaped like a cube, in outer space.  In the absence of gravity, you rely on your magnetic boots to stand on any one of the six sides of the room.  There are three magnetic fields, aligned to each of the two sides of the room opposite each other.  Show that by being able to flip the direction of each magnetic field, you can stand on any combination of three non-opposite sides of the room.
+	
+	\textnormal{The brute-force approach to this would be to list all possible combinations of directions the magnetic fields could be in, but that is neither fun nor efficient.  Instead, we will show that these three flip operations, plus the identity operation (of doing nothing), generate a group where the group operation is doing these flips in succession.}
+	
+	\textnormal{Let's call the three flip operations $X$, $Y$, and $Z$; and the identity operation $I$.  We are in a 3D space, where we can represent any position by a vector of length 3.  Therefore, any linear transformation of position can be fully described by a real 3 by 3 matrix.  Here the matrix for $I$ is the 3 by 3 identity matrix}
+	\begin{equation*}
+		\begin{bmatrix}
+			1 & 0 & 0\\
+			0 & 1 & 0\\
+			0 & 0 & 1
+		\end{bmatrix}
+	\end{equation*}	
+	\textnormal{and the matrix for each flip is the above matrix except exactly one of the 1's on the diagonal is replaced by -1.}
+	
+	\textnormal{Let's check the conditions necessary for our group:}
+
+	\begin{itemize}
+		\item \textit{closure}: \textnormal{Any combination of three non-opposite sides can be labelled by the corner of the cube that they share.  A cube has 8 corners, so there are 8 elements of our group.  Observe that $X \cdot Y = Y \cdot X = -Z = -I \cdot Z = Z \cdot -I$, and more generally, doing two different flips, is the same as doing the third flip and flipping all three at once.  This gives closure of the 8 elements $\{\pm I, \pm X, \pm Y, \pm Z\}$, where the symbol $\pm$ means that both the positive and negative of the operation are an element in the group.}
+		\item \textit{associativity}: \textnormal{This is satisfied, because matrix multiplication is associative.}
+		\item \textit{identity}: \textnormal{$I$ is the identity element, because multiplying the identity matrix before or after any matrix, is the other matrix.}
+		\item \textit{inverse}: \textnormal{For each of the 8 elements, it and its inverse element have matrices that are multiples of -1 of each other.}
+	\end{itemize}
+\end{example}
+Observe that the operations $\{I,X,Y,Z\}$ \textit{generate} the group in the above example.  This means that by continuing to apply the group operation to this generating set, and to the outputs of that, you can get all the elements in the group.
+
+This example is interesting because there is an important connection, that we will explore later, between the group of 3 by 3 real rotation matrices (called SO(3)), and the group of 2 by 2 complex unitary matrices (called SU(2)).  The above example is a subgroup (a group within a group) of the former; the Pauli group which we will study in the rest of this section is a subgroup of the latter, and the latter is the same as all possible single-qubit (unitary) gates.
+
+\subsection{The I gate}
+This gate is easy to remember because ``I'' stands for identity.  No matter what the quantum state is, after applying the I gate on each qubit, the state will be unchanged.
+
+Its matrix is the identity matrix
+\begin{equation}
+	I = \begin{bmatrix}
+		1 & 0\\
+		0 & 1
+	\end{bmatrix}
+\end{equation}
 
 \subsubsection{The X gate}
+Its matrix is the identity matrix
+\begin{equation}
+	I = \begin{bmatrix}
+		0 & 1\\
+		1 & 0
+	\end{bmatrix}
+\end{equation}
+
 \begin{figure}[H]
 	\ctikzfig{unitcirclex}
 \end{figure}
