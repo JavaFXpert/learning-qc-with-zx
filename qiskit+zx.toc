@@ -13,13 +13,13 @@
 \contentsline {subsection}{\numberline {1.4}More diagrams}{18}{subsection.1.4}%
 \contentsline {subsubsection}{\numberline {1.4.1}Rewriting diagrams with equations}{18}{subsubsection.1.4.1}%
 \contentsline {subsection}{\numberline {1.5}Classical logic gates}{20}{subsection.1.5}%
-\contentsline {subsection}{\numberline {1.6}Quantum gates}{26}{subsection.1.6}%
-\contentsline {subsubsection}{\numberline {1.6.1}The I gate}{26}{subsubsection.1.6.1}%
-\contentsline {subsubsection}{\numberline {1.6.2}The X gate}{26}{subsubsection.1.6.2}%
-\contentsline {subsubsection}{\numberline {1.6.3}The Z gate}{27}{subsubsection.1.6.3}%
-\contentsline {subsubsection}{\numberline {1.6.4}The H gate}{28}{subsubsection.1.6.4}%
-\contentsline {subsection}{\numberline {1.7}The pure qubit state, in general}{29}{subsection.1.7}%
-\contentsline {subsubsection}{\numberline {1.7.1}Statevectors on the unit circle}{29}{subsubsection.1.7.1}%
-\contentsline {subsubsection}{\numberline {1.7.2}Statevectors on the Bloch sphere}{30}{subsubsection.1.7.2}%
-\contentsline {section}{\numberline {2}Recipe for one-qubit quantum circuits}{35}{section.2}%
-\contentsline {section}{\numberline {3}When you have more than one qubit}{42}{section.3}%
+\contentsline {subsection}{\numberline {1.6}Quantum gates, Part 1: Paulis}{25}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}The I gate}{28}{subsection.1.7}%
+\contentsline {subsubsection}{\numberline {1.7.1}The X gate}{28}{subsubsection.1.7.1}%
+\contentsline {subsubsection}{\numberline {1.7.2}The Z gate}{29}{subsubsection.1.7.2}%
+\contentsline {subsubsection}{\numberline {1.7.3}The H gate}{30}{subsubsection.1.7.3}%
+\contentsline {subsection}{\numberline {1.8}The pure qubit state, in general}{31}{subsection.1.8}%
+\contentsline {subsubsection}{\numberline {1.8.1}Statevectors on the unit circle}{31}{subsubsection.1.8.1}%
+\contentsline {subsubsection}{\numberline {1.8.2}Statevectors on the Bloch sphere}{32}{subsubsection.1.8.2}%
+\contentsline {section}{\numberline {2}Recipe for one-qubit quantum circuits}{37}{section.2}%
+\contentsline {section}{\numberline {3}When you have more than one qubit}{44}{section.3}%
