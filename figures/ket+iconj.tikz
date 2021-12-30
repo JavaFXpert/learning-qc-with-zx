@@ -1,9 +1,9 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=none] (0) at (12.25, 0) {$\coloneqq$};
-		\node [style=none] (1) at (10.25, 0) {\large$(\ket{+i})^*$};
+		\node [style=none] (1) at (10.25, 0) {\large$\left(\ket{+i}\right)^*$};
 		\node [style=none] (5) at (8.5, 0) {$\coloneqq$};
-		\node [style=none] (8) at (16.5, 0) {$(\large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ i\end{bmatrix})^* = \large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ -i\end{bmatrix}$};
+		\node [style=none] (8) at (16.5, 0) {$\left(\large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ i\end{bmatrix}\right)^* = \large{\frac{1}{\sqrt{2}}}\begin{bmatrix}1\\ -i\end{bmatrix}$};
 		\node [style=none] (37) at (4.5, -0.5) {};
 		\node [style=none] (38) at (5.75, -2) {};
 		\node [style=none] (39) at (5.75, -0.5) {};

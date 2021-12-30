@@ -358,9 +358,166 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 	From Equation \ref{eq:braket0+}, we know that $\langle\,0\,|+\rangle = \frac{1}{\sqrt{2}}$.  Likewise, $\langle\,1\,|+\rangle = \frac{1}{\sqrt{2}}$.  Therefore, all atoms that were in the $\kx+$ state after the second field, had a 50-50 chance of being deflected up or down by the third field.  Therefore, the reason for Stern and Gerlach's surprise was that although the second of two consecutive Z-measurements yielded all $\kz0$ as we saw in Example \ref{example:sterngerlachzz}, adding an X-measurement in-between the Z-measurements changed that to half $\kz0$ and half $\kz1$.}
 \end{example}
 
-% We can represent any pure\footnote{We will later learn about \textit{mixed} qubit states, which are a mixture of pure qubit states.} qubit state, denoted $\ket{p}$, as a column of two complex numbers:
-% \begin{equation}
-% \end{equation}
+\newpage
+\subsection{The pure qubit state, in general}
+So far we have seen several examples of one-qubit states depicted on the unit circle and the Bloch sphere.  What do you need to depict any one-qubit state in general?
+
+\subsubsection{Statevectors on the unit circle}
+Any vector $\kx{v}$ on the unit circle by definition has magnitude (length) 1.
+Its general form is
+\begin{equation}
+	\label{eq:onequbitpurerealform}
+	\tikzfig{ketv}
+\end{equation}
+where $a$ and $b$ are real numbers.
+When you perform a Z-basis measurement on a qubit whose statevector is of this form, according to Equation \ref{eq:braketprob}, the probability your outcome is $\kz0$ is
+\begin{align}
+	\text{Pr}(\,0\,|\,v\,) &= \abs{\langle \,0\,|\,v\,\rangle}^2\\
+	&= \abs{\bz0 \text{\large(}a\kz0 + b\kz1\text{\large)}}^2\\
+	&= \abs{a\,\langle \,0\,|\,0\,\rangle + b\,\langle \,0\,|\,1\,\rangle}^2\\
+	&= \abs{a + 0}^2\\
+	&= a^2
+\end{align}
+Likewise, the probability your outcome is $\kz1$ is $b^2$.  Since the only possible outcomes are $\kz0$ and $\kz1$, probability is conserved:
+\begin{equation}
+	a^2 + b^2 = 1
+\end{equation}
+Let's review how we draw this geometrically, as we did in Figure~\ref{fig:unitcircletrinoangle} back when we first introduced probability amplitudes.  It helps to draw a right triangle where the hypotenuse is $\kx{v}$, and the sides are parallel with $\kz0$ and $\kz1$.
+Hence when $a$ and $b$ are real numbers, it is convenient to remember that the probabilities working out is simply the Pythagorean theorem:
+\begin{equation}
+	a^2 + b^2 = c^2
+	\label{eq:pythagorean}
+\end{equation}
+where $a$ and $b$ are sides of the right triangle and $c$ is the hypotenuse.  In our case of a normalized vector on the unit circle, it has to have length 1, i.e. $c = 1$.
+\begin{figure}[H]
+	\ctikzfig{unitcircletriangle}
+	\caption{A one qubit statevector $\kx{v}$ of the form $a\kz0 + b\kz1$, where $a$ and $b$ are real numbers, plotted on the unit circle.  The vector $\vec{v}$ forms the hypotenuse of a right triangle with sides of length $\abs{a}$ and $\abs{b}$.  The $a$ and $b$ shown in this figure are positive, but they can be any numbers from $-1$ to $1$ inclusive as long as they satisfy Equation~\ref{eq:pythagorean}, meaning they are on the unit circle.}
+	\label{fig:unitcircletriangle}
+\end{figure}
+
+
+\subsubsection{Statevectors on the Bloch sphere}
+The unit circle is not sufficient for our purposes.  That is because in general, a pure one qubit statevector is of the form
+\begin{equation}
+	\label{eq:onequbitpuregenform}
+	\tikzfig{ketpsi}
+\end{equation}
+where $\alpha$ and $\beta$ are complex numbers.
+Hence compared to Equation \ref{eq:onequbitpurerealform}, what's new is that coefficients can have imaginary components.  We celebrate this by chopping off the left corner of the triangle in our diagrams.  This will allow us to pictorially represent some key properties of complex vectors, as we will explore in the next section.
+
+We mentioned earlier that going from the unit circle to the Bloch sphere, you double the angles.  We can see this by looking at the slice of the Bloch sphere where the unit circle lives, outlined as a black circle in Figure \ref{fig:unitcircleinbloch}.
+Plotting the same statevector, the angle $\theta$ on the Bloch sphere in Figure \ref{fig:unitcircletriangle} is twice the angle $\Theta$ on the unit circle in Figure \ref{fig:unitcircleinbloch}, i.e. $\theta = 2 \Theta$.
+
+We can always plot a statevector with real coefficients on the Bloch sphere in three steps:
+\begin{enumerate}
+	\item Find the angle $\Theta = \text{arctan}(\frac{b}{a})$
+	\item Double that angle to get $\theta = 2 \Theta$
+	\item Starting from the $+z$ axis (where $\kz0$ is), rotate an angle of $\theta$ along this slice of the Bloch sphere where the unit circle lives
+\end{enumerate}
+
+\begin{figure}[H]
+	\ctikzfig{unitcircleinbloch}
+	\caption{A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must lie on the circle outlined in black here.}
+	\label{fig:unitcircleinbloch}
+\end{figure}
+So if vectors on the Bloch sphere whose coefficients are real numbers lie on that circle, what about the rest of the sphere?
+The rest of the sphere is where the coefficients have imaginary components.
+Before we talk about the general form of any vector on the Bloch sphere, let us first get comfortable with probability amplitudes being complex numbers.
+
+Up until now, to obtain the test corresponding to a state, all we had to do was take the matrix transpose of the ket column vector to get the bra row vector.  That has been correct so far because we have been dealing just with real numbers.  In general, when the statevectors can have complex coefficients, we need to take the \textit{conjugate transpose}\footnote{As a refresher, this means to take the transpose where you also replace each number by its complex conjugate.  This way, when all the numbers are real, the conjugate transpose and transpose operations are identical.} of the ket to get the bra, and the conjugate transpose of the bra to get the ket.
+
+In the following example, we will introduce how we can perform transformations on our diagrams which correspond to transformations on our matrices.
+\begin{example}[Y-basis states]
+	What are the statevectors and diagrams corresponding to the complex conjugation, transpose, and conjugate transpose of $\kx{+i}$ and $\kx{-i}$, the Y-basis states introduced below?
+
+	\textnormal{While we have seen the Z- and X- basis states in action, we have yet to do anything with the y axis of the Bloch sphere.
+	The $+$y and $-$y axes respectively define two Y-basis states:
+	\begin{align}
+		\label{fig:ket+i}
+		\tikzfig{ket+i}\\
+		\label{fig:ket-i}
+		\tikzfig{ket-i}
+	\end{align}
+	It doesn't make sense to visualize this on the unit circle, because in the real 2D plane we don't have an intuitive way of plotting complex numbers.
+	On the Bloch sphere, they are simply the states corresponding to the $+$y and $-$y axes.
+	\begin{figure}
+		\ctikzfig{bloch+i-i}
+		\caption{$\kx{+i}$ and $\kx{-i}$ are plotted here on the Bloch sphere.}
+	\end{figure}
+	}
+
+	Complex conjugation:
+
+	\textnormal{The complex conjugation of a diagram is its horizontal reflection.  Taking the complex conjugate of each element of $\kx{+i}$ and $\kx{-i}$ respectively, we get
+	\begin{align}
+		\tikzfig{ket+iconj}\\
+		\tikzfig{ket-iconj}
+	\end{align}
+	}
+
+	Transpose:
+
+	\textnormal{The transpose of a diagram is its $180\deg$ rotation.  Taking the transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get
+	\begin{align}
+		\tikzfig{ket+itranspose}\\
+		\tikzfig{ket-itranspose}
+	\end{align}
+	}
+
+	Conjugate transpose:
+
+	\textnormal{The conjugate transpose\footnote{In some contexts, the word \textit{adjoint} is used interchangeably with conjugate transpose.} of a diagram is its horizontal reflection followed by $180\deg$ rotation, or equivalently its $180\deg$ rotation followed by horizontal reflection.  Taking the conjugate transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get their bra statevectors
+	\begin{align}
+		\tikzfig{bra+i}\\
+		\tikzfig{bra-i}
+	\end{align}
+	This is consistent, because both taking the conjugate and then the transpose, and taking the transpose then the conjugate, yield the conjugate transpose.
+	}
+\end{example}
+In the above example, our act of chopping off a side of our bra and ket triangles in our diagrams was put to use for our first time.  Moreover, for our diagrams read from bottom to top, when our diagrams are horizontally symmetric, it signifies that property of being self-conjugate.  Looking back at Equations \ref{eq:ket0}, \ref{eq:ket1}, \ref{eq:ket+}, and \ref{eq:ket-}, we used a horizontally symmetric triangle as our diagrams for the Z- and X- basis states.  This is because all states in the ZX slice of the Bloch sphere have real number coefficients, and thus are self-conjugate.
+
+Cheerfully, our toolbox now has all the X-, Y-, and Z- basis states.
+\begin{figure}[H]
+	\ctikzfig{blochxyzstates}
+	\caption{The X-, Y-, and Z- basis states correspond to the x-, y-, and z- axes of the Bloch sphere.}
+\end{figure}
+Because each pure qubit state corresponds to a point on the surface of the Bloch sphere, we can use the xyz coordinates (i.e. the \textit{Cartesian coordinates}) of that point to specify the pure qubit state.
+
+However, when dealing with pure qubit states, we in fact only need two coordinates instead of three.  Instead of using xyz coordinates, it is more convenient to use \textit{spherical coordinates} to locate a point on the surface of the Bloch sphere.  By doing so, we can relate between our statevector of two complex numbers and the three xyz coordinates.
+
+In spherical coordinates, one of the two coordinates is the \textit{polar angle}.  This is the angle labelled $\theta$ in Figure~\ref{fig:unitcircleinbloch}.
+
+For analogy, pretend our planet is a perfect sphere and we start with a vector from the center of the Earth to the North Pole.  When you rotate directly away from the North Pole in any direction (keeping the other end of the vector fixed at the center of the Earth) by the angle of the polar angle, you can end up anywhere in a circle on the sphere.  This consists of all points that have the same \textit{longitude} on the Earth, corresponding to that polar angle.
+\begin{figure}[H]
+	\ctikzfig{longitude}
+	\caption{Perhaps the most familiar example is the Equator, the circle containing all points on the Earth's surface that have a polar angle of $90\deg$.
+	Other notable examples of circles containing all points on the Earth's surface with the same polar angle are the Arctic Circle, the Antarctic Circle, the Tropic of Capricorn, and the Tropic of Cancer.}
+\end{figure}
+To cover all possible such circles, such that each such circle corresponds to a unique polar angle, the polar angle is in the range $[0,\pi]$.
+
+In spherical coordinates (on the surface of a sphere), the other coordinate is the \textit{azimuthal angle}.  Specifying the polar angle restricts the point to lie on one circle.  The azimuthal angle $\phi$, in the range of $[0,2\pi)$, specifies where the point is on that circle --- in the same way that the angle $\Theta$ in the range of $[0,2\pi)$ does in the circle in Figure~\ref{unitcircletriangle}.
+\begin{figure}[H]
+	\ctikzfig{latitude}
+	\caption{Continuing the planet Earth analogy, the Prime Meridian corresponds to the semicircle containing all points for which the azimuthal angle is $0\deg$.  To find where on Earth a spherical coordinate refers to, first find the circle specified by the polar angle $\theta$.  Then, from where it intersects the Prime Meridian, go counterclockwise around that circle for the azimuthal angle $\phi$.}
+\end{figure}
+It is worthwhile to mention that the convention amongst physicists is to label the polar angle by $\theta$ and the azimuthal angle by $\phi$.  It can be cause for confusion that the convention amongst mathematicians is the reverse: labelling the polar angle by $\phi$ and the azimuthal angle by $\theta$.
+
+For the surface of a sphere we only need these two angles.  For any point in a real 3D coordinate system, there is a third coordinate $\rho$ which is the radius of the sphere that the point is on the surface of.  For our purposes, we are currently staying on the surface of the Bloch sphere (which has radius $1$), so we do not need to vary this radius coordinate yet.  When we eventually get to \textbf{mixed states}, these will correspond to points inside the volume of the Bloch sphere --- as opposed to pure states which correspond to points on the surface of the Bloch sphere.
+
+From spherical coordinates, it is straightforward to translate to xyz coordinates:
+\begin{equation}
+	\begin{bmatrix}
+		x\\
+		y\\
+		z
+	\end{bmatrix} = 
+	\rho\begin{bmatrix}
+		\text{sin}(\theta)\text{cos}(\phi)\\
+		\text{sin}(\theta)\text{sin}(\phi)\\
+		\text{cos}(\theta)
+	\end{bmatrix}
+\end{equation}
+
 
 \subsection{More diagrams}
 %%% I think this section is for conjugate transpose kind of things?
@@ -524,9 +681,8 @@ Observe that the operations $\{I,X,Y,Z\}$ \textit{generate} the group in the abo
 
 This example is interesting because there is an important connection, that we will explore later, between the group of 3 by 3 real rotation matrices (called SO(3)), and the group of 2 by 2 complex unitary matrices (called SU(2)).  The above example is a subgroup (a group within a group) of the former; the Pauli group which we will study in the rest of this section is a subgroup of the latter, and the latter is the same as all possible single-qubit (unitary) gates.
 
-\subsection{The I gate}
-This gate is easy to remember because ``I'' stands for identity.  No matter what the quantum state is, after applying the I gate on each qubit, the state will be unchanged.
-
+\subsubsection{The I gate}
+This gate is easy to remember because ``I'' stands for identity.
 Its matrix is the identity matrix
 \begin{equation}
 	I = \begin{bmatrix}
@@ -534,15 +690,81 @@ Its matrix is the identity matrix
 		0 & 1
 	\end{bmatrix}
 \end{equation}
+For any pure qubit state, we can apply the I gate to it by multiplying its statevector by the identity matrix.
+Therefore, applying the I gate to the four states we have explored so far in bra-ket notation is:
+\begin{align}
+	I \kz0 = \kz0\\
+	I \kz1 = \kz1\\
+	I \kx+ = \kx+\\
+	I \kx- = \kx-
+\end{align}
+Using bra-ket notation is more succinct than writing out the identity matrix and corresponding statevector in place of each respective letter ``I'' and ket.
+
+No matter what the quantum state is, after applying the I gate on each qubit, the state will be unchanged.
+Since the I gate performs the identity operation, the following diagrams are the same:
+\begin{equation}
+	\tikzfig{Igate}
+\end{equation}
+The absence of any state or test attached to these wires means that this equality between diagrams holds for any state and any test.
 
 \subsubsection{The X gate}
-Its matrix is the identity matrix
+When we previously learned about the X gate, also known as the NOT gate, it was to observe how it changes $\kz0$ to $kz1$, and $\kz1$ to $kz0$.
+We can now learn how to apply it to any pure qubit state: multiplying by its matrix,
 \begin{equation}
-	I = \begin{bmatrix}
+	X = \begin{bmatrix}
 		0 & 1\\
 		1 & 0
 	\end{bmatrix}
 \end{equation}
+
+\begin{example}[Applying the X gate]
+	What is the resulting state when you apply the X gate to each of the X-basis states?
+
+	\textnormal{When you apply the X gate to the $\kx+$ state, the resulting state is}
+	\begin{equation}
+		X \kx+ = \begin{bmatrix}
+			0 & 1\\
+			1 & 0
+		\end{bmatrix} \frac{1}{\sqrt{2}}\begin{bmatrix}
+			1\\
+			1
+		\end{bmatrix} = \frac{1}{\sqrt{2}}\begin{bmatrix}
+			1\\
+			1
+		\end{bmatrix} = \kx+
+	\end{equation}
+
+	\textnormal{When you apply the X gate to the $\kx-$ state, the resulting state is}
+	\begin{equation}
+		X \kx- = \begin{bmatrix}
+			0 & 1\\
+			1 & 0
+		\end{bmatrix} \frac{1}{\sqrt{2}}\begin{bmatrix}
+			1\\
+			-1
+		\end{bmatrix} = \frac{1}{\sqrt{2}}\begin{bmatrix}
+			-1\\
+			1
+		\end{bmatrix} = -\kx-
+	\end{equation}
+	\textnormal{The resulting state is $\kx-$, with a factor of $-1$.  If you have one qubit in the $\kx-$ state and another qubit in the $-\kx-$ state, it is impossible to distinguish between them.  For some intuition as to why, recall that how we gather intel on an unknown quantum state is by testing for which one it becomes of the states it can be measured to --- whatever the original state was, after quantum measurement the state is now the observed state.  If we were to test for the $\kx-$ state, the probability the test succeeds would be}
+	\begin{equation}
+		\text{Pr}(\kx-|\psi) = \abs{\langle-|\psi\rangle}^2
+	\end{equation}
+	\textnormal{for arbitrary pure qubit state $\psi$.
+	This is the same as testing for the $-\kx-$ state.  Indeed, these two tests (well, they are the same test) have the same probability of succeeding:}
+	\begin{align}
+		\text{Pr}(-\kx-|\psi) &= \abs{-\langle-|\psi\rangle}^2\\
+		&= \left(\abs{-}\abs{\langle-|\psi\rangle}\right)^2\\
+		&= \abs{\langle-|\psi\rangle}^2\\
+		&= \text{Pr}(\kx-|\psi)
+	\end{align}
+	\textnormal{This factor of $-1$ is a \textbf{global phase}.  In general, two quantum states are the same up to a global phase, if one of them is a factor (which is not $1$) of the other.  For probabilities to be sensible, this factor must have absolute value 1, i.e. be of the form $e^{i \alpha}$ for some real number $\alpha$ (in the range $[0, 2\pi)$).  In this case, $\alpha = \pi$ because $-1 = e^{i \pi}$.  Thus, to state more accurately, each pure qubit state up to a global phase corresponds to a point on the surface of the Bloch sphere.}
+
+	\textnormal{Now with the knowledge that the X gate does not change either of the X-basis states, it makes more sense why they are called the X-basis states.  The X-basis statevectors are \textit{eigenvectors} of the X gate matrix.  We will later learn that like the Z-basis states, their statevectors form an (orthonormal) basis for any pure qubit statevector.}
+\end{example}
+
+It can help to visualize this operation on the unit circle and on the Bloch sphere.
 
 \begin{figure}[H]
 	\ctikzfig{unitcirclex}
@@ -583,132 +805,6 @@ Animations from \url{https://quantumcomputing.stackexchange.com/questions/18031/
 		\animategraphics[controls,width=2in]{20}{images/HgateEulerBloch/animation-}{0}{200}
 	\end{frame}
 \end{minipage}
-
-\newpage
-\subsection{The pure qubit state, in general}
-So far we have seen several examples of one-qubit states depicted on the unit circle and the Bloch sphere.  What do you need to depict any one-qubit state in general?
-
-\subsubsection{Statevectors on the unit circle}
-Any vector $\kx{v}$ on the unit circle by definition has magnitude (length) 1.
-Its general form is
-\begin{equation}
-	\label{eq:onequbitpurerealform}
-	\tikzfig{ketv}
-\end{equation}
-where $a$ and $b$ are real numbers.
-When you perform a Z-basis measurement on a qubit whose statevector is of this form, according to Equation \ref{eq:braketprob}, the probability your outcome is $\kz0$ is
-\begin{align}
-	\text{Pr}(\,0\,|\,v\,) &= \abs{\langle \,0\,|\,v\,\rangle}^2\\
-	&= \abs{\bz0 \text{\large(}a\kz0 + b\kz1\text{\large)}}^2\\
-	&= \abs{a\,\langle \,0\,|\,0\,\rangle + b\,\langle \,0\,|\,1\,\rangle}^2\\
-	&= \abs{a + 0}^2\\
-	&= a^2
-\end{align}
-Likewise, the probability your outcome is $\kz1$ is $b^2$.  Since the only possible outcomes are $\kz0$ and $\kz1$, probability is conserved:
-\begin{equation}
-	a^2 + b^2 = 1
-\end{equation}
-Let's review how we draw this geometrically, as we did in Figure~\ref{fig:unitcircletrinoangle} back when we first introduced probability amplitudes.  It helps to draw a right triangle where the hypotenuse is $\kx{v}$, and the sides are parallel with $\kz0$ and $\kz1$.
-Hence when $a$ and $b$ are real numbers, it is convenient to remember that the probabilities working out is simply the Pythagorean theorem:
-\begin{equation}
-	a^2 + b^2 = c^2
-	\label{eq:pythagorean}
-\end{equation}
-where $a$ and $b$ are sides of the right triangle and $c$ is the hypotenuse.  In our case of a normalized vector on the unit circle, it has to have length 1, i.e. $c = 1$.
-\begin{figure}[H]
-	\ctikzfig{unitcircletriangle}
-	\caption{A one qubit statevector $\kx{v}$ of the form $a\kz0 + b\kz1$, where $a$ and $b$ are real numbers, plotted on the unit circle.  The vector $\vec{v}$ forms the hypotenuse of a right triangle with sides of length $\abs{a}$ and $\abs{b}$.  The $a$ and $b$ shown in this figure are positive, but they can be any numbers from $-1$ to $1$ inclusive as long as they satisfy Equation~\ref{eq:pythagorean}, meaning they are on the unit circle.}
-	\label{fig:unitcircletriangle}
-\end{figure}
-
-
-\subsubsection{Statevectors on the Bloch sphere}
-The unit circle is not sufficient for our purposes.  That is because in general, a pure one qubit statevector is of the form
-\begin{equation}
-	\label{eq:onequbitpuregenform}
-	\tikzfig{ketpsi}
-\end{equation}
-where $\alpha$ and $\beta$ are complex numbers.
-Hence compared to Equation \ref{eq:onequbitpurerealform}, what's new is that coefficients can have imaginary components.  We celebrate this by chopping off the left corner of the triangle in our diagrams.  This will allow us to pictorially represent some key properties of complex vectors, as we will explore in the next section.
-
-We mentioned earlier that going from the unit circle to the Bloch sphere, you double the angles.  We can see this by looking at the slice of the Bloch sphere where the unit circle lives, outlined as a black circle in Figure \ref{fig:unitcircleinbloch}.
-Plotting the same statevector, the angle $\theta$ on the Bloch sphere in Figure \ref{fig:unitcircletriangle} is twice the angle $\Theta$ on the unit circle in Figure \ref{fig:unitcircleinbloch}, i.e. $\theta = 2 \Theta$.
-
-We can always plot a statevector with real coefficients on the Bloch sphere in three steps:
-\begin{enumerate}
-	\item Find the angle $\Theta = \text{arctan}(\frac{b}{a})$
-	\item Double that angle to get $\theta = 2 \Theta$
-	\item Starting from the $+z$ axis (where $\kz0$ is), rotate an angle of $\theta$ along this slice of the Bloch sphere where the unit circle lives
-\end{enumerate}
-
-\begin{figure}[H]
-	\ctikzfig{unitcircleinbloch}
-	\caption{A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must lie on the circle outlined in black here.}
-	\label{fig:unitcircleinbloch}
-\end{figure}
-So if vectors on the Bloch sphere whose coefficients are real numbers lie on that circle, what about the rest of the sphere?
-The rest of the sphere is where the coefficients have imaginary components.
-Before we talk about the general form of any vector on the Bloch sphere, let us first get comfortable with probability amplitudes being complex numbers.
-
-Up until now, to obtain the test corresponding to a state, all we had to do was take the matrix transpose of the ket column vector to get the bra row vector.  That has been correct so far because we have been dealing just with real numbers.  In general, when the statevectors can have complex coefficients, we need to take the \textit{conjugate transpose}\footnote{As a refresher, this means to take the transpose where you also replace each number by its complex conjugate.  This way, when all the numbers are real, the conjugate transpose and transpose operations are identical.} of the ket to get the bra, and the conjugate transpose of the bra to get the ket.
-
-In the following example, we will introduce how we can perform transformations on our diagrams which correspond to transformations on our matrices.
-\begin{example}[Y-basis states]
-	What are the statevectors and diagrams corresponding to the complex conjugation, transpose, and conjugate transpose of $\kx{+i}$ and $\kx{-i}$, the Y-basis states introduced below?
-
-	\textnormal{While we have seen the Z- and X- basis states in action, we have yet to do anything with the y axis of the Bloch sphere.
-	The $+$y and $-$y axes respectively define two Y-basis states:
-	\begin{align}
-		\label{fig:ket+i}
-		\tikzfig{ket+i}\\
-		\label{fig:ket-i}
-		\tikzfig{ket-i}
-	\end{align}
-	It doesn't make sense to visualize this on the unit circle, where we don't have an intuitive way of plotting complex numbers.
-	On the Bloch sphere, they are simply the states corresponding to the $+$y and $-$y axes.
-	\begin{figure}
-		\ctikzfig{bloch+i-i}
-		\caption{$\kx{+i}$ and $\kx{-i}$ are plotted here on the Bloch sphere.}
-	\end{figure}
-	}
-
-	Complex conjugation:
-
-	\textnormal{The complex conjugation of a diagram is its horizontal reflection.  Taking the complex conjugate of each element of $\kx{+i}$ and $\kx{-i}$ respectively, we get
-	\begin{align}
-		\tikzfig{ket+iconj}\\
-		\tikzfig{ket-iconj}
-	\end{align}
-	}
-
-	Transpose:
-
-	\textnormal{The transpose of a diagram is its $180\deg$ rotation.  Taking the transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get
-	\begin{align}
-		\tikzfig{ket+itranspose}\\
-		\tikzfig{ket-itranspose}
-	\end{align}
-	}
-
-	Conjugate transpose:
-
-	\textnormal{The conjugate transpose\footnote{In some contexts, the word \textit{adjoint} is used interchangeably with conjugate transpose.} of a diagram is its horizontal reflection followed by $180\deg$ rotation, or equivalently its $180\deg$ rotation followed by horizontal reflection.  Taking the conjugate transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get their bra statevectors
-	\begin{align}
-		\tikzfig{bra+i}\\
-		\tikzfig{bra-i}
-	\end{align}
-	This is consistent, because both taking the conjugate and then the transpose, and taking the transpose then the conjugate, yield the conjugate transpose.
-	}
-\end{example}
-In the above example, our act of chopping off a side of our bra and ket triangles in our diagrams was put to use for our first time.  Moreover, for our diagrams read from bottom to top, when our diagrams are horizontally symmetric, it signifies that property of being self-conjugate.  Looking back at Equations \ref{eq:ket0}, \ref{eq:ket1}, \ref{eq:ket+}, and \ref{eq:ket-}, we used a horizontally symmetric triangle as our diagrams for the Z- and X- basis states.  This is because all states in the ZX slice of the Bloch sphere have real number coefficients, and thus are self-conjugate.
-
-Cheerfully, this adds the X-, Y-, and Z- basis states added to our toolbelt.
-\begin{figure}[H]
-	\ctikzfig{blochxyzstates}
-	\caption{The X-, Y-, and Z- basis states correspond to the x-, y-, and z- axes of the Bloch sphere.}
-\end{figure}
-There is actually a more intuitive reason to visualize our states on a sphere.  In addition to using \textit{Cartesian coordinates} (the xyz axes system), we have another option available to us called \textit{spherical coordinates}.  This is more convenient for us to use, because the general form of a pure qubit state has a simple expression in spherical coordinates.
-%%% TODO: spherical coordinates
 
 \newpage
 \section{Recipe for one-qubit quantum circuits}

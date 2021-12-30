@@ -42,3 +42,4 @@
 \tikzstyle{less thin gray}=[-, draw={rgb,255: red,223; green,223; blue,223}]
 \tikzstyle{hadamard arrows}=[dashed, color={rgb,255: red,128; green,0; blue,128}, tikzit draw={rgb,255: red,128; green,0; blue,128}, <->, dash pattern=on 2pt off 0.7pt]
 \tikzstyle{double arrow}=[<->]
+\tikzstyle{light blue edge}=[-, color={rgb,255: red,100; green,200; blue,248}, tikzit draw={rgb,255: red,100; green,200; blue,248}]

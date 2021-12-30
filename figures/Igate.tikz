@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (8.5, 0) {$=$};
+		\node [style=none] (19) at (11.25, 1.875) {};
+		\node [style=none] (26) at (5.75, 1.875) {};
+		\node [style=none] (40) at (5.75, -1.375) {};
+		\node [style=none] (43) at (5.75, 1.375) {};
+		\node [style=none] (44) at (4.75, -0.625) {};
+		\node [style=none] (45) at (6.75, -0.625) {};
+		\node [style=none] (46) at (6.75, 0.625) {};
+		\node [style=none] (47) at (4.75, 0.625) {};
+		\node [style=none] (48) at (5.75, 0.625) {};
+		\node [style=none] (49) at (5.75, -0.625) {};
+		\node [style=none] (50) at (5.75, 0.125) {$\gate{I}$};
+		\node [style=none] (55) at (11.25, -1.375) {};
+		\node [style=none] (56) at (11.25, 1.375) {};
+		\node [style=none] (57) at (11.25, -1.875) {};
+		\node [style=none] (58) at (5.75, -1.875) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (44.center) to (49.center);
+		\draw [style=simple] (49.center) to (45.center);
+		\draw [style=simple] (45.center) to (46.center);
+		\draw [style=simple] (46.center) to (48.center);
+		\draw [style=simple] (48.center) to (47.center);
+		\draw [style=simple] (47.center) to (44.center);
+		\draw [style=simple] (43.center) to (48.center);
+		\draw [style=simple, in=90, out=-90] (49.center) to (40.center);
+		\draw [style=simple, in=90, out=-90] (56.center) to (55.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
