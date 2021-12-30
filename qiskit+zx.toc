@@ -10,16 +10,16 @@
 \contentsline {subsubsection}{\numberline {1.2.3}The X-basis states}{9}{subsubsection.1.2.3}%
 \contentsline {subsection}{\numberline {1.3}Quantum Measurement}{14}{subsection.1.3}%
 \contentsline {subsubsection}{\numberline {1.3.1}The First Quantum Measurement Experiment}{14}{subsubsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.4}More diagrams}{18}{subsection.1.4}%
-\contentsline {subsubsection}{\numberline {1.4.1}Rewriting diagrams with equations}{18}{subsubsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.5}Classical logic gates}{20}{subsection.1.5}%
-\contentsline {subsection}{\numberline {1.6}Quantum gates, Part 1: Paulis}{25}{subsection.1.6}%
-\contentsline {subsection}{\numberline {1.7}The I gate}{28}{subsection.1.7}%
-\contentsline {subsubsection}{\numberline {1.7.1}The X gate}{28}{subsubsection.1.7.1}%
-\contentsline {subsubsection}{\numberline {1.7.2}The Z gate}{29}{subsubsection.1.7.2}%
-\contentsline {subsubsection}{\numberline {1.7.3}The H gate}{30}{subsubsection.1.7.3}%
-\contentsline {subsection}{\numberline {1.8}The pure qubit state, in general}{31}{subsection.1.8}%
-\contentsline {subsubsection}{\numberline {1.8.1}Statevectors on the unit circle}{31}{subsubsection.1.8.1}%
-\contentsline {subsubsection}{\numberline {1.8.2}Statevectors on the Bloch sphere}{32}{subsubsection.1.8.2}%
-\contentsline {section}{\numberline {2}Recipe for one-qubit quantum circuits}{37}{section.2}%
-\contentsline {section}{\numberline {3}When you have more than one qubit}{44}{section.3}%
+\contentsline {subsection}{\numberline {1.4}The pure qubit state, in general}{19}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Statevectors on the unit circle}{19}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Statevectors on the Bloch sphere}{20}{subsubsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.5}More diagrams}{26}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.5.1}Rewriting diagrams with equations}{26}{subsubsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.6}Classical logic gates}{27}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Quantum gates, Part 1: Paulis}{32}{subsection.1.7}%
+\contentsline {subsubsection}{\numberline {1.7.1}The I gate}{35}{subsubsection.1.7.1}%
+\contentsline {subsubsection}{\numberline {1.7.2}The X gate}{35}{subsubsection.1.7.2}%
+\contentsline {subsubsection}{\numberline {1.7.3}The Z gate}{38}{subsubsection.1.7.3}%
+\contentsline {subsubsection}{\numberline {1.7.4}The H gate}{39}{subsubsection.1.7.4}%
+\contentsline {section}{\numberline {2}Recipe for one-qubit quantum circuits}{40}{section.2}%
+\contentsline {section}{\numberline {3}When you have more than one qubit}{47}{section.3}%
