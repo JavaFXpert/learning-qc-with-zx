@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=unit circle] (0) at (0, 0) {};
+		\node [style=none] (1) at (0, 4.25) {};
+		\node [style=none] (2) at (4.25, 0) {};
+		\node [style=none] (3) at (0, 0) {};
+		\node [style=none] (4) at (-4.25, 0) {};
+		\node [style=none] (5) at (0, -4.25) {};
+		\node [style=none] (6) at (3, 3) {};
+		\node [style=none] (7) at (0, 4.75) {$\ket{\,1\,}$};
+		\node [style=none] (8) at (5, 0) {$\ket{\,0\,}$};
+		\node [style=none] (9) at (3, -3) {};
+		\node [style=none] (10) at (-3, 3) {};
+		\node [style=none] (11) at (3, -3) {};
+		\node [style=none] (12) at (3.025, 3) {};
+		\node [style=none] (13) at (-2.975, -3) {};
+		\node [style=none] (14) at (3.4, 3.5) {$\ket{+}$};
+		\node [style=none] (15) at (3.4, -3.5) {$\ket{-}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=thin gray] (10.center) to (11.center);
+		\draw [style=thin gray] (12.center) to (13.center);
+		\draw [style=light right directed arrow] (1.center) to (3.center);
+		\draw [style=light right directed arrow] (2.center) to (3.center);
+		\draw [style=light right directed arrow, in=270, out=90] (5.center) to (3.center);
+		\draw [style=light right directed arrow] (4.center) to (3.center);
+		\draw [style=diredge0.3] (3.center) to (6.center);
+		\draw [style=diredge0.3] (3.center) to (9.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

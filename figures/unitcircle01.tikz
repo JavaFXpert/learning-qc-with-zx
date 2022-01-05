@@ -1,15 +1,15 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=unit circle] (0) at (-2.25, 1) {};
-		\node [style=none] (1) at (-2.25, 5.25) {};
-		\node [style=none] (2) at (2, 1) {};
-		\node [style=none] (3) at (-2.25, 1) {};
-		\node [style=none] (4) at (-6.5, 1) {};
-		\node [style=none] (5) at (-2.25, -3.25) {};
-		\node [style=none] (6) at (-2.25, 5.25) {};
-		\node [style=none] (8) at (-2.25, 5.75) {$\ket{\,1\,}$};
-		\node [style=none] (9) at (2.75, 1) {$\ket{\,0\,}$};
-		\node [style=none] (13) at (2, 1) {};
+		\node [style=unit circle] (0) at (0, 0) {};
+		\node [style=none] (1) at (0, 4.25) {};
+		\node [style=none] (2) at (4.25, 0) {};
+		\node [style=none] (3) at (0, 0) {};
+		\node [style=none] (4) at (-4.25, 0) {};
+		\node [style=none] (5) at (0, -4.25) {};
+		\node [style=none] (6) at (0, 4.25) {};
+		\node [style=none] (8) at (0, 4.75) {$\ket{\,1\,}$};
+		\node [style=none] (9) at (5, 0) {$\ket{\,0\,}$};
+		\node [style=none] (13) at (4.25, 0) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=light right directed arrow] (1.center) to (3.center);
