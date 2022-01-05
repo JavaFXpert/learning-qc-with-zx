@@ -425,7 +425,7 @@ We can always plot a statevector with real coefficients on the Bloch sphere in t
 
 \begin{figure}[H]
 	\ctikzfig{unitcircleinbloch}
-	\caption{\textbf{Left:} A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must lie on the circle outlined in black here.  \textbf{Right:} The unit circle plotted on the 2D real plane, as plotted in Figure~\ref{fig:unitcircletriangle}.}
+	\caption{\textbf{Left:} A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must be in the XZ plane of the Bloch sphere, and lie on the circle outlined here in black.  \textbf{Right:} The unit circle plotted on the 2D real plane, as plotted in Figure~\ref{fig:unitcircletriangle}.}
 	\label{fig:unitcircleinbloch}
 \end{figure}
 So if vectors on the Bloch sphere whose coefficients are real numbers lie on that circle, what about the rest of the sphere?
@@ -522,14 +522,20 @@ Like how we plotted the ZX plane of the Bloch sphere in Figure~\ref{fig:unitcirc
 	\label{fig:unitcirclecomplexinbloch}
 \end{figure}
 
-A pure qubit state $\ket{\psi}$ can always be expressed in the following form,
+We have now investigated two special cases of a pure qubit state.  First, in Figure~\ref{fig:unitcircleinbloch}, we explored the case where the azimuthal angle $\phi$ is either $0$ or $\pi$.  Then $\alpha$ and $\beta$ are both real, and so the qubit state must be in the intersection of the XZ plane and the surface of the Bloch sphere.
+
+Second, in Figure~\ref{fig:unitcirclecomplexinbloch}, we explored the case where the polar angle $\theta = \pi/2$.  Then $\alpha = 0$, and $\beta$ is any complex number of magnitude 1, and so the qubit state must be in the intersection of the XY plane and the surface of the Bloch sphere.
+
+We now proceed to generalize to any pure qubit state.
+
+Any pure qubit state $\ket{\psi}$ can be expressed in the following form,
 \begin{equation}
 	\ket{\psi} = \text{cos}\left(\frac{\theta}{2}\right) \kz0 + e^{i \phi} \text{sin}\left(\frac{\theta}{2}\right) \kz1
 	\label{eq:qubitinsphericalcoordinates}
 \end{equation}
 for polar angle $\theta$ in range $[0,\pi]$, and azimuthal angle $\phi$ in range $[0,2\pi)$.
 
-Note that in Equation~\ref{eq:qubitinsphericalcoordinates}, the coefficient of $\kz0$, $\text{cos}\left(\frac{\theta}{2}\right)$, is constrained to be a real number.  However, we previously allowed this coefficient of $\kz0$ to be any \textit{complex} number $\alpha$, so long as $\abs{\alpha}^2 + \abs{\beta}^2 = 1$ where
+There is a technicality here that is ignored in the above statement.  Note that in Equation~\ref{eq:qubitinsphericalcoordinates}, the coefficient of $\kz0$, $\text{cos}\left(\frac{\theta}{2}\right)$, is constrained to be a real number.  However, we previously allowed this coefficient of $\kz0$ to be any \textit{complex} number $\alpha$, so long as $\abs{\alpha}^2 + \abs{\beta}^2 = 1$ where
 \begin{equation}
 	\ket{\psi} = \alpha \kz0 + \beta \kz1
 \end{equation}
@@ -579,10 +585,10 @@ We will now explain why, for practical purposes, we can ignore any global phase 
 	\textnormal{Less than ideal, but still somewhat useful, would be a test that can make us more confident of whose qubit is in which state, satisfying either}
 	\begin{align}
 		\text{Pr}(t_\text{ideal} | \psi) &> \text{Pr}(t_\text{ideal} | \phi)\label{eq:idealpsi} > 0\\
-		\intertext{or}
+		\intertext{\textnormal{or}}
 		\text{Pr}(t_\text{ideal} | \psi) &< \text{Pr}(t_\text{ideal} | \phi)\label{eq:idealphi} < 1
 	\end{align}
-	In the case of Equation~\ref{eq:idealpsi}, if the test result is $t_\text{ideal}$, then they should conclude that the qubit they tested was in the $\psi$ state prior to their test.  In the case of Equation~\ref{eq:idealphi}, if the test result is $t_\text{ideal}$ they should conclude that their qubit was in the $\phi$ state.  Because the qubit's state after observing the test result $t_\text{ideal}$ becomes $\ket{t_\text{ideal}}$, further testing will not yield further information. 
+	\textnormal{In the case of Equation~\ref{eq:idealpsi}, if the test result is $t_\text{ideal}$, then they should conclude that the qubit they tested was in the $\psi$ state prior to their test.  In the case of Equation~\ref{eq:idealphi}, if the test result is $t_\text{ideal}$ they should conclude that their qubit was in the $\phi$ state.  Because the qubit's state after observing the test result $t_\text{ideal}$ becomes $\ket{t_\text{ideal}}$, further testing will not yield further information.}
 
 	\textnormal{The two qubits that Apollo and Artemis have differ only by a global phase.  Therefore, regardless of what test $t$ they apply,}
 	\begin{align}
@@ -792,6 +798,8 @@ Since the I gate performs the identity operation, the following diagrams are the
 \end{equation}
 The absence of any state or test attached to these wires means that this equality between diagrams holds for any state and any test.
 
+It may seem a bit silly to describe the gate which does nothing, but this was our first look at how a quantum gate can be expressed as a matrix.  We can now look at other gates and their respective matrices.  If we know the statevector of a qubit, when we multiply that vector by that matrix for a single-qubit gate, we obtain the qubit's statevector after applying that gate.
+
 \subsubsection{The X gate}
 When we previously learned about the X gate, also known as the NOT gate, it was to observe how it changes $\kz0$ to $\kz1$, and $\kz1$ to $\kz0$.
 We can now learn how to apply it to any pure qubit state: multiplying by its matrix,
@@ -801,6 +809,36 @@ We can now learn how to apply it to any pure qubit state: multiplying by its mat
 		1 & 0
 	\end{bmatrix}
 \end{equation}
+From the matrix definition, you can readily verify that
+\begin{align}
+	X \kz0 &= \begin{bmatrix}
+		0 & 1\\
+		1 & 0
+	\end{bmatrix} \begin{bmatrix}
+		1\\
+		0
+	\end{bmatrix}\\
+	&= \begin{bmatrix}
+		0\\
+		1
+	\end{bmatrix}\\
+	&= \kz1
+\end{align}
+and
+\begin{align}
+	X \kz1 &= \begin{bmatrix}
+		0 & 1\\
+		1 & 0
+	\end{bmatrix} \begin{bmatrix}
+		0\\
+		1
+	\end{bmatrix}\\
+	&= \begin{bmatrix}
+		1\\
+		0
+	\end{bmatrix}\\
+	&= \kz0
+\end{align}
 
 \begin{example}[Applying the X gate]
 	What is the resulting state when you apply the X gate to each of the X-basis states?
@@ -834,7 +872,7 @@ We can now learn how to apply it to any pure qubit state: multiplying by its mat
 	\end{equation}
 	\textnormal{The resulting state is $\kx-$, with a factor of $-1 = e^{i \pi}$.  Recall that this means we have a \textit{global phase} of $\pi$.  Thus, we can ignore this factor because if you have one qubit in the $\kx-$ state and another qubit in the $-\kx-$ state, it is impossible to distinguish between them.}
 
-	\textnormal{Now with the knowledge that the X gate does not change either of the X-basis states, it makes more sense why they are called the X-basis states.  The X-basis statevectors are \textit{eigenvectors} of the X gate matrix.  We will later learn that like the Z-basis states, their statevectors form an (orthonormal) basis for any pure qubit statevector.}
+	\textnormal{Now with the knowledge that the X gate does not change either of the X-basis states, it makes more sense why they are called the X-basis states.  The X-basis statevectors are \textit{eigenvectors} of the X gate matrix.  Like the Z-basis states, their statevectors form an (orthonormal) basis for any pure qubit statevector --- you can express any pure qubit statevector as a particular linear combination of $\kx+$ and $\kx-$.}
 \end{example}
 
 It can help to visualize this operation on the unit circle and on the Bloch sphere.
@@ -845,17 +883,35 @@ It can help to visualize this operation on the unit circle and on the Bloch sphe
 \begin{figure}[H]
 	\ctikzfig{unitcirclexex}
 \end{figure}
-More general: X phase gate
+More general: the Rx gate
 
-\newpage
 \subsubsection{The Z gate}
+The Z gate
+\begin{equation}
+	Z = \begin{bmatrix}
+		1 & 0\\
+		0 & -1
+	\end{bmatrix}
+\end{equation}
 \begin{figure}[H]
 	\ctikzfig{unitcirclez}
 \end{figure}
 \begin{figure}[H]
 	\ctikzfig{unitcirclezex}
 \end{figure}
-More general: Z phase gate
+More general: the Rz gate
+
+\subsubsection{The Y gate}
+The final Pauli gate we will learn about is the Y gate.
+To apply it to any pure qubit state, we multiply that state's statevector by the matrix of the Y gate,
+\begin{equation}
+	Y = \begin{bmatrix}
+		0 & -i\\
+		i & 0
+	\end{bmatrix}
+\end{equation}
+You can verify that the eigenvectors of the Y gate are the statevectors for $\ket{+i}$ and $\ket{-i}$, the states on the $y$-axis of the Bloch sphere.
+More general: the Ry gate
 
 \newpage
 \subsubsection{The H gate}
@@ -985,9 +1041,9 @@ It may seem rather cumbersome to multiply matrices each time we want to figure o
 
 Thankfully, we do not have to resign ourselves to the tedium of multiplying matrices to understand what our quantum circuits are doing.  We just need to build up our toolbox so that we can use the right tool for the job.  To help us develop intuition for the Z- and X- bases, we will learn how to read, draw, and make deductions using \textbf{ZX-calculus} diagrams.  The qubit ZX-calculus is a pictorial language in which you can reason about all of qubit quantum computation.  As we continue learning, we will see how convenient of a tool these diagrams are.  As with the circuit model, we choose the convention of drawing and reading these diagrams from left to right.
 
-We have already met the $Z$ and $X$ gates.  But have you met them in color?  The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers\footnote{In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.}.  Rotations about the $z$-axis Bloch sphere are colored in green, whereas rotations around the $x$-axis of the Bloch sphere are colored in red.  In the ZX-calculus, we draw $Z$ and $X$ phase gates as green and red circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
+We have already met the $Z$ and $X$ gates.  But have you met them in color?  The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers\footnote{In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.}.  Rotations about the $z$-axis Bloch sphere are colored in green, whereas rotations around the $x$-axis of the Bloch sphere are colored in red.  In the ZX-calculus, we draw Rz and Rx gates as green and red circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
 
-And thus, the $Z$ phase gate is drawn in the ZX-calculus as
+And thus, the Rz gate is drawn in the ZX-calculus as
 \begin{equation*}
 	\tikzfig{zxZphase}
 \end{equation*}
@@ -1012,7 +1068,7 @@ There are plenty of other special cases each interesting in their own way.  One 
 \end{equation}
 where the right hand side of the equation is how the $Z$ gate is drawn in the circuit model.
 
-In the opposite color, the $X$ phase gate is drawn in the ZX-calculus as
+In the opposite color, the Rx gate is drawn in the ZX-calculus as
 \begin{equation*}
 	\tikzfig{zxXphase}
 \end{equation*}

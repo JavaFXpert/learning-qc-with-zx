@@ -20,6 +20,7 @@
 \contentsline {subsubsection}{\numberline {2.2.1}The I gate}{39}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}The X gate}{39}{subsubsection.2.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.3}The Z gate}{41}{subsubsection.2.2.3}%
-\contentsline {subsubsection}{\numberline {2.2.4}The H gate}{42}{subsubsection.2.2.4}%
-\contentsline {section}{\numberline {3}Recipe for one-qubit quantum circuits}{43}{section.3}%
-\contentsline {section}{\numberline {4}When you have more than one qubit}{50}{section.4}%
+\contentsline {subsubsection}{\numberline {2.2.4}The Y gate}{42}{subsubsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.5}The H gate}{43}{subsubsection.2.2.5}%
+\contentsline {section}{\numberline {3}Recipe for one-qubit quantum circuits}{44}{section.3}%
+\contentsline {section}{\numberline {4}When you have more than one qubit}{51}{section.4}%
