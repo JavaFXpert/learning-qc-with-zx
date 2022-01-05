@@ -2,6 +2,7 @@
 \usepackage{animate}
 \usepackage{cancel}
 \usepackage{float}
+%\usepackage{gensymb}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
@@ -106,9 +107,9 @@ We can encode any bit as a qubit by mapping a bit with value 0 to the $\kz0$ (pr
 \end{align}
 
 Let us plot them on the unit circle of the real 2D plane.
-\begin{figure}
+\begin{figure}[H]
 	\ctikzfig{unitcircle01}
-	\caption{$\kz0$ and $\kz1$ are plotted here on the unit circle.}
+	\caption{$\kz0$ and $\kz1$ are plotted here on the unit circle.  This is just directly plotting their statevectors in 2D.}
 	\label{fig:unitcircle}
 \end{figure}
 Let us note a few of their properties:
@@ -137,7 +138,7 @@ In addition to calling this basis for qubit states the computational basis, we a
 	\ctikzfig{bloch01}
 	\caption{$\kz0$ and $\kz1$ are plotted here on the Bloch sphere.}
 \end{figure}
-You might notice that on the Bloch sphere, the angle between these two states is $\pi$, or $180\deg$.  However, when you take the inner product of the vectors in Equations \ref{eq:ket0} and \ref{eq:ket0}, or plot them on the unit circle as in Figure \ref{fig:unitcircle}, the angle between these two states' vectors is $\frac{\pi}{2}$ radians ($90\deg$).
+You might notice that on the Bloch sphere, the angle between these two states is $\pi$, or $180^{\degree}$.  However, when you take the inner product of the vectors in Equations \ref{eq:ket0} and \ref{eq:ket0}, or plot them on the unit circle as in Figure \ref{fig:unitcircle}, the angle between these two states' vectors is $\frac{\pi}{2}$ radians ($90^{\degree}$).
 Indeed, any angle on the Bloch sphere is twice what it would be if we had plotted the vector in 2D.
 While this may seem like an unnecessary complication now, we will later see how the Bloch sphere helps us visualize when our qubit states contain \textit{complex numbers}.
 Throughout this text we will use radians instead of degrees, and adopt the convention of angles being angles on the Bloch sphere.
@@ -183,7 +184,7 @@ This is by design.  In general, given a \textit{normalized}\footnote{We'll give 
 \end{equation}
 This inner product is also called a \textbf{probability amplitude}, or amplitude for short.  The word "probability" follows form how you can always calculate the probability given a probability amplitude using Equation~\ref{eq:braketprob}, i.e. the probability is the \textit{norm-squared} of the probability amplitude.  This definition applies even when the probability amplitudes are complex numbers.  For now, we will stick with probability amplitudes which are real numbers, in which case the probability is simply the probability amplitude squared.
 
-On the other hand, it can help to think of the word "amplitude" visually.  When you have a state drawn on the unit circle, you can draw a vertical line to the x-axis.  The height of the right triangle you just formed is the probability amplitude when you test for the $\ket{1}$ state given your state.  Likewise, the base of that right triangle is the probability amplitude when you test for the $\ket{0}$ state.
+On the other hand, it can help to think of the word "amplitude" visually.  When you have a state drawn on the unit circle, you can draw a vertical line to the x-axis.  The height of the right triangle you just formed is the probability amplitude when you test for the $\kz1$ state given your state.  Likewise, the base of that right triangle is the probability amplitude when you test for the $\kz0$ state.
 \begin{figure}[H]
 	\ctikzfig{unitcircletrinoangle}
 	\caption{A one qubit statevector $\kx{v}$ plotted on the unit circle.  The vector $\vec{v}$ forms the hypotenuse of a right triangle with sides of length $\abs{a}$ and $\abs{b}$.  Testing for the Z-basis states results in probability amplitudes of $\langle \,0\,|\,v\,\rangle = a$ and $\langle \,1\,|\,v\,\rangle = b$.}
@@ -200,7 +201,7 @@ A special case we will see often is that of \textit{equal superposition}.  Consi
 	\label{eq:ket+unnorm}
 \end{equation}
 
-It is the sum of $\ket{0}$ and $\ket{1}$:
+It is the sum of $\kz0$ and $\kz1$:
 \begin{equation}
 	\tikzfig{ket+unnormsuperposition}
 	\label{eq:ket+unnormsuperposition}
@@ -215,7 +216,7 @@ We should have gotten the number 1, corresponding to probability 1, but instead 
 Somehow, we have calculated a probability of more than 1!
 To fix this error, we need to introduce the concept of \textit{normalization}.
 That means that we need to multiple our states by a constant factor so that if you test the state for itself, your test is successful 100\% of the time.
-The $\ket{0}$ state is already normalized, as we saw in Equation~\ref{eq:braket00}.
+The $\kz0$ state is already normalized, as we saw in Equation~\ref{eq:braket00}.
 To ensure the $\ket{+}$ state is normalized, we multiple by a factor of $\frac{1}{\sqrt{2}}$, which we will soon see fixes that issue.
 
 The $\ket{+}$ state is one of the \textbf{X-basis} states.  Just as the Z-basis states lie on the Z axis of the Bloch sphere, the X-basis states lie on the X axis of the Bloch sphere.
@@ -226,6 +227,13 @@ We also introduce the other X-basis state, the $\ket{-}$ state.
 &\tikzfig{ket-}
 \label{eq:ket-}
 \end{align}
+
+Like the $\kz0$ and $\kz1$ states, the $\kx+$ and $\kx-$ states can also be plotted on the unit circle:
+\begin{figure}[H]
+	\ctikzfig{unitcircle+-}
+	\caption{$\kx+$ and $\kx-$ are plotted here on the unit circle.  This is just directly plotting their statevectors in 2D.}
+	\label{fig:unitcirclexbasis}
+\end{figure}
 
 Perhaps you can guess what happens when given an X-basis state, you test for an X-basis state. Hint: it's the same as what happened with the Z-basis states in Equations~\ref{eq:braket00}~to~\ref{eq:braket11}.\nopagebreak
 \begin{align}
@@ -405,8 +413,8 @@ The unit circle is not sufficient for our purposes.  That is because in general,
 where $\alpha$ and $\beta$ are complex numbers.
 Hence compared to Equation \ref{eq:onequbitpurerealform}, what's new is that coefficients can have imaginary components.  We celebrate this by chopping off the left corner of the triangle in our diagrams.  This will allow us to pictorially represent some key properties of complex vectors, as we will explore in the next section.
 
-We mentioned earlier that going from the unit circle to the Bloch sphere, you double the angles.  We can see this by looking at the slice of the Bloch sphere where the unit circle lives, outlined as a black circle in Figure \ref{fig:unitcircleinbloch}.
-Plotting the same statevector, the angle $\theta$ on the Bloch sphere in Figure \ref{fig:unitcircletriangle} is twice the angle $\Theta$ on the unit circle in Figure \ref{fig:unitcircleinbloch}, i.e. $\theta = 2 \Theta$.
+We mentioned earlier that going from the unit circle to the Bloch sphere, you double the angles.  We can see this by looking at the slice of the Bloch sphere where the unit circle lives, outlined as a black circle in Figure~\ref{fig:unitcircleinbloch}.
+Plotting the same statevector, the angle $\theta$ on the Bloch sphere in Figure~\ref{fig:unitcircletriangle} is twice the angle $\Theta$ on the unit circle in Figure \ref{fig:unitcircleinbloch}, i.e. $\theta = 2 \Theta$.
 
 We can always plot a statevector with real coefficients on the Bloch sphere in three steps:
 \begin{enumerate}
@@ -417,7 +425,7 @@ We can always plot a statevector with real coefficients on the Bloch sphere in t
 
 \begin{figure}[H]
 	\ctikzfig{unitcircleinbloch}
-	\caption{A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must lie on the circle outlined in black here.}
+	\caption{\textbf{Left:} A pure one qubit statevector $\kx{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\kx{\psi}$ is plotted on the Bloch sphere for the case where both $\alpha$ and $\beta$ are real numbers, and thus $\kx{\psi}$ must lie on the circle outlined in black here.  \textbf{Right:} The unit circle plotted on the 2D real plane, as plotted in Figure~\ref{fig:unitcircletriangle}.}
 	\label{fig:unitcircleinbloch}
 \end{figure}
 So if vectors on the Bloch sphere whose coefficients are real numbers lie on that circle, what about the rest of the sphere?
@@ -457,7 +465,7 @@ In the following example, we will introduce how we can perform transformations o
 
 	Transpose:
 
-	\textnormal{The transpose of a diagram is its $180\deg$ rotation.  Taking the transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get
+	\textnormal{The transpose of a diagram is its $180^{\degree}$ rotation.  Taking the transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get
 	\begin{align}
 		\tikzfig{ket+itranspose}\\
 		\tikzfig{ket-itranspose}
@@ -466,7 +474,7 @@ In the following example, we will introduce how we can perform transformations o
 
 	Conjugate transpose:
 
-	\textnormal{The conjugate transpose\footnote{In some contexts, the word \textit{adjoint} is used interchangeably with conjugate transpose.} of a diagram is its horizontal reflection followed by $180\deg$ rotation, or equivalently its $180\deg$ rotation followed by horizontal reflection.  Taking the conjugate transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get their bra statevectors
+	\textnormal{The conjugate transpose\footnote{In some contexts, the word \textit{adjoint} is used interchangeably with conjugate transpose.} of a diagram is its horizontal reflection followed by $180^{\degree}$ rotation, or equivalently its $180^{\degree}$ rotation followed by horizontal reflection.  Taking the conjugate transpose of $\kx{+i}$ and $\kx{-i}$ respectively, we get their bra statevectors
 	\begin{align}
 		\tikzfig{bra+i}\\
 		\tikzfig{bra-i}
@@ -483,43 +491,116 @@ Cheerfully, our toolbox now has all the X-, Y-, and Z- basis states.
 \end{figure}
 Because each pure qubit state corresponds to a point on the surface of the Bloch sphere, we can use the xyz coordinates (i.e. the \textit{Cartesian coordinates}) of that point to specify the pure qubit state.
 
-However, when dealing with pure qubit states, we in fact only need two coordinates instead of three.  Instead of using xyz coordinates, it is more convenient to use \textit{spherical coordinates} to locate a point on the surface of the Bloch sphere.  By doing so, we can relate between our statevector of two complex numbers and the three xyz coordinates.
+However, in quantum computing, we do not use xyz coordinates on the Bloch sphere.  Instead of using xyz coordinates, it is more convenient to use \textit{spherical coordinates} to locate a point on the surface of the Bloch sphere.  This is because when dealing with pure qubit states, we in fact only need two coordinates instead of three.  By doing so, we can relate between our statevector of two complex numbers and the three xyz coordinates.
 
 In spherical coordinates, one of the two coordinates is the \textit{polar angle}.  This is the angle labelled $\theta$ in Figure~\ref{fig:unitcircleinbloch}.
 
 For analogy, pretend our planet is a perfect sphere and we start with a vector from the center of the Earth to the North Pole.  When you rotate directly away from the North Pole in any direction (keeping the other end of the vector fixed at the center of the Earth) by the angle of the polar angle, you can end up anywhere in a circle on the sphere.  This consists of all points that have the same \textit{longitude} on the Earth, corresponding to that polar angle.
 \begin{figure}[H]
 	\ctikzfig{longitude}
-	\caption{Perhaps the most familiar example is the Equator, the circle containing all points on the Earth's surface that have a polar angle of $90\deg$.
+	\caption{Perhaps the most familiar example is the Equator, the circle containing all points on the Earth's surface that have a polar angle of $90^{\degree}$.
 	Other notable examples of circles containing all points on the Earth's surface with the same polar angle are the Arctic Circle, the Antarctic Circle, the Tropic of Capricorn, and the Tropic of Cancer.}
 \end{figure}
 To cover all possible such circles, such that each such circle corresponds to a unique polar angle, the polar angle is in the range $[0,\pi]$.
 
-In spherical coordinates (on the surface of a sphere), the other coordinate is the \textit{azimuthal angle}.  Specifying the polar angle restricts the point to lie on one circle.  The azimuthal angle $\phi$, in the range of $[0,2\pi)$, specifies where the point is on that circle --- in the same way that the angle $\Theta$ in the range of $[0,2\pi)$ does in the circle in Figure~\ref{unitcircletriangle}.
+In spherical coordinates (on the surface of a sphere), the other coordinate is the \textit{azimuthal angle}.  Specifying the polar angle restricts the point to lie on one circle.  The azimuthal angle $\phi$, in the range of $[0,2\pi)$, specifies where the point is on that circle --- in the same way that the angle $\Theta$ in the range of $[0,2\pi)$ does in the circle in Figure~\ref{fig:unitcircletriangle}.
 \begin{figure}[H]
-	\ctikzfig{latitude}
-	\caption{Continuing the planet Earth analogy, the Prime Meridian corresponds to the semicircle containing all points for which the azimuthal angle is $0\deg$.  To find where on Earth a spherical coordinate refers to, first find the circle specified by the polar angle $\theta$.  Then, from where it intersects the Prime Meridian, go counterclockwise around that circle for the azimuthal angle $\phi$.}
+	\centering
+	\scalebox{\tikzscale}{\tikzfig{latitude}}
+	\caption{Continuing the planet Earth analogy, the Prime Meridian corresponds to the semicircle containing all points for which the azimuthal angle is $0^{\degree}$.  To find where on Earth a spherical coordinate refers to, first find its longitude: the polar angle $\theta$ specifying a circle on the surface of the Earth.  Then, from where that circle intersects the Prime Meridian, go around that circle by its longitude, the azimuthal angle $\phi$, to find the point on Earth with that longitude and latitude.}
 \end{figure}
 It is worthwhile to mention that the convention amongst physicists is to label the polar angle by $\theta$ and the azimuthal angle by $\phi$.  It can be cause for confusion that the convention amongst mathematicians is the reverse: labelling the polar angle by $\phi$ and the azimuthal angle by $\theta$.
 
 For the surface of a sphere we only need these two angles.  For any point in a real 3D coordinate system, there is a third coordinate $\rho$ which is the radius of the sphere that the point is on the surface of.  For our purposes, we are currently staying on the surface of the Bloch sphere (which has radius $1$), so we do not need to vary this radius coordinate yet.  When we eventually get to \textbf{mixed states}, these will correspond to points inside the volume of the Bloch sphere --- as opposed to pure states which correspond to points on the surface of the Bloch sphere.
 
-From spherical coordinates, it is straightforward to translate to xyz coordinates:
+Like planet Earth, we specify a point on the surface of the Bloch sphere by its polar and its azimuthal angle.  The main difference between our planet Earth analogy and the Bloch sphere, is that while we live in a 3D world where all three axes are real number axes, on the Bloch sphere one of the three axes is a complex number axis.  You can see in Figure~\ref{fig:unitcircleinbloch} that the span of the $x$ and $z$ axes of the Bloch sphere is the slice where the coefficients of $\kz0$ and $\kz1$ are real numbers, while the $y$ axis is an imaginary axis such that the $y$-coordinate is nonzero when the coefficients of $\kz0$ and $\kz1$ are complex numbers.
+
+Like how we plotted the ZX plane of the Bloch sphere in Figure~\ref{fig:unitcircleinbloch}, we will now plot the XY plane of the Bloch sphere.  This corresponds to the circle where the polar angle is $\pi/2$, like the equator of Earth, plotted as the unit circle in the complex plane.
+\begin{figure}[H]
+	\ctikzfig{unitcirclecomplexinbloch}
+	\caption{\textbf{Left:} A pure one qubit state $\ket{\psi}$ has the general form $\alpha\kz0 + \beta\kz1$, where $\alpha$ and $\beta$ are complex numbers.  Here, $\ket{\psi}$ is plotted on the Bloch sphere for the case where $\alpha = 0$, and thus $\ket{\psi}$ must be in the XY plane of the Bloch sphere and thus lie on the circle outlined in black here.  \textbf{Right:} The unit circle plotted on the complex plane, because any complex number $\beta$ of magnitude~1 satisfies $\beta = e^{i \phi}$ for some angle $\phi$, called the \textit{complex phase} --- the angle counterclockwise around the origin of the complex plane.  Equivalently, $\beta = a + b i$ because of Euler's equation $e^{i \phi} = \text{cos}(\phi) + i \text{sin}(\phi)$, where $a = \text{cos}(\phi)$ and $b = \text{sin}(\phi)$ are real numbers.}
+	\label{fig:unitcirclecomplexinbloch}
+\end{figure}
+
+A pure qubit state $\ket{\psi}$ can always be expressed in the following form,
 \begin{equation}
-	\begin{bmatrix}
-		x\\
-		y\\
-		z
-	\end{bmatrix} = 
-	\rho\begin{bmatrix}
-		\text{sin}(\theta)\text{cos}(\phi)\\
-		\text{sin}(\theta)\text{sin}(\phi)\\
-		\text{cos}(\theta)
-	\end{bmatrix}
+	\ket{\psi} = \text{cos}\left(\frac{\theta}{2}\right) \kz0 + e^{i \phi} \text{sin}\left(\frac{\theta}{2}\right) \kz1
+	\label{eq:qubitinsphericalcoordinates}
 \end{equation}
+for polar angle $\theta$ in range $[0,\pi]$, and azimuthal angle $\phi$ in range $[0,2\pi)$.
 
+Note that in Equation~\ref{eq:qubitinsphericalcoordinates}, the coefficient of $\kz0$, $\text{cos}\left(\frac{\theta}{2}\right)$, is constrained to be a real number.  However, we previously allowed this coefficient of $\kz0$ to be any \textit{complex} number $\alpha$, so long as $\abs{\alpha}^2 + \abs{\beta}^2 = 1$ where
+\begin{equation}
+	\ket{\psi} = \alpha \kz0 + \beta \kz1
+\end{equation}
+How do we allow $\alpha$, the coefficient of $\kz0$, to have an imaginary component?
 
-\subsection{More diagrams}
+The answer is that we write the complex number $\alpha$ as
+\begin{equation}
+	\alpha = \mathrm{A} e^{i \gamma}
+\end{equation}
+where $\mathrm{A}$ and $\gamma$ are real numbers.
+We can also write the complex number $\beta$, the coefficient of $\kz1$, as
+\begin{equation}
+	\beta = \mathrm{B} e^{i \eta}
+\end{equation}
+where $\mathrm{B}$ and $\eta$ are real numbers.
+Then, we can write
+\begin{align}
+	\ket{\psi} &= \alpha \kz0 + \beta \kz1\\
+	&= \mathrm{A} e^{i \gamma} \mkzero + \mathrm{B} e^{i \eta} \mkone\\
+	&= e^{i \gamma} \left( \mathrm{A} \mkzero + e^{i (\eta - \gamma)} \mathrm{B} \mkone \right)
+	\label{eq:qubitinsphericalcoordinateswithglobalphase}
+\end{align}
+Comparing Equations~\ref{eq:qubitinsphericalcoordinates}~and~\ref{eq:qubitinsphericalcoordinateswithglobalphase}, they differ by a factor of $e^{i \gamma}$ where
+\begin{align}
+	\mathrm{A} &= \text{cos}\left(\frac{\theta}{2}\right)\\
+	\mathrm{B} &= \text{sin}\left(\frac{\theta}{2}\right)\\
+	\phi &= \eta - \gamma
+\end{align}
+This factor of $e^{i \gamma}$ is called a \textbf{global phase}.  Another convention is to refer to $\gamma$ as the global phase.
+We will now explain why, for practical purposes, we can ignore any global phase difference between two qubit states.
+% The explanation of global phase in the Qiskit textbook is at https://qiskit.org/textbook/ch-states/representing-qubit-states.html
+
+\begin{example}[Apollo's twin qubits]
+	Apollo and Artemis each have a qubit.  They know that one of the two qubits is in the state $\ket{\psi}$, although they don't know which one.  They also know that the other qubit is in the state $e^{i \gamma} \ket{\psi}$.  Is there a test they can do to figure out who has which qubit?
+
+	\textnormal{How we learn information about a qubit's state is by testing it.  The ideal test would be one which can tell us decisively who has which qubit.  An ideal test $\bra{t_\text{ideal}}$ would be one that can distinguish between two states, $\ket{\psi}$ and $\ket{\phi}$, by satisfying either}
+	\begin{align}
+		\text{Pr}(t_\text{ideal} | \psi) &= 1\\
+		\text{Pr}(t_\text{ideal} | \phi) &= 0
+	\end{align}
+	\textnormal{or}
+	\begin{align}
+		\text{Pr}(t_\text{ideal} | \psi) &= 0\\
+		\text{Pr}(t_\text{ideal} | \phi) &= 1
+	\end{align}
+
+	\textnormal{Less than ideal, but still somewhat useful, would be a test that can make us more confident of whose qubit is in which state, satisfying either}
+	\begin{align}
+		\text{Pr}(t_\text{ideal} | \psi) &> \text{Pr}(t_\text{ideal} | \phi)\label{eq:idealpsi} > 0\\
+		\intertext{or}
+		\text{Pr}(t_\text{ideal} | \psi) &< \text{Pr}(t_\text{ideal} | \phi)\label{eq:idealphi} < 1
+	\end{align}
+	In the case of Equation~\ref{eq:idealpsi}, if the test result is $t_\text{ideal}$, then they should conclude that the qubit they tested was in the $\psi$ state prior to their test.  In the case of Equation~\ref{eq:idealphi}, if the test result is $t_\text{ideal}$ they should conclude that their qubit was in the $\phi$ state.  Because the qubit's state after observing the test result $t_\text{ideal}$ becomes $\ket{t_\text{ideal}}$, further testing will not yield further information. 
+
+	\textnormal{The two qubits that Apollo and Artemis have differ only by a global phase.  Therefore, regardless of what test $t$ they apply,}
+	\begin{align}
+		\text{Pr}(t | e^{i \gamma} \psi) &= \abs{\langle t | e^{i \gamma} \psi \rangle}^2\\
+		&= \left(\abs{e^{i \gamma}}\abs{\langle t | \psi \rangle}\right)^2\\
+		&= \abs{\langle t | \psi \rangle}^2\\
+		&= \text{Pr}( t | \psi)
+	\end{align}
+	\textnormal{No matter the test that Apollo and Artemis use, whether the test succeeded or not does not give us any information on which of the two qubits was tested, because the likelihood that the test was successful is unrelated to which of the two qubits was tested.  Therefore, there is no possible test that they can do to tell apart their two qubits, with any confidence that is better than randomly guessing.}
+\end{example}
+In the above example, we see why any global phase has to be of the form $e^{i \gamma}$ for some real number $\gamma$.  A global phase cannot be just any complex number --- it must be a complex number of magnitude 1.  This is necessary for the probabilities in the above example to be sensible.
+
+To state more accurately, each pure qubit state up to a global phase corresponds to a point on the surface of the Bloch sphere.  In Qiskit, when you visualize on the Bloch sphere a simulated quantum state (and thus know the global phase), the global phase information is visualized as a color in a continuous color wheel.
+
+That's all for now, folks!
+To get a taste of what we will learn next, check out how quantum gates transform a qubit state in the interactive Bloch sphere demo by James Weaver at \url{https://javafxpert.github.io/grok-bloch/}.
+
+\section{Building a quantum circuit}
 %%% I think this section is for conjugate transpose kind of things?
 
 \subsubsection{Rewriting diagrams with equations}
@@ -690,7 +771,11 @@ Its matrix is the identity matrix
 		0 & 1
 	\end{bmatrix}
 \end{equation}
-For any pure qubit state, we can apply the I gate to it by multiplying its statevector by the identity matrix.
+For any pure qubit state $\ket{\psi}$, we can apply the I gate to it by multiplying its statevector by the identity matrix:
+\begin{equation}
+	I \ket{\psi} = \ket{\psi}
+\end{equation}
+
 Therefore, applying the I gate to the four states we have explored so far in bra-ket notation is:
 \begin{align}
 	I \kz0 = \kz0\\
@@ -708,7 +793,7 @@ Since the I gate performs the identity operation, the following diagrams are the
 The absence of any state or test attached to these wires means that this equality between diagrams holds for any state and any test.
 
 \subsubsection{The X gate}
-When we previously learned about the X gate, also known as the NOT gate, it was to observe how it changes $\kz0$ to $kz1$, and $\kz1$ to $kz0$.
+When we previously learned about the X gate, also known as the NOT gate, it was to observe how it changes $\kz0$ to $\kz1$, and $\kz1$ to $\kz0$.
 We can now learn how to apply it to any pure qubit state: multiplying by its matrix,
 \begin{equation}
 	X = \begin{bmatrix}
@@ -725,7 +810,7 @@ We can now learn how to apply it to any pure qubit state: multiplying by its mat
 		X \kx+ = \begin{bmatrix}
 			0 & 1\\
 			1 & 0
-		\end{bmatrix} \frac{1}{\sqrt{2}}\begin{bmatrix}
+		\end{bmatrix} \cdot \frac{1}{\sqrt{2}}\begin{bmatrix}
 			1\\
 			1
 		\end{bmatrix} = \frac{1}{\sqrt{2}}\begin{bmatrix}
@@ -739,7 +824,7 @@ We can now learn how to apply it to any pure qubit state: multiplying by its mat
 		X \kx- = \begin{bmatrix}
 			0 & 1\\
 			1 & 0
-		\end{bmatrix} \frac{1}{\sqrt{2}}\begin{bmatrix}
+		\end{bmatrix} \cdot \frac{1}{\sqrt{2}}\begin{bmatrix}
 			1\\
 			-1
 		\end{bmatrix} = \frac{1}{\sqrt{2}}\begin{bmatrix}
@@ -747,19 +832,7 @@ We can now learn how to apply it to any pure qubit state: multiplying by its mat
 			1
 		\end{bmatrix} = -\kx-
 	\end{equation}
-	\textnormal{The resulting state is $\kx-$, with a factor of $-1$.  If you have one qubit in the $\kx-$ state and another qubit in the $-\kx-$ state, it is impossible to distinguish between them.  For some intuition as to why, recall that how we gather intel on an unknown quantum state is by testing for which one it becomes of the states it can be measured to --- whatever the original state was, after quantum measurement the state is now the observed state.  If we were to test for the $\kx-$ state, the probability the test succeeds would be}
-	\begin{equation}
-		\text{Pr}(\kx-|\psi) = \abs{\langle-|\psi\rangle}^2
-	\end{equation}
-	\textnormal{for arbitrary pure qubit state $\psi$.
-	This is the same as testing for the $-\kx-$ state.  Indeed, these two tests (well, they are the same test) have the same probability of succeeding:}
-	\begin{align}
-		\text{Pr}(-\kx-|\psi) &= \abs{-\langle-|\psi\rangle}^2\\
-		&= \left(\abs{-}\abs{\langle-|\psi\rangle}\right)^2\\
-		&= \abs{\langle-|\psi\rangle}^2\\
-		&= \text{Pr}(\kx-|\psi)
-	\end{align}
-	\textnormal{This factor of $-1$ is a \textbf{global phase}.  In general, two quantum states are the same up to a global phase, if one of them is a factor (which is not $1$) of the other.  For probabilities to be sensible, this factor must have absolute value 1, i.e. be of the form $e^{i \alpha}$ for some real number $\alpha$ (in the range $[0, 2\pi)$).  In this case, $\alpha = \pi$ because $-1 = e^{i \pi}$.  Thus, to state more accurately, each pure qubit state up to a global phase corresponds to a point on the surface of the Bloch sphere.}
+	\textnormal{The resulting state is $\kx-$, with a factor of $-1 = e^{i \pi}$.  Recall that this means we have a \textit{global phase} of $\pi$.  Thus, we can ignore this factor because if you have one qubit in the $\kx-$ state and another qubit in the $-\kx-$ state, it is impossible to distinguish between them.}
 
 	\textnormal{Now with the knowledge that the X gate does not change either of the X-basis states, it makes more sense why they are called the X-basis states.  The X-basis statevectors are \textit{eigenvectors} of the X gate matrix.  We will later learn that like the Z-basis states, their statevectors form an (orthonormal) basis for any pure qubit statevector.}
 \end{example}
@@ -827,9 +900,9 @@ There should be one letter q left.  On the wire to its right, drag the \textit{m
 \begin{figure}[H]
 	\includegraphics[width=\columnwidth]{images/Measure_IBMQuantumComposer.PNG}
 \end{figure}
-You'll see the section at the bottom left change when you apply this measurement to your qubit.  Because each qubit is initialized in the $\ket{0}$ state by default, the simulated measurement probability of measuring $\ket{0}$ is $100\%$, while for $\ket{1}$ it is $0\%$.  This is as we expect from when we first calculated probability amplitudes in Equations~\ref{eq:braket00} and \ref{eq:braket01}, and found the probability in Equation~\ref{eq:prob00}.
+You'll see the section at the bottom left change when you apply this measurement to your qubit.  Because each qubit is initialized in the $\kz0$ state by default, the simulated measurement probability of measuring $\kz0$ is $100\%$, while for $\kz1$ it is $0\%$.  This is as we expect from when we first calculated probability amplitudes in Equations~\ref{eq:braket00} and \ref{eq:braket01}, and found the probability in Equation~\ref{eq:prob00}.
 
-Now we can try to do the same process of measuring, this time for the $\ket{1}$ state.  You may notice that although there is a gray icon above labelled $\ket{0}$ which is used to (re-)initialize a qubit to the $\ket{0}$ state, there is no icon labelled $\ket{1}$.  Instead, we will create it out of the operations we have.
+Now we can try to do the same process of measuring, this time for the $\kz1$ state.  You may notice that although there is a gray icon above labelled $\kz0$ which is used to (re-)initialize a qubit to the $\kz0$ state, there is no icon labelled $\kz1$.  Instead, we will create it out of the operations we have.
 
 See the target icon, which is the leftmost blue icon?  That is the X gate, a.k.a. the NOT gate.  Instead of a target, sometimes in quantum circuits it is drawn as a box on the wire with the letter X in it.
 If you drag that X gate icon just left of where you dragged the measure icon, you will see the probabilities change from $100\%$ $\kz0$ to $100\%$ $\kz1$.
