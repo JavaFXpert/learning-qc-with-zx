@@ -376,6 +376,7 @@ At first, this may seem counterintuitive to our macroscopic world.  If you hold 
 
 As we saw from Example \ref{ex:pr1m}, the Z- and X- bases have the property that when measured in the other of the two bases, the probability of any measurement outcome is uniformly $\frac{1}{2}$.  For this reason, the Z- and X- bases are called \textit{mutually unbiased bases} with respect to each other.  We've now learned enough about mathematically describing quantum two-state systems to combine that understanding with what Stern and Gerlach observed.
 
+\newpage
 \begin{example}[Z-measurement then Z-measurement] \label{example:sterngerlachzz}
 Stern and Gerlach observed that each silver atom passing through their inhomogenous magnetic field in the z direction had a $\frac{1}{2}$ chance of being deflected upwards ($+$z direction), and a $\frac{1}{2}$ chance of being deflected downwards ($-$z direction).  They then took each silver atom that was deflected upwards, and sent that through another inhomogenous magnetic field in the z direction.  This second time, all the atoms were deflected upwards --- why?
 
@@ -394,6 +395,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 \textnormal{Following this logic, we expect that any number of Z-measurements done thereafter would continue to yield the $z_+$ state.}
 \end{example}
 
+\newpage
 \begin{example}[Z-measurement then X-measurement] \label{example:sterngerlachzx}
 	Stern and Gerlach observed that each silver atom passing through their inhomogenous magnetic field in the z direction had a $\frac{1}{2}$ chance of being deflected upwards ($+$z direction), and a $\frac{1}{2}$ chance of being deflected downwards ($-$z direction).  They then took each silver atom that was deflected upwards, and sent that through another inhomogenous magnetic field, this time in the x direction.  This second time, $\frac{1}{2}$ the atoms were deflected in the $+$x direction and $\frac{1}{2}$ the atoms were deflected in the $-$x direction --- why?
 	
@@ -413,8 +415,9 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 	From Equation \ref{eq:braket0+}, we know that $\langle+|\,0\,\rangle = \conj{\langle\,0\,|+\rangle} = \conj{\frac{1}{\sqrt{2}}} = \frac{1}{\sqrt{2}}$.  Likewise, $\langle-|\,0\,\rangle = \frac{1}{\sqrt{2}}$.  Therefore, all atoms that were deflected upwards after the first field, had a 50-50 chance of being deflected left or right after the second field.}
 \end{example}
 
+\newpage
 \begin{example}[Z-measurement then X-measurement then Z-measurement] \label{example:sterngerlachzxz}
-	After their setup in Example \ref{example:sterngerlachzx}, Stern and Gerlach sent the $x_+$ silver atoms through one more z-aligned inhomogenous magnetic field.  They were surprised at what they saw.  What did they see?
+	After their setup in Example~\ref{example:sterngerlachzx}, Stern and Gerlach sent the $x_+$ silver atoms through one more z-aligned inhomogenous magnetic field.  They were surprised at what they saw.  What did they see?
 	
 	\begin{figure}[H]
 		\ctikzfig{sterngerlachzxz}
@@ -429,7 +432,7 @@ From Equation \ref{eq:braket00}, we know that $\langle\,0\,|\,0\,\rangle$ is 1. 
 	\begin{equation}
 		\text{Pr}(z_-|x_+) = \text{Pr}(\,1\,|+) = \abs{\langle\,1\,|+\rangle}^2
 	\end{equation}
-	From Equation \ref{eq:braket0+}, we know that $\langle\,0\,|+\rangle = \frac{1}{\sqrt{2}}$.  Likewise, $\langle\,1\,|+\rangle = \frac{1}{\sqrt{2}}$.  Therefore, all atoms that were in the $\kx+$ state after the second field, had a 50-50 chance of being deflected up or down by the third field.  Therefore, the reason for Stern and Gerlach's surprise was that although the second of two consecutive Z-measurements yielded all $\kz0$ as we saw in Example \ref{example:sterngerlachzz}, adding an X-measurement in-between the Z-measurements changed that to half $\kz0$ and half $\kz1$.}
+	From Equation~\ref{eq:braket0+}, we know that $\langle\,0\,|+\rangle = \frac{1}{\sqrt{2}}$.  Likewise, $\langle\,1\,|+\rangle = \frac{1}{\sqrt{2}}$.  Therefore, all atoms that were in the $\kx+$ state after the second field, had a 50-50 chance of being deflected up or down by the third field.  Therefore, the reason for Stern and Gerlach's surprise was that although the second of two consecutive Z-measurements yielded all $\kz0$ as we saw in Example \ref{example:sterngerlachzz}, adding an X-measurement in-between the Z-measurements changed that to half $\kz0$ and half $\kz1$.}
 \end{example}
 
 \newpage
@@ -501,6 +504,7 @@ Before we talk about the general form of any vector on the Bloch sphere, let us 
 Up until now, to obtain the test corresponding to a state, all we had to do was take the matrix transpose of the ket column vector to get the bra row vector.  That has been correct so far because we have been dealing just with real numbers.  In general, when the statevectors can have complex coefficients, we need to take the \textit{conjugate transpose}\footnote{As a refresher, this means to take the transpose where you also replace each number by its complex conjugate.  This way, when all the numbers are real, the conjugate transpose and transpose operations are identical.} of the ket to get the bra, and the conjugate transpose of the bra to get the ket.
 
 In the following example, we will introduce how we can perform transformations on our diagrams which correspond to transformations on our matrices.
+\newpage
 \begin{example}[Y-basis states]
 	What are the statevectors and diagrams corresponding to the complex conjugation, transpose, and conjugate transpose of $\kx{+i}$ and $\kx{-i}$, the Y-basis states introduced below?
 
@@ -514,11 +518,11 @@ In the following example, we will introduce how we can perform transformations o
 	\end{align}
 	It doesn't make sense to visualize this on the unit circle, because in the real 2D plane we don't have an intuitive way of plotting complex numbers.
 	On the Bloch sphere, they are simply the states corresponding to the $+$y and $-$y axes.
+	}
 	\begin{figure}
 		\ctikzfig{bloch+i-i}
 		\caption{$\kx{+i}$ and $\kx{-i}$ are plotted here on the Bloch sphere.}
 	\end{figure}
-	}
 
 	Complex conjugation:
 
@@ -548,7 +552,19 @@ In the following example, we will introduce how we can perform transformations o
 	This is consistent, because both taking the conjugate and then the transpose, and taking the transpose then the conjugate, yield the conjugate transpose.
 	}
 \end{example}
-In the above example, our act of chopping off a side of our bra and ket triangles in our diagrams was put to use for our first time.  Moreover, for our diagrams read from bottom to top, when our diagrams are horizontally symmetric, it signifies that property of being self-conjugate.  Looking back at Equations \ref{eq:ket0}, \ref{eq:ket1}, \ref{eq:ket+}, and \ref{eq:ket-}, we used a horizontally symmetric triangle as our diagrams for the Z- and X- basis states.  This is because all states in the ZX slice of the Bloch sphere have real number coefficients, and thus are self-conjugate.
+In the above example, we put to use for the first time the distinction of which side of our bra and ket triangles we ``cut off''.
+For the flowchart below, we consider an arbitrary qubit state $\psi$, but these three transformations can be done to any diagram.
+Here we are reading our diagrams from bottom to top\footnote{There are other conventions, such as top to bottom, or left to right.  We will later switch to reading left to right, so we can translate between ZX diagrams and quantum circuits.}.
+For an arbitrary qubit state $\psi$, we get the diagram of its complex conjugate by reflecting horizontally.
+Likewise, we get the diagram of its adjoint (a.k.a. conjugate transpose) by reflecting vertically.
+Finally, we get the diagram of its transpose by rotating by $180^{\degree}$.
+\begin{figure}[H]
+	\label{fig:conjugateandtransposestates}
+	\ctikzfig{conjugateandtransposestates}
+\end{figure}
+
+Whenever a quantum state has the special property of being self-conjugate --- equal to its own complex conjugate --- we can let its diagram simply be a triangle, as we did earlier for the $Z$ and $X$ basis staets.
+Looking back at Equations \ref{eq:ket0}, \ref{eq:ket1}, \ref{eq:ket+}, and \ref{eq:ket-}, we used a horizontally symmetric triangle as our diagrams for the Z- and X- basis states.  This is because all states in the ZX slice of the Bloch sphere have real number coefficients, and thus are self-conjugate.
 
 Cheerfully, our toolbox now has all the X-, Y-, and Z- basis states.
 \begin{figure}[H]
@@ -744,10 +760,12 @@ The more gates involved, the harder it is to keep track of all the parentheses. 
 \end{align}
 
 Most importantly of all, we can use these \textit{diagram rewrite rules} to simplify a circuit to one that does the exact same computation.  As an added bonus, being proficient at this helps us better understand the computation at hand.
+
+\newpage
 \begin{example}[]
 \label{example:nnorn}
 Without actually computing any truth table(s), what is the truth table of the circuit in this diagram?
-\begin{figure}
+\begin{figure}[H]
 	\ctikzfig{nnorn}
 	\caption{The circuit which Example \ref{example:nnorn} asks to find the truth table for}
 	\label{fig:nnorn}
@@ -777,6 +795,7 @@ We will now introduce the gates \{I, X, Y, Z\} as a \textit{group}.
 You may be used to using the word ``group'' in casual conversation as a collection of multiple individual entities, but the word ``group'' here is referring to the mathematical definition of a group.
 
 \begin{definition}[Group]
+	\label{def:group}
 	A \textit{group} is a set (i.e. a collection of elements which are unordered), along with a binary operation (i.e. has two inputs and one output) called the \textit{group operation}, satisfying all four conditions below:
 	\begin{itemize}
 		\item \textit{closure}: Applying the group operation to any two elements in the set, always outputs an element in the set.
@@ -806,6 +825,7 @@ As an exercise, you can verify that the integers over addition (with identity el
 We will see that we can group together operations on quantum computers too.  The following example, albeit a little silly, is a useful analogy for the group that you get from the four quantum gates that we will cover in this section.
 
 \begin{example}[Artificial gravity]
+	\label{ex:groupfirstex}
 	You are an astronaut in a room shaped like a cube, in outer space.  In the absence of gravity, you rely on your magnetic boots to stand on any one of the six sides of the room.  There are three magnetic fields, aligned to each of the two sides of the room opposite each other.  Show that by being able to flip the direction of each magnetic field, you can stand on any combination of three non-opposite sides of the room.
 	
 	\textnormal{The brute-force approach to this would be to list all possible combinations of directions the magnetic fields could be in, but that is neither fun nor efficient.  Instead, we will show that these three flip operations, plus the identity operation (of doing nothing), generate a group where the group operation is doing these flips in succession.}
@@ -940,34 +960,81 @@ and
 	\textnormal{Now with the knowledge that the X gate does not change either of the X-basis states, it makes more sense why they are called the X-basis states.  The X-basis statevectors are \textit{eigenvectors} of the X gate matrix.  Like the Z-basis states, their statevectors form an (orthonormal) basis for any pure qubit statevector --- you can express any pure qubit statevector as a particular linear combination of $\kx+$ and $\kx-$.}
 \end{example}
 
-It can help to visualize this operation on the unit circle and on the Bloch sphere.
+Don't worry, we won't have to compute many more matrices by hand in this text.
+The point of learning here the basics of how to compute the application of a gate to a statevector, is so that when we use the formalism of the ZX calculus, we can convince ourselves that we are still doing the correct computation, but without having to directly compute any matrices.
 
+What does the $X$ gate operation look like on the unit circle?
+It is simply a reflection about the dashed line that is $45^{\degree}$ from $\kz1$, which is halfway between $\kz0$ and $\kz1$.
 \begin{figure}[H]
 	\ctikzfig{unitcirclex}
 \end{figure}
+Because the $\kx+$ state is on this dashed line, applying the $X$ gate to it leaves it unchanged --- the $\kx+$ statevector is an eigenvector of the $X$ gate matrix, with eigenvalue $+1$.
+
+We can also visualize that reflecting about this dashed line maps $\kz0$ and $\kz1$ to each other.
+Further, it maps $\kx-$ to $-\kx-$, showing that $\kx-$ is an eigenstate of $X$ with eigenvalue $-1$.
 \begin{figure}[H]
 	\ctikzfig{unitcirclexex}
 \end{figure}
-More general: the Rx gate
+
 
 \subsubsection{The Z gate}
-The Z gate
+While the X gate interchanges the Z-basis states $\kz0$ and $\kz1$, the Z gate interchanges the X-basis states $\kx+$ and $\kx-$.  The Z and X bases are mutually unbiased to each other, as we saw earlier, because any Z-basis state measured in the X-basis can have measurement outcome equally likely to be either of the X-basis states, and vice versa.
+However, the relationship between the Z and X bases is more special than that: when we start learning about the ZX-calculus, we will see they have the property of \textit{strong complementarity}.
+This will enable us to describe quantum computations in terms of Z and X rotations.  At the end of this section introducing single-qubit gates, we will learn about these rotation gates.
+
+What does the Z gate do to arbitrary pure qubit states?
+We compute this by multiplying the statevector by the matrix of the Z gate,
 \begin{equation}
 	Z = \begin{bmatrix}
 		1 & 0\\
 		0 & -1
 	\end{bmatrix}
 \end{equation}
+
+From the matrix definition, you can readily verify that
+\begin{align}
+	Z \kx+ &= \begin{bmatrix}
+		1 & 0\\
+		0 & -1
+	\end{bmatrix} \frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		1
+	\end{bmatrix}\\
+	&= \frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		-1
+	\end{bmatrix}\\
+	&= \kx-
+\end{align}
+and
+\begin{align}
+	Z \kx- &= \begin{bmatrix}
+		1 & 0\\
+		0 & -1
+	\end{bmatrix} \frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		-1
+	\end{bmatrix}\\
+	&= \frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		1
+	\end{bmatrix}\\
+	&= \kx+
+\end{align}
+
+Likewise, you can verify by matrix multiplication that $Z \kz0 = \kz0$ and $Z \kz1 = -\kz1$, demonstrating that $\kz0$ and $\kz1$ are indeed the Z-basis states as they are eigenstates of $Z$ with eigenvalues $+1$ and $-1$, respectively.
+
+To readily recall what the $Z$ gate does to these four states, we can have a picture in our head of the unit circle.
+Here the $Z$ gate is simply reflecting about the vertical dashed line below.
 \begin{figure}[H]
 	\ctikzfig{unitcirclez}
 \end{figure}
 \begin{figure}[H]
 	\ctikzfig{unitcirclezex}
 \end{figure}
-More general: the Rz gate
 
 \subsubsection{The Y gate}
-The final Pauli gate we will learn about is the Y gate.
+The final of the three Pauli gates is the Y gate.
 To apply it to any pure qubit state, we multiply that state's statevector by the matrix of the Y gate,
 \begin{equation}
 	Y = \begin{bmatrix}
@@ -976,14 +1043,55 @@ To apply it to any pure qubit state, we multiply that state's statevector by the
 	\end{bmatrix}
 \end{equation}
 You can verify that the eigenvectors of the Y gate are the statevectors for $\ket{+i}$ and $\ket{-i}$, the states on the $y$-axis of the Bloch sphere.
-More general: the Ry gate
+
+As for what $Y$ does to the other basis vectors: Up to a global phase, it sends $\kz0$ and $\kz1$ to each other and $\kx+$ and $\kx-$ to each other.
+
+\subsubsection{The Pauli group}
+In fact, each of $X$, $Y$, and $Z$ send their own basis states to themselves (up to a global phase), and send the other two bases' basis states to the other basis state in that basis (also up to a global phase).
+This property has a deeper significance, as it lets us define them as part of a \textit{group} as in Definition~\ref{def:group}, called the \textbf{Pauli group}.
+If we compare to Example~\ref{ex:groupfirstex} with the group of reflections in SO(3) (three real number dimensions), the Pauli group is like that but for SU(2) (two complex number dimensions).
+
+The Pauli group consists of the elements $\{\pm I, \pm X, \pm Y, \pm Z, \pm iI, \pm iX, \pm iY, \pm iZ\}$, where the group operation is matrix multiplication.
+
+The Pauli group is \textit{generated} by the Pauli matrices $X$, $Y$, and $Z$.  So let us first define what a generating set of a group is.
+\begin{definition}[Generating set of a group]
+	\label{def:generategroup}
+	Say we have some group $G$ already.
+	A subset of the elements of the group is called a \textit{generating set} if you can apply the group operation to them in succession, to arrive at all the other elements of the group.
+\end{definition}
+
+\begin{example}[X, Y, and Z generate the Pauli group]
+	\label{ex:generatepauli}
+	Starting with the X, Y, and Z matrices, by only multiplying their matrices together, generate the rest of the Pauli group.
+
+	\textnormal{
+	You can show, using matrix multiplication, that $iI = X Y Z$.
+	Therefore, $-I = (X Y Z)^2$, $-iI = (X Y Z)^3$, and $I = (X Y Z)^4$.
+	We can multiply $X$ by $iI$, $-I$, and $-iI$ to get $iX$, $-X$, and $-iX$.
+	Do the same to $Y$ and $Z$.
+	Therefore, the three matrices $X$, $Y$, and $Z$ --- called the Pauli matrices --- generate the Pauli group.
+	}
+\end{example}
+
+\subsubsection{Visualizing rotation gates on the Bloch sphere}
+We will have more to say about the Pauli group later, but for now let us next look at the Bloch sphere which is where we visualize SU(2).
+This allows us to directly visualize another way.  What if instead of thinking about the Pauli matrices as ``reflecting'' about some axis on the unit circle, we thought about it as ``rotating'' about an axis of the Bloch sphere by $\pi$ radians?
+
+Then we can also think about rotating by other angles --- anything in the range $[0,2\pi)$.
+We can now define the \textbf{parametrized} versions of the $X$, $Y$, and $Z$ gate: the $RX$, $RY$, and $RZ$ gates.
+The word parametrized here means in the sense of functions, because these three gates each take in one parameter, which is the desired angle of rotation (on the Bloch sphere), and return the matrix of the gate.
+
+%%% Show RX, RY, RZ figures.  Make it clear the special cases of pi rotations (with restrictions to unit circle and complex plane), S gate, and T gate.  Check with Qiskit's angle conventions.
+
 
 \newpage
 \subsubsection{The H gate}
+We can cover one more useful single-qubit gate: the $H$ gate, which is short for the \textit{Hadamard gate}.
 \begin{figure}[H]
 	\label{fig:Hgate}
 	\ctikzfig{unitcirclehreflect}
 \end{figure}
+
 On the Bloch sphere, it's a $\pi$ rotation about the axis that is exactly halfway between the $x$-axis and the $z$-axis
 
 Animations from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}:
@@ -999,6 +1107,8 @@ Animations from \url{https://quantumcomputing.stackexchange.com/questions/18031/
 		\animategraphics[controls,width=2in]{20}{images/HgateEulerBloch/animation-}{0}{200}
 	\end{frame}
 \end{minipage}
+
+
 
 \newpage
 \section{Recipe for one-qubit quantum circuits}
