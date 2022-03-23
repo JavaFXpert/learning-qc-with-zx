@@ -3,16 +3,71 @@
 \usepackage{cancel}
 \usepackage{float}
 %\usepackage{gensymb}
+\usepackage[margin=1in, top=1in, bottom=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{tikz}
 \usepackage{tikzit}
+% \usetikzlibrary{external}
+% \tikzexternalize[optimize=false,prefix=figures/cache/] % activate and define figures/ as cache folder
 \input{preamble.tex}
 \input{zx.tikzstyles}
 
 \def\tikzscale{1.5}
 
-\newtheorem{example}{Example}
+\usepackage[T1]{fontenc}
+\usepackage[skins,hooks,xparse,breakable]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{chngcntr}
+
+\newcounter{examplecounter}
+\counterwithin{examplecounter}{section}
+
+\usetikzlibrary{calc}
+
+\definecolor{greentitle}{RGB}{61,170,61}
+\definecolor{greentitleback}{RGB}{216,233,213}
+\definecolor{drakgreentitle}{RGB}{24,131,80}
+
+\DeclareTColorBox{example}{O{}o}{
+    enhanced,
+    breakable,
+    arc=0pt,
+    boxrule=0pt,
+    colback=white,
+    top=3em, % you can change the top spacing
+    overlay unbroken and first={
+        % draw box on the left
+        \node[fill=greentitleback,
+            font=\color{greentitle}\sffamily\bfseries\large,
+            anchor=south west,
+            xshift=2mm,
+            yshift=-2.2em, % you can change xshift and yshift to adjust the title placement
+        ] (titlebox) at (frame.north west) 
+        {Example \refstepcounter{examplecounter}\theexamplecounter
+        % add cross-referencing support
+        \IfValueT{#2}{\label{#2}}
+        };
+        
+        % write title on the right
+        \node[font=\color{drakgreentitle}\sffamily\large, 
+        anchor=west
+        ] at ($(titlebox.east)+(2mm,0mm)$) {#1};
+        
+        % draw the vertical line on the left
+        \draw[draw=greentitleback, line width=2pt] 
+            (titlebox.north west-|frame.north west)--(frame.south west);
+    },
+    overlay middle and last={
+        \draw[draw=greentitleback, line width=2pt] 
+            (frame.north west)--(frame.south west);
+    }
+    fonttitle=\color{greentitle}\sffamily\bfseries,
+}
+\newcommand{\soln}{{\\[1em] \hspace{-1em}\color{greentitle}\sffamily\large Solution: \\[0.5em]}}
+
+
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newcommand*\conj[1]{\bar{#1}}
@@ -195,7 +250,18 @@ On the other hand, it can help to think of the word "amplitude" visually.  When 
 We have gotten comfortable with the qubit states which encode the classical bit states 0 and 1.  Yet if all we do with qubits is represent binary values, we are using a quantum bit to do exactly what a classical bit does.  We now demystify the math of one of the key features of quantum computing: \textit{superposition}.
 A qubit is more powerful than a bit.  Informally, it can be 0, 1, or ``anything in-between''.  \textbf{Superposition} is this property of quantum states to encode information ``in-between'' states.  You might also hear people call a superposition of states, a \textit{mixture} of states.
 
-A special case we will see often is that of \textit{equal superposition}.  Consider the state
+A thought experiment about quantum superposition that you may have heard of before is Schr\"odinger's cat.  Suppose you have a closed box, and you know there is a cat in that box.  The question is, is that cat alive or dead?  The only way for you to tell is to open the box:
+\noindent%
+\begin{minipage}[t]{0.45\linewidth}
+	\begin{frame}{}
+		\animategraphics[controls,width=2in]{12}{images/OpeningBox/animation-}{0}{271}
+	\end{frame}
+\end{minipage}
+More formally, you know that the cat in the box is in one of two states: alive or dead.
+At the moment before you look into the box, your knowledge of the state of the cat is in superposition: there is some probability that the cat turns out to be alive, and some probability that the cat turns out to be dead.
+The act of seeing the cat allows you to confirm which state of these two states the cat is in.
+
+We will start with a special case of superposition that we will see often: that of \textit{equal superposition}.  Consider the state
 \begin{equation}
 	\tikzfig{ket+unnorm}
 	\label{eq:ket+unnorm}
@@ -205,7 +271,7 @@ It is the sum of $\kz0$ and $\kz1$:
 \begin{equation}
 	\tikzfig{ket+unnormsuperposition}
 	\label{eq:ket+unnormsuperposition}
-\end{equation}
+ \end{equation}
 
 However, we will notice something goes wrong when we try to test the $\ket{+}$ state for itself:
 \begin{equation}
@@ -276,7 +342,7 @@ What this means is that the inner product of an X-basis state with a Z-basis sta
 \end{align}
 As we learned in Equation \ref{eq:braketprob}, the norm-squared of the probability amplitude is the probability you observe the outcome you're testing for.    Let's see this through an example.
 
-\begin{example}
+\begin{example}[]
 \label{ex:pr1m}
 If your state is $\kx-$, and you test for $\kz1$, what is the probability you observe $\kz1$?
 
@@ -607,7 +673,6 @@ That's all for now, folks!
 To get a taste of what we will learn next, check out how quantum gates transform a qubit state in the interactive Bloch sphere demo by James Weaver at \url{https://javafxpert.github.io/grok-bloch/}.
 
 \section{Building a quantum circuit}
-%%% I think this section is for conjugate transpose kind of things?
 
 \subsubsection{Rewriting diagrams with equations}
 So far we have used diagrams in equations without stating what that means.  If we have two equal diagrams, whenever we see one of them, we can replace it with the other.
@@ -679,7 +744,7 @@ The more gates involved, the harder it is to keep track of all the parentheses. 
 \end{align}
 
 Most importantly of all, we can use these \textit{diagram rewrite rules} to simplify a circuit to one that does the exact same computation.  As an added bonus, being proficient at this helps us better understand the computation at hand.
-\begin{example}
+\begin{example}[]
 \label{example:nnorn}
 Without actually computing any truth table(s), what is the truth table of the circuit in this diagram?
 \begin{figure}

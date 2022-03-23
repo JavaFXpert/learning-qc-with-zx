@@ -14,7 +14,7 @@
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=light right directed arrow] (1.center) to (3.center);
 		\draw [style=light right directed arrow] (2.center) to (3.center);
-		\draw [style=light right directed arrow] (5.center) to (3.center);
+		\draw [style=light right directed arrow, in=270, out=90] (5.center) to (3.center);
 		\draw [style=light right directed arrow] (4.center) to (3.center);
 		\draw [style=diredge0.3] (3.center) to (6.center);
 		\draw [style=diredge0.3] (3.center) to (13.center);
