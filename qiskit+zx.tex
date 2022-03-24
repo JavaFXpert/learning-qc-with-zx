@@ -504,8 +504,9 @@ Before we talk about the general form of any vector on the Bloch sphere, let us 
 Up until now, to obtain the test corresponding to a state, all we had to do was take the matrix transpose of the ket column vector to get the bra row vector.  That has been correct so far because we have been dealing just with real numbers.  In general, when the statevectors can have complex coefficients, we need to take the \textit{conjugate transpose}\footnote{As a refresher, this means to take the transpose where you also replace each number by its complex conjugate.  This way, when all the numbers are real, the conjugate transpose and transpose operations are identical.} of the ket to get the bra, and the conjugate transpose of the bra to get the ket.
 
 In the following example, we will introduce how we can perform transformations on our diagrams which correspond to transformations on our matrices.
+
 \newpage
-\begin{example}[Y-basis states]
+% \begin{example}[Y-basis states]
 	What are the statevectors and diagrams corresponding to the complex conjugation, transpose, and conjugate transpose of $\kx{+i}$ and $\kx{-i}$, the Y-basis states introduced below?
 
 	\textnormal{While we have seen the Z- and X- basis states in action, we have yet to do anything with the y axis of the Bloch sphere.
@@ -551,7 +552,7 @@ In the following example, we will introduce how we can perform transformations o
 	\end{align}
 	This is consistent, because both taking the conjugate and then the transpose, and taking the transpose then the conjugate, yield the conjugate transpose.
 	}
-\end{example}
+% \end{example}
 In the above example, we put to use for the first time the distinction of which side of our bra and ket triangles we ``cut off''.
 For the flowchart below, we consider an arbitrary qubit state $\psi$, but these three transformations can be done to any diagram.
 Here we are reading our diagrams from bottom to top\footnote{There are other conventions, such as top to bottom, or left to right.  We will later switch to reading left to right, so we can translate between ZX diagrams and quantum circuits.}.
@@ -762,8 +763,8 @@ The more gates involved, the harder it is to keep track of all the parentheses. 
 Most importantly of all, we can use these \textit{diagram rewrite rules} to simplify a circuit to one that does the exact same computation.  As an added bonus, being proficient at this helps us better understand the computation at hand.
 
 \newpage
-\begin{example}[]
-\label{example:nnorn}
+% \begin{example}[]
+% \label{example:nnorn}
 Without actually computing any truth table(s), what is the truth table of the circuit in this diagram?
 \begin{figure}[H]
 	\ctikzfig{nnorn}
@@ -783,7 +784,7 @@ Without actually computing any truth table(s), what is the truth table of the ci
 \end{equation}
 Therefore, the given circuit has the same truth table as the AND gate.
 }
-\end{example}
+% \end{example}
 
 One observation to point out is that some of these classical logic gates are not \textit{reversible}.  For a gate $g$ to be reversible, there must exist a gate $g'$ (which can be same as or different to $g$) that can ``undo'' the computation done by $g$.  In other words, applying $g'$ after $g$ should be the same as if you applied no gates, i.e. the identity operation.  When you have more input bits than output bits, there are more possible inputs than possible outputs; therefore the gate cannot be reversible, as there is at least one possible output for which it is impossible to uniquely determine what the input was.
 
@@ -1075,27 +1076,90 @@ The Pauli group is \textit{generated} by the Pauli matrices $X$, $Y$, and $Z$.  
 
 \subsubsection{Visualizing rotation gates on the Bloch sphere}
 We will have more to say about the Pauli group later, but for now let us next look at the Bloch sphere which is where we visualize SU(2).
-This allows us to directly visualize another way.  What if instead of thinking about the Pauli matrices as ``reflecting'' about some axis on the unit circle, we thought about it as ``rotating'' about an axis of the Bloch sphere by $\pi$ radians?
+This allows us to directly visualize another way.  What if instead of thinking about the Pauli matrices as ``reflecting'' about some axis on the unit circle, we thought about it as ``rotating'' halfway around the Bloch sphere?
 
-Then we can also think about rotating by other angles --- anything in the range $[0,2\pi)$.
+The $X$, $Y$, and $Z$ gates are rotations halfway around the Bloch sphere ($\pi$ radians) about the $x$-, $y$-, and $z$- axes respectively.
+
+Then we should also be able to rotate by other angles --- anything in the range $[0,2\pi)$.
 We can now define the \textbf{parametrized} versions of the $X$, $Y$, and $Z$ gate: the $RX$, $RY$, and $RZ$ gates.
 The word parametrized here means in the sense of functions, because these three gates each take in one parameter, which is the desired angle of rotation (on the Bloch sphere), and return the matrix of the gate.
+\begin{figure}[H]
+	\ctikzfig{blochrxyz}
+\end{figure}
+As you can see here, we always rotate in the direction of the \textit{right-hand rule}: Make a thumbs up with your right hand, rotated so your thumb in the positive direction of the axis of rotation.  The direction your fingers curl towards is the direction of rotation.
 
-%%% Show RX, RY, RZ figures.  Make it clear the special cases of pi rotations (with restrictions to unit circle and complex plane), S gate, and T gate.  Check with Qiskit's angle conventions.
+\newpage
+\begin{example}[RZ rotation on the Bloch sphere]
+We want to rotate the blue statevector on the Bloch sphere below about the $z$-axis by an angle $\alpha$, i.e. visualize applying the $RZ(\alpha)$ gate.
 
+\textnormal{Here $\alpha$ is a real number in the range $[0,2\pi)$ --- if it a real number outside that range, we can take it modulo $2\pi$ because rotating a full circle (which is $2\pi$ radians) gets you back where you started.}
+
+\textnormal{The right hand rule tells us which direction to rotate.  We want to rotate about the $z$-axis, so we make a thumbs up with our right hand, and then point our right thumb in the $+z$ direction.  The direction our fingers are now curling towards, is the direction in which we will rotate by $\alpha$ radians.}
+
+\textnormal{In the figure below, this direction and the angle $\alpha$ are in light blue.  After the $RZ(\alpha)$ gate, our new statevector is shown in black on the Bloch sphere below.}
+\begin{figure}[H]
+	\ctikzfig{blochrzrotate}
+\end{figure}
+\end{example}
+
+The matrices of $RX$, $RY$, and $RZ$ are like the complex (SU(2)) version of the standard 3D rotation matrices (in SO(3)) about the three axes.
+The $RZ(\alpha)$ gate has the matrix\footnote{in Qiskit the $RZ(\alpha)$ gate definition is the same up to a global phase of $e^{i\alpha/2}$.}
+\begin{equation}
+	Z = \begin{bmatrix}
+		1 & 0\\
+		0 & e^{i\alpha}
+	\end{bmatrix}
+\end{equation}
+
+There are some angles of $RZ$ rotation that are special enough to deserve their own gate names.
+We'll just define them here:
+\begin{itemize}
+	\item The $Z$ gate is simply the $RZ(\pi)$ gate, thanks to Euler's identity: $e^{i\pi} = -1$.
+	\item The $S$ gate \begin{equation}
+		S = \begin{bmatrix}
+			1 & 0\\
+			0 & i
+		\end{bmatrix}
+	\end{equation} is another name for the $RZ(\pi/2)$ gate, as $e^{i\pi/2} = i$.
+	\item The $T$ gate is the $RZ(\pi/4)$ gate.
+\end{itemize}
 
 \newpage
 \subsubsection{The H gate}
-We can cover one more useful single-qubit gate: the $H$ gate, which is short for the \textit{Hadamard gate}.
+We can cover one more useful single-qubit gate: the $H$ gate, which is short for the \textit{Hadamard gate}.  Its matrix is
+\begin{equation}
+	H = \frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & 1\\
+		1 & -1
+	\end{bmatrix}
+\end{equation}
+
+We can have the intuition that the $H$ gate swaps the $Z$ and $X$ bases.
+It sends $\kz0$ and $\kx+$ to each other, and $\kz1$ and $\kx-$ to each other.
+
+On the unit circle, it is reflection about the dashed line below.
 \begin{figure}[H]
 	\label{fig:Hgate}
 	\ctikzfig{unitcirclehreflect}
 \end{figure}
 
-On the Bloch sphere, it's a $\pi$ rotation about the axis that is exactly halfway between the $x$-axis and the $z$-axis
+In the Bloch sphere below, the unit circle but with angles doubled is the light blue circle.
+The light blue axis that is halfway between the $z$- and $x$- axes of that circle, is the axis you do a $\pi$ rotation about for the $H$ gate.
+\begin{figure}[H]
+	\ctikzfig{blochh}
+\end{figure}
 
-Animations from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}:
+A cool fact about 3D rotations is that if we know how to do (parametrized) rotations about any two 
 
+The $H$ gate has what is called its \textbf{Euler decomposition}.  It means that we can decompose the $H$ gate into alternating $Z$ and $X$ rotations where the rotation angle is $\pm \pi/2$.
+
+\begin{align}
+	% the four H Euler decomposition equations go here
+\end{align}
+
+
+We can see this decomposition visually on the Bloch sphere by comparing the two animations below\footnote{These animations are from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}}.
+% description of the two animations goes here
 \noindent%
 \begin{minipage}[t]{0.45\linewidth}
 	\begin{frame}{}

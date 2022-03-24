@@ -47,3 +47,5 @@
 \tikzstyle{pink0.3}=[-, line width=0.3mm, color={rgb,255: red,255; green,100; blue,200}, tikzit draw={rgb,255: red,255; green,100; blue,200}]
 \tikzstyle{light blue0.3}=[-, line width=0.3mm, color={rgb,255: red,100; green,200; blue,248}, tikzit draw={rgb,255: red,100; green,200; blue,248}]
 \tikzstyle{green0.3}=[-, color={rgb,255: red,100; green,255; blue,50}, tikzit draw={rgb,255: red,100; green,255; blue,50}, line width=0.3mm]
+\tikzstyle{diredge light0.3}=[->, diredge, color=blue, line width=0.3mm, tikzit draw=blue]
+\tikzstyle{light blue diredge0.08}=[light blue edge, ->, tikzit draw={rgb,255: red,100; green,200; blue,248}, line width=0.08mm]
