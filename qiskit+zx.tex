@@ -652,6 +652,7 @@ We will now explain why, for practical purposes, we can ignore any global phase 
 % The explanation of global phase in the Qiskit textbook is at https://qiskit.org/textbook/ch-states/representing-qubit-states.html
 
 \begin{example}[Apollo's twin qubits]
+	\label{ex:globalphase}
 	Apollo and Artemis each have a qubit.  They know that one of the two qubits is in the state $\ket{\psi}$, although they don't know which one.  They also know that the other qubit is in the state $e^{i \gamma} \ket{\psi}$.  Is there a test they can do to figure out who has which qubit?
 
 	\textnormal{How we learn information about a qubit's state is by testing it.  The ideal test would be one which can tell us decisively who has which qubit.  An ideal test $\bra{t_\text{ideal}}$ would be one that can distinguish between two states, $\ket{\psi}$ and $\ket{\phi}$, by satisfying either}
@@ -1081,7 +1082,7 @@ This allows us to directly visualize another way.  What if instead of thinking a
 The $X$, $Y$, and $Z$ gates are rotations halfway around the Bloch sphere ($\pi$ radians) about the $x$-, $y$-, and $z$- axes respectively.
 
 Then we should also be able to rotate by other angles --- anything in the range $[0,2\pi)$.
-We can now define the \textbf{parametrized} versions of the $X$, $Y$, and $Z$ gate: the $RX$, $RY$, and $RZ$ gates.
+We can now define the \textbf{parametrized} versions of the $X$, $Y$, and $Z$ gate: let us call them the $X$, $Y$, and $Z$ rotation gates.
 The word parametrized here means in the sense of functions, because these three gates each take in one parameter, which is the desired angle of rotation (on the Bloch sphere), and return the matrix of the gate.
 \begin{figure}[H]
 	\ctikzfig{blochrxyz}
@@ -1089,21 +1090,21 @@ The word parametrized here means in the sense of functions, because these three 
 As you can see here, we always rotate in the direction of the \textit{right-hand rule}: Make a thumbs up with your right hand, rotated so your thumb in the positive direction of the axis of rotation.  The direction your fingers curl towards is the direction of rotation.
 
 \newpage
-\begin{example}[RZ rotation on the Bloch sphere]
-We want to rotate the blue statevector on the Bloch sphere below about the $z$-axis by an angle $\alpha$, i.e. visualize applying the $RZ(\alpha)$ gate.
+\begin{example}[Z rotation on the Bloch sphere]
+We want to rotate the blue statevector on the Bloch sphere below about the $z$-axis by an angle $\alpha$, i.e. visualize applying the $Z(\alpha)$ gate.
 
 \textnormal{Here $\alpha$ is a real number in the range $[0,2\pi)$ --- if it a real number outside that range, we can take it modulo $2\pi$ because rotating a full circle (which is $2\pi$ radians) gets you back where you started.}
 
 \textnormal{The right hand rule tells us which direction to rotate.  We want to rotate about the $z$-axis, so we make a thumbs up with our right hand, and then point our right thumb in the $+z$ direction.  The direction our fingers are now curling towards, is the direction in which we will rotate by $\alpha$ radians.}
 
-\textnormal{In the figure below, this direction and the angle $\alpha$ are in light blue.  After the $RZ(\alpha)$ gate, our new statevector is shown in black on the Bloch sphere below.}
+\textnormal{In the figure below, this direction and the angle $\alpha$ are in light blue.  After the $Z(\alpha)$ gate, our new statevector is shown in black on the Bloch sphere below.}
 \begin{figure}[H]
 	\ctikzfig{blochrzrotate}
 \end{figure}
 \end{example}
 
-The matrices of $RX$, $RY$, and $RZ$ are like the complex (SU(2)) version of the standard 3D rotation matrices (in SO(3)) about the three axes.
-The $RZ(\alpha)$ gate has the matrix\footnote{in Qiskit the $RZ(\alpha)$ gate definition is the same up to a global phase of $e^{i\alpha/2}$.}
+The matrices of $X$, $Y$, and $Z$ rotation gates are like the complex (SU(2)) version of the standard 3D rotation matrices (in SO(3)) about the three axes.
+The $Z(\alpha)$ gate has the matrix\footnote{in Qiskit the $Z(\alpha)$ gate definition is the same up to a global phase of $e^{i\alpha/2}$.}
 \begin{equation}
 	Z = \begin{bmatrix}
 		1 & 0\\
@@ -1111,18 +1112,19 @@ The $RZ(\alpha)$ gate has the matrix\footnote{in Qiskit the $RZ(\alpha)$ gate de
 	\end{bmatrix}
 \end{equation}
 
-There are some angles of $RZ$ rotation that are special enough to deserve their own gate names.
+There are some angles of $Z$ rotation that are special enough to deserve their own gate names.
 We'll just define them here:
 \begin{itemize}
-	\item The $Z$ gate is simply the $RZ(\pi)$ gate, thanks to Euler's identity: $e^{i\pi} = -1$.
+	\item The $Z$ gate is simply the $Z(\pi)$ gate, thanks to Euler's identity: $e^{i\pi} = -1$.
 	\item The $S$ gate \begin{equation}
 		S = \begin{bmatrix}
 			1 & 0\\
 			0 & i
 		\end{bmatrix}
-	\end{equation} is another name for the $RZ(\pi/2)$ gate, as $e^{i\pi/2} = i$.
-	\item The $T$ gate is the $RZ(\pi/4)$ gate.
+	\end{equation} is another name for the $Z(\pi/2)$ gate, as $e^{i\pi/2} = i$.
+	\item The $T$ gate is the $Z(\pi/4)$ gate.
 \end{itemize}
+It turns out that if you rewrite a quantum circuit to be in terms of just $Z$ and $X$ rotations, and all of their rotation angles are multiples of $\frac{\pi}{2}$, then the quantum circuit is efficiently simulable by a classical computer!
 
 \newpage
 \subsubsection{The H gate}
@@ -1148,31 +1150,6 @@ The light blue axis that is halfway between the $z$- and $x$- axes of that circl
 \begin{figure}[H]
 	\ctikzfig{blochh}
 \end{figure}
-
-A cool fact about 3D rotations is that if we know how to do (parametrized) rotations about any two 
-
-The $H$ gate has what is called its \textbf{Euler decomposition}.  It means that we can decompose the $H$ gate into alternating $Z$ and $X$ rotations where the rotation angle is $\pm \pi/2$.
-
-\begin{align}
-	% the four H Euler decomposition equations go here
-\end{align}
-
-
-We can see this decomposition visually on the Bloch sphere by comparing the two animations below\footnote{These animations are from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}}.
-% description of the two animations goes here
-\noindent%
-\begin{minipage}[t]{0.45\linewidth}
-	\begin{frame}{}
-		\animategraphics[controls,width=2in]{12}{images/HgateBlochrotations/animation-}{0}{120}
-	\end{frame}\end{minipage}%
-\hfill%
-\begin{minipage}[t]{0.45\linewidth}
-	\begin{frame}{}
-		\animategraphics[controls,width=2in]{20}{images/HgateEulerBloch/animation-}{0}{200}
-	\end{frame}
-\end{minipage}
-
-
 
 \newpage
 \section{Recipe for one-qubit quantum circuits}
@@ -1280,9 +1257,9 @@ It may seem rather cumbersome to multiply matrices each time we want to figure o
 
 Thankfully, we do not have to resign ourselves to the tedium of multiplying matrices to understand what our quantum circuits are doing.  We just need to build up our toolbox so that we can use the right tool for the job.  To help us develop intuition for the Z- and X- bases, we will learn how to read, draw, and make deductions using \textbf{ZX-calculus} diagrams.  The qubit ZX-calculus is a pictorial language in which you can reason about all of qubit quantum computation.  As we continue learning, we will see how convenient of a tool these diagrams are.  As with the circuit model, we choose the convention of drawing and reading these diagrams from left to right.
 
-We have already met the $Z$ and $X$ gates.  But have you met them in color?  The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers\footnote{In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.}.  Rotations about the $z$-axis Bloch sphere are colored in green, whereas rotations around the $x$-axis of the Bloch sphere are colored in red.  In the ZX-calculus, we draw Rz and Rx gates as green and red circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
+We have already met the $Z$ and $X$ gates.  But have you met them in color?  The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers\footnote{In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.}.  Rotations about the $z$-axis Bloch sphere are colored in green, whereas rotations around the $x$-axis of the Bloch sphere are colored in red.  In the ZX-calculus, we draw $Z$ and $X$ rotation gates as green and red circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
 
-And thus, the Rz gate is drawn in the ZX-calculus as
+And thus, the $Z$ rotation gate is drawn in the ZX-calculus as
 \begin{equation*}
 	\tikzfig{zxZphase}
 \end{equation*}
@@ -1294,7 +1271,7 @@ In matrix form, the gate in terms of $\alpha$ is:
 		0 & e^{i\alpha}
 	\end{bmatrix}
 \end{equation}
-This is the first example we have seen of a \textit{parametrized} gate.  This means that the gate takes in one or more parameters --- $\alpha$ in this case.
+These are the parametrized gates we saw before.  This means that the gate takes in one or more parameters --- $\alpha$ in this case.
 
 For the special case when $\alpha = 0$, no rotation occurs.  The gate is the identity gate $\mathbb{I}$ because its matrix is equal to the identity matrix.  By convention, we leave out the phase label when $\alpha = 0$:
 \begin{equation}
@@ -1307,7 +1284,7 @@ There are plenty of other special cases each interesting in their own way.  One 
 \end{equation}
 where the right hand side of the equation is how the $Z$ gate is drawn in the circuit model.
 
-In the opposite color, the Rx gate is drawn in the ZX-calculus as
+In the opposite color, the $X$ rotation gate is drawn in the ZX-calculus as
 \begin{equation*}
 	\tikzfig{zxXphase}
 \end{equation*}
@@ -1326,6 +1303,29 @@ and the $X$ gate is the same as the $X(\pi)$ gate.
 
 % We know that the $\kz0$ and $\kz1$ states are the $Z$-basis states, while the $\kx+$ and $\kx-$ states are the $X$-basis states.
 
+A cool fact about 3D rotations is that if we know how to do (parametrized) rotations about any two perpendicular axes, we can then decompose a rotation of any angle of any axis into smaller rotations about just those two axes.
+A useful example of this is the \textbf{Euler decomposition} of the $H$ gate.  It means that we can decompose the $H$ gate into alternating $Z$ and $X$ rotations where the rotation angle is $\pm \pi/2$.
+
+\begin{align}
+	H &= e^{-\frac{i\pi}{4}} Z\left(\frac{\pi}{2}\right) X\left(\frac{\pi}{2}\right) Z\left(\frac{\pi}{2}\right)
+	H &= e^{-\frac{i\pi}{4}} X\left(\frac{\pi}{2}\right) Z\left(\frac{\pi}{2}\right) X\left(\frac{\pi}{2}\right)
+\end{align}
+How to read these equations is: Each gate in the above equations, for instance the one with label $Z\left(\frac{\pi}{2}\right)$, has a matrix.
+If you replace all the gate labels with their matrices, you can check that the $H$ gate matrix indeed equals the three matrices on the right hand side of either equation above, times a complex number $e^{-\frac{i\pi}{4}}$.  This complex number is the \textit{global phase} we have encountered earlier.  In this text we will keep track of these global phases in equations such as these in case you ever want to look them up.  With that said, it's convenient to keep in mind that for most purposes you can ignore them, because as we saw from Example~\ref{ex:globalphase} we can't tell the difference between quantum systems that have the same state up to global phase anyway.
+
+We can see this decomposition visually on the Bloch sphere by comparing the two animations below\footnote{These animations are from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}}.
+% description of the two animations goes here
+\noindent%
+\begin{minipage}[t]{0.45\linewidth}
+	\begin{frame}{}
+		\animategraphics[controls,width=2in]{12}{images/HgateBlochrotations/animation-}{0}{120}
+	\end{frame}\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.45\linewidth}
+	\begin{frame}{}
+		\animategraphics[controls,width=2in]{20}{images/HgateEulerBloch/animation-}{0}{200}
+	\end{frame}
+\end{minipage}
 
 
 %At this time, if this is your first rodeo with Qiskit, check out the `Getting started with Qiskit' Jupyter notebook to walk through how to run your circuits on hardware, before we continue.  You can navigate to it by selecting the `New file +' button which opens up the Launcher.
@@ -1334,15 +1334,15 @@ and the $X$ gate is the same as the $X(\pi)$ gate.
 %\end{figure}
 
 
-\newpage
-\section{When you have more than one qubit}
-{\small\textit{This section will assume knowledge of vectors and matrices, and will introduce bra-ket notation alongside diagrammatic notation.  To brush up on the relevant linear algebra, visit \url{https://qiskit.org/textbook/ch-appendix/linear_algebra.html}}}
+% \newpage
+% \section{When you have more than one qubit}
+% {\small\textit{This section will assume knowledge of vectors and matrices, and will introduce bra-ket notation alongside diagrammatic notation.  To brush up on the relevant linear algebra, visit \url{https://qiskit.org/textbook/ch-appendix/linear_algebra.html}}}
 
-Any pure quantum state of $n$ qubits is described by a column vector of $2^n$ complex numbers --- one for each possible binary string of length $n$.  In bra-ket notation, this $n$ qubit state is denoted $\ket{v}$.
-\begin{equation}
-\tikzfig{ket}
-\end{equation}
-$v_1,...,v_{2^n}$ are complex numbers.
+% Any pure quantum state of $n$ qubits is described by a column vector of $2^n$ complex numbers --- one for each possible binary string of length $n$.  In bra-ket notation, this $n$ qubit state is denoted $\ket{v}$.
+% \begin{equation}
+% \tikzfig{ket}
+% \end{equation}
+% $v_1,...,v_{2^n}$ are complex numbers.
 
 
 \bibliography{qiskit+zx.bib}
