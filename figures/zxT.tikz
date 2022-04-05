@@ -2,10 +2,10 @@
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=none] (2) at (0, 0) {$\leftrightsquigarrow$};
 		\node [style=none] (9) at (1.75, 0) {};
-		\node [style=box] (10) at (3, 0) {$Z$};
+		\node [style=box] (10) at (3, 0) {$T$};
 		\node [style=none] (11) at (4.25, 0) {};
 		\node [style=none] (12) at (-4.25, 0) {};
-		\node [style=Z phase dot] (13) at (-3, 0) {$\pi$};
+		\node [style=Z phase dot] (13) at (-3, 0) {$\frac{\pi}{4}$};
 		\node [style=none] (14) at (-1.75, 0) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}

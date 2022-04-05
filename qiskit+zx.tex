@@ -1255,15 +1255,19 @@ and
 
 It may seem rather cumbersome to multiply matrices each time we want to figure out what a sequence of gates is doing.  Not only is it unintuitive, but we will soon see that even with small numbers of qubits, the matrices get (exponentially) large, and therefore rapidly more computationally expensive to multiply.
 
-Thankfully, we do not have to resign ourselves to the tedium of multiplying matrices to understand what our quantum circuits are doing.  We just need to build up our toolbox so that we can use the right tool for the job.  To help us develop intuition for the Z- and X- bases, we will learn how to read, draw, and make deductions using \textbf{ZX-calculus} diagrams.  The qubit ZX-calculus is a pictorial language in which you can reason about all of qubit quantum computation.  As we continue learning, we will see how convenient of a tool these diagrams are.  As with the circuit model, we choose the convention of drawing and reading these diagrams from left to right.
+Thankfully, we do not have to resign ourselves to the tedium of multiplying matrices to understand what our quantum circuits are doing.  We just need to build up our toolbox so that we can use the right tool for the job.  We have already learned about how to visualize qubit states on the unit circle and on the Bloch sphere, and how to compute the probabilities of each possible measurement outcome of a one-qubit circuit using matrix multiplication.  Now, we will convert these one-qubit circuit model diagrams into ZX-calculus diagrams.  Just like we did before with rewriting AND, OR, and NOT circuit diagrams to figure out what they are doing, we can rewrite ZX-calculus diagrams to figure out what they are doing.
 
-We have already met the $Z$ and $X$ gates.  But have you met them in color?  The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers\footnote{In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.}.  Rotations about the $z$-axis Bloch sphere are colored in green, whereas rotations around the $x$-axis of the Bloch sphere are colored in red.  In the ZX-calculus, we draw $Z$ and $X$ rotation gates as green and red circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
+\section{The ZX-calculus}
+To help us develop intuition for the Z- and X- bases, we will learn how to read, draw, and make deductions using \textbf{ZX-calculus} diagrams.  The qubit ZX-calculus is a pictorial language in which you can reason about all of qubit quantum computation.  As we continue learning, we will see how convenient of a tool these diagrams are.  As with the circuit model, we choose the convention of drawing and reading these diagrams from left to right.
 
-And thus, the $Z$ rotation gate is drawn in the ZX-calculus as
+We have already met the $Z$ and $X$ gates.  But have you met them in color?\footnote{The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers.}  In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.  Rotations about the $z$-axis Bloch sphere are colored in green, whereas rotations around the $x$-axis of the Bloch sphere are colored in pink.  In the ZX-calculus, we draw $Z$ and $X$ rotation gates as green and pink circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
+
+\subsection{$Z$ and $X$ rotations in the ZX-calculus}
+The $Z$ rotation gate is drawn in the ZX-calculus as
 \begin{equation*}
 	\tikzfig{zxZphase}
 \end{equation*}
-The phase $\alpha$, in radians (i.e. any number in the range $[0,2\pi)$), is the angle of rotation about the $z$-axis on the Bloch sphere.
+The phase $\alpha$, in radians (i.e. any number in the range $[0,2\pi)$ ), is the angle of rotation about the $z$-axis on the Bloch sphere.
 In matrix form, the gate in terms of $\alpha$ is:
 \begin{equation}
 	Z(\alpha) = \begin{bmatrix}
@@ -1271,18 +1275,29 @@ In matrix form, the gate in terms of $\alpha$ is:
 		0 & e^{i\alpha}
 	\end{bmatrix}
 \end{equation}
-These are the parametrized gates we saw before.  This means that the gate takes in one or more parameters --- $\alpha$ in this case.
+These are the Z rotation gates we saw before.  This gate takes in one parameter, the angle of rotation on the Bloch sphere, denoted here by the variable $\alpha$.
 
-For the special case when $\alpha = 0$, no rotation occurs.  The gate is the identity gate $\mathbb{I}$ because its matrix is equal to the identity matrix.  By convention, we leave out the phase label when $\alpha = 0$:
+For the special case when $\alpha = 0$, no rotation occurs.  The gate is the identity gate $\mathbb{I}$ because its matrix is equal to the identity matrix.  By convention, we leave out the phase label when $\alpha = 0$.  This also applies whenever $\alpha$ is an integer multiple of $2\pi$, because whenever you go around in a circle a full rotation, you are back where you started.
 \begin{equation}
 	\tikzfig{zxZI}	
 \end{equation}
+We'll use this two-headed squiggly arrow to mean when we are translating between circuit model and ZX-calculus diagrammatic notation for a given gate.
+By the end of this section, it should be easy to tell whether a diagram is a circuit model diagram or a ZX-calculus diagram.
 
-There are plenty of other special cases each interesting in their own way.  One case to point out now, is that when $\alpha = \pi$, we have the $Z$ gate.  The reason why the $Z$ gate is the same gate as the $Z(\pi)$ gate, is that the $Z$ gate rotates exactly halfway ($\pi$ radians) around the $z$-axis of the Bloch sphere.  Therefore, the $Z$ gate in the ZX-calculus is drawn as
+There are plenty of other special cases each interesting in their own way.  When $\alpha = \pi$, we have the $Z$ gate.  The reason why the $Z$ gate is the same gate as the $Z(\pi)$ gate, is that the $Z$ gate rotates exactly halfway ($\pi$ radians) around the $z$-axis of the Bloch sphere.  Therefore, the $Z$ gate in the ZX-calculus is drawn as
 \begin{equation}
 	\tikzfig{zxZ}
 \end{equation}
 where the right hand side of the equation is how the $Z$ gate is drawn in the circuit model.
+
+Other special cases are the $S = Z(\frac{\pi}{2})$ gate
+\begin{equation}
+	\tikzfig{zxS}
+\end{equation}
+and the $T = Z(\frac{\pi}{4})$ gate.
+\begin{equation}
+	\tikzfig{zxT}
+\end{equation}
 
 In the opposite color, the $X$ rotation gate is drawn in the ZX-calculus as
 \begin{equation*}
@@ -1299,9 +1314,97 @@ and the $X$ gate is the same as the $X(\pi)$ gate.
 	\tikzfig{zxX}
 \end{equation}
 
-% Color change rule
+We know that the $\kz0$ and $\kz1$ states are the $Z$-basis states, while the $\kx+$ and $\kx-$ states are the $X$-basis states.
+What do they look like in the ZX-calculus?  We will present them first, leading up to an \textit{a-ha!} moment regarding why we chose to represent them this way.
 
-% We know that the $\kz0$ and $\kz1$ states are the $Z$-basis states, while the $\kx+$ and $\kx-$ states are the $X$-basis states.
+The $Z$-basis states are
+\begin{equation}
+	\tikzfig{zxk0}
+\end{equation}
+and
+\begin{equation}
+	\tikzfig{zxk1}
+\end{equation}
+
+The $X$-basis states are
+\begin{equation}
+	\tikzfig{zxk+}
+\end{equation}
+and
+\begin{equation}
+	\tikzfig{zxk-}
+\end{equation}
+
+Remember that $X \kz0 = \kz1$?  When we write this out in ZX-calculus, we get
+\begin{equation}
+	\tikzfig{zxXk0}
+\end{equation}
+Likewise, $Z \kx+ = \kx-$ becomes
+\begin{equation}
+	\tikzfig{zxZk+}
+\end{equation}
+It is simply a matter of ``fusing'' the two adjacent circles of the same color, adding up their rotation angles.
+This also holds for showing $X \kz1 = \kz0$ and $Z \kz- = \kz+$, because $\pi + \pi = 2\pi$.
+When can we use this ``fusion'' rule?  The answer is, whenever two circles of the same color are connected to each other by at least one wire (with nothing else on it).
+
+\subsection{Color changing in the ZX-calculus}
+There are two main conventions that are used for drawing the $H$ gate in the ZX-calculus, which mean the same and are just for more convenient notation depending on the situation.
+One convention is to use a small square to denote the $H$ gate.  In this text, to be accessible to colorblind readers, we will fill these squares with the color sky blue to be distinguishable from the green and pink colors in ZX diagrams; this is a departure from other texts where the convention is to fill these squares with the color yellow.
+\begin{equation}
+	\tikzfig{zxH}
+\end{equation}
+
+Another convention that can be used interchangeably, is to use instead make that entire wire sky blue.
+Later we will see how ZX diagrams are graphs, and so wires are the edges between nodes in the graph.  Any wire with exactly one $H$ gate on it is called a Hadamard edge, as $H$ is short for Hadamard.
+It looks like:
+\begin{equation}
+	\tikzfig{zxHedge}
+\end{equation}
+
+A neat thing about the $H$ gate is that if you do it twice in a row, it's as if you did nothing.
+\begin{equation}
+	\tikzfig{zxHH}
+\end{equation}
+This means that the $H$ gate is \textbf{self-inverse}.  This is special because most quantum gates do not have this property, i.e. the gate that is inverse to itself is not itself.
+
+As we saw in the previous section, surrounding an $X$ gate on both sides by $H$ gates turns it into a $Z$ gate.
+Likewise, surrounding a $Z$ gate on both sides by $H$ gates turns it into an $X$ gate.
+This brings us to our first rewrite rule in the ZX-calculus: the \textit{color change} rule.
+It is called that because we denote $Z$ rotation gates with the color green, and $X$ rotation gates with the color pink\footnote{The $H$ gate is the single-qubit Fourier transform between the $Z$ and $X$ bases.  Because we denote these two bases with different colors, changing between these two colors is an intuitive way to think about this Fourier transform.}.
+For one-qubit $Z$ and $X$ rotation gates, we can draw the equation
+\begin{equation}
+	Z(\alpha) = H \; X(\alpha) \; H
+\end{equation}
+ in the circuit model as
+\begin{equation}
+	\tikzfig{circuitcolorchange}
+\end{equation}
+or in the ZX-calculus as
+\begin{equation}
+	\tikzfig{zxcolorchange}
+\end{equation}
+
+\newpage
+\begin{example}[]
+	\label{ex:colorchange}
+We would like to figure out what happens to a quantum circuit, when you ``push'' one of its gates past one of its neighboring gates.  In other words, if a gate A is to the left of a gate B, we want to end up with gate A on the right, which may change gate B.
+\textnormal{We can apply our newest rewrite rules to get a new rewrite rule, which tells us what happens whenever we ``push'' an $H$ gate past an $X$ gate.
+\begin{equation}
+	\tikzfig{circuitcommuteHX}
+\end{equation}
+How do we find out what belongs on the right hand side of the above equation?  One way is that we could multiply the matrices directly, as we have done so far.}
+
+\textnormal{Another way is to run this directly on a quantum computer enough times for us to approximately reconstruct what the output state was (up to a global phase).
+This is a technique known as \textbf{quantum state tomography}.  It is very useful for characterizing noise of quantum hardware and debugging quantum programs.  But in this case it would be overkill.}
+
+\textnormal{There are other, more intuitive options we have not yet explored.  The circuit model is not expressive enough to enable us to prove this using just circuit model diagrams.  On the other hand, we can use just the rewrite rules of the ZX-calculus to compute this.
+\begin{equation}
+	\tikzfig{zxcommuteHX}
+\end{equation}
+In the first line here, we have the circuit we start with, in the circuit model on the left, and in ZX-calcuclus on the right.  On the right half here, we apply one of our rewrite rules in each line, where inside the dashed gray box is where the rewrite rule is being applied.  Finally, we end up with the last line, and so we have ``pushed'' the $H$ gate through the $X$ gate, changing the $X$ gate into a $Z$ gate.}
+
+\textnormal{In summary, we have proved that $XH = HZ$.  If that looks a little weird to you, that is because of an unfortunate case of the two most used conventions being opposite of each other.  Quantum circuits are drawn from left to right, but each time you apply a new gate you are multiplying the current state (which for pure qubit states is simply a column vector) on the left by the matrix of the new gate.}
+\end{example}
 
 A cool fact about 3D rotations is that if we know how to do (parametrized) rotations about any two perpendicular axes, we can then decompose a rotation of any angle of any axis into smaller rotations about just those two axes.
 A useful example of this is the \textbf{Euler decomposition} of the $H$ gate.  It means that we can decompose the $H$ gate into alternating $Z$ and $X$ rotations where the rotation angle is $\pm \pi/2$.

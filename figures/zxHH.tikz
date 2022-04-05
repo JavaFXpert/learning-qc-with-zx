@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (0, 0) {$=$};
+		\node [style=none] (9) at (1.75, 0) {};
+		\node [style=none] (11) at (4.25, 0) {};
+		\node [style=hadamard] (13) at (-3, 0) {};
+		\node [style=none] (14) at (-1.75, 0) {};
+		\node [style=hadamard] (16) at (-4.25, 0) {};
+		\node [style=none] (17) at (-5.5, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (13) to (14.center);
+		\draw [style=simple] (16) to (17.center);
+		\draw [style=simple] (13) to (16);
+		\draw [style=simple] (11.center) to (9.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

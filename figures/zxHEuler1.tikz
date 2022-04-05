@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (1) at (7.75, 0) {};
+		\node [style=Z phase dot] (4) at (3, 0) {$\frac{\pi}{2}$};
+		\node [style=none] (5) at (1.5, 0) {};
+		\node [style=none] (6) at (-1.25, 0) {};
+		\node [style=box] (7) at (-2.5, 0) {$H$};
+		\node [style=none] (8) at (-3.75, 0) {};
+		\node [style=none] (9) at (0, 0) {$=$};
+		\node [style=X phase dot] (10) at (4.75, 0) {$\frac{\pi}{2}$};
+		\node [style=Z phase dot] (11) at (6.5, 0) {$\frac{\pi}{2}$};
+		\node [style=none] (12) at (1.5, 1) {$e^{-\frac{i \pi}{4}}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (4) to (5.center);
+		\draw [style=simple] (7) to (8.center);
+		\draw [style=simple] (7) to (6.center);
+		\draw [style=simple] (4) to (10);
+		\draw [style=simple] (10) to (11);
+		\draw [style=simple] (11) to (1.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

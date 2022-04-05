@@ -25,7 +25,7 @@
 % Edge styles
 \tikzstyle{directedarrow}=[draw={rgb,255: red,223; green,223; blue,223}, ->, tikzit draw={rgb,255: red,223; green,223; blue,223}, line width=1 pt]
 \tikzstyle{simple}=[-]
-\tikzstyle{hadamard edge}=[-, color={rgb,255: red,100; green,200; blue,248}, dashed, dash pattern=on 2pt off 0.7pt, tikzit draw={rgb,255: red,120; green,220; blue,248}]
+\tikzstyle{hadamard edge}=[-, color={rgb,255: red,100; green,200; blue,248}, dashed, dash pattern=on 2pt off 0.7pt, tikzit draw={rgb,255: red,120; green,220; blue,248}, line width=0.2mm]
 \tikzstyle{brace edge}=[-, tikzit draw=blue, decorate, decoration={brace,amplitude=1mm,raise=-1mm}]
 \tikzstyle{gray}=[-, draw={rgb,255: red,223; green,223; blue,223}, line width=1 pt]
 \tikzstyle{arrow}=[<-, draw={rgb,255: red,128; green,128; blue,128}]

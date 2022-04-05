@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (0, 0) {$=$};
+		\node [style=box] (12) at (-3, 0) {$X$};
+		\node [style=none] (14) at (-1.75, 0) {};
+		\node [style=box] (16) at (-4.75, 0) {$H$};
+		\node [style=none] (17) at (-6, 0) {};
+		\node [style=none] (39) at (1.75, 0) {\Large{?}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (16) to (17.center);
+		\draw [style=simple] (16) to (12);
+		\draw [style=simple] (12) to (14.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
