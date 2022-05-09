@@ -1,0 +1,35 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (-3, 0) {$=$};
+		\node [style=Z dot] (21) at (-6, 0.75) {};
+		\node [style=X dot] (22) at (-6, -0.75) {};
+		\node [style=none] (23) at (-4.75, 0.75) {};
+		\node [style=none] (24) at (-4.75, -0.75) {};
+		\node [style=X phase dot] (26) at (-7.25, -0.75) {$t\pi$};
+		\node [style=X phase dot] (27) at (-7.25, 0.75) {$c\pi$};
+		\node [style=X phase dot] (36) at (4.75, -0.75) {$(c+t)\pi$};
+		\node [style=none] (39) at (6, 0.75) {};
+		\node [style=none] (40) at (6, -0.75) {};
+		\node [style=X phase dot] (41) at (4.75, 0.75) {$c\pi$};
+		\node [style=X phase dot] (42) at (-0.5, 0) {$c\pi$};
+		\node [style=X dot] (43) at (0, -0.75) {};
+		\node [style=X phase dot] (45) at (-1.25, -0.75) {$t\pi$};
+		\node [style=none] (46) at (1.25, 0.75) {};
+		\node [style=none] (47) at (1.25, -0.75) {};
+		\node [style=none] (48) at (3, 0) {$=$};
+		\node [style=X phase dot] (49) at (0.25, 0.75) {$c\pi$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (21) to (22);
+		\draw [style=simple] (21) to (23.center);
+		\draw [style=simple] (26) to (22);
+		\draw [style=simple] (22) to (24.center);
+		\draw [style=simple] (27) to (21);
+		\draw [style=simple] (40.center) to (36);
+		\draw [style=simple] (39.center) to (41);
+		\draw (42) to (43);
+		\draw [style=simple] (47.center) to (43);
+		\draw [style=simple] (43) to (45);
+		\draw [style=simple] (46.center) to (49);
+	\end{pgfonlayer}
+\end{tikzpicture}

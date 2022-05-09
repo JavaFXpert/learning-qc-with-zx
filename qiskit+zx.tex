@@ -67,9 +67,91 @@
 }
 \newcommand{\soln}{{\\[1em] \hspace{-1em}\color{greentitle}\sffamily\large Solution: \\[0.5em]}}
 
+\definecolor{redtitle}{RGB}{170,61,61}
+\definecolor{redtitleback}{RGB}{233,213,216}
+\definecolor{drakredtitle}{RGB}{131,80,24}
+\newcounter{zxrulecounter}
+\counterwithin{zxrulecounter}{section}
+\DeclareTColorBox{zxrule}{O{}o}{
+    enhanced,
+    breakable,
+    arc=0pt,
+    boxrule=0pt,
+    colback=white,
+    top=3em, % you can change the top spacing
+    overlay unbroken and first={
+        % draw box on the left
+        \node[fill=redtitleback,
+            font=\color{redtitle}\sffamily\bfseries\large,
+            anchor=south west,
+            xshift=2mm,
+            yshift=-2.2em, % you can change xshift and yshift to adjust the title placement
+        ] (titlebox) at (frame.north west) 
+        {ZX-calculus Rule \refstepcounter{zxrulecounter}\thezxrulecounter
+        % add cross-referencing support
+        \IfValueT{#2}{\label{#2}}
+        };
+        
+        % write title on the right
+        \node[font=\color{drakredtitle}\sffamily\large, 
+        anchor=west
+        ] at ($(titlebox.east)+(2mm,0mm)$) {#1};
+        
+        % draw the vertical line on the left
+        \draw[draw=redtitleback, line width=2pt] 
+            (titlebox.north west-|frame.north west)--(frame.south west);
+    },
+    overlay middle and last={
+        \draw[draw=redtitleback, line width=2pt] 
+            (frame.north west)--(frame.south west);
+    }
+    fonttitle=\color{redtitle}\sffamily\bfseries,
+}
+
+\definecolor{graytitle}{RGB}{170,170,170}
+\definecolor{graytitleback}{RGB}{233,233,233}
+\definecolor{drakgraytitle}{RGB}{131,131,131}
+\newcounter{notecounter}
+\counterwithin{notecounter}{section}
+\DeclareTColorBox{note}{O{}o}{
+    enhanced,
+    breakable,
+    arc=0pt,
+    boxrule=0pt,
+    colback=white,
+    top=3em, % you can change the top spacing
+    overlay unbroken and first={
+        % draw box on the left
+        \node[fill=graytitleback,
+            font=\color{graytitle}\sffamily\bfseries\large,
+            anchor=south west,
+            xshift=2mm,
+            yshift=-2.2em, % you can change xshift and yshift to adjust the title placement
+        ] (titlebox) at (frame.north west) 
+        {Note \refstepcounter{notecounter}\thenotecounter
+        % add cross-referencing support
+        \IfValueT{#2}{\label{#2}}
+        };
+        
+        % write title on the right
+        \node[font=\color{drakgraytitle}\sffamily\large, 
+        anchor=west
+        ] at ($(titlebox.east)+(2mm,0mm)$) {#1};
+        
+        % draw the vertical line on the left
+        \draw[draw=graytitleback, line width=2pt] 
+            (titlebox.north west-|frame.north west)--(frame.south west);
+    },
+    overlay middle and last={
+        \draw[draw=graytitleback, line width=2pt] 
+            (frame.north west)--(frame.south west);
+    }
+    fonttitle=\color{graytitle}\sffamily\bfseries,
+}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
+
 \newcommand*\conj[1]{\bar{#1}}
 \newcommand{\abs}[1]{{\big\vert} #1 {\big\vert}}
 \newcommand{\kz}[1]{\ket{\,#1\,}}
@@ -564,7 +646,7 @@ Finally, we get the diagram of its transpose by rotating by $180^{\degree}$.
 	\ctikzfig{conjugateandtransposestates}
 \end{figure}
 
-Whenever a quantum state has the special property of being self-conjugate --- equal to its own complex conjugate --- we can let its diagram simply be a triangle, as we did earlier for the $Z$ and $X$ basis staets.
+Whenever a quantum state has the special property of being self-conjugate --- equal to its own complex conjugate --- we can let its diagram simply be a triangle, as we did earlier for the $Z$ and $X$ basis states.
 Looking back at Equations \ref{eq:ket0}, \ref{eq:ket1}, \ref{eq:ket+}, and \ref{eq:ket-}, we used a horizontally symmetric triangle as our diagrams for the Z- and X- basis states.  This is because all states in the ZX slice of the Bloch sphere have real number coefficients, and thus are self-conjugate.
 
 Cheerfully, our toolbox now has all the X-, Y-, and Z- basis states.
@@ -596,7 +678,7 @@ It is worthwhile to mention that the convention amongst physicists is to label t
 
 For the surface of a sphere we only need these two angles.  For any point in a real 3D coordinate system, there is a third coordinate $\rho$ which is the radius of the sphere that the point is on the surface of.  For our purposes, we are currently staying on the surface of the Bloch sphere (which has radius $1$), so we do not need to vary this radius coordinate yet.  When we eventually get to \textbf{mixed states}, these will correspond to points inside the volume of the Bloch sphere --- as opposed to pure states which correspond to points on the surface of the Bloch sphere.
 
-Like planet Earth, we specify a point on the surface of the Bloch sphere by its polar and its azimuthal angle.  The main difference between our planet Earth analogy and the Bloch sphere, is that while we live in a 3D world where all three axes are real number axes, on the Bloch sphere one of the three axes is a complex number axis.  You can see in Figure~\ref{fig:unitcircleinbloch} that the span of the $x$ and $z$ axes of the Bloch sphere is the slice where the coefficients of $\kz0$ and $\kz1$ are real numbers, while the $y$ axis is an imaginary axis such that the $y$-coordinate is nonzero when the coefficients of $\kz0$ and $\kz1$ are complex numbers.
+Like planet Earth, we specify a point on the surface of the Bloch sphere by its polar and its azimuthal angle.  The main difference between our planet Earth analogy and the Bloch sphere, is that while we live in a 3D world where all three axes are real number axes, on the Bloch sphere one of the three axes is a complex number axis.  You can see in Figure~\ref{fig:unitcircleinbloch} that the span of the $x$ and $z$ axes of the Bloch sphere is the slice where the coefficients of $\kz0$ and $\kz1$ are real numbers, while the $y$ axis is an imaginary axis such that the y-coordinate is nonzero when the coefficients of $\kz0$ and $\kz1$ are complex numbers.
 
 Like how we plotted the ZX plane of the Bloch sphere in Figure~\ref{fig:unitcircleinbloch}, we will now plot the XY plane of the Bloch sphere.  This corresponds to the circle where the polar angle is $\pi/2$, like the equator of Earth, plotted as the unit circle in the complex plane.
 \begin{figure}[H]
@@ -792,68 +874,8 @@ One observation to point out is that some of these classical logic gates are not
 Fun fact: the information lost when an irreversible gate is performed is dissipated as heat energy.  Next time your phone or computer heats up when performing intense computation, you know why.
 
 \subsection{Quantum gates, Part 1: Paulis}
-Historically, the most commonly encountered single-qubit gates go by one-letter names.
-We will now introduce the gates \{I, X, Y, Z\} as a \textit{group}.
-You may be used to using the word ``group'' in casual conversation as a collection of multiple individual entities, but the word ``group'' here is referring to the mathematical definition of a group.
-
-\begin{definition}[Group]
-	\label{def:group}
-	A \textit{group} is a set (i.e. a collection of elements which are unordered), along with a binary operation (i.e. has two inputs and one output) called the \textit{group operation}, satisfying all four conditions below:
-	\begin{itemize}
-		\item \textit{closure}: Applying the group operation to any two elements in the set, always outputs an element in the set.
-		\item \textit{associativity}: Let's call the group operation $\cdot$.  For any three elements of the group $a$, $b$, and $c$: $a \cdot (b \cdot c) = (a \cdot b) \cdot c$.
-		\item \textit{identity}: There is exactly one element of the set, where applying it with any element in the set (including with itself) via the group operation, always outputs that other element.
-		\item \textit{inverse}: For every element in the set, there is an element in the set such that applying the group operation to both elements outputs the identity element.
-	\end{itemize}
-\end{definition}
-Depending on the situation, sometimes closure is a given.
-
-We use and encounter groups all the time.  After all, our computers store and compute data using binary arithmetic, which works because of the following group:
-\begin{example}[Binary addition]
-	Check that the two numbers $\{0,1\}$ with addition modulo 2 (denoted by $+$) as the group operation is a group.
-
-	\textnormal{We check each of the following are satisfied:
-	\begin{itemize}
-		\item \textit{associativity}: is satisfied because addition is associative
-		\item \textit{closure}: $0+0=0$, $0+1=1$, $1+0=1$, and $1+1=0$ modulo 2 are all in the set $\{0,1\}$.
-		\item \textit{identity}: $0$ is the identity element, because $0+1=1+0=1$ and $0+0=0$ modulo 2
-		\item \textit{inverse}: $0$ and $1$ are both self-inverse, because $0+0=0$ and $1+1=0$ modulo 2
-	\end{itemize}
-	}
-\end{example}
-
-As an exercise, you can verify that the integers over addition (with identity element $0$) and the integers over multiplication (with identity element $1$) are both groups.  These are two examples of groups that have infinitely many elements, yet satisfy the closure property.
-
-We will see that we can group together operations on quantum computers too.  The following example, albeit a little silly, is a useful analogy for the group that you get from the four quantum gates that we will cover in this section.
-
-\begin{example}[Artificial gravity]
-	\label{ex:groupfirstex}
-	You are an astronaut in a room shaped like a cube, in outer space.  In the absence of gravity, you rely on your magnetic boots to stand on any one of the six sides of the room.  There are three magnetic fields, aligned to each of the two sides of the room opposite each other.  Show that by being able to flip the direction of each magnetic field, you can stand on any combination of three non-opposite sides of the room.
-	
-	\textnormal{The brute-force approach to this would be to list all possible combinations of directions the magnetic fields could be in, but that is neither fun nor efficient.  Instead, we will show that these three flip operations, plus the identity operation (of doing nothing), generate a group where the group operation is doing these flips in succession.}
-	
-	\textnormal{Let's call the three flip operations $X$, $Y$, and $Z$; and the identity operation $I$.  We are in a 3D space, where we can represent any position by a vector of length 3.  Therefore, any linear transformation of position can be fully described by a real 3 by 3 matrix.  Here the matrix for $I$ is the 3 by 3 identity matrix}
-	\begin{equation*}
-		\begin{bmatrix}
-			1 & 0 & 0\\
-			0 & 1 & 0\\
-			0 & 0 & 1
-		\end{bmatrix}
-	\end{equation*}	
-	\textnormal{and the matrix for each flip is the above matrix except exactly one of the 1's on the diagonal is replaced by -1.}
-	
-	\textnormal{Let's check the conditions necessary for our group:}
-
-	\begin{itemize}
-		\item \textit{closure}: \textnormal{Any combination of three non-opposite sides can be labelled by the corner of the cube that they share.  A cube has 8 corners, so there are 8 elements of our group.  Observe that $X \cdot Y = Y \cdot X = -Z = -I \cdot Z = Z \cdot -I$, and more generally, doing two different flips, is the same as doing the third flip and flipping all three at once.  This gives closure of the 8 elements $\{\pm I, \pm X, \pm Y, \pm Z\}$, where the symbol $\pm$ means that both the positive and negative of the operation are an element in the group.}
-		\item \textit{associativity}: \textnormal{This is satisfied, because matrix multiplication is associative.}
-		\item \textit{identity}: \textnormal{$I$ is the identity element, because multiplying the identity matrix before or after any matrix, is the other matrix.}
-		\item \textit{inverse}: \textnormal{For each of the 8 elements, it and its inverse element have matrices that are multiples of -1 of each other.}
-	\end{itemize}
-\end{example}
-Observe that the operations $\{I,X,Y,Z\}$ \textit{generate} the group in the above example.  This means that by continuing to apply the group operation to this generating set, and to the outputs of that, you can get all the elements in the group.
-
-This example is interesting because there is an important connection, that we will explore later, between the group of 3 by 3 real rotation matrices (called SO(3)), and the group of 2 by 2 complex unitary matrices (called SU(2)).  The above example is a subgroup (a group within a group) of the former; the Pauli group which we will study in the rest of this section is a subgroup of the latter, and the latter is the same as all possible single-qubit (unitary) gates.
+In this section, we will meet all the single-qubit gates commonly encountered (which tend to have one-letter names).
+We will also discuss what is a \textbf{group} mathematically, and how the $X$, $Y$, and $Z$ gates give us a group and all its nice properties.
 
 \subsubsection{The I gate}
 This gate is easy to remember because ``I'' stands for identity.
@@ -1044,13 +1066,76 @@ To apply it to any pure qubit state, we multiply that state's statevector by the
 		i & 0
 	\end{bmatrix}
 \end{equation}
-You can verify that the eigenvectors of the Y gate are the statevectors for $\ket{+i}$ and $\ket{-i}$, the states on the $y$-axis of the Bloch sphere.
+You can verify that the eigenvectors of the Y gate are the statevectors for $\ket{+i}$ and $\ket{-i}$, the states on the y-axis of the Bloch sphere.
 
 As for what $Y$ does to the other basis vectors: Up to a global phase, it sends $\kz0$ and $\kz1$ to each other and $\kx+$ and $\kx-$ to each other.
 
 \subsubsection{The Pauli group}
-In fact, each of $X$, $Y$, and $Z$ send their own basis states to themselves (up to a global phase), and send the other two bases' basis states to the other basis state in that basis (also up to a global phase).
-This property has a deeper significance, as it lets us define them as part of a \textit{group} as in Definition~\ref{def:group}, called the \textbf{Pauli group}.
+We will now introduce the gates \{I, X, Y, Z\} as part of a \textit{group}.
+You may be used to using the word ``group'' in casual conversation as a collection of multiple individual entities, but the word ``group'' here is referring to the mathematical definition of a group.
+
+\begin{definition}[Group]
+	\label{def:group}
+	A \textit{group} is a set (i.e. a collection of elements which are unordered), along with a binary operation (i.e. has two inputs and one output) called the \textit{group operation}, satisfying all four conditions below:
+	\begin{itemize}
+		\item \textit{closure}: Applying the group operation to any two elements in the set, always outputs an element in the set.
+		\item \textit{associativity}: Let's call the group operation $\cdot$.  For any three elements of the group $a$, $b$, and $c$: $a \cdot (b \cdot c) = (a \cdot b) \cdot c$.
+		\item \textit{identity}: There is exactly one element of the set, where applying it with any element in the set (including with itself) via the group operation, always outputs that other element.
+		\item \textit{inverse}: For every element in the set, there is an element in the set such that applying the group operation to both elements outputs the identity element.
+	\end{itemize}
+\end{definition}
+Depending on the situation, sometimes closure is a given.
+
+We use and encounter groups all the time.  After all, our computers store and compute data using binary arithmetic, which works because of the following group:
+\begin{example}[Binary addition]
+	Check that the two numbers $\{0,1\}$ with addition modulo 2 (denoted by $+$) as the group operation is a group.
+
+	\textnormal{We check each of the following are satisfied:
+	\begin{itemize}
+		\item \textit{associativity}: is satisfied because addition is associative
+		\item \textit{closure}: $0+0=0$, $0+1=1$, $1+0=1$, and $1+1=0$ modulo 2 are all in the set $\{0,1\}$.
+		\item \textit{identity}: $0$ is the identity element, because $0+1=1+0=1$ and $0+0=0$ modulo 2
+		\item \textit{inverse}: $0$ and $1$ are both self-inverse, because $0+0=0$ and $1+1=0$ modulo 2
+	\end{itemize}
+	}
+\end{example}
+
+As an exercise, you can verify that the integers over addition (with identity element $0$) and the integers over multiplication (with identity element $1$) are both groups.  These are two examples of groups that have infinitely many elements, yet satisfy the closure property.
+
+We will see that we can group together operations on quantum computers too.  The following example, albeit a little silly, is a useful analogy for the group we are setting up to introduce, of which $I$, $X$, $Y$, and $Z$ are elements.
+
+\begin{example}[Artificial gravity]
+	\label{ex:groupfirstex}
+	You are an astronaut in a room shaped like a cube, in outer space.  In the absence of gravity, you rely on your magnetic boots to stand on any one of the six sides of the room.  There are three magnetic fields, aligned to each of the two sides of the room opposite each other.  Show that by being able to flip the direction of each magnetic field, you can stand on any combination of three non-opposite sides of the room.
+	
+	\textnormal{The brute-force approach to this would be to list all possible combinations of directions the magnetic fields could be in, but that is neither fun nor efficient.  Instead, we will show that these three flip operations, plus the identity operation (of doing nothing), generate a group where the group operation is doing these flips in succession.}
+	
+	\textnormal{Let's call the three flip operations $X$, $Y$, and $Z$; and the identity operation $I$.  We are in a 3D space, where we can represent any position by a vector of length 3.  Therefore, any linear transformation of position can be fully described by a real 3 by 3 matrix.  Here the matrix for $I$ is the 3 by 3 identity matrix}
+	\begin{equation*}
+		\begin{bmatrix}
+			1 & 0 & 0\\
+			0 & 1 & 0\\
+			0 & 0 & 1
+		\end{bmatrix}
+	\end{equation*}	
+	\textnormal{and the matrix for each flip is the above matrix except exactly one of the 1's on the diagonal is replaced by -1.}
+	
+	\textnormal{Let's check the conditions necessary for our group:}
+
+	\begin{itemize}
+		\item \textit{closure}: \textnormal{Any combination of three non-opposite sides can be labelled by the corner of the cube that they share.  A cube has 8 corners, so there are 8 elements of our group.  Observe that $X \cdot Y = Y \cdot X = -Z = -I \cdot Z = Z \cdot -I$, and more generally, doing two different flips, is the same as doing the third flip and flipping all three at once.  This gives closure of the 8 elements $\{\pm I, \pm X, \pm Y, \pm Z\}$, where the symbol $\pm$ means that both the positive and negative of the operation are an element in the group.}
+		\item \textit{associativity}: \textnormal{This is satisfied, because matrix multiplication is associative.}
+		\item \textit{identity}: \textnormal{$I$ is the identity element, because multiplying the identity matrix before or after any matrix, is the other matrix.}
+		\item \textit{inverse}: \textnormal{For each of the 8 elements, it and its inverse element have matrices that are multiples of -1 of each other.}
+	\end{itemize}
+\end{example}
+Observe that the operations $\{I,X,Y,Z\}$ \textit{generate} the group in the above example.  This means that by continuing to apply the group operation to this generating set, and to the outputs of that, you can get all the elements in the group.
+
+This example is interesting because there is an important connection between the group of 3 by 3 real rotation matrices (called \textbf{SO(3)}), and the group of 2 by 2 complex unitary matrices (called \textbf{SU(2)}).  The group in the above example is a subgroup (a group within a group) of \textbf{SO(3)}.  On the other hand, the Pauli group, which we are on the verge of introducing, is a subgroup of \textbf{SU(2)}.
+This connection between groups is the underlying reason why we can visualize all single-qubit (unitary) gates (which have matrices in \textbf{SU(2)}), as 3D rotations on the Bloch sphere (which has matrices in \textbf{SO(3)}).
+
+Notice that each of $X$, $Y$, and $Z$ send their own basis states to themselves (up to a global phase), and send the other two bases' basis states to the other basis state in that basis (also up to a global phase).
+This property has a deeper significance, as it arises from them being part of a \textit{group} as in Definition~\ref{def:group}, called the \textbf{Pauli group}.
 If we compare to Example~\ref{ex:groupfirstex} with the group of reflections in SO(3) (three real number dimensions), the Pauli group is like that but for SU(2) (two complex number dimensions).
 
 The Pauli group consists of the elements $\{\pm I, \pm X, \pm Y, \pm Z, \pm iI, \pm iX, \pm iY, \pm iZ\}$, where the group operation is matrix multiplication.
@@ -1075,11 +1160,19 @@ The Pauli group is \textit{generated} by the Pauli matrices $X$, $Y$, and $Z$.  
 	}
 \end{example}
 
+\textit{Ta-da!}  All the useful properties of a group are now at our disposal for the Pauli matrices.
+For instance, we now know that if we apply any sequence of gates where each gate is one of $\{X, Y, Z\}$, the overall gate is still in the Pauli group, due to the group property of \emph{closure}.
+We now also know that if we want to do any of the 16 gates in the Pauli group, we can always do so as a sequence of $\{X, Y, Z\}$, because they are a \emph{generating set} of the Pauli group.
+
+\begin{note}
+To give some spoiler text: the big thing we are leading up to is the \textbf{Clifford group}.  This is the bigger group that the Pauli group is a subgroup of.  The Clifford group has a generating set of three gates: $\{H, S, CX\}$, two of which ($H$ and $S$) we will learn about in the rest of this section, and the $CX$ gate we will learn in the next section.  The Clifford group is very important in quantum computing because it is the group of all the quantum gates that you can efficiently simulate with a classical computer.  Therefore, to do quantum computations we cannot efficiently simulate with a classical computer, we need to add to a generating set of the Clifford group, at least one non-Clifford gate i.e. not in the Clifford group.
+\end{note}
+
 \subsubsection{Visualizing rotation gates on the Bloch sphere}
 We will have more to say about the Pauli group later, but for now let us next look at the Bloch sphere which is where we visualize SU(2).
 This allows us to directly visualize another way.  What if instead of thinking about the Pauli matrices as ``reflecting'' about some axis on the unit circle, we thought about it as ``rotating'' halfway around the Bloch sphere?
 
-The $X$, $Y$, and $Z$ gates are rotations halfway around the Bloch sphere ($\pi$ radians) about the $x$-, $y$-, and $z$- axes respectively.
+The $X$, $Y$, and $Z$ gates are rotations halfway around the Bloch sphere ($\pi$ radians) about the x-, y-, and z- axes respectively.
 
 Then we should also be able to rotate by other angles --- anything in the range $[0,2\pi)$.
 We can now define the \textbf{parametrized} versions of the $X$, $Y$, and $Z$ gate: let us call them the $X$, $Y$, and $Z$ rotation gates.
@@ -1091,11 +1184,11 @@ As you can see here, we always rotate in the direction of the \textit{right-hand
 
 \newpage
 \begin{example}[Z rotation on the Bloch sphere]
-We want to rotate the blue statevector on the Bloch sphere below about the $z$-axis by an angle $\alpha$, i.e. visualize applying the $Z(\alpha)$ gate.
+We want to rotate the blue statevector on the Bloch sphere below about the z-axis by an angle $\alpha$, i.e. visualize applying the $Z(\alpha)$ gate.
 
 \textnormal{Here $\alpha$ is a real number in the range $[0,2\pi)$ --- if it a real number outside that range, we can take it modulo $2\pi$ because rotating a full circle (which is $2\pi$ radians) gets you back where you started.}
 
-\textnormal{The right hand rule tells us which direction to rotate.  We want to rotate about the $z$-axis, so we make a thumbs up with our right hand, and then point our right thumb in the $+z$ direction.  The direction our fingers are now curling towards, is the direction in which we will rotate by $\alpha$ radians.}
+\textnormal{The right hand rule tells us which direction to rotate.  We want to rotate about the z-axis, so we make a thumbs up with our right hand, and then point our right thumb in the $+z$ direction.  The direction our fingers are now curling towards, is the direction in which we will rotate by $\alpha$ radians.}
 
 \textnormal{In the figure below, this direction and the angle $\alpha$ are in light blue.  After the $Z(\alpha)$ gate, our new statevector is shown in black on the Bloch sphere below.}
 \begin{figure}[H]
@@ -1146,10 +1239,21 @@ On the unit circle, it is reflection about the dashed line below.
 \end{figure}
 
 In the Bloch sphere below, the unit circle but with angles doubled is the light blue circle.
-The light blue axis that is halfway between the $z$- and $x$- axes of that circle, is the axis you do a $\pi$ rotation about for the $H$ gate.
+The light blue axis that is halfway between the z- and x- axes of that circle, is the axis you do a $\pi$ rotation about for the $H$ gate.
 \begin{figure}[H]
 	\ctikzfig{blochh}
 \end{figure}
+
+\subsection{Mixed states}
+We have now learned about all possible single-qubit \textit{pure} quantum states --- on the surface of the Bloch sphere.
+There exists one other type of single-qubit quantum state, called \textit{mixed} quantum states --- \textit{inside} the volume of the Bloch sphere.
+Present-day quantum computers are \textit{noisy}\footnote{As of the time of writing this, we are in the day and age where quantum computers are not yet able to suppress noise enough to correct the errors that occur during quantum computation as they occur.  This is called the \textit{Noisy Intermediate-Scale Quantum} era, as first described by John Preskill in his paper at \url{https://quantum-journal.org/papers/q-2018-08-06-79/}.  In the future, quantum computers are predicted to be able to correct errors faster then they occur in quantum computation; this is called the \textit{fault-tolerant} era.}.  This noise causes the quantum states to have \textit{errors}.  As an analogy, imagine if you are on a call, and you have difficulty understanding what is said because the audio quality is too poor.
+
+If we had a pure qubit state but it got affected by \textit{noise}, what happens is that in the Bloch sphere our state goes further towards the center as the \textit{coherence}, i.e. the ``sound quality'' with our analogy, gets worse.
+
+The center of the Bloch sphere, where the $x$, $y$, and $z$ axes meet, is the \textit{maximally mixed state}.  In information theory, this is the quantum state with the least amount of information possible.  For instance regardless of whether you measure the maximally mixed state in the $x$ basis, the $y$ basis, or the $z$ basis, your measurement outcomes will be \textit{uniformly} random, i.e. the same probability for all possible outcomes.
+
+Although we will not get to how to mathematically represent mixed states just yet, it is good for us to keep in mind that quantum theory allows us to \textit{mix} different quantum states in different proportions.
 
 \newpage
 \section{Recipe for one-qubit quantum circuits}
@@ -1160,7 +1264,7 @@ How are we doing on meal prep?
 	\item We got a sneak peek at our first quantum gates when we learned about how the X, Y, and Z gates are $\pi$ ($180^{\circ}$) rotations on the Bloch sphere.
 	\item We learned about how we can explain the funky physics of quantum measurement thanks to the probabilities we get when we test our quantum states for our chosen basis.
 \end{itemize}
-To pre-heat the oven, let us a free account at \url{https://quantum-computing.ibm.com/}.  Get excited!  We are about to create our first quantum circuit together and run it on a real quantum computer.
+To pre-heat the oven, let us create a free account at \url{https://quantum-computing.ibm.com/}.  Get excited!  We are about to create our first quantum circuit together and run it on a real quantum computer.
 When you log in, launch the IBM Quantum Composer and make a new circuit.
 First, your circuit needs a name that is not `Untitled circuit'.
 \begin{figure}[H]
@@ -1260,14 +1364,14 @@ Thankfully, we do not have to resign ourselves to the tedium of multiplying matr
 \section{The ZX-calculus}
 To help us develop intuition for the Z- and X- bases, we will learn how to read, draw, and make deductions using \textbf{ZX-calculus} diagrams.  The qubit ZX-calculus is a pictorial language in which you can reason about all of qubit quantum computation.  As we continue learning, we will see how convenient of a tool these diagrams are.  As with the circuit model, we choose the convention of drawing and reading these diagrams from left to right.
 
-We have already met the $Z$ and $X$ gates.  But have you met them in color?\footnote{The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers.}  In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.  Rotations about the $z$-axis Bloch sphere are colored in green, whereas rotations around the $x$-axis of the Bloch sphere are colored in pink.  In the ZX-calculus, we draw $Z$ and $X$ rotation gates as green and pink circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
+We have already met the $Z$ and $X$ gates.  But have you met them in color?\footnote{The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers.}  In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.  Rotations about the z-axis Bloch sphere are colored in green, whereas rotations around the x-axis of the Bloch sphere are colored in pink.  In the ZX-calculus, we draw $Z$ and $X$ rotation gates as green and pink circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
 
 \subsection{$Z$ and $X$ rotations in the ZX-calculus}
 The $Z$ rotation gate is drawn in the ZX-calculus as
 \begin{equation*}
 	\tikzfig{zxZphase}
 \end{equation*}
-The phase $\alpha$, in radians (i.e. any number in the range $[0,2\pi)$ ), is the angle of rotation about the $z$-axis on the Bloch sphere.
+The phase $\alpha$, in radians (i.e. any number in the range $[0,2\pi)$ ), is the angle of rotation about the z-axis on the Bloch sphere.
 In matrix form, the gate in terms of $\alpha$ is:
 \begin{equation}
 	Z(\alpha) = \begin{bmatrix}
@@ -1284,7 +1388,7 @@ For the special case when $\alpha = 0$, no rotation occurs.  The gate is the ide
 We'll use this two-headed squiggly arrow to mean when we are translating between circuit model and ZX-calculus diagrammatic notation for a given gate.
 By the end of this section, it should be easy to tell whether a diagram is a circuit model diagram or a ZX-calculus diagram.
 
-There are plenty of other special cases each interesting in their own way.  When $\alpha = \pi$, we have the $Z$ gate.  The reason why the $Z$ gate is the same gate as the $Z(\pi)$ gate, is that the $Z$ gate rotates exactly halfway ($\pi$ radians) around the $z$-axis of the Bloch sphere.  Therefore, the $Z$ gate in the ZX-calculus is drawn as
+There are plenty of other special cases each interesting in their own way.  When $\alpha = \pi$, we have the $Z$ gate.  The reason why the $Z$ gate is the same gate as the $Z(\pi)$ gate, is that the $Z$ gate rotates exactly halfway ($\pi$ radians) around the z-axis of the Bloch sphere.  Therefore, the $Z$ gate in the ZX-calculus is drawn as
 \begin{equation}
 	\tikzfig{zxZ}
 \end{equation}
@@ -1303,7 +1407,7 @@ In the opposite color, the $X$ rotation gate is drawn in the ZX-calculus as
 \begin{equation*}
 	\tikzfig{zxXphase}
 \end{equation*}
-The phase $\alpha$ is now the angle of rotation about the $x$-axis on the Bloch sphere.
+The phase $\alpha$ is now the angle of rotation about the x-axis on the Bloch sphere.
 
 We again have that $X(0) = \mathbb{I}$
 \begin{equation}
@@ -1314,10 +1418,10 @@ and the $X$ gate is the same as the $X(\pi)$ gate.
 	\tikzfig{zxX}
 \end{equation}
 
-We know that the $\kz0$ and $\kz1$ states are the $Z$-basis states, while the $\kx+$ and $\kx-$ states are the $X$-basis states.
-What do they look like in the ZX-calculus?  We will present them first, leading up to an \textit{a-ha!} moment regarding why we chose to represent them this way.
+We know that the $\kz0$ and $\kz1$ states are the Z-basis states, while the $\kx+$ and $\kx-$ states are the X-basis states.
+What do they look like in the ZX-calculus?
 
-The $Z$-basis states are
+The Z-basis states and tests are
 \begin{equation}
 	\tikzfig{zxk0}
 \end{equation}
@@ -1326,7 +1430,7 @@ and
 	\tikzfig{zxk1}
 \end{equation}
 
-The $X$-basis states are
+The X-basis states and tests are
 \begin{equation}
 	\tikzfig{zxk+}
 \end{equation}
@@ -1335,6 +1439,46 @@ and
 	\tikzfig{zxk-}
 \end{equation}
 
+In the next example, we will look into why they are drawn this way in the ZX-calculus.
+This brings us to our first \emph{rewrite rule} in the ZX-calculus, which across the literature has been also named the \emph{fusion rule} or the \emph{spider rule}.
+Let us first describe this rule informally.
+\begin{zxrule}
+	Consider two same color circles with at least one wire between them.
+	If all the wires between them are bare, the two circles can be \emph{fused} together to become a new circle of the same color.
+	This new circle's phase is the sum of the two original circle's phases.
+\end{zxrule}
+While this description is about when we can fuse circles, because the diagrams we have before and after are mathematically equal to each other, we can apply this rule in the opposite direction too.
+This means that whenever we have circle, we can ``unfuse'' it into two circles of the same color which are connected by at least one wire, as long as the two new circles' phases add up to the original circle's phase.
+
+This can seem a little abstract at the moment, so let us connect this with operations we can do with one qubit.
+So far we have only talked about having only one wire connecting any two things in our ZX-calculus diagrams, so once we have multiple qubit circuits we will see situations where there are more than one wire between circles.
+For now, let us draw what this rule looks like in the cases we have so far.  For a single qubit, there are four possible diagrams where there are two same color circles (with arbitrary phases $\alpha$ and $\beta$) connected by a wire.  We will present each of these four cases below, but whereever the definition involves ``at least one'' wire we will draw one wire, as we will later understand what it means to draw multiple wires.
+
+The first case is a \emph{number}: any diagram with no inputs and no outputs.  We have seen diagrams of numbers several times before: whenever we applied a test to a state, what we got was a number which gives you (by taking the number's norm squared) the success probability of the test.
+\begin{equation}
+	\tikzfig{zxXfusion1qff}
+\end{equation}
+
+The second case is a \emph{state}: any diagram with no inputs and at least one output wire.
+\begin{equation}
+	\tikzfig{zxXfusion1qft}
+\end{equation}
+
+The third case is a \emph{test}: any diagram with at least one input wire and no outputs.
+\begin{equation}
+	\tikzfig{zxXfusion1qff}
+\end{equation}
+
+The fourth and final case is a \emph{single-qubit gate}:
+\begin{equation}
+	\tikzfig{zxXfusion1qtt}
+\end{equation}
+
+The above rules still hold if the circle are instead all green.
+
+With this we can now see why Z and X gates and basis states are drawn as they are in the ZX-calculus.
+\newpage
+\begin{example}[Applying Z and X gates to Z and X basis states]
 Remember that $X \kz0 = \kz1$?  When we write this out in ZX-calculus, we get
 \begin{equation}
 	\tikzfig{zxXk0}
@@ -1344,8 +1488,14 @@ Likewise, $Z \kx+ = \kx-$ becomes
 	\tikzfig{zxZk+}
 \end{equation}
 It is simply a matter of ``fusing'' the two adjacent circles of the same color, adding up their rotation angles.
-This also holds for showing $X \kz1 = \kz0$ and $Z \kz- = \kz+$, because $\pi + \pi = 2\pi$.
-When can we use this ``fusion'' rule?  The answer is, whenever two circles of the same color are connected to each other by at least one wire (with nothing else on it).
+This also holds for showing $X \kz1 = \kz0$ and $Z \kz- = \kz+$, because $\pi + \pi = 2\pi$:
+\begin{equation}
+	\tikzfig{zxXk1}
+\end{equation}
+\begin{equation}
+	\tikzfig{zxZk-}
+\end{equation}
+\end{example}
 
 \subsection{Color changing in the ZX-calculus}
 There are two main conventions that are used for drawing the $H$ gate in the ZX-calculus, which mean the same and are just for more convenient notation depending on the situation.
@@ -1410,14 +1560,22 @@ A cool fact about 3D rotations is that if we know how to do (parametrized) rotat
 A useful example of this is the \textbf{Euler decomposition} of the $H$ gate.  It means that we can decompose the $H$ gate into alternating $Z$ and $X$ rotations where the rotation angle is $\pm \pi/2$.
 
 \begin{align}
-	H &= e^{-\frac{i\pi}{4}} Z\left(\frac{\pi}{2}\right) X\left(\frac{\pi}{2}\right) Z\left(\frac{\pi}{2}\right)
-	H &= e^{-\frac{i\pi}{4}} X\left(\frac{\pi}{2}\right) Z\left(\frac{\pi}{2}\right) X\left(\frac{\pi}{2}\right)
+	H &= e^{-\frac{i\pi}{4}} \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right)
+	H &= e^{-\frac{i\pi}{4}} \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right)
 \end{align}
 How to read these equations is: Each gate in the above equations, for instance the one with label $Z\left(\frac{\pi}{2}\right)$, has a matrix.
-If you replace all the gate labels with their matrices, you can check that the $H$ gate matrix indeed equals the three matrices on the right hand side of either equation above, times a complex number $e^{-\frac{i\pi}{4}}$.  This complex number is the \textit{global phase} we have encountered earlier.  In this text we will keep track of these global phases in equations such as these in case you ever want to look them up.  With that said, it's convenient to keep in mind that for most purposes you can ignore them, because as we saw from Example~\ref{ex:globalphase} we can't tell the difference between quantum systems that have the same state up to global phase anyway.
+If you replace all the gate labels with their matrices, you can check that the $H$ gate matrix indeed equals the three matrices on the right hand side of either equation above, times a complex number $e^{-\frac{i\pi}{4}}$.  This complex number is a \textit{global phase}, as we have encountered earlier.  In this text we will keep track of these global phases in equations such as these in case you ever want to look them up.  With that said, it's convenient to keep in mind that for most purposes you can ignore them, because as we saw from Example~\ref{ex:globalphase} we cannot tell the difference between quantum systems that have the same state up to global phase anyway.
 
-We can see this decomposition visually on the Bloch sphere by comparing the two animations below\footnote{These animations are from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}}.
+In this text, we may also drop the global phase factor where it is convenient to do so, and where it is less likely to be equations you may want to look up later (for instance within examples).  In those cases, a notation we may use is a doubly squiggly line, such as
+\begin{align}
+	H &\approx Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right)
+	H &\approx X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right)
+\end{align}
+which means that there is a global factor, i.e. one side of the equation is a complex number multiple of the other.
+
+Back to the $H$ gate Euler decomposition.  We can see this visually on the Bloch sphere by comparing the two animations below\footnote{These animations are from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}}.
 % description of the two animations goes here
+\begin{figure}[H]
 \noindent%
 \begin{minipage}[t]{0.45\linewidth}
 	\begin{frame}{}
@@ -1429,13 +1587,529 @@ We can see this decomposition visually on the Bloch sphere by comparing the two 
 		\animategraphics[controls,width=2in]{20}{images/HgateEulerBloch/animation-}{0}{200}
 	\end{frame}
 \end{minipage}
+\caption{For ease of visualization, both of these animations first rotate the $\kz0$ state to an arbitrary other single-qubit state on the surface of the Bloch sphere --- this is the first two rotations which are respectively green and blue.  \textbf{Left:} The third and final rotation, colored gray, is the $H$ gate, which is a $\pi$ rotation about the axis that is halfway between the $x$ and $z$ axes, i.e. the $\frac{\kz0 + \kx+}{\sqrt{2}}$ axis.  \textbf{Right:} The last three rotations, colored green, blue, and green; are $\pi/2$ $X$, $Z$, and $X$ rotations respectively.  As expected, both of these animations end in the same point on the surface of the Bloch sphere.}
+\end{figure}
+
+\section{Qubits side by side}
+Let us now take what we know about single-qubit states, and combine them to talk about multi-qubit states: quantum states of multiple qubits.
+As of the time of writing this, IBM released Eagle, their 127 qubit quantum processor, becoming the first to take the number of qubits on a quantum computer to triple digits\footnote{\url{https://research.ibm.com/blog/127-qubit-quantum-processor-eagle}}.
+
+We can classify any multi-qubit state as being either a \textbf{product state} or an \textbf{entangled state}.
+We will first learn about product states, which are the special case of multi-quantum states with no entanglement.
+
+\subsection{Product states}
+So far, our diagrams of single-qubit states look like (here read from bottom to top, but we have also used the left-to-right convention before):
+
+\begin{equation}
+	\tikzfig{oneket}
+\end{equation}
+
+If we had two qubits respectively in the single-qubit states $\psi_1$ and $\psi_2$, their two-qubit state would be drawn as
+
+\begin{equation}
+	\tikzfig{twokets}
+\end{equation}
+
+So if we had $n$ unentangled qubits, their quantum state would be drawn as
+
+\begin{equation}
+	\tikzfig{nkets}
+\end{equation}
+
+What does it mean to draw qubit states side by side?
+
+Conceptually, in our earlier analogy of quantum circuits to a cooking recipe, we start off with an ingredient (as our input states), do something to cook it (applying quantum gates), and end up with the cooked dish in the end (which we can ``consume'' or otherwise end its existence by eating it and observing how it tastes).
+Our single-qubit quantum circuits are like dishes made of just one ingredient, which severely limits our options but can enjoyable at times.  Take for instance, eating a piece of toast:
+
+\begin{equation}
+	\tikzfig{onetoast}
+\end{equation}
+
+We can also eat more than one piece of toast at once:
+\begin{equation}
+	\tikzfig{twotoasts}
+\end{equation}
+
+Or any number of pieces of toast:
+\begin{equation}
+	\tikzfig{ntoasts}
+\end{equation}
+
+Each piece of toast is initially separate.  However, we can think of ``eat'' as an effect because it ``consumes'' the state, and thus we can think of this act of consumption as having as many inputs as the number of pieces of toast you are eating at once.
+
+Now let us think of each piece of toast as being in a quantum state, let's just say it's the $\kz0$ state.
+Then two separate pieces of toast would be our analogy for
+\begin{equation}\label{eq:twok0s}
+	\tikzfig{twok0s}
+\end{equation}
+What does this mean, physically and mathematically?
+
+Physically, we \emph{are} talking about these two qubits being next to each other and not entangled with each other.
+By ``next to'' we aren't referring to the distance between them.  It just means that they are part of the same system such that it makes sense to draw them together.  We are drawing them next to each other so we can draw them as disconnected if they are not entangled with each other.
+
+Mathematically, this means that we take a \emph{tensor product}, also known as the Kronecker product, of the qubit states.  This simply means that we just need the individual statevectors $\ket{\psi_1},\ket{psi_2},...\ket{psi_n}$ to write the statevector of their combined system --- this is a product state because its statevector is their tensor product $\ket{psi_1} \otimes \ket{\psi_2} \otimes ... \otimes \ket{\psi_n}$.  Below, we demonstrate an example of computing the tensor product.
+
+In general if we take the tensor product of any two vectors
+\begin{equation}
+	\vec{v} = \begin{bmatrix}v_1\\ v_2\\ \vdots\\ v_m\end{bmatrix}
+\end{equation}
+and
+\begin{equation}
+	\vec{w} = \begin{bmatrix}w_1\\ w_2\\ \vdots\\ w_n\end{bmatrix}
+\end{equation}
+their tensor product is
+\begin{align}
+	\vec{v} \otimes \vec{w} &= \begin{bmatrix}v_1 \vec{w}\\ v_2 \vec{w}\\ \vdots \\ v_m \vec{w}\end{bmatrix}\\
+	&= \begin{bmatrix}v_1 \begin{bmatrix}w_1\\ w_2\\ \vdots\\ w_n\end{bmatrix}\\ v_2 \begin{bmatrix}w_1\\ w_2\\ \vdots\\ w_n\end{bmatrix}\\ \vdots \\ v_m \begin{bmatrix}w_1\\ w_2\\ \vdots\\ w_n\end{bmatrix}\end{bmatrix}\\
+	&= \begin{bmatrix}\begin{bmatrix}v_1 w_1\\ v_1 w_2\\ \vdots\\ v_1 w_n\end{bmatrix}\\ \begin{bmatrix}v_2 w_1\\ v_2 w_2\\ \vdots\\ v_2 w_n\end{bmatrix}\\ \vdots \\ v_m \begin{bmatrix}w_1\\ w_2\\ \vdots\\ w_n\end{bmatrix}\end{bmatrix}\\
+	&= \begin{bmatrix}v_1 w_1\\ v_1 w_2\\ \vdots \\ v_1 w_n \\ v_2 w\end{bmatrix}
+\end{align}
+where two vectors stacked on top of each other means we are vertically concatenating them.
+This can be thought of as a nested for loop multiplying the vectors together, where the outer for loop iterates through each element of $v$, while the inner for loop iterates through each element of $w$.
+
+\begin{example}
+	What is the statevector of a quantum system of two qubits each in the $\kz0$ state?
+	\soln \textnormal{This is simply the product state drawn in Eq.\eqref{eq:twok0s}, which is $\kz0 \otimes \kz0$:}
+	\begin{align}
+		\ket{\,0\,0\,} &= \kz0 \otimes \kz0\\
+		&= \begin{bmatrix}1\\ 0\end{bmatrix} \otimes \begin{bmatrix}1\\ 0\end{bmatrix}\\
+		&= \begin{bmatrix}1\begin{bmatrix}1\\ 0\end{bmatrix}\\ 0\begin{bmatrix}1\\ 0\end{bmatrix}\end{bmatrix}\\
+		&= \begin{bmatrix}1\\ 0\\ 0\\ 0\end{bmatrix}
+	\end{align}
+	By convention, it is also written as $\ket{\,0\,0\,}$ because this is the quantum state that corresponds to the binary number $00$, when you have two bits that are both $0$.
+\end{example}
+
+Of course, just like how not everything we eat has to be toast (as that would be rather dull), we can make product states of individual qubits in different states as well.
+We now demonstrate how to take tensor products of multiple qubits that can each have any statevector.
+
+\begin{example}
+	What is the statevector of a quantum system of two qubits each with an arbitrary statevector?
+	Let's say that
+	\begin{equation}
+		\ket{\psi_1} = \begin{bmatrix}a\\ b\end{bmatrix}
+	\end{equation}
+	and
+	\begin{equation}
+		\ket{\psi_2} = \begin{bmatrix}c\\ d\end{bmatrix}
+	\end{equation}	
+	\soln \textnormal{This is simply the product state $\ket{\psi_1} \otimes \ket{\psi_2}$:}
+	\begin{align}
+		\ket{\psi_1\,\psi_2} &= \ket{\psi_1} \otimes \ket{\psi_2}\\
+		&= \begin{bmatrix}a\\ b\end{bmatrix} \otimes \begin{bmatrix}c\\ d\end{bmatrix}\\
+		&= \begin{bmatrix}a\begin{bmatrix}c\\ d\end{bmatrix}\\\ b\begin{bmatrix}c\\ d\end{bmatrix}\end{bmatrix}\\
+		&= \begin{bmatrix}ac\\ ad\\ bc\\ bd\end{bmatrix}
+	\end{align}
+	where $ab$ means multiplying the two complex numbers $a$ and $b$, and so on.
+\end{example}
+
+In general, to we can repeat taking the tensor product of many vectors to get the product state of even more qubits:
+\begin{example}
+	What is the statevector of a quantum system of three qubits each with an arbitrary statevector?
+	Let's say that in addition to the two qubits in the previous example, we have a third qubit in the state
+	\begin{equation}
+		\ket{\psi_3} = \begin{bmatrix}f\\ g\end{bmatrix}
+	\end{equation}
+	\soln \textnormal{This is simply the product state $\ket{\psi_1} \otimes \ket{\psi_2} \otimes \ket{\psi_3}$:}
+	\begin{align}
+		\ket{\psi_1\,\psi_2\,\psi_3} &= \ket{\psi_1} \otimes \ket{\psi_2} \otimes \ket{\psi_3}\\
+		&= (\ket{\psi_1} \otimes \ket{\psi_2}) \otimes \ket{\psi_3}\\
+		&= \begin{bmatrix}ac\\ ad\\ bc\\ bd\end{bmatrix} \otimes \begin{bmatrix}f\\ g\end{bmatrix}\\
+		&= \begin{bmatrix}ac\begin{bmatrix}f\\ g\end{bmatrix}\\ ad\begin{bmatrix}f\\ g\end{bmatrix}\\ bc\begin{bmatrix}f\\ g\end{bmatrix}\\ bd\begin{bmatrix}f\\ g\end{bmatrix}\end{bmatrix}\\
+		&= \begin{bmatrix}acf\\ acg\\ adf\\ adg\\ bcf\\ bcg\\ bdf\\ bdg\end{bmatrix}
+	\end{align}
+	Note that the tensor product operation is associative, i.e. it doesn't matter the order we take the tensor product:
+	\begin{equation}
+		(\ket{\psi_1} \otimes \ket{\psi_2}) \otimes \ket{\psi_3} = \ket{\psi_1} \otimes (\ket{\psi_2} \otimes \ket{\psi_3})
+	\end{equation}
+\end{example}
+
+In summary, if we have the statevectors of a bunch of qubits, we can compute their product state, drawn as their individual qubit states side by side:
+\begin{equation}
+	\tikzfig{nkets}
+\end{equation}
+
+In the circuit model, the way you draw multiple qubits is by having multiple horizontal wires, one for each qubit.
+If you have $n$ qubits as drawn below, the convention in the Qiskit textbook and that we will use in this text, is to write their product state as: $\ket{q_n} \otimes \ket{q_{n-1}} \otimes ... \otimes \ket{q_1}$.
+The other convention is to reverse the order: $\ket{q_1} \otimes \ket{q_2} \otimes ... \otimes \ket{q_n}$.
+\begin{equation}
+	\tikzfig{qubitordering_circuitmodel}
+\end{equation}
+
+\subsubsection{The two-qubit Z-basis states}
+If you have a two-qubit statevector, the Qiskit textbook and this text go by the convention
+\begin{equation}
+	\begin{bmatrix}
+		1\\
+		0\\
+		0\\
+		0
+	\end{bmatrix} = \kz{00} = \kz0 \otimes \kz0\qquad
+	\begin{bmatrix}
+		0\\
+		1\\
+		0\\
+		0
+	\end{bmatrix} = \kz{10} = \kz1 \otimes \kz0\qquad
+	\begin{bmatrix}
+		0\\
+		0\\
+		1\\
+		0
+	\end{bmatrix} = \kz{01} = \kz0 \otimes \kz1\qquad
+	\begin{bmatrix}
+		0\\
+		0\\
+		0\\
+		1
+	\end{bmatrix} = \kz{11} = \kz1 \otimes \kz1
+\end{equation}
+These are the four two-qubit Z-basis states.  They are the product states made up of the one-qubit Z-basis states.
+We can generalize them to $n$-qubit Z-basis states corresponding to bitstrings of length $n$.
+
+\begin{note}
+	You may also see elsewhere the convention of the opposite endian convention.
+	In that case, the two-qubit Z-basis states are
+	\begin{equation}
+		\begin{bmatrix}
+			1\\
+			0\\
+			0\\
+			0
+		\end{bmatrix} = \kz{00} = \kz0 \otimes \kz0\qquad
+		\begin{bmatrix}
+			0\\
+			1\\
+			0\\
+			0
+		\end{bmatrix} = \kz{01} = \kz0 \otimes \kz1\qquad
+		\begin{bmatrix}
+			0\\
+			0\\
+			1\\
+			0
+		\end{bmatrix} = \kz{10} = \kz1 \otimes \kz0\qquad
+		\begin{bmatrix}
+			0\\
+			0\\
+			0\\
+			1
+		\end{bmatrix} = \kz{11} = \kz1 \otimes \kz1
+	\end{equation}	
+\end{note}
+
+\subsection{Entangled states}
+You may think that it is not too useful that so far we have only described individual and separate qubits, and you would be right.
+What we are getting to is how to make the qubits interact with each other in ways natural for quantum systems, but ``artificial'' and expensive to simulate on classical computers.
+This leads us to quantum entanglement, something uniquely quantum that we use for quantum computation.
+
+\subsubsection{The CX gate}
+The most fundamental --- or at least, the most commonly used --- two-qubit gate is the CX gate.  CX is short for controlled X.  It is also called the CNOT gate, short for controlled NOT, because the X gate is also called the NOT gate.
+
+We previously learned that the X gate exchanges $\kz0$ and $\kz1$, its eigenstates are $\kx+$ and $\kx-$, and its matrix is
+\begin{equation}
+	X = \begin{bmatrix}
+		0 & 1\\
+		1 & 0
+	\end{bmatrix}
+\end{equation}
+There are two ways to draw the $X$ gate in the circuit model which can be used interchangeably and have the same meaning.
+As with other named gates, we can draw a box with the label $X$ on it:
+\begin{equation}
+	\tikzfig{x_circuitmodel2}
+\end{equation}
+The other convention is this symbol:
+\begin{equation}
+	\tikzfig{x_circuitmodel}
+\end{equation}
+
+One of the qubits the CX gate acts upon is called the control qubit, and the other is called the target qubit.
+What the CX gate does is that whether it does the X gate on the target qubit depends on the state of the control qubit.
+There are two ways to write the matrix for the CX gate --- one if you order your bits by little Endian convention, and the other by big Endian.
+
+If we have the CX gate act upon two qubits $q_c$ and $q_t$, with $q_c$ as the control qubit and $q_t$ as the target qubit, in the circuit model this would be drawn as
+\begin{equation}
+	\tikzfig{cx_circuitmodel}
+\end{equation}
+While also correct, this notation for the CX gate is less commonly seen:
+\begin{equation}
+	\tikzfig{cx_circuitmodel2}
+\end{equation}
+In general, you can draw any gate with a control qubit, by drawing a vertical line from the gate to a black dot on the wire of the control qubit.
+
+In the Qiskit textbook, the matrix of the CX gate is
+\begin{equation}
+	CX = \begin{bmatrix}
+		1 & 0 & 0 & 0\\
+		0 & 0 & 0 & 1\\
+		0 & 0 & 1 & 0\\
+		0 & 1 & 0 & 0
+	\end{bmatrix}
+\end{equation}
+\begin{example}
+	What does the CX gate do to the two-qubit Z-basis states?
+	\soln \textnormal{The four two-qubit Z-basis states are $\ket{00}$, $\ket{10}$, $\ket{01}$, and $\ket{11}$.  We multiply them each by the matrix of the CX gate:}
+	\begin{align}
+		CX \kz{00} &= \begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 0 & 0 & 1\\
+			0 & 0 & 1 & 0\\
+			0 & 1 & 0 & 0
+		\end{bmatrix} \begin{bmatrix}
+			1\\
+			0\\
+			0\\
+			0
+		\end{bmatrix} = \begin{bmatrix}
+			1\\
+			0\\
+			0\\
+			0
+		\end{bmatrix} = \kz{00}\\
+		CX \kz{10} &= \begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 0 & 0 & 1\\
+			0 & 0 & 1 & 0\\
+			0 & 1 & 0 & 0
+		\end{bmatrix} \begin{bmatrix}
+			0\\
+			1\\
+			0\\
+			0
+		\end{bmatrix} = \begin{bmatrix}
+			0\\
+			0\\
+			0\\
+			1
+		\end{bmatrix} = \kz{11}\\
+		CX \kz{01} &= \begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 0 & 0 & 1\\
+			0 & 0 & 1 & 0\\
+			0 & 1 & 0 & 0
+		\end{bmatrix} \begin{bmatrix}
+			0\\
+			0\\
+			1\\
+			0
+		\end{bmatrix} = \begin{bmatrix}
+			0\\
+			0\\
+			1\\
+			0
+		\end{bmatrix} = \kz{01}\\
+		CX \kz{11} &= \begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 0 & 0 & 1\\
+			0 & 0 & 1 & 0\\
+			0 & 1 & 0 & 0
+		\end{bmatrix} \begin{bmatrix}
+			0\\
+			0\\
+			0\\
+			1
+		\end{bmatrix} = \begin{bmatrix}
+			0\\
+			1\\
+			0\\
+			0
+		\end{bmatrix} = \kz{10}
+	\end{align}
+	We can describe the CX gate with a truth table, like we did before for classical gates such as AND and OR, because the CX gate sends each Z-basis state to a Z-basis state.  The truth table is:
+	\begin{equation}
+		\begin{tabular}{c|c||c|c} \multicolumn{2}{c|}{I} & \multicolumn{2}{|c}{O}\\
+			\hline
+			C & T & C & T\\
+			\hline
+			0 & 0 & 0 & 0\\
+			0 & 1 & 0 & 1\\
+			1 & 0 & 1 & 1\\
+			1 & 1 & 1 & 0
+		\end{tabular}
+	\end{equation}
+	\begin{note}
+		Furthermore, the CX is an example of \textit{reversible classical gate} because it maps, one-to-one, each Z-basis state to a Z-basis state.
+		You can easily check that it is indeed reversible because if you were told which of the Z-basis states was output (the right half of the above truth table), then you know what was the input Z-basis state to the CX gate to get that output.
+		
+		All quantum gates, including all that we have seen so far, are \textbf{reversible}.  This means that for each $n$-qubit quantum gate, there is a unique $n$-qubit quantum gate such that if you apply one after the other (in either order), you get the identity operation on $n$ qubits which let's call $I$ here.  As we will see below, this unique inverse operation is the complex conjugate matrix to $U$, $U^\dagger$.
+
+		As we saw earlier, each single-qubit quantum gate sends a statevector on the surface of the Bloch sphere (i.e. a statevector of norm 1) to a statevector on the surface of the Bloch sphere.
+		In fact, all quantum gates have this property: if you apply the same quantum gate to any two statevectors of the same length, their inner product before and after you applied that gate are the same.  This property is called \textbf{unitary}.
+		This means that quantum gates preserve vector norms and thus also preserve probability amplitudes.
+
+		We can see how these two properties of reversible and unitary coincide for complex number matrices.
+		Consider an arbitary unitary matrix $U$ and a statevector of the same length $\ket{v}$.
+		We know that because $U$ preserves vector norms, we must have that the norm of $\ket{Uv}=U\ket{v}$ is the same as the norm of $\ket{v}$.
+		\begin{align}
+			\langle \,v\,|\,v\,\rangle &= \langle \,U\,v\,|\,U\,v\,\rangle\\
+			&= (U\ket{v})^\dagger U\ket{v}\\
+			&= \ket{v}^\dagger U^\dagger U \ket{v}\\
+			&= \bra{v} U^\dagger U \ket{v}
+		\end{align}
+		where in the second line we used the trick that for any two complex matrices or vectors $A$ and $B$ that can be multiplied together, $(AB)^\dagger = B^\dagger A^\dagger$.
+		However, the above must hold for any complex vector of that length $v$, and so the above equation is true for every possible $v$ if and only if $U^\dagger U$ is the identity matrix $I$.  Indeed, $U^\dagger U = I = U U^\dagger$ for any unitary matrix $U$ and identity matrix $I$ of the same size as $U$.  Moreover, as matrix inverses of square matrices are unique, for any unitary matrix $U$, $U^\dagger$ is its unique matrix inverse i.e. $U^{-1}$.
+	\end{note}
+\end{example}
+
+\begin{note}
+	With the other endian convention, the CX matrix is
+	\begin{equation}
+		CX = \begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & 0 & 0 & 1\\
+			0 & 0 & 1 & 0
+		\end{bmatrix}
+	\end{equation}
+	A convenient property of using this convention is that controlled gates now have this block diagonal form.
+	This means that we can cut up the matrix into blocks where all the nonzero elements are in square blocks along the diagonal (from top left to bottom right) of the matrix.
+	In this case, we have two such blocks.  The top left block is $\mathbb{I}$, the (one-qubit) identity matrix, while the bottom right block is the $X$ gate matrix:
+	\begin{equation}
+		{\renewcommand{\arraystretch}{1.5}
+		CX = \left[ {\begin{array}{c|c}
+			\ \ \mathbb{I} \ \ & \ \ \mathcal{0} \ \ \\ \hline
+			\ \ \mathcal{0} \ \ & \ \ S \ \ \\
+		\end{array} } \right]
+		}
+	\end{equation}
+	where $\mathbb{0}$ is the one-qubit zero matrix.
+
+	This corresponds to the fact that with this endian convention, the CX gate does the identity to the target if the input Z-basis state has a 1 in the top two rows, i.e. the input is
+	\begin{equation*}
+		\begin{bmatrix}
+			1\\
+			0\\
+			0\\
+			0
+		\end{bmatrix} \quad \text{or} \quad \begin{bmatrix}
+			0\\
+			1\\
+			0\\
+			0
+		\end{bmatrix}
+	\end{equation*}
+\end{note}
+
+In the ZX-calculus, how we draw the CX gate is
+\begin{equation}
+	\tikzfig{zxCX}
+\end{equation}
+Just using the spider fusion rule of the ZX-calculus already reveals some neat and otherwise non-obvious features of the CX gate.  Namely, we can commute any Z phase gate through the control of CX gate
+\begin{equation}
+	\tikzfig{zxCXZphase}
+\end{equation}
+and any X phase gate through the target of the CX gate
+\begin{equation}
+	\tikzfig{zxCXXphase}
+\end{equation}
+for arbitrary phase angle $\alpha$.
+Recall that some of the most commonly encountered gates are Z phase gates (such as $Z$, $S$, and $T$) or X phase gates (such as $X$).
+
+To capture how the CX gate acts upon the Z-basis states, we introduce a new rewrite rule of the ZX-calculus.
+\begin{equation}
+	\tikzfig{zxbialgebracopy} \quad \text{ and } \quad \tikzfig{zxbialgebracopypi}
+\end{equation}
+
+We can express this more concisely with the rewrite rule
+\begin{zxrule}\label{zxrule:bialgebracopy}
+	\begin{equation}
+		\tikzfig{zxbialgebracopyapi}
+	\end{equation}
+	for $a \in \{0,1\}$.	
+\end{zxrule}
+
+Indeed, this allows us to compute with the ZX-calculus what the CX gate does to the Z-basis states.
+For any $c, t \in \{0,1\}$,
+\begin{equation}
+	\tikzfig{zxCXsum}
+\end{equation}
+This sheds insight into a different way to view the CX gate, other than being if-then logic on whether or not to activate the X gate.
+We can also think of the CX gate as a ``sum'' gate which adds the two input bits together in-place.
+Note that $(c+t) \text{ mod } 2\pi$ will always be either $0$ or $\pi$.
+
+We can even express diagrammatically the more general statement, that an X gate is performed on the target if and only if the control qubit is in the $\kz1$ state.
+\begin{equation}
+	\tikzfig{zxCXcopy}
+\end{equation}
+
+Yet another way we can use the ZX-calculus here is to know what the CX gate does on the X-basis states.
+We can color change rewrite rule~\ref{zxrule:bialgebracopy}
+\begin{equation}
+	\tikzfig{zxbialgebracopyapih}
+\end{equation}
+Actually, in the (vanilla) ZX-calculus, pretty much any rewrite rule still holds if you change invert all colors in the diagram between red and green.
+
+We thus see that the CX gate on the Z-basis states behaves just as with the X-basis states, except in the opposite direction of control and target.
+\begin{equation}
+	\tikzfig{zxCXcopyz}
+\end{equation}
+In other words, the CX gate does a $Z$ gate on the control qubit if and only if the target qubit is $\kx-$.
+
+\subsubsection{The Bell state}
+Outline of this subsubsection:
+\begin{itemize}
+	\item Bell state circuit diagram: last? use of matrix multiplication to get $\kz{00} + \kz{11}$ Bob flies to Mars, Alice flies to Venus, we observe them both, and Alice and Bob cat are in the same state
+	\item convert to ZX, simplify in ZX to get cup
+	\item example of Bell state coins - first example of "wire bending"	
+\end{itemize}
+
+As shown here where we learned how to produce a Bell state, the CX gate enables us to entangle two qubits together.  But it can do more --- the CX gate enables us to entangle any number of qubits together.  For instance, if we entangle qubit 1 and qubit 2, a d then entangle qubit 2 and qubit 3, we can create an entangled state of three qubits.
+
+\subsubsection{The GHZ state}
+%%% GHZ state ZX proof
+
+
+If we are able to do on our quantum computing hardware, just one arbitrary two-qubit entangling gate and enough single-qubit gates, we can do (to be more precise, approximate to arbitrary precision) any type of quantum computation possible on any number of qubits.  Being able to do this is called \textbf{universal quantum computation}.  The most famous gate set that suffices for universal quantum computation is called the Clifford+$T$ gate set, which has the three Clifford gates CX, $S$, and $H$, plus the non-Clifford $T$ gate.
+
+Besides cutting down the number of gates we ever need to just four, three of which are single-qubit gates, what is particularly special as we noted earlier is that the Clifford group (which can be generated by CX, $S$, and $H$) is the subset of quantum gates that we can efficiently simulate on classical computers.
+
+
+
+%%% Comment on Einstein's famous quote, ``spooky action at a distance''
+
+
+
+Let's call a \emph{process theory} something you can describe with a diagram with many processes, which can be any combination of in sequence and/or in parallel, where each process has zero or more input(s) and output(s).  Whenever we have anything happening ``in parallel'' or ``next to each other'', we can describe their combined process with the tensor product of the separate processes.
+
+Calculating $\vec{v} \otimes \vec{w}$ directly for any two vectors $\vec{v} = (v_1, v_2, ..., v_m)$ and $\vec{w} = (w_1, w_2, ..., w_n)$ is straightforward: Just multiply the numbers $v_i$ and $v_j$ for each $i \in \{1,...,m\}$ and $j in \{1,...,n\}$.  $\vec{v} \otimes \vec{w}$ is simply a single larger vector $(v_{11}, v_{12}, ..., v_{1n},v{21},...,v_{2n},...v_{m1},...,v_{mn})$.
+
+
+
+a toast sandwich:
+
+\begin{equation}
+	\tikzfig{toastsandwich}
+\end{equation}%%% toast, make sandwich, eat
+
+
+
+To take our cooking to new heights, we can have...\newline
+\newline
+drumroll...\newline
+\newline
+more than one ingredient.  Say, our cooking process could look like this (because as I write this I am getting hungry and thinking about sandwiches):
+
+\begin{equation}
+	\tikzfig{avocadogrilledcheesesandwich}
+\end{equation}
+
+So in the gray dashed box, is the product state of our three starting ingredients: toast, cheese, and avocado.  With a little extra work, we can transform them into the ultimate avocado grilled cheese sandwich.
+
+What does it mathematically mean to draw qubit states side by side?
+The word ``product'' in the name refers to the \textbf{tensor product} (also called the \textbf{Kronecker product}).
+
+Let's say we have two arbitrary single-qubit vectors:
+v1 = [a; b] and v2 = [c; d]
+How you take their tensor product is:
+
+Since our pure single-qubit states are just vectors, to get their product state, we just take the tensor product of all their single-qubit statevectors.
+In bra-ket notation, our earlier vector from equation REF is
+By convention, we can drop the tensor products between the individual kets to make the notation more concise.
 
 
 %At this time, if this is your first rodeo with Qiskit, check out the `Getting started with Qiskit' Jupyter notebook to walk through how to run your circuits on hardware, before we continue.  You can navigate to it by selecting the `New file +' button which opens up the Launcher.
 %\begin{figure}[H]
 %	\includegraphics[width=\columnwidth]{images/Launcher_IBMQuantumLab.PNG}
 %\end{figure}
-
 
 % \newpage
 % \section{When you have more than one qubit}

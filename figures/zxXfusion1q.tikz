@@ -1,0 +1,42 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=X phase dot] (0) at (-3.75, 1) {$\alpha$};
+		\node [style=none] (1) at (-1.5, 1) {};
+		\node [style=none] (2) at (0, 1) {$=$};
+		\node [style=X phase dot] (3) at (2.75, 1) {$\alpha+\beta$};
+		\node [style=none] (4) at (4.25, 1) {};
+		\node [style=X phase dot] (5) at (-2.5, 1) {$\beta$};
+		\node [style=X phase dot] (6) at (-3.75, 0) {$\alpha$};
+		\node [style=none] (8) at (0, 0) {$=$};
+		\node [style=X phase dot] (9) at (2.75, 0) {$\alpha+\beta$};
+		\node [style=X phase dot] (11) at (-2.5, 0) {$\beta$};
+		\node [style=none] (14) at (-4.75, 0) {};
+		\node [style=none] (19) at (1.25, 0) {};
+		\node [style=X phase dot] (20) at (-3.75, -1) {$\alpha$};
+		\node [style=none] (21) at (-1.5, -1) {};
+		\node [style=none] (22) at (0, -1) {$=$};
+		\node [style=X phase dot] (23) at (2.75, -1) {$\alpha+\beta$};
+		\node [style=none] (24) at (4.25, -1) {};
+		\node [style=X phase dot] (25) at (-2.5, -1) {$\beta$};
+		\node [style=none] (26) at (-4.75, -1) {};
+		\node [style=none] (27) at (1.25, -1) {};
+		\node [style=X phase dot] (28) at (-3.75, 2) {$\alpha$};
+		\node [style=none] (30) at (0, 2) {$=$};
+		\node [style=X phase dot] (31) at (2.75, 2) {$\alpha+\beta$};
+		\node [style=X phase dot] (33) at (-2.5, 2) {$\beta$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (3) to (4.center);
+		\draw [style=simple] (0) to (5);
+		\draw [style=simple] (5) to (1.center);
+		\draw [style=simple] (6) to (11);
+		\draw [style=simple] (14.center) to (6);
+		\draw [style=simple] (19.center) to (9);
+		\draw [style=simple] (23) to (24.center);
+		\draw [style=simple] (20) to (25);
+		\draw [style=simple] (25) to (21.center);
+		\draw [style=simple] (26.center) to (20);
+		\draw [style=simple] (27.center) to (23);
+		\draw [style=simple] (28) to (33);
+	\end{pgfonlayer}
+\end{tikzpicture}

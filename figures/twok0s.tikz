@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (128) at (-2, 0.75) {};
+		\node [style=none] (129) at (-0.25, 0.75) {};
+		\node [style=none] (131) at (-2, -1.25) {};
+		\node [style=none] (136) at (-2, 0.75) {};
+		\node [style=none] (160) at (-2, 3.25) {};
+		\node [style=none] (161) at (-2, 0) {\large$\kz0$};
+		\node [style=none] (163) at (-3.25, 0.75) {};
+		\node [style=none] (164) at (-3.25, -0.25) {};
+		\node [style=none] (165) at (1.75, 0.75) {};
+		\node [style=none] (166) at (3.5, 0.75) {};
+		\node [style=none] (167) at (1.75, -1.25) {};
+		\node [style=none] (168) at (1.75, 0.75) {};
+		\node [style=none] (169) at (1.75, 3.25) {};
+		\node [style=none] (170) at (1.75, 0) {\large$\kz0$};
+		\node [style=none] (171) at (0.5, 0.75) {};
+		\node [style=none] (172) at (0.5, -0.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (131.center) to (129.center);
+		\draw (129.center) to (128.center);
+		\draw [style=simple] (160.center) to (136.center);
+		\draw [style=simple] (136.center) to (163.center);
+		\draw [style=simple] (163.center) to (164.center);
+		\draw [style=simple] (164.center) to (131.center);
+		\draw (167.center) to (166.center);
+		\draw (166.center) to (165.center);
+		\draw [style=simple] (169.center) to (168.center);
+		\draw [style=simple] (168.center) to (171.center);
+		\draw [style=simple] (171.center) to (172.center);
+		\draw [style=simple] (172.center) to (167.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

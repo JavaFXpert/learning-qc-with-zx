@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (0, 0) {$\leftrightsquigarrow$};
+		\node [style=small dot] (15) at (3, 0.75) {};
+		\node [style=targ] (16) at (3, -0.75) {\large$+$};
+		\node [style=none] (17) at (4.25, 0.75) {};
+		\node [style=none] (18) at (4.25, -0.75) {};
+		\node [style=none] (19) at (1.75, 0.75) {};
+		\node [style=none] (20) at (1.75, -0.75) {};
+		\node [style=Z dot] (21) at (-3, 0.75) {};
+		\node [style=X dot] (22) at (-3, -0.75) {};
+		\node [style=none] (23) at (-1.75, 0.75) {};
+		\node [style=none] (24) at (-1.75, -0.75) {};
+		\node [style=none] (25) at (-4.25, 0.75) {};
+		\node [style=none] (26) at (-4.25, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (15) to (16);
+		\draw [style=simple] (19.center) to (15);
+		\draw [style=simple] (15) to (17.center);
+		\draw [style=simple] (20.center) to (16);
+		\draw [style=simple] (16) to (18.center);
+		\draw (21) to (22);
+		\draw [style=simple] (25.center) to (21);
+		\draw [style=simple] (21) to (23.center);
+		\draw [style=simple] (26.center) to (22);
+		\draw [style=simple] (22) to (24.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

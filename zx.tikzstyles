@@ -21,6 +21,8 @@
 \tikzstyle{unit circle}=[shape=circle, minimum size=42.5 mm, fill=none, draw={rgb,255: red,223; green,223; blue,223}, tikzit draw={rgb,255: red,223; green,223; blue,223}]
 \tikzstyle{white circle}=[shape=ellipse, fill=white, draw=black]
 \tikzstyle{2gate}=[fill=white, draw=black, shape=rectangle, minimum width=0.75cm, minimum height=1.25cm]
+\tikzstyle{small dot}=[vertex, minimum size=1.5 mm, draw=black, tikzit draw=black, tikzit fill=black, tikzit shape=circle]
+\tikzstyle{targ}=[vertex set, minimum size=0.5mm, inner sep=-0.5mm, tikzit shape=circle, shape=circle, tikzit draw=black]
 
 % Edge styles
 \tikzstyle{directedarrow}=[draw={rgb,255: red,223; green,223; blue,223}, ->, tikzit draw={rgb,255: red,223; green,223; blue,223}, line width=1 pt]

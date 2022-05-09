@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Z dot] (22) at (-3, 0) {};
+		\node [style=none] (24) at (-1.75, 1) {};
+		\node [style=X dot] (26) at (-4.5, 0) {};
+		\node [style=none] (27) at (-1.75, -1) {};
+		\node [style=none] (28) at (0, 0) {$=$};
+		\node [style=none] (29) at (3.75, 1) {};
+		\node [style=none] (30) at (3.75, -1) {};
+		\node [style=X dot] (31) at (2, 1) {};
+		\node [style=X dot] (32) at (2, -1) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (26) to (22);
+		\draw [style=simple] (22) to (24.center);
+		\draw [style=simple] (27.center) to (22);
+		\draw [style=simple] (31) to (29.center);
+		\draw [style=simple] (30.center) to (32);
+	\end{pgfonlayer}
+\end{tikzpicture}

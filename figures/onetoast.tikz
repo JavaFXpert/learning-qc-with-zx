@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (128) at (0, 0.75) {};
+		\node [style=none] (129) at (1.75, 0.75) {};
+		\node [style=none] (131) at (0, -1.25) {};
+		\node [style=none] (136) at (0, 0.75) {};
+		\node [style=none] (163) at (-1.25, 0.75) {};
+		\node [style=none] (164) at (-1.25, -0.25) {};
+		\node [style=none] (165) at (-0.6, 0.175) {};
+		\node [style=none] (166) at (0.375, 0.175) {};
+		\node [style=none] (167) at (-0.475, -0.575) {};
+		\node [style=none] (168) at (-0.475, -0.075) {};
+		\node [style=none] (169) at (0.275, -0.075) {};
+		\node [style=none] (170) at (0.275, -0.575) {};
+		\node [style=none] (171) at (0.35, -0.5) {};
+		\node [style=none] (172) at (0.35, 0.325) {};
+		\node [style=none] (174) at (0.35, -0.025) {};
+		\node [style=none] (176) at (1.75, 3.25) {};
+		\node [style=none] (177) at (0, 5.25) {};
+		\node [style=none] (178) at (0, 3.25) {};
+		\node [style=none] (179) at (-1.25, 3.25) {};
+		\node [style=none] (180) at (-1.25, 4.25) {};
+		\node [style=none] (181) at (0, 4) {eat};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (131.center) to (129.center);
+		\draw (129.center) to (128.center);
+		\draw [style=simple] (136.center) to (163.center);
+		\draw [style=simple] (163.center) to (164.center);
+		\draw [style=simple] (164.center) to (131.center);
+		\draw [style=simple, bend left=75, looseness=0.75] (165.center) to (166.center);
+		\draw [style=simple, bend left=300, looseness=0.75] (172.center) to (165.center);
+		\draw [style=simple, bend right, looseness=0.75] (165.center) to (168.center);
+		\draw [style=simple] (168.center) to (167.center);
+		\draw [style=simple] (167.center) to (170.center);
+		\draw [style=simple] (170.center) to (171.center);
+		\draw [style=simple] (170.center) to (169.center);
+		\draw [style=simple, bend right, looseness=0.50] (169.center) to (166.center);
+		\draw [style=simple] (169.center) to (174.center);
+		\draw [style=simple] (171.center) to (174.center);
+		\draw [style=simple, bend right=90, looseness=0.75] (174.center) to (172.center);
+		\draw (177.center) to (176.center);
+		\draw [style=simple] (178.center) to (179.center);
+		\draw [style=simple] (179.center) to (180.center);
+		\draw [style=simple] (180.center) to (177.center);
+		\draw [style=simple] (178.center) to (136.center);
+		\draw (176.center) to (178.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

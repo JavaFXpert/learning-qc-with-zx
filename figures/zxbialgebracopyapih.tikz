@@ -1,0 +1,57 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=X dot] (22) at (-3, 0) {};
+		\node [style=none] (24) at (-1.75, 1) {};
+		\node [style=Z phase dot] (26) at (-4.5, 0) {$a\pi$};
+		\node [style=none] (27) at (-1.75, -1) {};
+		\node [style=none] (28) at (0, 0) {$=$};
+		\node [style=none] (33) at (0, -10.5) {$=$};
+		\node [style=none] (34) at (3.75, -9.75) {};
+		\node [style=none] (35) at (3.75, -11.5) {};
+		\node [style=Z phase dot] (36) at (1.75, -9.75) {$a\pi$};
+		\node [style=Z phase dot] (37) at (1.75, -11.5) {$a\pi$};
+		\node [style=Z dot] (38) at (3.25, 0) {};
+		\node [style=none] (39) at (4.5, 1) {};
+		\node [style=Z phase dot] (40) at (1.75, 0) {$a\pi$};
+		\node [style=none] (41) at (4.5, -1) {};
+		\node [style=hadamard] (42) at (4, 0.625) {};
+		\node [style=hadamard] (43) at (4, -0.6) {};
+		\node [style=hadamard] (44) at (2.5, 0) {};
+		\node [style=none] (45) at (0, -3.5) {$=$};
+		\node [style=Z dot] (46) at (3.25, -3.5) {};
+		\node [style=none] (47) at (4.5, -2.5) {};
+		\node [style=X phase dot] (48) at (1.75, -3.5) {$a\pi$};
+		\node [style=none] (49) at (4.5, -4.5) {};
+		\node [style=hadamard] (50) at (4, -2.875) {};
+		\node [style=hadamard] (51) at (4, -4.1) {};
+		\node [style=none] (52) at (0, -6.75) {$=$};
+		\node [style=none] (53) at (3.75, -6) {};
+		\node [style=none] (54) at (3.75, -7.75) {};
+		\node [style=X phase dot] (55) at (1.75, -6) {$a\pi$};
+		\node [style=X phase dot] (56) at (1.75, -7.75) {$a\pi$};
+		\node [style=hadamard] (57) at (2.75, -6) {};
+		\node [style=hadamard] (58) at (2.75, -7.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (26) to (22);
+		\draw [style=simple] (22) to (24.center);
+		\draw [style=simple] (27.center) to (22);
+		\draw [style=simple] (36) to (34.center);
+		\draw [style=simple] (35.center) to (37);
+		\draw [style=simple] (40) to (44);
+		\draw [style=simple] (44) to (38);
+		\draw [style=simple] (38) to (42);
+		\draw [style=simple] (42) to (39.center);
+		\draw [style=simple] (41.center) to (43);
+		\draw [style=simple] (43) to (38);
+		\draw [style=simple] (46) to (50);
+		\draw [style=simple] (50) to (47.center);
+		\draw [style=simple] (49.center) to (51);
+		\draw [style=simple] (51) to (46);
+		\draw [style=simple] (48) to (46);
+		\draw [style=simple] (55) to (57);
+		\draw [style=simple] (57) to (53.center);
+		\draw [style=simple] (54.center) to (58);
+		\draw [style=simple] (58) to (56);
+	\end{pgfonlayer}
+\end{tikzpicture}

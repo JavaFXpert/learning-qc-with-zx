@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (50) at (0, 1.75) {};
+		\node [style=none] (59) at (1.75, 1.75) {};
+		\node [style=none] (60) at (-1.75, 1.75) {};
+		\node [style=none] (61) at (0, 3.75) {};
+		\node [style=none] (114) at (-1.5, 0.75) {};
+		\node [style=none] (115) at (-1.5, -1) {};
+		\node [style=none] (116) at (1.5, -1) {};
+		\node [style=none] (117) at (1.5, 0.75) {};
+		\node [style=none] (118) at (0, 0.75) {};
+		\node [style=none] (119) at (0, -1) {};
+		\node [style=none] (130) at (0, 2.425) {eat};
+		\node [style=none] (134) at (0, 0) {sandwich};
+		\node [style=none] (135) at (0, -2) {};
+		\node [style=none] (136) at (1.75, -2) {};
+		\node [style=none] (137) at (-1.75, -2) {};
+		\node [style=none] (138) at (0, -4) {};
+		\node [style=none] (139) at (0, -2) {};
+		\node [style=none] (146) at (0, -2.65) {toast};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (60.center) to (61.center);
+		\draw (61.center) to (59.center);
+		\draw (59.center) to (50.center);
+		\draw (50.center) to (60.center);
+		\draw [style=simple] (114.center) to (118.center);
+		\draw [style=simple] (118.center) to (117.center);
+		\draw [style=simple] (117.center) to (116.center);
+		\draw [style=simple] (116.center) to (119.center);
+		\draw [style=simple] (119.center) to (115.center);
+		\draw [style=simple] (115.center) to (114.center);
+		\draw [style=simple] (50.center) to (118.center);
+		\draw (137.center) to (138.center);
+		\draw (138.center) to (136.center);
+		\draw (136.center) to (135.center);
+		\draw (135.center) to (137.center);
+		\draw [style=simple] (119.center) to (139.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

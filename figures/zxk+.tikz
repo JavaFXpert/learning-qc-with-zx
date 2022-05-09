@@ -1,11 +1,16 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=Z dot] (0) at (-3, 0) {};
-		\node [style=none] (1) at (-1.75, 0) {};
-		\node [style=none] (2) at (0, 0) {$\coloneqq$};
-		\node [style=none] (3) at (2, 0) {$\kx+$};
+		\node [style=Z dot] (4) at (-7.5, 0) {};
+		\node [style=none] (5) at (-6.25, 0) {};
+		\node [style=none] (6) at (-4.5, 0) {$\coloneqq$};
+		\node [style=none] (7) at (-2.5, 0) {$\kx+$};
+		\node [style=Z dot] (8) at (7.5, 0) {};
+		\node [style=none] (9) at (6.25, 0) {};
+		\node [style=none] (10) at (4.5, 0) {$\coloneqq$};
+		\node [style=none] (11) at (2.5, 0) {$\bx+$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw [style=simple] (0) to (1.center);
+		\draw [style=simple] (4) to (5.center);
+		\draw [style=simple] (8) to (9.center);
 	\end{pgfonlayer}
 \end{tikzpicture}
