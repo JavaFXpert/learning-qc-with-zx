@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small dot] (0) at (0, 0.75) {};
+		\node [style=targ] (1) at (0, -0.75) {\large$+$};
+		\node [style=none] (3) at (1, 0.75) {};
+		\node [style=none] (4) at (1, -0.75) {};
+		\node [style=none] (5) at (-3.25, 0.75) {};
+		\node [style=none] (6) at (-3.25, -0.75) {};
+		\node [style=none] (7) at (-4, 0.75) {$\kz0$};
+		\node [style=none] (8) at (-4, -0.75) {$\kz0$};
+		\node [style=box] (9) at (-2, 0.75) {$H$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (1);
+		\draw [style=simple] (0) to (3.center);
+		\draw [style=simple] (6.center) to (1);
+		\draw [style=simple] (1) to (4.center);
+		\draw [style=simple] (5.center) to (9);
+		\draw [style=simple] (9) to (0);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Z phase dot] (6) at (-3.75, 0) {$\alpha$};
+		\node [style=none] (7) at (0, 0) {$=$};
+		\node [style=Z phase dot] (8) at (2.75, 0) {$\alpha+\beta$};
+		\node [style=Z phase dot] (9) at (-2.5, 0) {$\beta$};
+		\node [style=none] (10) at (-4.75, 0) {};
+		\node [style=none] (11) at (1.25, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (6) to (9);
+		\draw [style=simple] (10.center) to (6);
+		\draw [style=simple] (11.center) to (8);
+	\end{pgfonlayer}
+\end{tikzpicture}

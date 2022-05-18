@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (30) at (0, 0) {$=$};
+		\node [style=Z phase dot] (33) at (2, 0) {$\gamma$};
+		\node [style=Z dot] (37) at (-3.5, 0) {};
+		\node [style=Z phase dot] (39) at (-2.5, 0) {$\gamma$};
+		\node [style=Z dot] (40) at (-1.5, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (37) to (39);
+		\draw [style=simple] (40) to (39);
+	\end{pgfonlayer}
+\end{tikzpicture}

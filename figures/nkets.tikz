@@ -5,7 +5,7 @@
 		\node [style=none] (131) at (-6.25, -1.25) {};
 		\node [style=none] (136) at (-6.25, 0.75) {};
 		\node [style=none] (160) at (-6.25, 3.25) {};
-		\node [style=none] (161) at (-6.25, 0) {\large$\psi_1$};
+		\node [style=none] (161) at (-6.25, 0) {\large$\psi_0$};
 		\node [style=none] (163) at (-7.5, 0.75) {};
 		\node [style=none] (164) at (-7.5, -0.25) {};
 		\node [style=none] (165) at (-2.5, 0.75) {};
@@ -13,7 +13,7 @@
 		\node [style=none] (167) at (-2.5, -1.25) {};
 		\node [style=none] (168) at (-2.5, 0.75) {};
 		\node [style=none] (169) at (-2.5, 3.25) {};
-		\node [style=none] (170) at (-2.5, 0) {\large$\psi_2$};
+		\node [style=none] (170) at (-2.5, 0) {\large$\psi_1$};
 		\node [style=none] (171) at (-3.75, 0.75) {};
 		\node [style=none] (172) at (-3.75, -0.25) {};
 		\node [style=none] (173) at (4, 0.75) {};
@@ -21,7 +21,7 @@
 		\node [style=none] (175) at (4, -1.25) {};
 		\node [style=none] (176) at (4, 0.75) {};
 		\node [style=none] (177) at (4, 3.25) {};
-		\node [style=none] (178) at (4, 0) {\large$\psi_n$};
+		\node [style=none] (178) at (4, 0) {\large$\psi_{n-1}$};
 		\node [style=none] (179) at (2.75, 0.75) {};
 		\node [style=none] (180) at (2.75, -0.25) {};
 		\node [style=none] (181) at (1, 0.5) {\Large$...$};

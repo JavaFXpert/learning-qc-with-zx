@@ -1,6 +1,6 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=targ] (0) at (0, 0) {$+$};
+		\node [style=targ] (0) at (0, 0) {\large$+$};
 		\node [style=none] (1) at (1, 0) {};
 		\node [style=none] (2) at (-1, 0) {};
 	\end{pgfonlayer}

@@ -18,6 +18,7 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[skins,hooks,xparse,breakable]{tcolorbox}
+\usepackage{svg}
 \usepackage{xcolor}
 \usepackage{chngcntr}
 
@@ -1182,6 +1183,13 @@ The word parametrized here means in the sense of functions, because these three 
 \end{figure}
 As you can see here, we always rotate in the direction of the \textit{right-hand rule}: Make a thumbs up with your right hand, rotated so your thumb in the positive direction of the axis of rotation.  The direction your fingers curl towards is the direction of rotation.
 
+The right-hand rule is a convention often used in physics.  A notable example is electric current flowing in a wire, depicted below.
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.7\columnwidth]{images/magnetic-field-produced-by-current.pdf}
+	\caption{If you point your right thumb in the direction the current $I$ is flowing, then the direction your fingers curl is the direction of the magnetic field $B$ induced by that current.}
+\end{figure}
+
 \newpage
 \begin{example}[Z rotation on the Bloch sphere]
 We want to rotate the blue statevector on the Bloch sphere below about the z-axis by an angle $\alpha$, i.e. visualize applying the $Z(\alpha)$ gate.
@@ -1364,7 +1372,7 @@ Thankfully, we do not have to resign ourselves to the tedium of multiplying matr
 \section{The ZX-calculus}
 To help us develop intuition for the Z- and X- bases, we will learn how to read, draw, and make deductions using \textbf{ZX-calculus} diagrams.  The qubit ZX-calculus is a pictorial language in which you can reason about all of qubit quantum computation.  As we continue learning, we will see how convenient of a tool these diagrams are.  As with the circuit model, we choose the convention of drawing and reading these diagrams from left to right.
 
-We have already met the $Z$ and $X$ gates.  But have you met them in color?\footnote{The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers.}  In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.  Rotations about the z-axis Bloch sphere are colored in green, whereas rotations around the x-axis of the Bloch sphere are colored in pink.  In the ZX-calculus, we draw $Z$ and $X$ rotation gates as green and pink circles, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the circle with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
+We have already met the $Z$ and $X$ gates.  But have you met them in color?\footnote{The ZX-calculus was originally also called the green-red calculus, because it was invented on a whiteboard with green and red markers.}  In this text we will use the colors light green and darker pink, as to be easily distinguishable for the red-green colorblind.  Rotations about the z-axis Bloch sphere are colored in green, whereas rotations around the x-axis of the Bloch sphere are colored in pink.  In the ZX-calculus, we draw $Z$ and $X$ rotation gates as green and pink dots, respectively; they have one input wire and output wire, like how we drew them in the circuit model.  We label the dot with the \textbf{phase}, which is the angle of rotation on the Bloch sphere.
 
 \subsection{$Z$ and $X$ rotations in the ZX-calculus}
 The $Z$ rotation gate is drawn in the ZX-calculus as
@@ -1443,40 +1451,95 @@ In the next example, we will look into why they are drawn this way in the ZX-cal
 This brings us to our first \emph{rewrite rule} in the ZX-calculus, which across the literature has been also named the \emph{fusion rule} or the \emph{spider rule}.
 Let us first describe this rule informally.
 \begin{zxrule}
-	Consider two same color circles with at least one wire between them.
-	If all the wires between them are bare, the two circles can be \emph{fused} together to become a new circle of the same color.
-	This new circle's phase is the sum of the two original circle's phases.
+	Consider two same color dots with at least one wire between them.
+	If all the wires between them are bare, the two dots can be \emph{fused} together to become a new dot of the same color.
+	This new dot's phase is the sum of the two original dot's phases.
 \end{zxrule}
-While this description is about when we can fuse circles, because the diagrams we have before and after are mathematically equal to each other, we can apply this rule in the opposite direction too.
-This means that whenever we have circle, we can ``unfuse'' it into two circles of the same color which are connected by at least one wire, as long as the two new circles' phases add up to the original circle's phase.
+While this description is about when we can fuse dots, because the diagrams we have before and after are mathematically equal to each other, we can apply this rule in the opposite direction too.
+This means that whenever we have a dot, we can ``unfuse'' it into two dots connected by at least one wire each with the same color as the original dot, as long as the two new dots' phases add up to the original dot's phase.
 
 This can seem a little abstract at the moment, so let us connect this with operations we can do with one qubit.
-So far we have only talked about having only one wire connecting any two things in our ZX-calculus diagrams, so once we have multiple qubit circuits we will see situations where there are more than one wire between circles.
-For now, let us draw what this rule looks like in the cases we have so far.  For a single qubit, there are four possible diagrams where there are two same color circles (with arbitrary phases $\alpha$ and $\beta$) connected by a wire.  We will present each of these four cases below, but whereever the definition involves ``at least one'' wire we will draw one wire, as we will later understand what it means to draw multiple wires.
+So far we have only talked about having only one wire connecting any two things in our ZX-calculus diagrams, so once we have multiple qubit circuits we will see situations where there are more than one wire between dots.
+For now, let us draw what this rule looks like in the cases we have so far.  For a single qubit, there are four possible diagrams where there are two same color dots (with arbitrary phases $\alpha$ and $\beta$) connected by a wire.  We will present each of these four cases below, but whereever the definition involves ``at least one'' wire we will draw one wire, as we will later understand what it means to draw multiple wires.
 
 The first case is a \emph{number}: any diagram with no inputs and no outputs.  We have seen diagrams of numbers several times before: whenever we applied a test to a state, what we got was a number which gives you (by taking the number's norm squared) the success probability of the test.
 \begin{equation}
-	\tikzfig{zxXfusion1qff}
+	\tikzfig{zxZfusion1qff}
 \end{equation}
 
 The second case is a \emph{state}: any diagram with no inputs and at least one output wire.
 \begin{equation}
-	\tikzfig{zxXfusion1qft}
+	\tikzfig{zxZfusion1qft}
 \end{equation}
 
 The third case is a \emph{test}: any diagram with at least one input wire and no outputs.
 \begin{equation}
-	\tikzfig{zxXfusion1qff}
+	\tikzfig{zxZfusion1qtf}
 \end{equation}
 
 The fourth and final case is a \emph{single-qubit gate}:
 \begin{equation}
-	\tikzfig{zxXfusion1qtt}
+	\tikzfig{zxZfusion1qtt}
 \end{equation}
 
-The above rules still hold if the circle are instead all green.
+The above rules still hold if the dots are instead all pink.
 
 With this we can now see why Z and X gates and basis states are drawn as they are in the ZX-calculus.
+While these diagrams are simple, they have a well-defined \textit{interpretation} --- given any ZX diagram, we can write down its meaning as a composition of matrices.
+By the rule of the ZX-calculus, the four above equations are all correct, but if we weren't convinced, we can verify by direct computation.
+\begin{example}
+	How would you confirm each of the four equations above using bra-ket notation?
+	\soln \textnormal{Let's start with the fourth case:}
+	\begin{equation}
+		Z(\beta) Z(\alpha) = \begin{bmatrix}
+			1 & 0\\
+			0 & e^{i \beta}
+		\end{bmatrix} \quad \begin{bmatrix}
+			1 & 0\\
+			0 & e^{i \alpha}
+		\end{bmatrix} = \begin{bmatrix}
+			1 & 0\\
+			0 & e^{i (\alpha + \beta)}
+		\end{bmatrix} = Z(\alpha + \beta)
+	\end{equation}
+
+	\textnormal{From here on, we just need to check the below three equations, for arbitrary phase $\gamma$:}
+	\begin{align}
+		\tikzfig{zxZfusion1qstate} &\leftrightsquigarrow Z(\gamma) \kx+ = \begin{bmatrix}
+				1 & 0\\
+				0 & e^{i \gamma}
+			\end{bmatrix} \frac{1}{\sqrt{2}} \begin{bmatrix}
+				1\\
+				1
+			\end{bmatrix} = \frac{1}{\sqrt{2}} \begin{bmatrix}
+				1\\
+				e^{i \gamma}
+			\end{bmatrix}\\
+		\tikzfig{zxZfusion1qtest} &\leftrightsquigarrow \bx+ Z(\gamma) = \frac{1}{\sqrt{2}} \begin{bmatrix}
+				1 & 1
+			\end{bmatrix} \begin{bmatrix}
+				1 & 0\\
+				0 & e^{i \gamma}
+			\end{bmatrix} = \frac{1}{\sqrt{2}} \begin{bmatrix}
+				1 & e^{i \gamma}
+			\end{bmatrix}\\
+		\tikzfig{zxZfusion1qstatetest} &\leftrightsquigarrow \bx+ Z(\gamma) \kx+ = \frac{1}{\sqrt{2}} \begin{bmatrix}
+			1 & 1
+		\end{bmatrix} \begin{bmatrix}
+				1 & 0\\
+				0 & e^{i \gamma}
+			\end{bmatrix} \frac{1}{\sqrt{2}} \begin{bmatrix}
+				1\\
+				1
+			\end{bmatrix} = \frac{1}{2} \left( 1 + e^{i \gamma} \right)
+	\end{align}	
+
+	\textnormal{Combining the above gives us the other three cases:}
+	\begin{equation}
+		\tikzfig{zxZfusion1qfffttf}
+	\end{equation}
+\end{example}
+
 \newpage
 \begin{example}[Applying Z and X gates to Z and X basis states]
 Remember that $X \kz0 = \kz1$?  When we write this out in ZX-calculus, we get
@@ -1487,7 +1550,7 @@ Likewise, $Z \kx+ = \kx-$ becomes
 \begin{equation}
 	\tikzfig{zxZk+}
 \end{equation}
-It is simply a matter of ``fusing'' the two adjacent circles of the same color, adding up their rotation angles.
+It is simply a matter of ``fusing'' the two adjacent dots of the same color, adding up their rotation angles.
 This also holds for showing $X \kz1 = \kz0$ and $Z \kz- = \kz+$, because $\pi + \pi = 2\pi$:
 \begin{equation}
 	\tikzfig{zxXk1}
@@ -1538,20 +1601,20 @@ or in the ZX-calculus as
 \begin{example}[]
 	\label{ex:colorchange}
 We would like to figure out what happens to a quantum circuit, when you ``push'' one of its gates past one of its neighboring gates.  In other words, if a gate A is to the left of a gate B, we want to end up with gate A on the right, which may change gate B.
-\textnormal{We can apply our newest rewrite rules to get a new rewrite rule, which tells us what happens whenever we ``push'' an $H$ gate past an $X$ gate.
+\textnormal{We can apply our newest rewrite rules to get a new rewrite rule, which tells us what happens whenever we ``push'' an $H$ gate past an $X$ gate.}
 \begin{equation}
 	\tikzfig{circuitcommuteHX}
 \end{equation}
-How do we find out what belongs on the right hand side of the above equation?  One way is that we could multiply the matrices directly, as we have done so far.}
+\textnormal{How do we find out what belongs on the right hand side of the above equation?  One way is that we could multiply the matrices directly, as we have done so far.}
 
 \textnormal{Another way is to run this directly on a quantum computer enough times for us to approximately reconstruct what the output state was (up to a global phase).
 This is a technique known as \textbf{quantum state tomography}.  It is very useful for characterizing noise of quantum hardware and debugging quantum programs.  But in this case it would be overkill.}
 
-\textnormal{There are other, more intuitive options we have not yet explored.  The circuit model is not expressive enough to enable us to prove this using just circuit model diagrams.  On the other hand, we can use just the rewrite rules of the ZX-calculus to compute this.
+\textnormal{There are other, more intuitive options we have not yet explored.  The circuit model is not expressive enough to enable us to prove this using just circuit model diagrams.  On the other hand, we can use just the rewrite rules of the ZX-calculus to compute this.}
 \begin{equation}
 	\tikzfig{zxcommuteHX}
 \end{equation}
-In the first line here, we have the circuit we start with, in the circuit model on the left, and in ZX-calcuclus on the right.  On the right half here, we apply one of our rewrite rules in each line, where inside the dashed gray box is where the rewrite rule is being applied.  Finally, we end up with the last line, and so we have ``pushed'' the $H$ gate through the $X$ gate, changing the $X$ gate into a $Z$ gate.}
+\textnormal{In the first line here, we have the circuit we start with, in the circuit model on the left, and in ZX-calcuclus on the right.  On the right half here, we apply one of our rewrite rules in each line, where inside the dashed gray box is where the rewrite rule is being applied.  Finally, we end up with the last line, and so we have ``pushed'' the $H$ gate through the $X$ gate, changing the $X$ gate into a $Z$ gate.}
 
 \textnormal{In summary, we have proved that $XH = HZ$.  If that looks a little weird to you, that is because of an unfortunate case of the two most used conventions being opposite of each other.  Quantum circuits are drawn from left to right, but each time you apply a new gate you are multiplying the current state (which for pure qubit states is simply a column vector) on the left by the matrix of the new gate.}
 \end{example}
@@ -1604,7 +1667,7 @@ So far, our diagrams of single-qubit states look like (here read from bottom to 
 	\tikzfig{oneket}
 \end{equation}
 
-If we had two qubits respectively in the single-qubit states $\psi_1$ and $\psi_2$, their two-qubit state would be drawn as
+If we had two qubits respectively in the single-qubit states $\psi_0$ and $\psi_1$, their two-qubit state would be drawn as
 
 \begin{equation}
 	\tikzfig{twokets}
@@ -1647,7 +1710,7 @@ What does this mean, physically and mathematically?
 Physically, we \emph{are} talking about these two qubits being next to each other and not entangled with each other.
 By ``next to'' we aren't referring to the distance between them.  It just means that they are part of the same system such that it makes sense to draw them together.  We are drawing them next to each other so we can draw them as disconnected if they are not entangled with each other.
 
-Mathematically, this means that we take a \emph{tensor product}, also known as the Kronecker product, of the qubit states.  This simply means that we just need the individual statevectors $\ket{\psi_1},\ket{psi_2},...\ket{psi_n}$ to write the statevector of their combined system --- this is a product state because its statevector is their tensor product $\ket{psi_1} \otimes \ket{\psi_2} \otimes ... \otimes \ket{\psi_n}$.  Below, we demonstrate an example of computing the tensor product.
+Mathematically, this means that we take a \emph{tensor product}, also known as the Kronecker product, of the qubit states.  This simply means that we just need the individual statevectors $\ket{\psi_0},\ket{\psi_1},...\ket{\psi_{n-1}}$ to write the statevector of their combined system --- this is a product state because its statevector is their tensor product $\ket{\psi_0} \otimes \ket{\psi_1} \otimes ... \otimes \ket{\psi_{n-1}}$.  Below, we demonstrate an example of computing the tensor product.
 
 In general if we take the tensor product of any two vectors
 \begin{equation}
@@ -1667,9 +1730,9 @@ their tensor product is
 where two vectors stacked on top of each other means we are vertically concatenating them.
 This can be thought of as a nested for loop multiplying the vectors together, where the outer for loop iterates through each element of $v$, while the inner for loop iterates through each element of $w$.
 
-\begin{example}
+\begin{example}\label{ex:kz00}
 	What is the statevector of a quantum system of two qubits each in the $\kz0$ state?
-	\soln \textnormal{This is simply the product state drawn in Eq.\eqref{eq:twok0s}, which is $\kz0 \otimes \kz0$:}
+	\soln \textnormal{This is simply the product state drawn in Eq.~\eqref{eq:twok0s}, which is $\kz0 \otimes \kz0$:}
 	\begin{align}
 		\ket{\,0\,0\,} &= \kz0 \otimes \kz0\\
 		&= \begin{bmatrix}1\\ 0\end{bmatrix} \otimes \begin{bmatrix}1\\ 0\end{bmatrix}\\
@@ -1682,24 +1745,24 @@ This can be thought of as a nested for loop multiplying the vectors together, wh
 Of course, just like how not everything we eat has to be toast (as that would be rather dull), we can make product states of individual qubits in different states as well.
 We now demonstrate how to take tensor products of multiple qubits that can each have any statevector.
 
-\begin{example}
+\begin{example}\label{ex:kzarb}
 	What is the statevector of a quantum system of two qubits each with an arbitrary statevector?
 	Let's say that
 	\begin{equation}
-		\ket{\psi_1} = \begin{bmatrix}a\\ b\end{bmatrix}
+		\ket{\psi_0} = \begin{bmatrix}a\\ b\end{bmatrix}
 	\end{equation}
 	and
 	\begin{equation}
-		\ket{\psi_2} = \begin{bmatrix}c\\ d\end{bmatrix}
+		\ket{\psi_1} = \begin{bmatrix}c\\ d\end{bmatrix}
 	\end{equation}	
-	\soln \textnormal{This is simply the product state $\ket{\psi_1} \otimes \ket{\psi_2}$:}
+	\soln \textnormal{This is simply the product state $\ket{\psi_0} \otimes \ket{\psi_1}$:}
 	\begin{align}
-		\ket{\psi_1\,\psi_2} &= \ket{\psi_1} \otimes \ket{\psi_2}\\
+		\ket{\psi_0\,\psi_1} &= \ket{\psi_0} \otimes \ket{\psi_1}\\
 		&= \begin{bmatrix}a\\ b\end{bmatrix} \otimes \begin{bmatrix}c\\ d\end{bmatrix}\\
 		&= \begin{bmatrix}a\begin{bmatrix}c\\ d\end{bmatrix}\\\ b\begin{bmatrix}c\\ d\end{bmatrix}\end{bmatrix}\\
 		&= \begin{bmatrix}ac\\ ad\\ bc\\ bd\end{bmatrix}
 	\end{align}
-	where $ab$ means multiplying the two complex numbers $a$ and $b$, and so on.
+	where $ab$ means multiplying the two complex numbers $a$ and $b$.
 \end{example}
 
 In general, to we can repeat taking the tensor product of many vectors to get the product state of even more qubits:
@@ -1707,19 +1770,19 @@ In general, to we can repeat taking the tensor product of many vectors to get th
 	What is the statevector of a quantum system of three qubits each with an arbitrary statevector?
 	Let's say that in addition to the two qubits in the previous example, we have a third qubit in the state
 	\begin{equation}
-		\ket{\psi_3} = \begin{bmatrix}f\\ g\end{bmatrix}
+		\ket{\psi_2} = \begin{bmatrix}f\\ g\end{bmatrix}
 	\end{equation}
-	\soln \textnormal{This is simply the product state $\ket{\psi_1} \otimes \ket{\psi_2} \otimes \ket{\psi_3}$:}
+	\soln \textnormal{This is simply the product state $\ket{\psi_0} \otimes \ket{\psi_1} \otimes \ket{\psi_2}$:}
 	\begin{align}
-		\ket{\psi_1\,\psi_2\,\psi_3} &= \ket{\psi_1} \otimes \ket{\psi_2} \otimes \ket{\psi_3}\\
-		&= (\ket{\psi_1} \otimes \ket{\psi_2}) \otimes \ket{\psi_3}\\
+		\ket{\psi_0\,\psi_1\,\psi_2} &= \ket{\psi_0} \otimes \ket{\psi_1} \otimes \ket{\psi_2}\\
+		&= (\ket{\psi_0} \otimes \ket{\psi_1}) \otimes \ket{\psi_2}\\
 		&= \begin{bmatrix}ac\\ ad\\ bc\\ bd\end{bmatrix} \otimes \begin{bmatrix}f\\ g\end{bmatrix}\\
 		&= \begin{bmatrix}ac\begin{bmatrix}f\\ g\end{bmatrix}\\ ad\begin{bmatrix}f\\ g\end{bmatrix}\\ bc\begin{bmatrix}f\\ g\end{bmatrix}\\ bd\begin{bmatrix}f\\ g\end{bmatrix}\end{bmatrix}\\
 		&= \begin{bmatrix}acf\\ acg\\ adf\\ adg\\ bcf\\ bcg\\ bdf\\ bdg\end{bmatrix}
 	\end{align}
 	Note that the tensor product operation is associative, i.e. it doesn't matter the order we take the tensor product:
 	\begin{equation}
-		(\ket{\psi_1} \otimes \ket{\psi_2}) \otimes \ket{\psi_3} = \ket{\psi_1} \otimes (\ket{\psi_2} \otimes \ket{\psi_3})
+		(\ket{\psi_0} \otimes \ket{\psi_1}) \otimes \ket{\psi_2} = \ket{\psi_0} \otimes (\ket{\psi_1} \otimes \ket{\psi_2})
 	\end{equation}
 \end{example}
 
@@ -1729,73 +1792,72 @@ In summary, if we have the statevectors of a bunch of qubits, we can compute the
 \end{equation}
 
 In the circuit model, the way you draw multiple qubits is by having multiple horizontal wires, one for each qubit.
-If you have $n$ qubits as drawn below, the convention in the Qiskit textbook and that we will use in this text, is to write their product state as: $\ket{q_n} \otimes \ket{q_{n-1}} \otimes ... \otimes \ket{q_1}$.
-The other convention is to reverse the order: $\ket{q_1} \otimes \ket{q_2} \otimes ... \otimes \ket{q_n}$.
+If you have $n$ qubits as drawn below, the convention in the Qiskit textbook and that we will use in this text, is to write their product state as: $\ket{q_{n-1}} \otimes \ket{q_{n-2}} \otimes ... \otimes \ket{q_0}$.
+The other convention is to reverse the order: $\ket{q_0} \otimes \ket{q_1} \otimes ... \otimes \ket{q_{n-1}}$.
 \begin{equation}
 	\tikzfig{qubitordering_circuitmodel}
 \end{equation}
 
 \subsubsection{The two-qubit Z-basis states}
-If you have a two-qubit statevector, the Qiskit textbook and this text go by the convention
-\begin{equation}
-	\begin{bmatrix}
+The four two-qubit Z-basis states are below.  They are the product states made up of one-qubit Z-basis states.
+We did not write down each step of the computation here because it is as we did in Examples~\ref{ex:kz00}~and~\ref{ex:kzarb}.
+\begin{align}
+	\kz{00} &= \kz0 \otimes \kz0 = \begin{bmatrix}
 		1\\
 		0\\
 		0\\
 		0
-	\end{bmatrix} = \kz{00} = \kz0 \otimes \kz0\qquad
-	\begin{bmatrix}
+	\end{bmatrix}\\
+	\kz{01} &= \kz0 \otimes \kz1 = \begin{bmatrix}
 		0\\
 		1\\
 		0\\
 		0
-	\end{bmatrix} = \kz{10} = \kz1 \otimes \kz0\qquad
-	\begin{bmatrix}
+	\end{bmatrix}\\
+	\kz{10} &= \kz1 \otimes \kz0 = \begin{bmatrix}
 		0\\
 		0\\
 		1\\
 		0
-	\end{bmatrix} = \kz{01} = \kz0 \otimes \kz1\qquad
-	\begin{bmatrix}
+	\end{bmatrix}\\
+	\kz{11} &= \kz1 \otimes \kz1 = \begin{bmatrix}
 		0\\
 		0\\
 		0\\
 		1
-	\end{bmatrix} = \kz{11} = \kz1 \otimes \kz1
-\end{equation}
-These are the four two-qubit Z-basis states.  They are the product states made up of the one-qubit Z-basis states.
-We can generalize them to $n$-qubit Z-basis states corresponding to bitstrings of length $n$.
+	\end{bmatrix}
+\end{align}	
+We can generalize them to $n$-qubit Z-basis states corresponding to bitstrings of length $n$ by taking the tensor product of $n$ one-qubit Z-basis states.
 
-\begin{note}
-	You may also see elsewhere the convention of the opposite endian convention.
-	In that case, the two-qubit Z-basis states are
-	\begin{equation}
-		\begin{bmatrix}
-			1\\
-			0\\
-			0\\
-			0
-		\end{bmatrix} = \kz{00} = \kz0 \otimes \kz0\qquad
-		\begin{bmatrix}
-			0\\
-			1\\
-			0\\
-			0
-		\end{bmatrix} = \kz{01} = \kz0 \otimes \kz1\qquad
-		\begin{bmatrix}
-			0\\
-			0\\
-			1\\
-			0
-		\end{bmatrix} = \kz{10} = \kz1 \otimes \kz0\qquad
-		\begin{bmatrix}
-			0\\
-			0\\
-			0\\
-			1
-		\end{bmatrix} = \kz{11} = \kz1 \otimes \kz1
-	\end{equation}	
-\end{note}
+\subsubsection{The two-qubit X-basis states}
+Likewise, we can take product states of the X-basis states to get the $n$-qubit X-basis states, of which there are also $2^n$.
+The two-qubit X-basis states are:
+\begin{align}
+	\kx{++} &= \kx+ \otimes \kx+ = \frac{1}{2} \ \begin{bmatrix}
+		1\\
+		1\\
+		1\\
+		1
+	\end{bmatrix}\\
+	\kx{+-} &= \kx+ \otimes \kx- = \frac{1}{2} \ \begin{bmatrix}
+		1\\
+		-1\\
+		1\\
+		-1
+	\end{bmatrix}\\
+	\kz{-+} &= \kx- \otimes \kx+ = \frac{1}{2} \ \begin{bmatrix}
+		1\\
+		1\\
+		-1\\
+		-1
+	\end{bmatrix}\\
+	\kx{--} &= \kx- \otimes \kx- = \frac{1}{2} \ \begin{bmatrix}
+		1\\
+		-1\\
+		-1\\
+		1
+	\end{bmatrix}
+\end{align}
 
 \subsection{Entangled states}
 You may think that it is not too useful that so far we have only described individual and separate qubits, and you would be right.
@@ -1836,7 +1898,7 @@ While also correct, this notation for the CX gate is less commonly seen:
 \end{equation}
 In general, you can draw any gate with a control qubit, by drawing a vertical line from the gate to a black dot on the wire of the control qubit.
 
-In the Qiskit textbook, the matrix of the CX gate is
+In convention we use, the one used by the Qiskit textbook, the control qubit is on the right side of the tensor product, andn the target qubit is on the left.  Then the matrix of the CX gate is
 \begin{equation}
 	CX = \begin{bmatrix}
 		1 & 0 & 0 & 0\\
@@ -1865,7 +1927,7 @@ In the Qiskit textbook, the matrix of the CX gate is
 			0\\
 			0
 		\end{bmatrix} = \kz{00}\\
-		CX \kz{10} &= \begin{bmatrix}
+		CX \kz{01} &= \begin{bmatrix}
 			1 & 0 & 0 & 0\\
 			0 & 0 & 0 & 1\\
 			0 & 0 & 1 & 0\\
@@ -1881,7 +1943,7 @@ In the Qiskit textbook, the matrix of the CX gate is
 			0\\
 			1
 		\end{bmatrix} = \kz{11}\\
-		CX \kz{01} &= \begin{bmatrix}
+		CX \kz{10} &= \begin{bmatrix}
 			1 & 0 & 0 & 0\\
 			0 & 0 & 0 & 1\\
 			0 & 0 & 1 & 0\\
@@ -1896,7 +1958,7 @@ In the Qiskit textbook, the matrix of the CX gate is
 			0\\
 			1\\
 			0
-		\end{bmatrix} = \kz{01}\\
+		\end{bmatrix} = \kz{10}\\
 		CX \kz{11} &= \begin{bmatrix}
 			1 & 0 & 0 & 0\\
 			0 & 0 & 0 & 1\\
@@ -1912,7 +1974,7 @@ In the Qiskit textbook, the matrix of the CX gate is
 			1\\
 			0\\
 			0
-		\end{bmatrix} = \kz{10}
+		\end{bmatrix} = \kz{01}
 	\end{align}
 	We can describe the CX gate with a truth table, like we did before for classical gates such as AND and OR, because the CX gate sends each Z-basis state to a Z-basis state.  The truth table is:
 	\begin{equation}
@@ -1950,44 +2012,33 @@ In the Qiskit textbook, the matrix of the CX gate is
 	\end{note}
 \end{example}
 
-\begin{note}
-	With the other endian convention, the CX matrix is
-	\begin{equation}
-		CX = \begin{bmatrix}
-			1 & 0 & 0 & 0\\
-			0 & 1 & 0 & 0\\
-			0 & 0 & 0 & 1\\
-			0 & 0 & 1 & 0
-		\end{bmatrix}
-	\end{equation}
-	A convenient property of using this convention is that controlled gates now have this block diagonal form.
-	This means that we can cut up the matrix into blocks where all the nonzero elements are in square blocks along the diagonal (from top left to bottom right) of the matrix.
+What if instead, the bottom qubit was the control and top qubit was the target?
+Then the matrix of the upside-down CX gate would be
+\begin{equation}
+	CX = \begin{bmatrix}
+		1 & 0 & 0 & 0\\
+		0 & 1 & 0 & 0\\
+		0 & 0 & 0 & 1\\
+		0 & 0 & 1 & 0
+	\end{bmatrix}
+\end{equation}
+This conveniently has a block diagonal form: We can chop the matrix into blocks where all the nonzero elements are in square blocks along the diagonal (from top left to bottom right) of the matrix.
 	In this case, we have two such blocks.  The top left block is $\mathbb{I}$, the (one-qubit) identity matrix, while the bottom right block is the $X$ gate matrix:
 	\begin{equation}
 		{\renewcommand{\arraystretch}{1.5}
 		CX = \left[ {\begin{array}{c|c}
-			\ \ \mathbb{I} \ \ & \ \ \mathcal{0} \ \ \\ \hline
-			\ \ \mathcal{0} \ \ & \ \ S \ \ \\
+			\ \ \mathbb{I} \ \ & \ \ \mathbb{O} \ \ \\ \hline
+			\ \ \mathbb{O} \ \ & \ \ X \ \ \\
 		\end{array} } \right]
 		}
 	\end{equation}
-	where $\mathbb{0}$ is the one-qubit zero matrix.
+	where $\mathbb{O}$ is the 2 by 2 matrix of all zeros.
 
-	This corresponds to the fact that with this endian convention, the CX gate does the identity to the target if the input Z-basis state has a 1 in the top two rows, i.e. the input is
-	\begin{equation*}
-		\begin{bmatrix}
-			1\\
-			0\\
-			0\\
-			0
-		\end{bmatrix} \quad \text{or} \quad \begin{bmatrix}
-			0\\
-			1\\
-			0\\
-			0
-		\end{bmatrix}
-	\end{equation*}
-\end{note}
+	\begin{note}
+		If we had chosen the other convention for bit Endianness, then we would effectively swap which order the control and target qubits are in in our matrices.
+		Therefore, the matrix for the CX gate in this other convention is the matrix for the upside-down CX gate in our convention.
+		Likewise, the matrix for the upside-down CX gate in this other convention is the matrix for the CX gate in our convention.
+	\end{note}
 
 In the ZX-calculus, how we draw the CX gate is
 \begin{equation}
@@ -2017,26 +2068,115 @@ We can express this more concisely with the rewrite rule
 	for $a \in \{0,1\}$.	
 \end{zxrule}
 
+This is our first time seeing a green dot with one input wire and two output wires.
+It is known as the Z copy operation, because when you input to it a Z-basis state, it outputs two copies of that state.
+Note that this only copies Z-basis states.  In fact, in quantum mechanics it is impossible to have any operation that copies any possible input, called the \textbf{no-cloning theorem}.
+
+We know that the Z copy dot outputs $\kz{00}$ when the input is $\kz0$ and $\kz{11}$ when the input is $\kz1$.  Its matrix is thus
+\begin{align}
+	\kz{00} \bz0 + \kz{11} \bz1 &= \begin{bmatrix}
+		1\\ 0\\ 0\\ 0
+	\end{bmatrix} \begin{bmatrix}
+		1 & 0
+	\end{bmatrix} + \begin{bmatrix}
+		0\\ 0\\ 0\\ 1
+	\end{bmatrix} \begin{bmatrix}
+		0 & 1
+	\end{bmatrix}\\
+	&= \begin{bmatrix}
+		1 & 0\\
+		0 & 0\\
+		0 & 0\\
+		0 & 1
+	\end{bmatrix}
+\end{align}
+We can then multiply any arbitrary two-qubit quantum state by this matrix to determine what it does to that state.
+
+There are a couple of variations on this rule to note.
+First, as with all rules in standard ZX-calculus, you can interchange all green and pink colors.  This gives us the color-swapped version of Rule~\ref{zxrule:bialgebracopy}:
+\begin{equation}
+	\tikzfig{zxbialgebracopyapioppcolor}
+\end{equation}
+for $a \in \{0,1\}$ with matrix
+\begin{align}
+	\kx{++} \bx+ + \kx{--} \bx- &= \frac{1}{2} \begin{bmatrix}
+		1\\ 1\\ 1\\ 1
+	\end{bmatrix} \frac{1}{\sqrt{2}} \begin{bmatrix}
+		1 & 1
+	\end{bmatrix} + \frac{1}{2} \begin{bmatrix}
+		1\\ -1\\ -1\\ 1
+	\end{bmatrix}  \frac{1}{\sqrt{2}} \begin{bmatrix}
+		1 & -1
+	\end{bmatrix}\\
+	&=  \frac{1}{\sqrt{2}} \begin{bmatrix}
+		1 & 0\\
+		0 & 1\\
+		0 & 1\\
+		1 & 0
+	\end{bmatrix}
+\end{align}
+It is straightforward to check that this indeed produces two copies of $\kx+$ when the input is $\kx+$, and two copies of $\kx-$ when the input is $\kx-$.
+
+We also can take the matrix's conjugate transpose, which in this case (because it's all real numbers here) is the same as tranpose, to get two more versions of this rule:
+\begin{equation}
+	\tikzfig{zxbialgebracopyapiT}
+\end{equation}
+and
+\begin{equation}
+	\tikzfig{zxbialgebracopyapioppcolorT}
+\end{equation}
+
+The above rules deal with inputting a Z- or X- basis state(s) into a dot of the opposite color.
+What if the input state(s) are of the same color as the dot itself?  This is shown below for green, and holds just the same if all the dot colors were pink.
+It is simply a matter of the fusion rule.  In the two input case, this adds together the bit values and can be thought of as a ``sum'' operation.
+\begin{equation}
+	\tikzfig{zxmatchsum}
+\end{equation}
+
 Indeed, this allows us to compute with the ZX-calculus what the CX gate does to the Z-basis states.
 For any $c, t \in \{0,1\}$,
 \begin{equation}
 	\tikzfig{zxCXsum}
 \end{equation}
+
+Now consider the diagram below:
+\begin{equation}
+	\tikzfig{zxCXcopymatch}
+\end{equation}
 This sheds insight into a different way to view the CX gate, other than being if-then logic on whether or not to activate the X gate.
-We can also think of the CX gate as a ``sum'' gate which adds the two input bits together in-place.
+We can think of the CX gate as a ``sum'' gate when both inputs are Z-basis states.  Then it first makes a copy of the control qubit Z-basis state, which it adds to the target qubit Z-basis state in-place.
 Note that $(c+t) \text{ mod } 2\pi$ will always be either $0$ or $\pi$.
 
-We can even express diagrammatically the more general statement, that an X gate is performed on the target if and only if the control qubit is in the $\kz1$ state.
+The reason why we draw the CX gate vertically is not only due to convention, but because it doesn't matter which direction it is slanted.
+Whether we view it as a Z copy then X match, or an X copy then Z match, does not affect the overall matrix:
 \begin{equation}
-	\tikzfig{zxCXcopy}
+	\tikzfig{zxCXbendy}
 \end{equation}
+
+We can actually bend an output of a green or pink dot into an input, as if that wire was always an input to the dot in the first place:
+\begin{equation}
+	\tikzfig{zxcopybendy}
+\end{equation}
+We can do this to bend an input into an output too\footnote{In the standard ZX-calculus, this property that enables us to treat inputs and outputs of dots the same goes by a few names and subtle variations, such as ``Only Connectivity Matters'', ``Only Topology Matters'', or \emph{flexsymmetry}.}.
+
+We can even express diagrammatically a more general statement about the CX gate, independent of the input target qubit state.
+\begin{example}
+	Show that when the control qubit is a Z-basis state, a CX gate performs an X gate on the target qubit if and only if the control qubit is in the $\kz1$ state.
+	\soln \textnormal{We draw and simplify in the ZX-calculus, letting $c \in \{0,1\}$ denote whether the control qubit is $\kz0$ or $\kz1$.}
+	\begin{equation}
+		\tikzfig{zxCXcopy}
+	\end{equation}
+	Then, we break this down into the two possibilities, $c = 0$ or $c = 1$.\newline
+	Case $c = 0$: The control qubit remains in the $\kz0$ state, and the target qubit is unchanged.
+	Case $c = 1$: The control qubit remains in the $\kz1$ state, and the target qubit has an $X$ gate applied to it.
+\end{example}
 
 Yet another way we can use the ZX-calculus here is to know what the CX gate does on the X-basis states.
 We can color change rewrite rule~\ref{zxrule:bialgebracopy}
 \begin{equation}
 	\tikzfig{zxbialgebracopyapih}
 \end{equation}
-Actually, in the (vanilla) ZX-calculus, pretty much any rewrite rule still holds if you change invert all colors in the diagram between red and green.
+Actually, in the standard ZX-calculus, any rewrite rule still holds if you invert all colors in the diagram between pink and green.
 
 We thus see that the CX gate on the Z-basis states behaves just as with the X-basis states, except in the opposite direction of control and target.
 \begin{equation}
@@ -2045,6 +2185,216 @@ We thus see that the CX gate on the Z-basis states behaves just as with the X-ba
 In other words, the CX gate does a $Z$ gate on the control qubit if and only if the target qubit is $\kx-$.
 
 \subsubsection{The Bell state}
+The first thing we will do with the CX gate is for building the \textbf{Bell state}.  Through this, we will learn what it means for two qubits to be \textbf{entangled}.
+
+We could think of entanglement as making it possible for a two-qubit state to be indescribable by two one-qubit states.
+This is in contrast to classical data, where if you have two bits and you know the values of both bits, then you know the value of their combined bitstring.
+If we think about the analogy of circuits to cooking, we could imagine that a Bell state is like a jam sandwich.
+\begin{equation*}
+	\tikzfig{jamsandwich}
+\end{equation*}
+By spreading the jam onto the toast, you get something far tastier than just jam (blegh!) or just toast (ehhh...).
+
+The circuit to create a Bell state is
+\begin{equation}\label{eq:Bellstate_circuitmodel}
+	\tikzfig{Bellstate_circuitmodel}
+\end{equation}
+
+We can compute the resulting state by matrix multiplication:
+\begin{align}
+	CX \ (I \otimes H) \ \kz{00} &= \begin{bmatrix}
+		1 & 0 & 0 & 0\\
+		0 & 0 & 0 & 1\\
+		0 & 0 & 1 & 0\\
+		0 & 1 & 0 & 0
+	\end{bmatrix} \ \left(\begin{bmatrix}
+		1 & 0\\
+		0 & 1
+	\end{bmatrix} \otimes \frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & 1\\
+		1 & -1
+	\end{bmatrix}\right) \ \begin{bmatrix}
+		1\\
+		0\\
+		0\\
+		0
+	\end{bmatrix}\\
+	&= \begin{bmatrix}
+		1 & 0 & 0 & 0\\
+		0 & 0 & 0 & 1\\
+		0 & 0 & 1 & 0\\
+		0 & 1 & 0 & 0
+	\end{bmatrix} \ \begin{bmatrix}
+		1\left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+			1 & 1\\
+			1 & -1
+		\end{bmatrix}\right) & 0\left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+			1 & 1\\
+			1 & -1
+		\end{bmatrix}\right)\\
+		0\left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+			1 & 1\\
+			1 & -1
+		\end{bmatrix}\right) & 1\left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+			1 & 1\\
+			1 & -1
+		\end{bmatrix}\right)
+	\end{bmatrix} \ \begin{bmatrix}
+		1\\
+		0\\
+		0\\
+		0
+	\end{bmatrix}\\
+	&= \begin{bmatrix}
+		1 & 0 & 0 & 0\\
+		0 & 0 & 0 & 1\\
+		0 & 0 & 1 & 0\\
+		0 & 1 & 0 & 0
+	\end{bmatrix} \ \frac{1}{\sqrt{2}}\begin{bmatrix}
+			1 & 1 & 0 & 0\\
+			1 & -1 & 0 & 0\\
+			0 & 0 & 1 & 1\\
+			0 & 0 & 1 & -1
+		\end{bmatrix} \ \begin{bmatrix}
+		1\\
+		0\\
+		0\\
+		0
+	\end{bmatrix}\\
+	&= \begin{bmatrix}
+		1 & 0 & 0 & 0\\
+		0 & 0 & 0 & 1\\
+		0 & 0 & 1 & 0\\
+		0 & 1 & 0 & 0
+	\end{bmatrix} \ \frac{1}{\sqrt{2}}\begin{bmatrix}
+			1\\
+			1\\
+			0\\
+			0
+		\end{bmatrix}\\
+	&= \frac{1}{\sqrt{2}}\begin{bmatrix}
+			1\\
+			0\\
+			0\\
+			1
+		\end{bmatrix}\\
+	&= \frac{1}{\sqrt{2}} \left( \kz{00} + \kz{11} \right)
+\end{align}
+Thus, the above circuit creates the two-qubit state that is the equal superposition of both qubits being $\kz0$ and both being $\kz1$.
+What happens when you observe them?
+For fun, let us imagine that Alice and Bob are both cats.  Their qubits represent whether Alice cat and Bob cat are each grumpy (our analogy for $\kz0$) or happy (our analogy for $\kz1$)\footnote{This analogy and visualization were originally created by James Weaver at \url{https://slides.com/javafxpert/grumpy-and-happy-cats\#/12/0/2}, and is adapted here with his permission.}.
+\begin{figure}[H]
+	\label{fig:bellhappygrumpycat}
+	\includegraphics[width=\columnwidth]{images/bellhappygrumpycat}
+\end{figure}
+\newpage
+\begin{example}
+	Two qubits are in the Bell state $\frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)$.  Alice takes one of the qubits and flies to Venus.  Bob takes the other qubit and flies to Mars.  Alice and Bob each measure their qubit in the Z basis.  What are the possible outcomes of their measurements?
+	\soln \textnormal{At the point of the circuit marked 1 in Figure~\ref{fig:bellhappygrumpycat}, the two-qubit state is}
+	\begin{figure}[H]
+		\includegraphics[width=0.5\columnwidth]{images/bellhappygrumpycat_stateatstep1}
+	\end{figure}
+	\textnormal{At the end of that circuit, marked 2, the two-qubit state is the Bell state:}
+	\begin{figure}[H]
+		\includegraphics[width=0.6\columnwidth]{images/bellhappygrumpycat_stateatstep2}
+	\end{figure}
+	\textnormal{When Alice and Bob each measure their qubit in the Z-basis, what happens to the Bell state is that it gets tested for the two-qubit Z-basis states: the tests are $\bz{00}$, $\bz{10}$, $\bz{01}$, and $\bz{11}$.  Thus, after they measure, they see which one of these four possibilities occurred.  The probabilities of each of these four measurement outcomes are:}
+	\begin{align}
+		\abs{\langle \,00\,|\,\frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)\,\rangle}^2 &= \abs{\frac{1}{\sqrt{2}}\left( \langle \,00\,|\,00\,\rangle + \langle \,00\,|\,11\,\rangle \right)}^2\\
+		&= \abs{\frac{1}{\sqrt{2}}\left( 1 + 0 \right)}^2\\
+		&= \frac{1}{2}\\
+		\abs{\langle \,10\,|\,\frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)\,\rangle}^2 &= \abs{\frac{1}{\sqrt{2}}\left( \langle \,10\,|\,00\,\rangle + \langle \,10\,|\,11\,\rangle \right)}^2\\
+		&= \abs{\frac{1}{\sqrt{2}}\left( 0 + 0 \right)}^2\\
+		&= 0\\
+		\abs{\langle \,01\,|\,\frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)\,\rangle}^2 &= \abs{\frac{1}{\sqrt{2}}\left( \langle \,01\,|\,00\,\rangle + \langle \,01\,|\,11\,\rangle \right)}^2\\
+		&= \abs{\frac{1}{\sqrt{2}}\left( 0 + 0 \right)}^2\\
+		&= 0\\
+		\abs{\langle \,11\,|\,\frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)\,\rangle}^2 &= \abs{\frac{1}{\sqrt{2}}\left( \langle \,11\,|\,00\,\rangle + \langle \,11\,|\,11\,\rangle \right)}^2\\
+		&= \abs{\frac{1}{\sqrt{2}}\left( 0 + 1 \right)}^2\\
+		&= \frac{1}{2}
+	\end{align}
+\end{example}
+
+This isn't specific to just measuring in the Z-basis.  We can repeat the same thought experiment, but now Alice and Bob both measure in the X-basis:
+\begin{example}
+	Two qubits are in the Bell state $\frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)$.  Alice takes one of the qubits and flies to Venus.  Bob takes the other qubit and flies to Mars.  Alice and Bob again each measure their qubit, but this time in the X basis.  What are the possible outcomes of their measurements?
+	\soln \textnormal{This time around, we are testing for the two-qubit X-basis states: $\bx{++}$, $\bx{-+}$, $\bx{+-}$, and $\bx{--}$.  In computing the measurement probabilities directly, we can make the calculation simpler by noting that the Bell state can be rewritten in the X-basis:}
+
+	\begin{align}
+		\frac{1}{\sqrt{2}} \left(\kx{++} + \kx{--}\right) &= \frac{1}{\sqrt{2}} \left(\left(\frac{1}{\sqrt{2}} \ \begin{bmatrix}
+			1\\ 1
+		\end{bmatrix} \otimes \begin{bmatrix}
+			1\\ 1
+		\end{bmatrix}\right) \ + \ \left(\frac{1}{\sqrt{2}} \ \begin{bmatrix}
+			1\\ 1
+		\end{bmatrix} \otimes \begin{bmatrix}
+			1\\ 1
+		\end{bmatrix}\right)\right)\\
+		&= \frac{1}{\sqrt{2}} \left(\left(\frac{1}{2} \ \begin{bmatrix}
+			1\\ 1\\ 1\\ 1\end{bmatrix}\right) \ + \ \left(\frac{1}{2} \ \begin{bmatrix}
+				1\\ -1\\ -1\\ 1\end{bmatrix}\right)\right)\\
+		&= \frac{1}{\sqrt{2}} \left(\begin{bmatrix}
+			1\\ 0\\ 0\\ 1
+		\end{bmatrix}\right)\\
+		&= \frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)
+	\end{align}
+
+	\textnormal{Then, the probabilities of these measurement outcomes are:}
+	\begin{align}
+		\abs{\langle \,++\,|\,\frac{1}{\sqrt{2}} \left(\kx{++} + \kx{--}\right)\,\rangle}^2 &= \abs{\frac{1}{\sqrt{2}}\left( \langle \,++\,|\,++\,\rangle + \langle \,++\,|\,--\,\rangle \right)}^2\\
+		&= \abs{\frac{1}{\sqrt{2}}\left( 1 + 0 \right)}^2\\
+		&= \frac{1}{2}\\
+		\abs{\langle \,-+\,|\,\frac{1}{\sqrt{2}} \left(\kx{++} + \kx{--}\right)\,\rangle}^2 &= \abs{\frac{1}{\sqrt{2}}\left( \langle \,-+\,|\,++\,\rangle + \langle \,-+\,|\,--\,\rangle \right)}^2\\
+		&= \abs{\frac{1}{\sqrt{2}}\left( 0 + 0 \right)}^2\\
+		&= 0\\
+		\abs{\langle \,+-\,|\,\frac{1}{\sqrt{2}} \left(\kx{++} + \kx{--}\right)\,\rangle}^2 &= \abs{\frac{1}{\sqrt{2}}\left( \langle \,+-\,|\,++\,\rangle + \langle \,+-\,|\,--\,\rangle \right)}^2\\
+		&= \abs{\frac{1}{\sqrt{2}}\left( 0 + 0 \right)}^2\\
+		&= 0\\
+		\abs{\langle \,--\,|\,\frac{1}{\sqrt{2}} \left(\kx{++} + \kx{--}\right)\,\rangle}^2 &= \abs{\frac{1}{\sqrt{2}}\left( \langle \,--\,|\,++\,\rangle + \langle \,--\,|\,--\,\rangle \right)}^2\\
+		&= \abs{\frac{1}{\sqrt{2}}\left( 0 + 1 \right)}^2\\
+		&= \frac{1}{2}
+	\end{align}
+\end{example}
+
+Although the Bell state is symmetric with respect to both qubits, as if we swap the two qubits the state is still the Bell state, this is not apparent from its circuit diagram in Eq.~\eqref{eq:Bellstate_circuitmodel}.  In the ZX-calculus, we draw the Bell state so you can easily see it is symmetric.  Actually, we can derive what the Bell state looks like in the ZX-calculus: First we convert the Bell state circuit to a ZX-calculus diagram; then, we simplify using the rules of the ZX-calculus.
+\begin{equation}\label{eq:Bellstate_zx}
+	\tikzfig{Bellstate_zx}
+\end{equation}
+What we got in the end is a wire with nothing on it, bent $180^{\degree}$!  Because of how it's shaped, this is colloquially called a \textbf{cup} in ZX-calculus.
+
+We can also define the corresponding Bell test by taking the conjugate transpose of the whole thing: $\frac{1}{sqrt{2}} \left(\bz{00} + \bz{11}\right)$.
+Following the exact same simplification steps in Eq.~\eqref{eq:Bellstate_zx}, we get what is colloquially called a \textbf{cap} in ZX-calculus.
+\begin{equation}
+	\tikzfig{Belltest_zx}
+\end{equation}
+
+Something interesting happens when we combine the cup and the cap in a specific way:
+\begin{equation}
+	\tikzfig{yank}
+\end{equation}
+We get the identity wire!
+This also holds if we combine the cup and the cap the other way in which you end up with one input and one output:
+\begin{equation}
+	\tikzfig{yank2}
+\end{equation}
+While there are a number of ways to convince yourself of this, we show here a simple way.  This utilizes our Z dot fusion rule, and the fact that a one-input, one-output Z dot with phase 0 is the identity.
+\begin{equation}
+	\tikzfig{yankZ}
+\end{equation}
+
+Let us now bring back our earlier realization that we can freely bend inputs of green or pink dots into outputs, and vice versa.
+We now see that these ``$180^{\degree}$ bends'' are exactly equal to either the Bell state or the Bell test.
+In other words, this structure\footnote{There is an entire field of study called \textbf{category theory} which is dedicated to studying such structures and how they interact with each other.  In category theory, these equations specifically are part of the \emph{snake equations} or the \emph{yanking equations} --- it even made a cameo in the snake scientist blackboards in the cartoon series Rick and Morty.  The ZX-calculus was developed as a graphical calculus that resulted from understanding such structure underlying qubit quantum computation.} is what enables us to bend wires freely.  So long as we maintain what is connected to what, adding twists and turns in the wires does not change the overall computation.  As an example, the following ZX diagrams are the same, computationally:
+\begin{equation}
+	\tikzfig{deformation-example}
+\end{equation}
+
+If you are a fan of the cartoon series Avatar: the Last Airbender, you may appreciate thinking about wire bending literally.
+\begin{figure}[H]
+	\centering
+	\includegraphics{images/wirebending.png}
+\end{figure}
+
 Outline of this subsubsection:
 \begin{itemize}
 	\item Bell state circuit diagram: last? use of matrix multiplication to get $\kz{00} + \kz{11}$ Bob flies to Mars, Alice flies to Venus, we observe them both, and Alice and Bob cat are in the same state
@@ -2070,7 +2420,7 @@ Besides cutting down the number of gates we ever need to just four, three of whi
 
 Let's call a \emph{process theory} something you can describe with a diagram with many processes, which can be any combination of in sequence and/or in parallel, where each process has zero or more input(s) and output(s).  Whenever we have anything happening ``in parallel'' or ``next to each other'', we can describe their combined process with the tensor product of the separate processes.
 
-Calculating $\vec{v} \otimes \vec{w}$ directly for any two vectors $\vec{v} = (v_1, v_2, ..., v_m)$ and $\vec{w} = (w_1, w_2, ..., w_n)$ is straightforward: Just multiply the numbers $v_i$ and $v_j$ for each $i \in \{1,...,m\}$ and $j in \{1,...,n\}$.  $\vec{v} \otimes \vec{w}$ is simply a single larger vector $(v_{11}, v_{12}, ..., v_{1n},v{21},...,v_{2n},...v_{m1},...,v_{mn})$.
+Calculating $\vec{v} \otimes \vec{w}$ directly for any two vectors $\vec{v} = (v_1, v_2, ..., v_m)$ and $\vec{w} = (w_1, w_2, ..., w_n)$ is straightforward: Just multiply the numbers $v_i$ and $v_j$ for each $i \in \{1,...,m\}$ and $j \in \{1,...,n\}$.  $\vec{v} \otimes \vec{w}$ is simply a single larger vector $(v_{11}, v_{12}, ..., v_{1n},v_{21},...,v_{2n},...v_{m1},...,v_{mn})$.
 
 
 

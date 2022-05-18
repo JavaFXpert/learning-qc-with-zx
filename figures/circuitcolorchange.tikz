@@ -2,8 +2,8 @@
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=none] (2) at (0, 0) {$=$};
 		\node [style=none] (9) at (-1.75, 0) {};
-		\node [style=box] (10) at (-3, 0) {$Z(\alpha)$};
-		\node [style=none] (11) at (-4.25, 0) {};
+		\node [style=box] (10) at (-3.25, 0) {$Z(\alpha)$};
+		\node [style=none] (11) at (-4.75, 0) {};
 		\node [style=box] (12) at (5, 0) {$X(\alpha)$};
 		\node [style=box] (13) at (3, 0) {$H$};
 		\node [style=none] (14) at (1.75, 0) {};

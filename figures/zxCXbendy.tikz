@@ -1,0 +1,65 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Z dot] (21) at (-0.5, 0.5) {};
+		\node [style=X dot] (22) at (1, -0.5) {};
+		\node [style=none] (23) at (1.75, 1) {};
+		\node [style=none] (24) at (1.75, -0.5) {};
+		\node [style=none] (26) at (-1.25, -1) {};
+		\node [style=none] (27) at (-1.25, 0.5) {};
+		\node [style=none] (30) at (3, 0) {$=$};
+		\node [style=Z dot] (31) at (4.75, 0.75) {};
+		\node [style=X dot] (32) at (5.75, -0.75) {};
+		\node [style=none] (33) at (6.5, 0.75) {};
+		\node [style=none] (34) at (6.5, -0.75) {};
+		\node [style=none] (35) at (4, -0.75) {};
+		\node [style=none] (36) at (4, 0.75) {};
+		\node [style=none] (37) at (7.5, 0) {$=$};
+		\node [style=Z dot] (38) at (9.75, 0.75) {};
+		\node [style=X dot] (39) at (9.75, -0.75) {};
+		\node [style=none] (40) at (11, 0.75) {};
+		\node [style=none] (41) at (11, -0.75) {};
+		\node [style=none] (42) at (8.5, -0.75) {};
+		\node [style=none] (43) at (8.5, 0.75) {};
+		\node [style=none] (44) at (12, 0) {$=$};
+		\node [style=Z dot] (45) at (14.75, 0.75) {};
+		\node [style=X dot] (46) at (13.75, -0.75) {};
+		\node [style=none] (47) at (13, 0.75) {};
+		\node [style=none] (48) at (13, -0.75) {};
+		\node [style=none] (49) at (15.5, -0.75) {};
+		\node [style=none] (50) at (15.5, 0.75) {};
+		\node [style=none] (57) at (16.5, 0) {$=$};
+		\node [style=Z dot] (58) at (19.75, 0.5) {};
+		\node [style=X dot] (59) at (18.25, -0.5) {};
+		\node [style=none] (60) at (17.5, 1) {};
+		\node [style=none] (61) at (17.5, -0.5) {};
+		\node [style=none] (62) at (20.5, -1) {};
+		\node [style=none] (63) at (20.5, 0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=90, out=-90] (21) to (22);
+		\draw [style=simple, in=-180, out=90, looseness=0.75] (21) to (23.center);
+		\draw [style=simple, in=-90, out=0, looseness=0.50] (26.center) to (22);
+		\draw [style=simple] (22) to (24.center);
+		\draw [style=simple] (27.center) to (21);
+		\draw (31) to (32);
+		\draw [style=simple] (31) to (33.center);
+		\draw [style=simple] (35.center) to (32);
+		\draw [style=simple] (32) to (34.center);
+		\draw [style=simple] (36.center) to (31);
+		\draw (38) to (39);
+		\draw [style=simple] (38) to (40.center);
+		\draw [style=simple] (42.center) to (39);
+		\draw [style=simple] (39) to (41.center);
+		\draw [style=simple] (43.center) to (38);
+		\draw (45) to (46);
+		\draw [style=simple] (45) to (47.center);
+		\draw [style=simple] (49.center) to (46);
+		\draw [style=simple] (46) to (48.center);
+		\draw [style=simple] (50.center) to (45);
+		\draw [in=90, out=-90] (58) to (59);
+		\draw [style=simple, in=0, out=90, looseness=0.75] (58) to (60.center);
+		\draw [style=simple, in=-90, out=180, looseness=0.50] (62.center) to (59);
+		\draw [style=simple] (59) to (61.center);
+		\draw [style=simple] (63.center) to (58);
+	\end{pgfonlayer}
+\end{tikzpicture}
