@@ -46,7 +46,7 @@
 		\node [style=none] (53) at (0.2, 3.125) {};
 		\node [style=none] (54) at (-0.425, 2.9) {};
 		\node [style=none] (55) at (0.525, 3.325) {};
-		\node [style=none] (59) at (0.8, 3.1) {\definecolor{lightblue}{RGB}{100,200,248}\tiny$\color{lightblue}{\alpha}$};
+		\node [style=none] (59) at (1.05, 3.1) {\definecolor{lightblue}{RGB}{100,200,248}\small$\color{lightblue}{\alpha}$};
 		\node [style=none] (60) at (2.65, 2.775) {};
 		\node [style=none] (63) at (0.25, 3.75) {};
 		\node [style=none] (66) at (0, 5.125) {\color{gray}{$+$z}};
@@ -59,8 +59,8 @@
 		\node [style=none] (73) at (0, 3) {};
 		\node [style=none] (74) at (-1.2, 2.7) {};
 		\node [style=none] (75) at (0.575, 2.975) {};
-		\node [style=none] (76) at (0.25, 3.2) {};
-		\node [style=none] (77) at (0.7, 3) {};
+		\node [style=none] (76) at (0.325, 3.2) {};
+		\node [style=none] (77) at (0.775, 3) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=green0.3] (32.center) to (31.center);

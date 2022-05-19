@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{animate}
+\usepackage{biblatex}
 \usepackage{cancel}
 \usepackage{float}
 %\usepackage{gensymb}
@@ -21,6 +22,8 @@
 \usepackage{svg}
 \usepackage{xcolor}
 \usepackage{chngcntr}
+
+\addbibresource{qiskit+zx.bib}
 
 \newcounter{examplecounter}
 \counterwithin{examplecounter}{section}
@@ -231,8 +234,108 @@ On the other hand, when the test is the opposite of the state, this number equal
 {\scalebox{\tikzscale}{\tikzfig{lightbulb_test10}}}
 \end{equation}
 
-\subsection{A \textbf{qubit} of information}
-\subsubsection{Classical states and tests}
+\subsubsection{Rewriting diagrams with equations}
+What can we do with diagrams which are equal to each other?
+The answer: If we have two equal diagrams, whenever we see one of them, we can replace it with the other.
+
+This is handy in simplifying diagrams.  Below, we replace the diagram in the gray dashed box with a diagram equal to it, according to Equation \ref{eq:switch_on}.  We can then use Equation \ref{eq:lightbulb_test11} to rewrite the diagram to the number 1.  In other words, given the information that the lightbulb is working, we showed that after you flip the light switch connected to the off lightbulb, the probability that you observe the lightbulb to be on is 1.
+\begin{equation}
+{\scalebox{\tikzscale}{\tikzfig{lightbulb_simp}}}
+\end{equation}
+
+\subsection{Classical logic gates}
+The transistors in your phone are constantly performing binary logic gates such as the NOT gate in our light switch example.  \textit{Binary} means that each input or output of these gates is one of two possible values, which we call 0 and 1 --- a bit.
+
+While the NOT gate has just one input, a binary logic gate can have more than one input.  Given the question ``Would you like tea or cookies?'', a programmer with a sense of humor could respond ``Yes'' or ``No''.  If you are thinking of the question as computing an OR gate\footnote{For some people, ``or'' in casual conversation is meant as either-or (a.k.a. mutually-exclusive-or a.k.a. XOR).  For clarity we'll use logic in conversation here taking them to have the same meaning as they do in binary logic, despite the many exceptions in colloquial English.}, your two inputs are 1) whether you would like tea, and 2) whether you would like cookies.  If you would like tea and no cookies, you would answer ``Yes''.  If you would like cookies and no tea, you would also answer ``Yes''.  If you would like both tea and cookies, you would answer ``Yes''.  If you would like neither tea nor cookies, you would answer ``No''.
+
+Like computer engineers do, we can use a circuit diagram to show the inputs and outputs.  The conventional circuit diagram symbol for the binary OR logic gate is shown in Figure \ref{ref:teaorcookies}.
+
+\begin{figure}[H]
+	\ctikzfig{teaorcookies}
+	\caption{The OR gate here is drawn as its conventional circuit diagram symbol.  It has two input bits and one output bit.  For instance, if the two inputs are ``Yes'' for liking tea and ``No'' for liking cookies, the output is therefore ``Yes'' for liking tea or cookies.}
+	\label{ref:teaorcookies}
+\end{figure}
+
+We can also compactly list the above logic in a table called a \textit{truth table}.  A truth table for a logic gate has two columns: it displays the output(s) in the right column, given the input(s) in the left column.  We will use the convention of 1 meaning ``Yes'', and 0 meaning ``No''.  By letting 1) whether you would like tea, and 2) whether you would like cookies, be your two inputs, the right column of the truth table for the OR gate gives whether your answer to ``Would you like tea or cookies?'' is ``Yes'' or ``No''.  Figure \ref{fig:classical_logic_gates} gives the circuit diagram and truth table of the OR gate, and several of the other most important binary logic gates.
+\begin{figure}[H]
+	\ctikzfig{classical_logic_gates}
+	\caption{Although it would be cumbersome to do so, you can directly express all computation done by your phone in terms of the gates here.  On the left side are the four diagrams representing the NOT, AND, OR, and XOR (``either or'') gate respectively.  The input(s) to each gate are on its left, and the output(s) are on its right.  On the right side, the \textit{truth table} for each gate is given.}
+	\label{fig:classical_logic_gates}
+\end{figure}
+
+As their inputs and outputs are all bit(s), you can apply these gates one after another.  For instance, when we apply the NOT gate after the AND gate, we get the NAND (``not and'') gate:
+\begin{equation}
+	\tikzfig{nand}
+\end{equation}
+
+Likewise, applying the NOT gate after the OR gate yields the NOR (``not or'') gate:
+\begin{equation}
+	\tikzfig{nor}
+\end{equation}
+
+The NAND gate is \textbf{universal}.  This means that you can do \underline{any} computation on bits using just this one gate.  The NOR gate is also universal.  Indeed, you can build all the necessary components of a computer of just NAND gates, and there are texts on how to do exactly that.  Putting physical hardware limitations aside, this concept of universality is important in quantum computing to know whether the quantum gates you can perform can be applied in such a way as to implement any quantum circuit.
+
+Furthermore, different circuits can perform the exact same logical operation.
+The simplest example is that two NOT gates is the same computation as applying no gates at all:
+\begin{equation}
+	\label{eq:notnot}
+	\tikzfig{notnot}
+\end{equation}
+
+Another example, well-known for binary operations, is \textit{deMorgan's laws}.  Given two bits \textsf{A} and \textsf{B}, deMorgan's laws consists of two equations:
+\begin{align}
+	\text{NOT(\textsf{A} AND \textsf{B})} &= \text{(NOT \textsf{A}) OR (NOT \textsf{B})} \\
+	\text{NOT(\textsf{A} OR \textsf{B})} &= \text{(NOT \textsf{A}) AND (NOT \textsf{B})}
+\end{align}
+You can check that these equations are correct by determining the truth table for both sides of the equation, then verifying that the truth tables are identical.  Given truth tables of all the gates in the circuit, you can obtain the truth table of the circuit via the following steps.  These steps are given for your reference as it may be helpful to be aware of truth tables when learning about quantum logic gates; however, we will not ask you to do this computation as it is rather tedious --- exponentially so in the number of input bits.
+\begin{enumerate}
+	\item Write all possible inputs in the left column.  For $n$ input bits, there should be $2^n$ possible inputs, because each bit can be either 0 or 1.
+	\item Choose a row of the truth table where the right column is empty, and set the bits of the inputs according to its left column.
+	\item Starting from the leftmost gates, from the gate's input(s), determine its output bit.  This can be done by looking up the truth table for that gate.
+	\item Pass on that gate's output as an input to the next gate, and repeat Step 3 for the next gate.  If there is no next gate, then this bit is an output bit.
+	\item When you have determined each output bit for these specific input bits, write the output in the right column of the row of the truth table you chose in Step 2.
+	\item Repeat Steps 2 to 5 until the truth table is complete.
+\end{enumerate}
+
+The more gates involved, the harder it is to keep track of all the parentheses.  This is where circuit diagrams come in handy to clearly and fully describe deMorgan's laws:
+\begin{align}
+	{\scalebox{0.84}{\tikzfig{demorganslaw1}}} \\
+	{\scalebox{0.84}{\tikzfig{demorganslaw2}}} \label{eq:demorganslaw2}
+\end{align}
+
+Most importantly of all, we can use these \textit{diagram rewrite rules} to simplify a circuit to one that does the exact same computation.  As an added bonus, being proficient at this helps us better understand the computation at hand.
+
+\newpage
+% \begin{example}[]
+% \label{example:nnorn}
+Without actually computing any truth table(s), what is the truth table of the circuit in this diagram?
+\begin{figure}[H]
+	\ctikzfig{nnorn}
+	\caption{The circuit which Example \ref{example:nnorn} asks to find the truth table for}
+	\label{fig:nnorn}
+\end{figure}
+
+\textnormal{Thankfully, with the circuit diagram rewrite rules we have so far, we are ready to tackle this problem.  Whenever we draw a gray dashed box around a part of the diagram, it means that in the next step, we will substitute for that part of the diagram, another diagram which accomplishes the same computation.  The equation number of the diagram rewrite rule which permitted us to do this substitution is then indicated above the next equals sign.
+\begin{equation}
+\tikzfig{nnorn_simp1}
+\end{equation}
+\begin{equation}
+\tikzfig{nnorn_simp2}
+\end{equation}
+\begin{equation}
+\tikzfig{nnorn_simp3}
+\end{equation}
+Therefore, the given circuit has the same truth table as the AND gate.
+}
+% \end{example}
+
+One observation to point out is that some of these classical logic gates are not \textit{reversible}.  For a gate $g$ to be reversible, there must exist a gate $g'$ (which can be same as or different to $g$) that can ``undo'' the computation done by $g$.  In other words, applying $g'$ after $g$ should be the same as if you applied no gates, i.e. the identity operation.  When you have more input bits than output bits, there are more possible inputs than possible outputs; therefore the gate cannot be reversible, as there is at least one possible output for which it is impossible to uniquely determine what the input was.
+
+Fun fact: the information lost when an irreversible gate is performed is dissipated as heat energy.  Next time your phone or computer heats up when performing intense computation, you know why.
+
+
+\section{A \textbf{qubit} of information}
+\subsection{Classical states and tests}
 Having learned about states and tests in general, we are now ready to start tackling quantum states and tests.  Alongside gaining intuition from our diagrams, we will learn how to use \textit{bra-ket notation} (also called Dirac notation, as it was created by Paul Dirac so a physicist could represent vectors).  Thankfully, this new jargon is simple: kets are what we call states, and bras are what we call tests.
 
 Just as a bit is the smallest unit of information in a computer, a \textbf{qubit} is the smallest unit of information in a quantum computer.
@@ -240,8 +343,8 @@ We can encode any bit as a qubit by mapping a bit with value 0 to the $\kz0$ (pr
 \begin{align}
 \label{eq:ket0}
 &\tikzfig{ket0}\\
-\label{eq:ket1}
 &\tikzfig{ket1}
+\label{eq:ket1}
 \end{align}
 
 Let us plot them on the unit circle of the real 2D plane.
@@ -677,7 +780,19 @@ In spherical coordinates (on the surface of a sphere), the other coordinate is t
 \end{figure}
 It is worthwhile to mention that the convention amongst physicists is to label the polar angle by $\theta$ and the azimuthal angle by $\phi$.  It can be cause for confusion that the convention amongst mathematicians is the reverse: labelling the polar angle by $\phi$ and the azimuthal angle by $\theta$.
 
-For the surface of a sphere we only need these two angles.  For any point in a real 3D coordinate system, there is a third coordinate $\rho$ which is the radius of the sphere that the point is on the surface of.  For our purposes, we are currently staying on the surface of the Bloch sphere (which has radius $1$), so we do not need to vary this radius coordinate yet.  When we eventually get to \textbf{mixed states}, these will correspond to points inside the volume of the Bloch sphere --- as opposed to pure states which correspond to points on the surface of the Bloch sphere.
+For the surface of a sphere we only need these two angles.  For any point in a real 3D coordinate system, there is a third coordinate $\rho$ which is the radius of the sphere that the point is on the surface of.  For our purposes, we are currently staying on the surface of the Bloch sphere (which has radius $1$), so we do not need to vary this radius coordinate yet.  When we eventually get to \textbf{mixed states}, these will correspond to points inside the volume of the Bloch sphere --- as opposed to pure states which correspond to points on the surface of the Bloch sphere.  The following note is to get an idea of mixed states.
+
+\begin{note}
+In this section we are learning about all possible single-qubit \textit{pure} quantum states --- on the surface of the Bloch sphere.
+There exists one other type of single-qubit quantum state, called \textit{mixed} quantum states --- \textit{inside} the volume of the Bloch sphere.
+Present-day quantum computers are \textit{noisy}\footnote{As of the time of writing this, we are in the day and age where quantum computers are not yet able to suppress noise enough to correct the errors that occur during quantum computation as they occur.  This is called the \textit{Noisy Intermediate-Scale Quantum} era, as first described by John Preskill in his paper at \url{https://quantum-journal.org/papers/q-2018-08-06-79/}.  In the future, quantum computers are predicted to be able to correct errors faster then they occur in quantum computation; this is called the \textit{fault-tolerant} era.}.  This noise causes the quantum states to have \textit{errors}.  As an analogy, imagine if you are on a call, and you have difficulty understanding what is said because the audio quality is too poor.
+
+If we had a pure qubit state but it got affected by \textit{noise}, what happens is that in the Bloch sphere our state goes further towards the center as the \textit{coherence}, i.e. the ``sound quality'' with our analogy, gets worse.
+
+The center of the Bloch sphere, where the $x$, $y$, and $z$ axes meet, is the \textit{maximally mixed state}.  In information theory, this is the quantum state with the least amount of information possible.  For instance regardless of whether you measure the maximally mixed state in the $x$ basis, the $y$ basis, or the $z$ basis, your measurement outcomes will be \textit{uniformly} random, i.e. the same probability for all possible outcomes.
+
+Although we will not get to how to mathematically represent mixed states just yet, it is good for us to keep in mind that quantum theory allows us to \textit{mix} different quantum states in different proportions.
+\end{note}
 
 Like planet Earth, we specify a point on the surface of the Bloch sphere by its polar and its azimuthal angle.  The main difference between our planet Earth analogy and the Bloch sphere, is that while we live in a 3D world where all three axes are real number axes, on the Bloch sphere one of the three axes is a complex number axis.  You can see in Figure~\ref{fig:unitcircleinbloch} that the span of the $x$ and $z$ axes of the Bloch sphere is the slice where the coefficients of $\kz0$ and $\kz1$ are real numbers, while the $y$ axis is an imaginary axis such that the y-coordinate is nonzero when the coefficients of $\kz0$ and $\kz1$ are complex numbers.
 
@@ -774,105 +889,6 @@ That's all for now, folks!
 To get a taste of what we will learn next, check out how quantum gates transform a qubit state in the interactive Bloch sphere demo by James Weaver at \url{https://javafxpert.github.io/grok-bloch/}.
 
 \section{Building a quantum circuit}
-
-\subsubsection{Rewriting diagrams with equations}
-So far we have used diagrams in equations without stating what that means.  If we have two equal diagrams, whenever we see one of them, we can replace it with the other.
-
-This is handy in simplifying diagrams.  Below, we replace the diagram in the gray dashed box with a diagram equal to it, according to Equation \ref{eq:switch_on}.  We can then use Equation \ref{eq:lightbulb_test11} to rewrite the diagram to the number 1.  In other words, given the information that the lightbulb is working, we showed that after you flip the light switch connected to the off lightbulb, the probability that you observe the lightbulb to be on is 1.
-\begin{equation}
-{\scalebox{\tikzscale}{\tikzfig{lightbulb_simp}}}
-\end{equation}
-
-\newpage
-\subsection{Classical logic gates}
-The transistors in your phone are constantly performing binary logic gates such as the NOT gate in our light switch example.  \textit{Binary} means that each input or output of these gates is one of two possible values, which we call 0 and 1 --- a bit.
-
-While the NOT gate has just one input, a binary logic gate can have more than one input.  Given the question ``Would you like tea or cookies?'', a programmer with a sense of humor could respond ``Yes'' or ``No''.  If you are thinking of the question as computing an OR gate\footnote{For some people, ``or'' in casual conversation is meant as either-or (a.k.a. mutually-exclusive-or a.k.a. XOR).  For clarity we'll use logic in conversation here taking them to have the same meaning as they do in binary logic, despite the many exceptions in colloquial English.}, your two inputs are 1) whether you would like tea, and 2) whether you would like cookies.  If you would like tea and no cookies, you would answer ``Yes''.  If you would like cookies and no tea, you would also answer ``Yes''.  If you would like both tea and cookies, you would answer ``Yes''.  If you would like neither tea nor cookies, you would answer ``No''.
-
-Like computer engineers do, we can use a circuit diagram to show the inputs and outputs.  The conventional circuit diagram symbol for the binary OR logic gate is shown in Figure \ref{ref:teaorcookies}.
-
-\begin{figure}[H]
-	\ctikzfig{teaorcookies}
-	\caption{The OR gate here is drawn as its conventional circuit diagram symbol.  It has two input bits and one output bit.  For instance, if the two inputs are ``Yes'' for liking tea and ``No'' for liking cookies, the output is therefore ``Yes'' for liking tea or cookies.}
-	\label{ref:teaorcookies}
-\end{figure}
-
-We can also compactly list the above logic in a table called a \textit{truth table}.  A truth table for a logic gate has two columns: it displays the output(s) in the right column, given the input(s) in the left column.  We will use the convention of 1 meaning ``Yes'', and 0 meaning ``No''.  By letting 1) whether you would like tea, and 2) whether you would like cookies, be your two inputs, the right column of the truth table for the OR gate gives whether your answer to ``Would you like tea or cookies?'' is ``Yes'' or ``No''.  Figure \ref{fig:classical_logic_gates} gives the circuit diagram and truth table of the OR gate, and several of the other most important binary logic gates.
-\begin{figure}[H]
-	\ctikzfig{classical_logic_gates}
-	\caption{Although it would be cumbersome to do so, you can directly express all computation done by your phone in terms of the gates here.  On the left side are the four diagrams representing the NOT, AND, OR, and XOR (``either or'') gate respectively.  The input(s) to each gate are on its left, and the output(s) are on its right.  On the right side, the \textit{truth table} for each gate is given.}
-	\label{fig:classical_logic_gates}
-\end{figure}
-
-As their inputs and outputs are all bit(s), you can apply these gates one after another.  For instance, when we apply the NOT gate after the AND gate, we get the NAND (``not and'') gate:
-\begin{equation}
-	\tikzfig{nand}
-\end{equation}
-
-Likewise, applying the NOT gate after the OR gate yields the NOR (``not or'') gate:
-\begin{equation}
-	\tikzfig{nor}
-\end{equation}
-
-The NAND gate is \textbf{universal}.  This means that you can do \underline{any} computation on bits using just this one gate.  The NOR gate is also universal.  Indeed, you can build all the necessary components of a computer of just NAND gates, and there are texts on how to do exactly that.  Putting physical hardware limitations aside, this concept of universality is important in quantum computing to know whether the quantum gates you can perform can be applied in such a way as to implement any quantum circuit.
-
-Furthermore, different circuits can perform the exact same logical operation.
-The simplest example is that two NOT gates is the same computation as applying no gates at all:
-\begin{equation}
-	\label{eq:notnot}
-	\tikzfig{notnot}
-\end{equation}
-
-Another example, well-known for binary operations, is \textit{deMorgan's laws}.  Given two bits \textsf{A} and \textsf{B}, deMorgan's laws consists of two equations:
-\begin{align}
-	\text{NOT(\textsf{A} AND \textsf{B})} &= \text{(NOT \textsf{A}) OR (NOT \textsf{B})} \\
-	\text{NOT(\textsf{A} OR \textsf{B})} &= \text{(NOT \textsf{A}) AND (NOT \textsf{B})}
-\end{align}
-You can check that these equations are correct by determining the truth table for both sides of the equation, then verifying that the truth tables are identical.  Given truth tables of all the gates in the circuit, you can obtain the truth table of the circuit via the following steps.  These steps are given for your reference as it may be helpful to be aware of truth tables when learning about quantum logic gates; however, we will not ask you to do this computation as it is rather tedious --- exponentially so in the number of input bits.
-\begin{enumerate}
-	\item Write all possible inputs in the left column.  For $n$ input bits, there should be $2^n$ possible inputs, because each bit can be either 0 or 1.
-	\item Choose a row of the truth table where the right column is empty, and set the bits of the inputs according to its left column.
-	\item Starting from the leftmost gates, from the gate's input(s), determine its output bit.  This can be done by looking up the truth table for that gate.
-	\item Pass on that gate's output as an input to the next gate, and repeat Step 3 for the next gate.  If there is no next gate, then this bit is an output bit.
-	\item When you have determined each output bit for these specific input bits, write the output in the right column of the row of the truth table you chose in Step 2.
-	\item Repeat Steps 2 to 5 until the truth table is complete.
-\end{enumerate}
-
-The more gates involved, the harder it is to keep track of all the parentheses.  This is where circuit diagrams come in handy to clearly and fully describe deMorgan's laws:
-\begin{align}
-	{\scalebox{0.84}{\tikzfig{demorganslaw1}}} \\
-	{\scalebox{0.84}{\tikzfig{demorganslaw2}}} \label{eq:demorganslaw2}
-\end{align}
-
-Most importantly of all, we can use these \textit{diagram rewrite rules} to simplify a circuit to one that does the exact same computation.  As an added bonus, being proficient at this helps us better understand the computation at hand.
-
-\newpage
-% \begin{example}[]
-% \label{example:nnorn}
-Without actually computing any truth table(s), what is the truth table of the circuit in this diagram?
-\begin{figure}[H]
-	\ctikzfig{nnorn}
-	\caption{The circuit which Example \ref{example:nnorn} asks to find the truth table for}
-	\label{fig:nnorn}
-\end{figure}
-
-\textnormal{Thankfully, with the circuit diagram rewrite rules we have so far, we are ready to tackle this problem.  Whenever we draw a gray dashed box around a part of the diagram, it means that in the next step, we will substitute for that part of the diagram, another diagram which accomplishes the same computation.  The equation number of the diagram rewrite rule which permitted us to do this substitution is then indicated above the next equals sign.
-\begin{equation}
-\tikzfig{nnorn_simp1}
-\end{equation}
-\begin{equation}
-\tikzfig{nnorn_simp2}
-\end{equation}
-\begin{equation}
-\tikzfig{nnorn_simp3}
-\end{equation}
-Therefore, the given circuit has the same truth table as the AND gate.
-}
-% \end{example}
-
-One observation to point out is that some of these classical logic gates are not \textit{reversible}.  For a gate $g$ to be reversible, there must exist a gate $g'$ (which can be same as or different to $g$) that can ``undo'' the computation done by $g$.  In other words, applying $g'$ after $g$ should be the same as if you applied no gates, i.e. the identity operation.  When you have more input bits than output bits, there are more possible inputs than possible outputs; therefore the gate cannot be reversible, as there is at least one possible output for which it is impossible to uniquely determine what the input was.
-
-Fun fact: the information lost when an irreversible gate is performed is dissipated as heat energy.  Next time your phone or computer heats up when performing intense computation, you know why.
 
 \subsection{Quantum gates, Part 1: Paulis}
 In this section, we will meet all the single-qubit gates commonly encountered (which tend to have one-letter names).
@@ -1135,7 +1151,7 @@ Observe that the operations $\{I,X,Y,Z\}$ \textit{generate} the group in the abo
 This example is interesting because there is an important connection between the group of 3 by 3 real rotation matrices (called \textbf{SO(3)}), and the group of 2 by 2 complex unitary matrices (called \textbf{SU(2)}).  The group in the above example is a subgroup (a group within a group) of \textbf{SO(3)}.  On the other hand, the Pauli group, which we are on the verge of introducing, is a subgroup of \textbf{SU(2)}.
 This connection between groups is the underlying reason why we can visualize all single-qubit (unitary) gates (which have matrices in \textbf{SU(2)}), as 3D rotations on the Bloch sphere (which has matrices in \textbf{SO(3)}).
 
-Notice that each of $X$, $Y$, and $Z$ send their own basis states to themselves (up to a global phase), and send the other two bases' basis states to the other basis state in that basis (also up to a global phase).
+Before we talked about the 3 by 3 real matrices called $X$, $Y$, and $Z$; now, let's talk about the 2 by 2 complex unitary matrices called $X$, $Y$, and $Z$.  Notice that each of $X$, $Y$, and $Z$ send their own basis states to themselves (up to a global phase), and send the other two bases' basis states to the other basis state in that basis (also up to a global phase).
 This property has a deeper significance, as it arises from them being part of a \textit{group} as in Definition~\ref{def:group}, called the \textbf{Pauli group}.
 If we compare to Example~\ref{ex:groupfirstex} with the group of reflections in SO(3) (three real number dimensions), the Pauli group is like that but for SU(2) (two complex number dimensions).
 
@@ -1252,16 +1268,40 @@ The light blue axis that is halfway between the z- and x- axes of that circle, i
 	\ctikzfig{blochh}
 \end{figure}
 
-\subsection{Mixed states}
-We have now learned about all possible single-qubit \textit{pure} quantum states --- on the surface of the Bloch sphere.
-There exists one other type of single-qubit quantum state, called \textit{mixed} quantum states --- \textit{inside} the volume of the Bloch sphere.
-Present-day quantum computers are \textit{noisy}\footnote{As of the time of writing this, we are in the day and age where quantum computers are not yet able to suppress noise enough to correct the errors that occur during quantum computation as they occur.  This is called the \textit{Noisy Intermediate-Scale Quantum} era, as first described by John Preskill in his paper at \url{https://quantum-journal.org/papers/q-2018-08-06-79/}.  In the future, quantum computers are predicted to be able to correct errors faster then they occur in quantum computation; this is called the \textit{fault-tolerant} era.}.  This noise causes the quantum states to have \textit{errors}.  As an analogy, imagine if you are on a call, and you have difficulty understanding what is said because the audio quality is too poor.
+A cool fact about 3D rotations is that if we know how to do (parametrized) rotations about any two perpendicular axes, we can then decompose a rotation of any angle of any axis into smaller rotations about just those two axes.
+A useful example of this is the \textbf{Euler decomposition} of the $H$ gate.  It means that we can decompose the $H$ gate into alternating $Z$ and $X$ rotations where the rotation angle is $\pm \pi/2$.
 
-If we had a pure qubit state but it got affected by \textit{noise}, what happens is that in the Bloch sphere our state goes further towards the center as the \textit{coherence}, i.e. the ``sound quality'' with our analogy, gets worse.
+\begin{align}
+	H &= e^{-\frac{i\pi}{4}} \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right)
+	H &= e^{-\frac{i\pi}{4}} \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right)
+\end{align}
+How to read these equations is: Each gate in the above equations, for instance the one with label $Z\left(\frac{\pi}{2}\right)$, has a matrix.
+If you replace all the gate labels with their matrices, you can check that the $H$ gate matrix indeed equals the three matrices on the right hand side of either equation above, times a complex number $e^{-\frac{i\pi}{4}}$.  This complex number is a \textit{global phase}, as we have encountered earlier.  In this text we will keep track of these global phases in equations such as these in case you ever want to look them up.  With that said, it's convenient to keep in mind that for most purposes you can ignore them, because as we saw from Example~\ref{ex:globalphase} we cannot tell the difference between quantum systems that have the same state up to global phase anyway.
 
-The center of the Bloch sphere, where the $x$, $y$, and $z$ axes meet, is the \textit{maximally mixed state}.  In information theory, this is the quantum state with the least amount of information possible.  For instance regardless of whether you measure the maximally mixed state in the $x$ basis, the $y$ basis, or the $z$ basis, your measurement outcomes will be \textit{uniformly} random, i.e. the same probability for all possible outcomes.
+In this text, we may also drop the global phase factor where it is convenient to do so, and where it is less likely to be equations you may want to look up later (for instance within examples).  In those cases, a notation we may use is a doubly squiggly line, such as
+\begin{align}
+	H &\approx Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right)
+	H &\approx X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right)
+\end{align}
+which means that there is a global factor, i.e. one side of the equation is a complex number multiple of the other.
 
-Although we will not get to how to mathematically represent mixed states just yet, it is good for us to keep in mind that quantum theory allows us to \textit{mix} different quantum states in different proportions.
+Back to the $H$ gate Euler decomposition.  We can see this visually on the Bloch sphere by comparing the two animations below\footnote{These animations are from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}}.
+% description of the two animations goes here
+\begin{figure}[H]
+\noindent%
+\begin{minipage}[t]{0.45\linewidth}
+	\begin{frame}{}
+		\animategraphics[controls,width=2in]{12}{images/HgateBlochrotations/animation-}{0}{120}
+	\end{frame}\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.45\linewidth}
+	\begin{frame}{}
+		\animategraphics[controls,width=2in]{20}{images/HgateEulerBloch/animation-}{0}{200}
+	\end{frame}
+\end{minipage}
+\caption{For ease of visualization, both of these animations first rotate the $\kz0$ state to an arbitrary other single-qubit state on the surface of the Bloch sphere --- this is the first two rotations which are respectively green and blue.  \textbf{Left:} The third and final rotation, colored gray, is the $H$ gate, which is a $\pi$ rotation about the axis that is halfway between the $x$ and $z$ axes, i.e. the $\frac{\kz0 + \kx+}{\sqrt{2}}$ axis.  \textbf{Right:} The last three rotations, colored green, blue, and green; are $\pi/2$ $X$, $Z$, and $X$ rotations respectively.  As expected, both of these animations end in the same point on the surface of the Bloch sphere.}
+\end{figure}
+
 
 \newpage
 \section{Recipe for one-qubit quantum circuits}
@@ -1488,7 +1528,7 @@ With this we can now see why Z and X gates and basis states are drawn as they ar
 While these diagrams are simple, they have a well-defined \textit{interpretation} --- given any ZX diagram, we can write down its meaning as a composition of matrices.
 By the rule of the ZX-calculus, the four above equations are all correct, but if we weren't convinced, we can verify by direct computation.
 \begin{example}
-	How would you confirm each of the four equations above using bra-ket notation?
+	Confirm the above equations for all four cases are correct.
 	\soln \textnormal{Let's start with the fourth case:}
 	\begin{equation}
 		Z(\beta) Z(\alpha) = \begin{bmatrix}
@@ -1618,40 +1658,6 @@ This is a technique known as \textbf{quantum state tomography}.  It is very usef
 
 \textnormal{In summary, we have proved that $XH = HZ$.  If that looks a little weird to you, that is because of an unfortunate case of the two most used conventions being opposite of each other.  Quantum circuits are drawn from left to right, but each time you apply a new gate you are multiplying the current state (which for pure qubit states is simply a column vector) on the left by the matrix of the new gate.}
 \end{example}
-
-A cool fact about 3D rotations is that if we know how to do (parametrized) rotations about any two perpendicular axes, we can then decompose a rotation of any angle of any axis into smaller rotations about just those two axes.
-A useful example of this is the \textbf{Euler decomposition} of the $H$ gate.  It means that we can decompose the $H$ gate into alternating $Z$ and $X$ rotations where the rotation angle is $\pm \pi/2$.
-
-\begin{align}
-	H &= e^{-\frac{i\pi}{4}} \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right)
-	H &= e^{-\frac{i\pi}{4}} \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right)
-\end{align}
-How to read these equations is: Each gate in the above equations, for instance the one with label $Z\left(\frac{\pi}{2}\right)$, has a matrix.
-If you replace all the gate labels with their matrices, you can check that the $H$ gate matrix indeed equals the three matrices on the right hand side of either equation above, times a complex number $e^{-\frac{i\pi}{4}}$.  This complex number is a \textit{global phase}, as we have encountered earlier.  In this text we will keep track of these global phases in equations such as these in case you ever want to look them up.  With that said, it's convenient to keep in mind that for most purposes you can ignore them, because as we saw from Example~\ref{ex:globalphase} we cannot tell the difference between quantum systems that have the same state up to global phase anyway.
-
-In this text, we may also drop the global phase factor where it is convenient to do so, and where it is less likely to be equations you may want to look up later (for instance within examples).  In those cases, a notation we may use is a doubly squiggly line, such as
-\begin{align}
-	H &\approx Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right)
-	H &\approx X\left(\frac{\pi}{2}\right) \; Z\left(\frac{\pi}{2}\right) \; X\left(\frac{\pi}{2}\right)
-\end{align}
-which means that there is a global factor, i.e. one side of the equation is a complex number multiple of the other.
-
-Back to the $H$ gate Euler decomposition.  We can see this visually on the Bloch sphere by comparing the two animations below\footnote{These animations are from \url{https://quantumcomputing.stackexchange.com/questions/18031/how-to-visualize-hadamard-gate-as-x-z-x-decomposition}}.
-% description of the two animations goes here
-\begin{figure}[H]
-\noindent%
-\begin{minipage}[t]{0.45\linewidth}
-	\begin{frame}{}
-		\animategraphics[controls,width=2in]{12}{images/HgateBlochrotations/animation-}{0}{120}
-	\end{frame}\end{minipage}%
-\hfill%
-\begin{minipage}[t]{0.45\linewidth}
-	\begin{frame}{}
-		\animategraphics[controls,width=2in]{20}{images/HgateEulerBloch/animation-}{0}{200}
-	\end{frame}
-\end{minipage}
-\caption{For ease of visualization, both of these animations first rotate the $\kz0$ state to an arbitrary other single-qubit state on the surface of the Bloch sphere --- this is the first two rotations which are respectively green and blue.  \textbf{Left:} The third and final rotation, colored gray, is the $H$ gate, which is a $\pi$ rotation about the axis that is halfway between the $x$ and $z$ axes, i.e. the $\frac{\kz0 + \kx+}{\sqrt{2}}$ axis.  \textbf{Right:} The last three rotations, colored green, blue, and green; are $\pi/2$ $X$, $Z$, and $X$ rotations respectively.  As expected, both of these animations end in the same point on the surface of the Bloch sphere.}
-\end{figure}
 
 \section{Qubits side by side}
 Let us now take what we know about single-qubit states, and combine them to talk about multi-qubit states: quantum states of multiple qubits.
@@ -2153,7 +2159,7 @@ Whether we view it as a Z copy then X match, or an X copy then Z match, does not
 	\tikzfig{zxCXbendy}
 \end{equation}
 
-We can actually bend an output of a green or pink dot into an input, as if that wire was always an input to the dot in the first place:
+The reason we can do this is that we can actually bend an output of a green or pink dot into an input, as if that wire was always an input to the dot in the first place:
 \begin{equation}
 	\tikzfig{zxcopybendy}
 \end{equation}
@@ -2193,7 +2199,7 @@ If we think about the analogy of circuits to cooking, we could imagine that a Be
 \begin{equation*}
 	\tikzfig{jamsandwich}
 \end{equation*}
-By spreading the jam onto the toast, you get something far tastier than just jam (blegh!) or just toast (ehhh...).
+By spreading the jam onto the toast, you get something far tastier than just jam (blegh!), just toast (ehhh...), or just jam being next to toast.
 
 The circuit to create a Bell state is
 \begin{equation}\label{eq:Bellstate_circuitmodel}
@@ -2362,7 +2368,7 @@ Although the Bell state is symmetric with respect to both qubits, as if we swap 
 \end{equation}
 What we got in the end is a wire with nothing on it, bent $180^{\degree}$!  Because of how it's shaped, this is colloquially called a \textbf{cup} in ZX-calculus.
 
-We can also define the corresponding Bell test by taking the conjugate transpose of the whole thing: $\frac{1}{sqrt{2}} \left(\bz{00} + \bz{11}\right)$.
+We can also define the corresponding Bell test by taking the conjugate transpose of the whole thing: $\frac{1}{\sqrt{2}} \left(\bz{00} + \bz{11}\right)$.
 Following the exact same simplification steps in Eq.~\eqref{eq:Bellstate_zx}, we get what is colloquially called a \textbf{cap} in ZX-calculus.
 \begin{equation}
 	\tikzfig{Belltest_zx}
@@ -2395,65 +2401,65 @@ If you are a fan of the cartoon series Avatar: the Last Airbender, you may appre
 	\includegraphics{images/wirebending.png}
 \end{figure}
 
-Outline of this subsubsection:
-\begin{itemize}
-	\item Bell state circuit diagram: last? use of matrix multiplication to get $\kz{00} + \kz{11}$ Bob flies to Mars, Alice flies to Venus, we observe them both, and Alice and Bob cat are in the same state
-	\item convert to ZX, simplify in ZX to get cup
-	\item example of Bell state coins - first example of "wire bending"	
-\end{itemize}
+% Outline of this subsubsection:
+% \begin{itemize}
+% 	\item Bell state circuit diagram: last? use of matrix multiplication to get $\kz{00} + \kz{11}$ Bob flies to Mars, Alice flies to Venus, we observe them both, and Alice and Bob cat are in the same state
+% 	\item convert to ZX, simplify in ZX to get cup
+% 	\item example of Bell state coins - first example of "wire bending"	
+% \end{itemize}
 
-As shown here where we learned how to produce a Bell state, the CX gate enables us to entangle two qubits together.  But it can do more --- the CX gate enables us to entangle any number of qubits together.  For instance, if we entangle qubit 1 and qubit 2, a d then entangle qubit 2 and qubit 3, we can create an entangled state of three qubits.
+% As shown here where we learned how to produce a Bell state, the CX gate enables us to entangle two qubits together.  But it can do more --- the CX gate enables us to entangle any number of qubits together.  For instance, if we entangle qubit 1 and qubit 2, a d then entangle qubit 2 and qubit 3, we can create an entangled state of three qubits.
 
-\subsubsection{The GHZ state}
-%%% GHZ state ZX proof
-
-
-If we are able to do on our quantum computing hardware, just one arbitrary two-qubit entangling gate and enough single-qubit gates, we can do (to be more precise, approximate to arbitrary precision) any type of quantum computation possible on any number of qubits.  Being able to do this is called \textbf{universal quantum computation}.  The most famous gate set that suffices for universal quantum computation is called the Clifford+$T$ gate set, which has the three Clifford gates CX, $S$, and $H$, plus the non-Clifford $T$ gate.
-
-Besides cutting down the number of gates we ever need to just four, three of which are single-qubit gates, what is particularly special as we noted earlier is that the Clifford group (which can be generated by CX, $S$, and $H$) is the subset of quantum gates that we can efficiently simulate on classical computers.
+% \subsubsection{The GHZ state}
+% %%% GHZ state ZX proof
 
 
+% If we are able to do on our quantum computing hardware, just one arbitrary two-qubit entangling gate and enough single-qubit gates, we can do (to be more precise, approximate to arbitrary precision) any type of quantum computation possible on any number of qubits.  Being able to do this is called \textbf{universal quantum computation}.  The most famous gate set that suffices for universal quantum computation is called the Clifford+$T$ gate set, which has the three Clifford gates CX, $S$, and $H$, plus the non-Clifford $T$ gate.
 
-%%% Comment on Einstein's famous quote, ``spooky action at a distance''
+% Besides cutting down the number of gates we ever need to just four, three of which are single-qubit gates, what is particularly special as we noted earlier is that the Clifford group (which can be generated by CX, $S$, and $H$) is the subset of quantum gates that we can efficiently simulate on classical computers.
 
 
 
-Let's call a \emph{process theory} something you can describe with a diagram with many processes, which can be any combination of in sequence and/or in parallel, where each process has zero or more input(s) and output(s).  Whenever we have anything happening ``in parallel'' or ``next to each other'', we can describe their combined process with the tensor product of the separate processes.
-
-Calculating $\vec{v} \otimes \vec{w}$ directly for any two vectors $\vec{v} = (v_1, v_2, ..., v_m)$ and $\vec{w} = (w_1, w_2, ..., w_n)$ is straightforward: Just multiply the numbers $v_i$ and $v_j$ for each $i \in \{1,...,m\}$ and $j \in \{1,...,n\}$.  $\vec{v} \otimes \vec{w}$ is simply a single larger vector $(v_{11}, v_{12}, ..., v_{1n},v_{21},...,v_{2n},...v_{m1},...,v_{mn})$.
+% %%% Comment on Einstein's famous quote, ``spooky action at a distance''
 
 
 
-a toast sandwich:
+% Let's call a \emph{process theory} something you can describe with a diagram with many processes, which can be any combination of in sequence and/or in parallel, where each process has zero or more input(s) and output(s).  Whenever we have anything happening ``in parallel'' or ``next to each other'', we can describe their combined process with the tensor product of the separate processes.
 
-\begin{equation}
-	\tikzfig{toastsandwich}
-\end{equation}%%% toast, make sandwich, eat
+% Calculating $\vec{v} \otimes \vec{w}$ directly for any two vectors $\vec{v} = (v_1, v_2, ..., v_m)$ and $\vec{w} = (w_1, w_2, ..., w_n)$ is straightforward: Just multiply the numbers $v_i$ and $v_j$ for each $i \in \{1,...,m\}$ and $j \in \{1,...,n\}$.  $\vec{v} \otimes \vec{w}$ is simply a single larger vector $(v_{11}, v_{12}, ..., v_{1n},v_{21},...,v_{2n},...v_{m1},...,v_{mn})$.
 
 
 
-To take our cooking to new heights, we can have...\newline
-\newline
-drumroll...\newline
-\newline
-more than one ingredient.  Say, our cooking process could look like this (because as I write this I am getting hungry and thinking about sandwiches):
+% a toast sandwich:
 
-\begin{equation}
-	\tikzfig{avocadogrilledcheesesandwich}
-\end{equation}
+% \begin{equation}
+% 	\tikzfig{toastsandwich}
+% \end{equation}%%% toast, make sandwich, eat
 
-So in the gray dashed box, is the product state of our three starting ingredients: toast, cheese, and avocado.  With a little extra work, we can transform them into the ultimate avocado grilled cheese sandwich.
 
-What does it mathematically mean to draw qubit states side by side?
-The word ``product'' in the name refers to the \textbf{tensor product} (also called the \textbf{Kronecker product}).
 
-Let's say we have two arbitrary single-qubit vectors:
-v1 = [a; b] and v2 = [c; d]
-How you take their tensor product is:
+% To take our cooking to new heights, we can have...\newline
+% \newline
+% drumroll...\newline
+% \newline
+% more than one ingredient.  Say, our cooking process could look like this (because as I write this I am getting hungry and thinking about sandwiches):
 
-Since our pure single-qubit states are just vectors, to get their product state, we just take the tensor product of all their single-qubit statevectors.
-In bra-ket notation, our earlier vector from equation REF is
-By convention, we can drop the tensor products between the individual kets to make the notation more concise.
+% \begin{equation}
+% 	\tikzfig{avocadogrilledcheesesandwich}
+% \end{equation}
+
+% So in the gray dashed box, is the product state of our three starting ingredients: toast, cheese, and avocado.  With a little extra work, we can transform them into the ultimate avocado grilled cheese sandwich.
+
+% What does it mathematically mean to draw qubit states side by side?
+% The word ``product'' in the name refers to the \textbf{tensor product} (also called the \textbf{Kronecker product}).
+
+% Let's say we have two arbitrary single-qubit vectors:
+% v1 = [a; b] and v2 = [c; d]
+% How you take their tensor product is:
+
+% Since our pure single-qubit states are just vectors, to get their product state, we just take the tensor product of all their single-qubit statevectors.
+% In bra-ket notation, our earlier vector from equation REF is
+% By convention, we can drop the tensor products between the individual kets to make the notation more concise.
 
 
 %At this time, if this is your first rodeo with Qiskit, check out the `Getting started with Qiskit' Jupyter notebook to walk through how to run your circuits on hardware, before we continue.  You can navigate to it by selecting the `New file +' button which opens up the Launcher.
@@ -2461,16 +2467,5 @@ By convention, we can drop the tensor products between the individual kets to ma
 %	\includegraphics[width=\columnwidth]{images/Launcher_IBMQuantumLab.PNG}
 %\end{figure}
 
-% \newpage
-% \section{When you have more than one qubit}
-% {\small\textit{This section will assume knowledge of vectors and matrices, and will introduce bra-ket notation alongside diagrammatic notation.  To brush up on the relevant linear algebra, visit \url{https://qiskit.org/textbook/ch-appendix/linear_algebra.html}}}
-
-% Any pure quantum state of $n$ qubits is described by a column vector of $2^n$ complex numbers --- one for each possible binary string of length $n$.  In bra-ket notation, this $n$ qubit state is denoted $\ket{v}$.
-% \begin{equation}
-% \tikzfig{ket}
-% \end{equation}
-% $v_1,...,v_{2^n}$ are complex numbers.
-
-
-\bibliography{qiskit+zx.bib}
+\printbibliography
 \end{document}
