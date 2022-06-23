@@ -8,14 +8,19 @@
 		\node [style=Z dot] (9) at (2.5, 0) {};
 		\node [style=none] (10) at (4, 1) {};
 		\node [style=none] (11) at (1, -1) {};
-		\node [style=none] (12) at (5, 0) {$=$};
-		\node [style=none] (13) at (6, -1) {};
-		\node [style=none] (14) at (9, 1) {};
 		\node [style=none] (15) at (-8.25, 0.5) {};
 		\node [style=none] (16) at (-6.75, -0.5) {};
 		\node [style=none] (17) at (-6, 1) {};
 		\node [style=none] (18) at (-9, -1) {};
 		\node [style=none] (19) at (-5, 0) {$=$};
+		\node [style=none] (20) at (5, 0) {$=$};
+		\node [style=Z dot] (21) at (7.5, 0) {};
+		\node [style=none] (22) at (9, 0) {};
+		\node [style=none] (23) at (6, 0) {};
+		\node [style=none] (24) at (10, 0) {$=$};
+		\node [style=none] (25) at (12.5, 0) {};
+		\node [style=none] (26) at (14, 0) {};
+		\node [style=none] (27) at (11, 0) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [in=90, out=-90] (0) to (1);
@@ -23,9 +28,12 @@
 		\draw [style=simple, in=-90, out=0, looseness=0.50] (4.center) to (1);
 		\draw [style=simple, in=-120, out=0] (11.center) to (9);
 		\draw [style=simple, in=-180, out=60] (9) to (10.center);
-		\draw [style=simple, in=0, out=-180] (14.center) to (13.center);
 		\draw [in=90, out=-90] (15.center) to (16.center);
 		\draw [style=simple, in=-180, out=90, looseness=0.75] (15.center) to (17.center);
 		\draw [style=simple, in=-90, out=0, looseness=0.50] (18.center) to (16.center);
+		\draw [style=simple] (23.center) to (21);
+		\draw [style=simple] (21) to (22.center);
+		\draw [style=simple] (27.center) to (25.center);
+		\draw [style=simple] (25.center) to (26.center);
 	\end{pgfonlayer}
 \end{tikzpicture}

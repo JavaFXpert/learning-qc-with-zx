@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (4.75, 0.75) {};
+		\node [style=none] (1) at (4, -0.5) {};
+		\node [style=none] (2) at (3.5, 0.125) {$f$};
+		\node [style=none] (3) at (2.75, 0.75) {};
+		\node [style=none] (4) at (2.75, -0.5) {};
+		\node [style=none] (5) at (3.5, 0.75) {};
+		\node [style=none] (7) at (3.5, -0.5) {};
+		\node [style=none] (9) at (5.75, 1) {};
+		\node [style=none] (10) at (3.5, 1) {};
+		\node [style=none] (11) at (5.75, -2.25) {};
+		\node [style=none] (13) at (3.5, -0.75) {};
+		\node [style=none] (14) at (1.25, -0.75) {};
+		\node [style=none] (16) at (1.25, 2.5) {};
+		\node [style=none] (17) at (0, 0) {$\coloneqq$};
+		\node [style=none] (18) at (-3.25, -0.5) {};
+		\node [style=none] (19) at (-2.5, 0.75) {};
+		\node [style=none] (20) at (-2, 0.125) {$f$};
+		\node [style=none] (21) at (-1.25, -0.5) {};
+		\node [style=none] (22) at (-1.25, 0.75) {};
+		\node [style=none] (23) at (-2, -0.5) {};
+		\node [style=none] (24) at (-2, 0.75) {};
+		\node [style=none] (25) at (-2, 2.5) {};
+		\node [style=none] (26) at (-2, -2.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (1.center) to (0.center);
+		\draw [style=simple] (3.center) to (4.center);
+		\draw [style=simple] (3.center) to (5.center);
+		\draw [style=simple] (0.center) to (5.center);
+		\draw [style=simple] (4.center) to (7.center);
+		\draw [style=simple] (7.center) to (1.center);
+		\draw [bend left=270, looseness=1.50] (9.center) to (10.center);
+		\draw [style=simple] (9.center) to (11.center);
+		\draw [bend left=90, looseness=1.50] (13.center) to (14.center);
+		\draw [style=simple] (14.center) to (16.center);
+		\draw [style=simple] (7.center) to (13.center);
+		\draw [style=simple] (10.center) to (5.center);
+		\draw (19.center) to (18.center);
+		\draw [style=simple] (21.center) to (22.center);
+		\draw [style=simple] (21.center) to (23.center);
+		\draw [style=simple] (18.center) to (23.center);
+		\draw [style=simple] (22.center) to (24.center);
+		\draw [style=simple] (24.center) to (19.center);
+		\draw [style=simple] (25.center) to (24.center);
+		\draw [style=simple] (26.center) to (23.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

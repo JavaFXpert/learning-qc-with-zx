@@ -1,0 +1,81 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (0, 4) {$\leftrightsquigarrow$};
+		\node [style=box] (12) at (-4.75, 4) {$Z(\alpha)$};
+		\node [style=box] (16) at (-6.5, 4) {$H$};
+		\node [style=none] (17) at (-7.75, 4) {};
+		\node [style=X phase dot] (25) at (5.5, 2) {$\alpha$};
+		\node [style=none] (26) at (9.25, 2) {};
+		\node [style=hadamard] (27) at (3, 2) {};
+		\node [style=none] (28) at (1.75, 2) {};
+		\node [style=none] (29) at (5.5, 3) {$\rotatebox{90}{=}$};
+		\node [style=X phase dot] (30) at (5.5, 0) {$\alpha$};
+		\node [style=none] (33) at (1.75, 0) {};
+		\node [style=none] (34) at (9.25, 0) {};
+		\node [style=none] (37) at (0, 0) {$\leftrightsquigarrow$};
+		\node [style=box] (38) at (-4.75, 0) {$X(\alpha)$};
+		\node [style=none] (39) at (-7.75, 0) {};
+		\node [style=none] (41) at (-1.75, 0) {};
+		\node [style=none] (42) at (5.5, 1) {$\rotatebox{90}{=}$};
+		\node [style=none] (51) at (-4.75, 2) {$\rotatebox{90}{=}$};
+		\node [style=box] (52) at (-3, 4) {$H$};
+		\node [style=none] (53) at (-1.75, 4) {};
+		\node [style=hadamard] (55) at (8, 2) {};
+		\node [style=none] (56) at (2.5, 2.5) {};
+		\node [style=none] (57) at (4.75, 2.5) {};
+		\node [style=none] (58) at (4.75, 1.5) {};
+		\node [style=none] (59) at (2.5, 1.5) {};
+		\node [style=hadamard] (60) at (4.25, 2) {};
+		\node [style=hadamard] (61) at (6.75, 2) {};
+		\node [style=Z phase dot] (62) at (5.5, 4) {$\alpha$};
+		\node [style=none] (63) at (9.25, 4) {};
+		\node [style=hadamard] (64) at (3, 4) {};
+		\node [style=none] (65) at (1.75, 4) {};
+		\node [style=hadamard] (66) at (8, 4) {};
+		\node [style=none] (67) at (3.75, 4.5) {};
+		\node [style=none] (68) at (7.25, 4.5) {};
+		\node [style=none] (69) at (7.25, 3.5) {};
+		\node [style=none] (70) at (3.75, 3.5) {};
+		\node [style=none] (71) at (4.25, 4) {};
+		\node [style=none] (72) at (6.75, 4) {};
+		\node [style=none] (73) at (6.25, 2.5) {};
+		\node [style=none] (74) at (8.5, 2.5) {};
+		\node [style=none] (75) at (8.5, 1.5) {};
+		\node [style=none] (76) at (6.25, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=simple] (16) to (17.center);
+		\draw [style=simple] (16) to (12);
+		\draw [style=simple] (27) to (28.center);
+		\draw [style=simple] (33.center) to (30);
+		\draw [style=simple] (38) to (39.center);
+		\draw [style=simple] (52) to (53.center);
+		\draw [style=simple] (52) to (12);
+		\draw [style=simple] (38) to (41.center);
+		\draw [style=simple] (55) to (26.center);
+		\draw [style=dashed gray edge] (56.center)
+			 to (57.center)
+			 to (58.center)
+			 to (59.center)
+			 to cycle;
+		\draw [style=simple] (27) to (60);
+		\draw [style=simple] (60) to (25);
+		\draw [style=simple] (25) to (61);
+		\draw [style=simple] (61) to (55);
+		\draw [style=simple] (64) to (65.center);
+		\draw [style=simple] (66) to (63.center);
+		\draw [style=dashed gray edge] (67.center) to (68.center);
+		\draw [style=dashed gray edge] (68.center) to (69.center);
+		\draw [style=dashed gray edge] (69.center) to (70.center);
+		\draw [style=dashed gray edge] (70.center) to (67.center);
+		\draw [style=simple] (64) to (71.center);
+		\draw [style=simple] (71.center) to (62);
+		\draw [style=simple] (62) to (72.center);
+		\draw [style=simple] (72.center) to (66);
+		\draw [style=dashed gray edge] (73.center) to (74.center);
+		\draw [style=dashed gray edge] (74.center) to (75.center);
+		\draw [style=dashed gray edge] (75.center) to (76.center);
+		\draw [style=dashed gray edge] (76.center) to (73.center);
+		\draw [style=simple] (30) to (34.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

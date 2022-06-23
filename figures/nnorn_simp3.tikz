@@ -1,16 +1,16 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (82) at (-2.75, 0) {$=$};
-		\node [style=none] (91) at (-1.75, 0.75) {};
-		\node [style=none] (92) at (-1.75, -0.75) {};
-		\node [style=none] (93) at (-0.75, 1.25) {};
-		\node [style=none] (94) at (-0.75, -1.25) {};
-		\node [style=none] (95) at (2, 0) {};
-		\node [style=none] (96) at (-0.75, 0.75) {};
-		\node [style=none] (97) at (-0.75, -0.75) {};
-		\node [style=none] (98) at (0.5, 0) {AND};
-		\node [style=none] (99) at (3.5, 0) {};
-		\node [style=none] (101) at (-2.75, 0.5) {\small{($\ref{eq:notnot}$)}};
+		\node [style=none] (82) at (-11, 0) {$=$};
+		\node [style=none] (91) at (-10, 0.75) {};
+		\node [style=none] (92) at (-10, -0.75) {};
+		\node [style=none] (93) at (-9, 1.25) {};
+		\node [style=none] (94) at (-9, -1.25) {};
+		\node [style=none] (95) at (-6.25, 0) {};
+		\node [style=none] (96) at (-9, 0.75) {};
+		\node [style=none] (97) at (-9, -0.75) {};
+		\node [style=none] (98) at (-7.75, 0) {AND};
+		\node [style=none] (99) at (-4.75, 0) {};
+		\node [style=none] (101) at (-11, 0.5) {\small{($\ref{eq:notnot}$)}};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=simple, in=-90, out=0] (94.center) to (95.center);

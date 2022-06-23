@@ -306,8 +306,8 @@ The more gates involved, the harder it is to keep track of all the parentheses. 
 Most importantly of all, we can use these \textit{diagram rewrite rules} to simplify a circuit to one that does the exact same computation.  As an added bonus, being proficient at this helps us better understand the computation at hand.
 
 \newpage
-% \begin{example}[]
-% \label{example:nnorn}
+\begin{example}[]
+\label{example:nnorn}
 Without actually computing any truth table(s), what is the truth table of the circuit in this diagram?
 \begin{figure}[H]
 	\ctikzfig{nnorn}
@@ -327,7 +327,7 @@ Without actually computing any truth table(s), what is the truth table of the ci
 \end{equation}
 Therefore, the given circuit has the same truth table as the AND gate.
 }
-% \end{example}
+\end{example}
 
 One observation to point out is that some of these classical logic gates are not \textit{reversible}.  For a gate $g$ to be reversible, there must exist a gate $g'$ (which can be same as or different to $g$) that can ``undo'' the computation done by $g$.  In other words, applying $g'$ after $g$ should be the same as if you applied no gates, i.e. the identity operation.  When you have more input bits than output bits, there are more possible inputs than possible outputs; therefore the gate cannot be reversible, as there is at least one possible output for which it is impossible to uniquely determine what the input was.
 
@@ -748,6 +748,7 @@ Finally, we get the diagram of its transpose by rotating by $180^{\degree}$.
 \begin{figure}[H]
 	\label{fig:conjugateandtransposestates}
 	\ctikzfig{conjugateandtransposestates}
+	\caption{Diagrammatically, we draw the complex conjugate, conjugate transpose, and transpose of any quantum state by respectively reflecting horizontally, reflecting vertically, and rotating $180^{\degree}$.}
 \end{figure}
 
 Whenever a quantum state has the special property of being self-conjugate --- equal to its own complex conjugate --- we can let its diagram simply be a triangle, as we did earlier for the $Z$ and $X$ basis states.
@@ -1430,7 +1431,7 @@ In matrix form, the gate in terms of $\alpha$ is:
 These are the Z rotation gates we saw before.  This gate takes in one parameter, the angle of rotation on the Bloch sphere, denoted here by the variable $\alpha$.
 
 For the special case when $\alpha = 0$, no rotation occurs.  The gate is the identity gate $\mathbb{I}$ because its matrix is equal to the identity matrix.  By convention, we leave out the phase label when $\alpha = 0$.  This also applies whenever $\alpha$ is an integer multiple of $2\pi$, because whenever you go around in a circle a full rotation, you are back where you started.
-\begin{equation}
+\begin{equation}\label{eq:zxZI}
 	\tikzfig{zxZI}	
 \end{equation}
 We'll use this two-headed squiggly arrow to mean when we are translating between circuit model and ZX-calculus diagrammatic notation for a given gate.
@@ -1458,7 +1459,7 @@ In the opposite color, the $X$ rotation gate is drawn in the ZX-calculus as
 The phase $\alpha$ is now the angle of rotation about the x-axis on the Bloch sphere.
 
 We again have that $X(0) = \mathbb{I}$
-\begin{equation}
+\begin{equation}\label{eq:zxXI}
 	\tikzfig{zxXI}	
 \end{equation}
 and the $X$ gate is the same as the $X(\pi)$ gate.
@@ -1490,7 +1491,7 @@ and
 In the next example, we will look into why they are drawn this way in the ZX-calculus.
 This brings us to our first \emph{rewrite rule} in the ZX-calculus, which across the literature has been also named the \emph{fusion rule} or the \emph{spider rule}.
 Let us first describe this rule informally.
-\begin{zxrule}
+\begin{zxrule}\label{zx:spider_fusion}
 	Consider two same color dots with at least one wire between them.
 	If all the wires between them are bare, the two dots can be \emph{fused} together to become a new dot of the same color.
 	This new dot's phase is the sum of the two original dot's phases.
@@ -1633,9 +1634,26 @@ For one-qubit $Z$ and $X$ rotation gates, we can draw the equation
 	\tikzfig{circuitcolorchange}
 \end{equation}
 or in the ZX-calculus as
-\begin{equation}
+\begin{equation}\label{eq:zxcolorchange}
 	\tikzfig{zxcolorchange}
 \end{equation}
+
+\begin{example}[]
+	\label{ex:othercolorchange}
+What happens if we put two $H$ gates on either side of a $Z(\alpha)$ gate?
+
+Simplifying with our newest ZX-calculus rules:
+\begin{equation}
+	\tikzfig{zxothercolorchange}
+\end{equation}
+Thus, we have shown that $H Z(\alpha) H = X(\alpha)$.
+Compare to Eq.~\eqref{eq:zxcolorchange}, which is the same rule but with the colors swapped.
+\end{example}
+
+Now we see why we can think of the $H$ gate as a `color change box'.  This color change rule still holds when we have multiple wires, but for now let us just state the color change rule more informally:
+\begin{zxrule}\label{zx:colorchange}
+	Put an $H$ gate on every wire input to or output from any phase pink or green dot.  The result is the same diagram, except the dot has now changed to the other of the two colors.
+\end{zxrule}
 
 \newpage
 \begin{example}[]
@@ -1657,6 +1675,8 @@ This is a technique known as \textbf{quantum state tomography}.  It is very usef
 \textnormal{In the first line here, we have the circuit we start with, in the circuit model on the left, and in ZX-calcuclus on the right.  On the right half here, we apply one of our rewrite rules in each line, where inside the dashed gray box is where the rewrite rule is being applied.  Finally, we end up with the last line, and so we have ``pushed'' the $H$ gate through the $X$ gate, changing the $X$ gate into a $Z$ gate.}
 
 \textnormal{In summary, we have proved that $XH = HZ$.  If that looks a little weird to you, that is because of an unfortunate case of the two most used conventions being opposite of each other.  Quantum circuits are drawn from left to right, but each time you apply a new gate you are multiplying the current state (which for pure qubit states is simply a column vector) on the left by the matrix of the new gate.}
+
+\textnormal{As a final note for this example, here we walked through the case where the phase is $\pi$.  In fact, these exact rewrite rule steps are the same for any phase, such as was the case in Example~\ref{ex:othercolorchange}.}
 \end{example}
 
 \section{Qubits side by side}
@@ -2050,16 +2070,6 @@ In the ZX-calculus, how we draw the CX gate is
 \begin{equation}
 	\tikzfig{zxCX}
 \end{equation}
-Just using the spider fusion rule of the ZX-calculus already reveals some neat and otherwise non-obvious features of the CX gate.  Namely, we can commute any Z phase gate through the control of CX gate
-\begin{equation}
-	\tikzfig{zxCXZphase}
-\end{equation}
-and any X phase gate through the target of the CX gate
-\begin{equation}
-	\tikzfig{zxCXXphase}
-\end{equation}
-for arbitrary phase angle $\alpha$.
-Recall that some of the most commonly encountered gates are Z phase gates (such as $Z$, $S$, and $T$) or X phase gates (such as $X$).
 
 To capture how the CX gate acts upon the Z-basis states, we introduce a new rewrite rule of the ZX-calculus.
 \begin{equation}
@@ -2134,7 +2144,30 @@ and
 
 The above rules deal with inputting a Z- or X- basis state(s) into a dot of the opposite color.
 What if the input state(s) are of the same color as the dot itself?  This is shown below for green, and holds just the same if all the dot colors were pink.
-It is simply a matter of the fusion rule.  In the two input case, this adds together the bit values and can be thought of as a ``sum'' operation.
+It is simply a matter of the spider fusion rule, which we now get to see in action for the case of more than one input wire.
+
+First, now that we have a better understanding of what it means to have more than one wire at a time (i.e. multiple qubits!), we can take a look at the ultimate form of the spider fusion rule that we first informally described in ZX-calculus rule~\ref{zx:spider_fusion}.  This is what that looks like, diagrammatically:
+\begin{equation}\label{eq:Z_spider_fusion}
+	\tikzfig{Z_spider_fusion}
+\end{equation}
+Our dots now have arbitrary number of legs --- for that reason, we call them \emph{spiders}.
+Here the $...$'s indicate there can be a variable number of legs.  For this ZX-calculus rule, you can have any number of legs wherever there are $...$'s here, as long as there is at least one wire between the two spiders you are fusing.  To give some intuition, if the two spiders are disconnected i.e. there is no path along wires from one to the other, then there is no way for quantum information to travel between the two spiders and so they cannot fuse.
+
+We also have the multi-wire generalization of the color change rule, for which we showed the single-qubit version in Eq.~\eqref{eq:zxcolorchange}, and stated informally for the general case in ZX-calculus rule~\ref{zx:colorchange}:
+\begin{equation}\label{eq:H_rule}
+	\tikzfig{H_rule}
+\end{equation}
+The opposite color version of this rule can be derived in the same way as we did for the single-qubit case in Example~\eqref{ex:othercolorchange}, to get:
+\begin{equation}\label{eq:H_rule_other}
+	\tikzfig{H_rule_other}
+\end{equation}
+
+From our rules so far, we can see that $X$ spider fusion works exactly as $Z$ spider fusion does.
+\begin{equation}\label{eq:X_spider_fusion}
+	\tikzfig{X_spider_fusion}
+\end{equation}
+
+In the two input case, this adds together the bit values and can be thought of as a ``sum'' operation.
 \begin{equation}
 	\tikzfig{zxmatchsum}
 \end{equation}
@@ -2155,7 +2188,7 @@ Note that $(c+t) \text{ mod } 2\pi$ will always be either $0$ or $\pi$.
 
 The reason why we draw the CX gate vertically is not only due to convention, but because it doesn't matter which direction it is slanted.
 Whether we view it as a Z copy then X match, or an X copy then Z match, does not affect the overall matrix:
-\begin{equation}
+\begin{equation}\label{eq:zxCXbendy}
 	\tikzfig{zxCXbendy}
 \end{equation}
 
@@ -2190,6 +2223,18 @@ We thus see that the CX gate on the Z-basis states behaves just as with the X-ba
 \end{equation}
 In other words, the CX gate does a $Z$ gate on the control qubit if and only if the target qubit is $\kx-$.
 
+Just using the spider fusion rule of the ZX-calculus reveals further neat and otherwise non-obvious features of the CX gate.
+Namely, we can commute any Z phase gate through the control of CX gate
+\begin{equation}
+	\tikzfig{zxCXZphase}
+\end{equation}
+and any X phase gate through the target of the CX gate
+\begin{equation}
+	\tikzfig{zxCXXphase}
+\end{equation}
+for arbitrary phase angle $\alpha$.
+Recall that some of the most commonly encountered gates are Z phase gates (such as $Z$, $S$, and $T$) or X phase gates (such as $X$).
+
 \subsubsection{The Bell state}
 The first thing we will do with the CX gate is for building the \textbf{Bell state}.  Through this, we will learn what it means for two qubits to be \textbf{entangled}.
 
@@ -2199,7 +2244,7 @@ If we think about the analogy of circuits to cooking, we could imagine that a Be
 \begin{equation*}
 	\tikzfig{jamsandwich}
 \end{equation*}
-By spreading the jam onto the toast, you get something far tastier than just jam (blegh!), just toast (ehhh...), or just jam being next to toast.
+By spreading the jam onto the toast, you get something far tastier than just jam (blegh!), just toast (ehhh...), or just jam being next to toast.                             
 
 The circuit to create a Bell state is
 \begin{equation}\label{eq:Bellstate_circuitmodel}
@@ -2363,24 +2408,69 @@ This isn't specific to just measuring in the Z-basis.  We can repeat the same th
 \end{example}
 
 Although the Bell state is symmetric with respect to both qubits, as if we swap the two qubits the state is still the Bell state, this is not apparent from its circuit diagram in Eq.~\eqref{eq:Bellstate_circuitmodel}.  In the ZX-calculus, we draw the Bell state so you can easily see it is symmetric.  Actually, we can derive what the Bell state looks like in the ZX-calculus: First we convert the Bell state circuit to a ZX-calculus diagram; then, we simplify using the rules of the ZX-calculus.
+
+When we convert the Bell state from circuit diagram to ZX diagram, we have two choices for the slant of the wire of the CX gate.  As we showed before in Eq.~\ref{eq:zxCXbendy}, either slant gives you the CX gate.
+First, for the CX gate that is Z copy then X match:
+\begin{equation}\label{eq:Bellstate_zx_z}
+	\tikzfig{Bellstate_zx_z}
+\end{equation}
+
+Then, for the CX gate that is X copy then X match:
+\begin{equation}\label{eq:Bellstate_zx_x}
+	\tikzfig{Bellstate_zx_x}
+\end{equation}
+
+Both of these ZX diagrams are equal, because they are the same state --- the Bell state.  Combine this with the fact that phase gates with a phase of $0$ is the identity, from Eqs.~\eqref{eq:zxZI}~and~\eqref{eq:zxXI}:
+\begin{equation}
+	\tikzfig{zxZXI}
+\end{equation}
+For these reasons, we define the middle diagram below to also be a ZX diagram for the Bell state.
 \begin{equation}\label{eq:Bellstate_zx}
 	\tikzfig{Bellstate_zx}
 \end{equation}
-What we got in the end is a wire with nothing on it, bent $180^{\degree}$!  Because of how it's shaped, this is colloquially called a \textbf{cup} in ZX-calculus.
+This is simply a wire with nothing on it, bent $180^{\degree}$!  Due to its shape, this is colloquially called a \textbf{cup} in ZX-calculus.
 
 We can also define the corresponding Bell test by taking the conjugate transpose of the whole thing: $\frac{1}{\sqrt{2}} \left(\bz{00} + \bz{11}\right)$.
 Following the exact same simplification steps in Eq.~\eqref{eq:Bellstate_zx}, we get what is colloquially called a \textbf{cap} in ZX-calculus.
-\begin{equation}
+\begin{equation}\label{eq:belltest}
 	\tikzfig{Belltest_zx}
 \end{equation}
 
-Something interesting happens when we combine the cup and the cap in a specific way:
+Lets connect the cup and the cap to an arbitrary quantum map $f$, which let's call $f$ for function as it has at least one input wire and at least one output wire.  Here we show just one wire for simplicity, but the same rules hold when you have more wires.
+\begin{equation}\label{eq:transpose_map_def}
+	\tikzfig{transpose_map_def}
+\end{equation}
+The cup bends the input wire(s) to the map to become output(s), while the cap bends the output wire(s) of the map to become input(s).
+If you imagine the wires being pulled straight,
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\columnwidth]{images/baryanking.png}\hfill
+	\includegraphics[width=0.3\columnwidth]{images/baryanked.png}
+\end{figure}
+then the trapezoid-shaped map would be rotated $180^{\degree}$.
+
+What does it mean to interchange the inputs and the outputs of a map?
+Well, our maps are simply matrices.  If you interchange the inputs and the outputs of any matrix, the resulting matrix is actually the \emph{transpose} of the original matrix!
+Therefore, we draw diagrammatically the transpose of a map to be the original map rotated $180^{\degree}$.
+\begin{figure}[H]
+	\centering
+	\tikzfig{conjugateandtransposemaps}
+	\caption{\textbf{Left: } Earlier on, in Fig.~\ref{fig:conjugateandtransposestates} and reprinted here, we showed how diagrammatically (bottom to top convention) the transpose, complex conjugate, and conjugate transpose of a state, are obtained by respectively rotating by $180^{\degree}$, reflecting horizontally, or reflecting vertically its diagram. \textbf{Right: } The exact same transformations apply to maps too, as shown here, giving us the diagrams for the transpose, complex conjugate, and conjugate transpose of that map.}
+\end{figure}
+
+To get the transpose of a map, we just needed to bend inputs into outputs and outputs into inputs --- we never specified which direction to bend the wires $180^{\degree}$.  Whichever way we bend the wires in our diagrams $180^{\degree}$, we get diagrams for the same map, the transpose of the original map:
 \begin{equation}
+	\tikzfig{transpose_maps}
+\end{equation}
+
+When we substitute the identity wire into Eq.~\eqref{eq:transpose_map_def}, we get
+\begin{equation}\label{eq:yank}
 	\tikzfig{yank}
 \end{equation}
-We get the identity wire!
-This also holds if we combine the cup and the cap the other way in which you end up with one input and one output:
-\begin{equation}
+because the transpose of the identity map is just the identity map.
+
+This equation also holds if we combine the cup and the cap another way for which you also end up with one input and one output:
+\begin{equation}\label{eq:yank2}
 	\tikzfig{yank2}
 \end{equation}
 While there are a number of ways to convince yourself of this, we show here a simple way.  This utilizes our Z dot fusion rule, and the fact that a one-input, one-output Z dot with phase 0 is the identity.
@@ -2388,9 +2478,96 @@ While there are a number of ways to convince yourself of this, we show here a si
 	\tikzfig{yankZ}
 \end{equation}
 
-Let us now bring back our earlier realization that we can freely bend inputs of green or pink dots into outputs, and vice versa.
-We now see that these ``$180^{\degree}$ bends'' are exactly equal to either the Bell state or the Bell test.
-In other words, this structure\footnote{There is an entire field of study called \textbf{category theory} which is dedicated to studying such structures and how they interact with each other.  In category theory, these equations specifically are part of the \emph{snake equations} or the \emph{yanking equations} --- it even made a cameo in the snake scientist blackboards in the cartoon series Rick and Morty.  The ZX-calculus was developed as a graphical calculus that resulted from understanding such structure underlying qubit quantum computation.} is what enables us to bend wires freely.  So long as we maintain what is connected to what, adding twists and turns in the wires does not change the overall computation.  As an example, the following ZX diagrams are the same, computationally:
+Formally, the math of this bending is made possible by the \emph{snake equations} (also called the \emph{yanking equations}).  This even made a cameo in the snake scientist blackboards in the cartoon series Rick and Morty, albeit there are typos in that blackboard:
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{images/snake-equation_rick-and-morty}
+\end{figure}
+
+Using the snake equations, we can show the following:
+\begin{equation}
+	\tikzfig{map_around_cup_transpose}
+\end{equation}
+Any map attached to one side of a cup, is equal to the transpose of that map attached to the other side of a cup.
+
+Effectively, this means that you can slide any map around a cup so that it rotates $180^{\degree}$:
+\begin{equation}
+	\tikzfig{slide_map_around_cup}
+\end{equation}
+The same holds for sliding any map around a cap.  This allows us to slide maps along the bends of any wire like beads on a necklace.
+
+\subsection{The Bell basis}
+The Bell state (``the cup'') is something we can easily implement on quantum computers: As we described earlier, we simply initialize the two qubits to the $\kz0$ state, then apply an $H$ gate followed by a CX gate.
+However, a complication arises when we try to implement the Bell test (``the cap'').
+As you can see in Eq.~\eqref{eq:belltest}, the Bell test requires that we measure both qubits in the Z basis and get the result $\bz0$ for them both.
+The problem is that each of these Z basis measurements has a $50\%$ chance of being in the $\kz0$ state, and a $50\%$ chance of being in the $\kz1$ state.
+This means that to implement this Bell test, we have only a 1 in 4 chance of succeeding.
+
+In quantum computing, this is called \textbf{post-selection} --- whenever we need to have a specific measurement outcome(s) to implement the desired circuit.  If we get any other measurement outcome, we have to either 1) throw away the whole circuit run, or if possible 2) salvage the run by applying the right correction gate to our circuit.
+
+Case 1) is bad:  If you throw away your run for each undesirable post-selection measurement outcome, then you need to run your circuit an exponential number of times to succeed on every post-selection.
+
+Case 2) solves this problem so that you do not have to throw away runs where you had any unwanted measurement outcomes.  However, you still want to generally use less post-selections because it is difficult engineering-wise to perform quantum gates based on previous measurement outcomes in the same run.  Support for this operation on today's quantum computers is either limited or non-existent.  However, this capability is being developed for future quantum computers, with the goal of being able to perform error correction to improve fidelity of quantum computations.
+
+So if we want to implement the Bell test, we post-select on the right outcome, $\kz{00}$, only $25\%$ of the time.
+What happens the other $75\%$ of the time?
+
+We actually get three other two-qubit tests, each having a 1 in 4 chance of occurring.
+We will later show the correction needed to implement the Bell test if we measure anything other than $\kz{00}$.
+This is a feature, not a bug; in fact, it will enable us to do \emph{quantum teleportation}.
+
+If our post-selection measurement outcome is $\kz{01}$, $\kz{10}$, or $\kz{11}$, respectively, we get the tests:
+\begin{equation}
+	\tikzfig{Belltest_zx01}
+\end{equation}
+\begin{equation}
+	\tikzfig{Belltest_zx10}
+\end{equation}
+\begin{equation}
+	\tikzfig{Belltest_zx11}
+\end{equation}
+
+This measurement is called a \textbf{Bell measurement}.  We call these four tests, which we get with equal probability, the four Bell tests.
+Colloquially, whenever we say simply ``Bell test'', we are referring to the test for which both measurement outcomes are $\bz0$.
+Reflecting these four horizontally, we get four two-qubit states.  These four all together are called the Bell basis:
+\begin{equation}
+	\tikzfig{Bell_basis_states}
+\end{equation}
+
+Earlier, by combining the cup and the cap, we got two snake equations in the shape of the letter `S' and in the shape of a backwards `S', respectively.
+Now that we have four pairs of a cup and a cap each in the Bell basis, this gives us eight total snake equations.  Minus the two we have already shown in Eqs.~\eqref{eq:yank}~and~\eqref{eq:yank2}, the remaining six equations are:
+\begin{equation}
+	\tikzfig{yankBell_zx01}
+\end{equation}
+\begin{equation}
+	\tikzfig{yankBell_zx10}
+\end{equation}
+\begin{equation}
+	\tikzfig{yankBell_zx11}
+\end{equation}
+
+The best thing about wire bending is that it looks exactly as you expect, but it captures a deeper meaning that is otherwise hard to grasp.
+It lets us visualize \textbf{state-map duality}.  We can take any state of two or more qubits, and bend one or more output wires $180^{\degree}$ to become input wires.  This transforms the original state, for which all wires are output wires, to a map, for which there is at least one input wire and at least one output wire.
+\begin{equation}\label{eq:state-map-duality_state}
+	\tikzfig{state-map-duality_state}
+\end{equation}
+
+As it is a duality, we can also go the opposite direction.  We can take any map, and bend all the input wires $180^{\degree}$ to become output wires.  What we end up with is a state, because all of the wires are output wires.
+\begin{equation}
+	\tikzfig{state-map-duality_map}
+\end{equation}
+
+In the above diagrams we just stuck to the cases of two wires, but this works for more wires too.
+\begin{equation}
+	\tikzfig{state-map-duality_gen}
+\end{equation}
+
+Applying Eq.~\eqref{eq:state-map-duality_state}, bending a wire of each of the four Bell states we get the four \textbf{Bell maps}.
+\begin{equation}
+	\tikzfig{Bellmaps}
+\end{equation}
+
+The big picture is: this structure of how cups and caps interact\footnote{There is an entire field of study called \textbf{category theory} which is dedicated to studying such structures and how they interact with each other.  The ZX-calculus was developed as a graphical calculus that resulted from understanding such structure underlying qubit quantum computation.}
+is what enables us to bend wires freely.  So long as we maintain what is connected to what, adding twists and turns in the wires does not change the overall computation.  As an example, the following ZX diagrams are the same, computationally:
 \begin{equation}
 	\tikzfig{deformation-example}
 \end{equation}
@@ -2400,6 +2577,7 @@ If you are a fan of the cartoon series Avatar: the Last Airbender, you may appre
 	\centering
 	\includegraphics{images/wirebending.png}
 \end{figure}
+
 
 % Outline of this subsubsection:
 % \begin{itemize}
@@ -2467,5 +2645,8 @@ If you are a fan of the cartoon series Avatar: the Last Airbender, you may appre
 %	\includegraphics[width=\columnwidth]{images/Launcher_IBMQuantumLab.PNG}
 %\end{figure}
 
-\printbibliography
+%\printbibliography
+
+% \bibliographystyle{plain}
+% \bibliography{qiskit+zx}
 \end{document}

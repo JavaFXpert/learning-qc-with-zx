@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none, rotate=90] (0) at (3.5, 0) {...};
+		\node [style=none] (1) at (0, 0) {$=$};
+		\node [style=none] (2) at (4, 1) {};
+		\node [style=none] (3) at (-1, -1) {};
+		\node [style=none] (4) at (4, -1) {};
+		\node [style=none, rotate=90] (5) at (-1.25, 0) {...};
+		\node [style=none] (6) at (-1, 1) {};
+		\node [style=none, rotate=90] (7) at (1.5, 0) {...};
+		\node [style=Z phase dot] (8) at (2.5, 0) {$\alpha$};
+		\node [style=none] (9) at (1, 1) {};
+		\node [style=none] (10) at (1, -1) {};
+		\node [style=X phase dot] (11) at (-2.25, 0) {$\alpha$};
+		\node [style=none] (12) at (-3.5, -1) {};
+		\node [style=none, rotate=90] (13) at (-3.25, 0) {...};
+		\node [style=none] (14) at (-3.5, 1) {};
+		\node [style=none] (15) at (1.75, 1) {};
+		\node [style=none] (16) at (1.75, 1) {};
+		\node [style=hadamard] (17) at (1.5, 1) {};
+		\node [style=none] (18) at (3.25, 1) {};
+		\node [style=none] (19) at (3.25, 1) {};
+		\node [style=hadamard] (20) at (3.5, 1) {};
+		\node [style=none] (21) at (3.25, -1) {};
+		\node [style=none] (22) at (3.25, -1) {};
+		\node [style=hadamard] (23) at (3.5, -1) {};
+		\node [style=none] (24) at (1.75, -1) {};
+		\node [style=none] (25) at (1.75, -1) {};
+		\node [style=hadamard] (26) at (1.5, -1) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=0, out=-120, looseness=0.75] (11) to (12.center);
+		\draw [in=0, out=105, looseness=0.75] (11) to (14.center);
+		\draw [in=180, out=-60, looseness=0.75] (11) to (3.center);
+		\draw [in=180, out=75, looseness=0.75] (11) to (6.center);
+		\draw [style=simple, in=60, out=180] (19.center) to (8);
+		\draw [style=simple] (19.center) to (2.center);
+		\draw [style=simple] (9.center) to (16.center);
+		\draw [style=simple, in=120, out=0] (16.center) to (8);
+		\draw [style=simple] (4.center) to (22.center);
+		\draw [style=simple, in=-60, out=180] (22.center) to (8);
+		\draw [style=simple] (10.center) to (25.center);
+		\draw [style=simple, in=-120, out=0] (25.center) to (8);
+	\end{pgfonlayer}
+\end{tikzpicture}

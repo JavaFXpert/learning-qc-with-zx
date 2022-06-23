@@ -1,0 +1,62 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (179) at (0, 0) {$\Longleftrightarrow$};
+		\node [style=none] (180) at (-3, 0.75) {};
+		\node [style=none] (181) at (-3, -0.75) {};
+		\node [style=none] (182) at (-1, 0.75) {};
+		\node [style=none] (183) at (-1, -0.75) {};
+		\node [style=Z phase dot] (184) at (-3, -5.25) {$\pi$};
+		\node [style=none] (185) at (-3, -3.75) {};
+		\node [style=none] (186) at (-1, -5.25) {};
+		\node [style=none] (187) at (-1, -3.75) {};
+		\node [style=X phase dot] (188) at (-3, -9.75) {$\pi$};
+		\node [style=none] (189) at (-3, -8.25) {};
+		\node [style=none] (190) at (-1, -9.75) {};
+		\node [style=none] (191) at (-1, -8.25) {};
+		\node [style=none] (192) at (-3, -12.75) {};
+		\node [style=Z phase dot] (193) at (-3, -14.25) {$\pi$};
+		\node [style=none] (194) at (-1, -12.75) {};
+		\node [style=none] (195) at (-1, -14.25) {};
+		\node [style=X phase dot] (196) at (-1.875, -14.25) {$\pi$};
+		\node [style=none] (197) at (1.5, 0) {};
+		\node [style=none] (198) at (4.5, 0) {};
+		\node [style=none] (199) at (3, 0) {};
+		\node [style=none] (200) at (0, -4.5) {$\Longleftrightarrow$};
+		\node [style=none] (201) at (1.5, -4.5) {};
+		\node [style=none] (202) at (4.5, -4.5) {};
+		\node [style=Z phase dot] (203) at (3, -4.5) {$\pi$};
+		\node [style=none] (204) at (0, -9) {$\Longleftrightarrow$};
+		\node [style=none] (205) at (1.5, -9) {};
+		\node [style=none] (206) at (4.5, -9) {};
+		\node [style=X phase dot] (207) at (3, -9) {$\pi$};
+		\node [style=none] (208) at (0, -13.5) {$\Longleftrightarrow$};
+		\node [style=none] (209) at (1.5, -13.5) {};
+		\node [style=none] (210) at (4.5, -13.5) {};
+		\node [style=X phase dot] (211) at (3.5, -13.5) {$\pi$};
+		\node [style=Z phase dot] (212) at (2.5, -13.5) {$\pi$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [bend right=90, looseness=2.50] (180.center) to (181.center);
+		\draw [style=simple] (180.center) to (182.center);
+		\draw [style=simple] (181.center) to (183.center);
+		\draw [bend left=90, looseness=2.50] (184) to (185.center);
+		\draw [style=simple] (184) to (186.center);
+		\draw [style=simple] (185.center) to (187.center);
+		\draw [bend left=90, looseness=2.50] (188) to (189.center);
+		\draw [style=simple] (188) to (190.center);
+		\draw [style=simple] (189.center) to (191.center);
+		\draw [bend right=90, looseness=2.50] (192.center) to (193);
+		\draw [style=simple] (192.center) to (194.center);
+		\draw [style=simple] (195.center) to (196);
+		\draw [style=simple] (196) to (193);
+		\draw [style=simple] (197.center) to (199.center);
+		\draw [style=simple] (199.center) to (198.center);
+		\draw [style=simple] (201.center) to (203);
+		\draw [style=simple] (203) to (202.center);
+		\draw [style=simple] (205.center) to (207);
+		\draw [style=simple] (207) to (206.center);
+		\draw [style=simple] (209.center) to (212);
+		\draw [style=simple] (212) to (211);
+		\draw [style=simple] (211) to (210.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
