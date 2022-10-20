@@ -1,0 +1,80 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1}A bit of quantum}{2}{section.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.0.1}A \textbf {bit} of information}{2}{subsubsection.1.0.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1}Diagrams}{2}{subsection.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.1.1}\textbf {Boxes} and \textbf {wires}}{2}{subsubsection.1.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.1.2}\textbf {States} and \textbf {tests}}{2}{subsubsection.1.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.1.3}Rewriting diagrams with equations}{4}{subsubsection.1.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2}Classical logic gates}{5}{subsection.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2}A \textbf {qubit} of information}{10}{section.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1}Classical states and tests}{10}{subsection.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.1.1}The qubit NOT gate}{11}{subsubsection.2.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.1.2}The X-basis states}{14}{subsubsection.2.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2}Quantum Measurement}{18}{subsection.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.1}The First Quantum Measurement Experiment}{19}{subsubsection.2.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3}The pure qubit state, in general}{23}{subsection.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.3.1}Statevectors on the unit circle}{23}{subsubsection.2.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.3.2}Statevectors on the Bloch sphere}{24}{subsubsection.2.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3}Building a quantum circuit}{34}{section.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1}Quantum gates, Part 1: Paulis}{34}{subsection.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.1.1}The I gate}{34}{subsubsection.3.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.1.2}The X gate}{34}{subsubsection.3.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.1.3}The Z gate}{36}{subsubsection.3.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.1.4}The Y gate}{38}{subsubsection.3.1.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.1.5}The Pauli group}{38}{subsubsection.3.1.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2}More one-qubit gates}{41}{subsection.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.1}Visualizing rotation gates on the Bloch sphere}{41}{subsubsection.3.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.2}The H gate}{43}{subsubsection.3.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3}Recipe for one-qubit quantum circuits}{45}{subsection.3.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4}The ZX-calculus}{51}{section.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1}$Z$ and $X$ rotations in the ZX-calculus}{51}{subsection.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2}Color changing in the ZX-calculus}{54}{subsection.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5}Qubits side by side}{57}{section.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.1}Product states}{57}{subsection.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.1.1}The two-qubit Z-basis states}{62}{subsubsection.5.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.1.2}The two-qubit X-basis states}{62}{subsubsection.5.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2}Entangled states}{63}{subsection.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.2.1}The CX gate}{63}{subsubsection.5.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.2.2}The Bell state}{70}{subsubsection.5.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3}The Bell basis}{80}{subsection.5.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6}Quantum teleportation}{85}{section.6}%

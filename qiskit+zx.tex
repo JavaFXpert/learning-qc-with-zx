@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{animate}
-\usepackage{biblatex}
+\usepackage[backend=bibtex]{biblatex}
 \usepackage{cancel}
 \usepackage{float}
 %\usepackage{gensymb}
@@ -172,7 +172,39 @@
 
 \begin{document}
 
+\begin{titlepage}
+	\begin{center}
+		\vspace*{1cm}
+ 
+		\textbf{An Introduction to Quantum Circuits}
+ 
+		\vspace{0.5cm}
+		by drawing diagrams in the ZX-calculus
+			 
+		\vspace{1.5cm}
+ 
+		\textbf{Lia Yeh$^{1,2}$ and James L. Weaver$^1$}
+ 
+		\vfill
+			 
+		$^1$IBM Quantum Education, $^2$University of Oxford
+			 
+		\vspace{0.8cm}
+	  
+		% \includegraphics[width=0.4\textwidth]{university}
+						 
+	\end{center}
+ \end{titlepage}
+ 
 \tableofcontents
+
+\newpage
+
+% \section*{Introduction}
+
+% TO-DO: State who this tutorial is intended for, what are the recommended prerequisite knowledge, and what you can look forward to learn from this tutorial.
+
+% \newpage
 
 \section{A bit of quantum}
 \subsubsection{A \textbf{bit} of information}
@@ -315,7 +347,7 @@ Without actually computing any truth table(s), what is the truth table of the ci
 	\label{fig:nnorn}
 \end{figure}
 
-\textnormal{Thankfully, with the circuit diagram rewrite rules we have so far, we are ready to tackle this problem.  Whenever we draw a gray dashed box around a part of the diagram, it means that in the next step, we will substitute for that part of the diagram, another diagram which accomplishes the same computation.  The equation number of the diagram rewrite rule which permitted us to do this substitution is then indicated above the next equals sign.
+\textnormal{Thankfully, with the circuit diagram rewrite rules we have so far, we are ready to tackle this problem.  Whenever we draw a gray dashed box around a part of the diagram, it means that in the next step, we will substitute for that part of the diagram, another diagram which accomplishes the same computation.  The equation number of the diagram rewrite rule which permitted us to do this substitution is then indicated above the next equals sign.  This is simply substitution of variables in an equation, where in this case our equations tell us that the left hand side diagram and the right hand side diagram are mathematically equal.
 \begin{equation}
 \tikzfig{nnorn_simp1}
 \end{equation}
@@ -333,6 +365,7 @@ One observation to point out is that some of these classical logic gates are not
 
 Fun fact: the information lost when an irreversible gate is performed is dissipated as heat energy.  Next time your phone or computer heats up when performing intense computation, you know why.
 
+\newpage
 
 \section{A \textbf{qubit} of information}
 \subsection{Classical states and tests}
@@ -889,11 +922,13 @@ To state more accurately, each pure qubit state up to a global phase corresponds
 That's all for now, folks!
 To get a taste of what we will learn next, check out how quantum gates transform a qubit state in the interactive Bloch sphere demo by James Weaver at \url{https://javafxpert.github.io/grok-bloch/}.
 
+\newpage
+
 \section{Building a quantum circuit}
 
 \subsection{Quantum gates, Part 1: Paulis}
 In this section, we will meet all the single-qubit gates commonly encountered (which tend to have one-letter names).
-We will also discuss what is a \textbf{group} mathematically, and how the $X$, $Y$, and $Z$ gates give us a group and all its nice properties.
+We will also discuss what is a \textbf{group} mathematically, and how the X, Y, and Z gates give us a group and all its nice properties.
 
 \subsubsection{The I gate}
 This gate is easy to remember because ``I'' stands for identity.
@@ -904,6 +939,55 @@ Its matrix is the identity matrix
 		0 & 1
 	\end{bmatrix}
 \end{equation}
+
+Writing the I gate in bra-ket notation:
+\begin{equation}
+	I = \begin{bmatrix}
+		1 & 0\\
+		0 & 1
+	\end{bmatrix} = \begin{bmatrix}
+		1 & 0\\
+		0 & 0
+	\end{bmatrix} + \begin{bmatrix}
+		0 & 0\\
+		0 & 1
+	\end{bmatrix} = \begin{bmatrix}
+		1\\
+		0
+	\end{bmatrix} \begin{bmatrix}
+		1 & 0
+	\end{bmatrix} + \begin{bmatrix}
+		0\\
+		1
+	\end{bmatrix} \begin{bmatrix}
+		0 & 1
+	\end{bmatrix} = \kz{0}\bz{0} + \kz{1}\bz{1}
+\end{equation}
+
+Another way to write the I gate in bra-ket notation is:
+\begin{equation}
+	I = \begin{bmatrix}
+		1 & 0\\
+		0 & 1
+	\end{bmatrix} = \frac{1}{2}\begin{bmatrix}
+		1 & 1\\
+		1 & 1
+	\end{bmatrix} + \frac{1}{2}\begin{bmatrix}
+		1 & -1\\
+		-1 & 1
+	\end{bmatrix} = \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		1
+	\end{bmatrix}\right) \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & 1
+	\end{bmatrix}\right) + \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		-1
+	\end{bmatrix}\right) \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & -1
+	\end{bmatrix}\right) = \kx{+}\bx{+} + \kx{-}\bx{-}
+\end{equation}
+
 For any pure qubit state $\ket{\psi}$, we can apply the I gate to it by multiplying its statevector by the identity matrix:
 \begin{equation}
 	I \ket{\psi} = \ket{\psi}
@@ -911,12 +995,11 @@ For any pure qubit state $\ket{\psi}$, we can apply the I gate to it by multiply
 
 Therefore, applying the I gate to the four states we have explored so far in bra-ket notation is:
 \begin{align}
-	I \kz0 = \kz0\\
-	I \kz1 = \kz1\\
-	I \kx+ = \kx+\\
-	I \kx- = \kx-
+	I \kz0 &= \left(\kz{0}\bz{0} + \kz{1}\bz{1}\right) \kz0 = \kz{0} \langle \,0\,|\,0\,\rangle + \kz{1} \langle \,1\,|\,0\,\rangle = 1 \kz{0} + 0 \kz{1} = \kz{0}\\
+	I \kz1 &= \left(\kz{0}\bz{0} + \kz{1}\bz{1}\right) \kz0 = \kz{0} \langle \,0\,|\,1\,\rangle + \kz{1} \langle \,1\,|\,1\,\rangle = 0 \kz{0} + 1 \kz{1} = \kz1\\
+	I \kx+ &= \left(\kx{+}\bx{+} + \kx{-}\bx{-}\right) \kx+ = \kx{+} \langle +|+\rangle + \kx{-} \langle -|+\rangle = 1 \kx{+} + 0 \kx{-} = \kx{+}\\
+	I \kx- &= \left(\kx{+}\bx{+} + \kx{-}\bx{-}\right) \kx- = \kx{+} \langle +|-\rangle + \kx{-} \langle -|-\rangle = 0 \kx{+} + 1 \kx{-} = \kx{-}
 \end{align}
-Using bra-ket notation is more succinct than writing out the identity matrix and corresponding statevector in place of each respective letter ``I'' and ket.
 
 No matter what the quantum state is, after applying the I gate on each qubit, the state will be unchanged.
 Since the I gate performs the identity operation, the following diagrams are the same:
@@ -936,7 +1019,56 @@ We can now learn how to apply it to any pure qubit state: multiplying by its mat
 		1 & 0
 	\end{bmatrix}
 \end{equation}
-From the matrix definition, you can readily verify that
+
+Alternatively, you can utilize the X gate in bra-ket notation:
+\begin{equation}
+	X = \begin{bmatrix}
+		0 & 1\\
+		1 & 0
+	\end{bmatrix} = \begin{bmatrix}
+		0 & 1\\
+		0 & 0
+	\end{bmatrix} + \begin{bmatrix}
+		0 & 0\\
+		1 & 0
+	\end{bmatrix} = \begin{bmatrix}
+		1\\
+		0
+	\end{bmatrix} \begin{bmatrix}
+		0 & 1
+	\end{bmatrix} + \begin{bmatrix}
+		0\\
+		1
+	\end{bmatrix} \begin{bmatrix}
+		1 & 0
+	\end{bmatrix} = \kz{0}\bz{1} + \kz{1}\bz{0}
+\end{equation}
+
+Another way to write the X gate in bra-ket notation is:
+\begin{equation}
+	X = \begin{bmatrix}
+		0 & 1\\
+		1 & 0
+	\end{bmatrix} = \frac{1}{2}\begin{bmatrix}
+		1 & 1\\
+		1 & 1
+	\end{bmatrix} - \frac{1}{2}\begin{bmatrix}
+		1 & -1\\
+		-1 & 1
+	\end{bmatrix} = \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		1
+	\end{bmatrix}\right) \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & 1
+	\end{bmatrix}\right) - \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		-1
+	\end{bmatrix}\right) \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & -1
+	\end{bmatrix}\right) = \kx{+}\bx{+} - \kx{-}\bx{-}
+\end{equation}
+
+From its matrix definition, you can readily verify that
 \begin{align}
 	X \kz0 &= \begin{bmatrix}
 		0 & 1\\
@@ -967,6 +1099,15 @@ and
 	&= \kz0
 \end{align}
 
+Showing the same result, but using bra-ket notation:
+\begin{align}
+	X \kz0 &= \left(\kz{0}\bz{1} + \kz{1}\bz{0}\right) \kz0 = \kz{0} \langle \,1\,|\,0\,\rangle + \kz{1} \langle \,0\,|\,0\,\rangle = \kz{1}
+\end{align}
+and
+\begin{align}
+	X \kz1 &= \left(\kz{0}\bz{1} + \kz{1}\bz{0}\right) \kz1 = \kz{0} \langle \,1\,|\,1\,\rangle + \kz{1} \langle \,0\,|\,1\,\rangle = \kz{0}
+\end{align}
+
 \begin{example}[Applying the X gate]
 	What is the resulting state when you apply the X gate to each of the X-basis states?
 
@@ -983,6 +1124,10 @@ and
 			1
 		\end{bmatrix} = \kx+
 	\end{equation}
+	\textnormal{or in bra-ket notation:}
+	\begin{equation}
+		X \kx+ = \left(\kx{+}\bx{+} - \kx{-}\bx{-}\right) \kx+ = \kx+
+	\end{equation}
 
 	\textnormal{When you apply the X gate to the $\kx-$ state, the resulting state is}
 	\begin{equation}
@@ -997,7 +1142,12 @@ and
 			1
 		\end{bmatrix} = -\kx-
 	\end{equation}
-	\textnormal{The resulting state is $\kx-$, with a factor of $-1 = e^{i \pi}$.  Recall that this means we have a \textit{global phase} of $\pi$.  Thus, we can ignore this factor because if you have one qubit in the $\kx-$ state and another qubit in the $-\kx-$ state, it is impossible to distinguish between them.}
+	\textnormal{or in bra-ket notation:}
+	\begin{equation}
+		X \kx- = \left(\kx{+}\bx{+} - \kx{-}\bx{-}\right) \kx- = -\kx-
+	\end{equation}
+
+	\textnormal{Applying the X gate to $\kx-$, the resulting state is $\kx-$ with a factor of $-1 = e^{i \pi}$.  Recall that this means we have a \textit{global phase} of $\pi$.  Thus, we can ignore this factor because if you have one qubit in the $\kx-$ state and another qubit in the $-\kx-$ state, it is impossible to distinguish between them.}
 
 	\textnormal{Now with the knowledge that the X gate does not change either of the X-basis states, it makes more sense why they are called the X-basis states.  The X-basis statevectors are \textit{eigenvectors} of the X gate matrix.  Like the Z-basis states, their statevectors form an (orthonormal) basis for any pure qubit statevector --- you can express any pure qubit statevector as a particular linear combination of $\kx+$ and $\kx-$.}
 \end{example}
@@ -1010,7 +1160,7 @@ It is simply a reflection about the dashed line that is $45^{\degree}$ from $\kz
 \begin{figure}[H]
 	\ctikzfig{unitcirclex}
 \end{figure}
-Because the $\kx+$ state is on this dashed line, applying the $X$ gate to it leaves it unchanged --- the $\kx+$ statevector is an eigenvector of the $X$ gate matrix, with eigenvalue $+1$.
+Because the $\kx+$ state is on this dashed line, applying the X gate to it leaves it unchanged --- the $\kx+$ statevector is an eigenvector of the $X$ gate matrix, with eigenvalue $+1$.
 
 We can also visualize that reflecting about this dashed line maps $\kz0$ and $\kz1$ to each other.
 Further, it maps $\kx-$ to $-\kx-$, showing that $\kx-$ is an eigenstate of $X$ with eigenvalue $-1$.
@@ -1025,12 +1175,36 @@ However, the relationship between the Z and X bases is more special than that: w
 This will enable us to describe quantum computations in terms of Z and X rotations.  At the end of this section introducing single-qubit gates, we will learn about these rotation gates.
 
 What does the Z gate do to arbitrary pure qubit states?
-We compute this by multiplying the statevector by the matrix of the Z gate,
+We compute this by multiplying the statevector by the matrix of the Z gate, or using bra-ket notation.
 \begin{equation}
 	Z = \begin{bmatrix}
 		1 & 0\\
 		0 & -1
-	\end{bmatrix}
+	\end{bmatrix} = \kz0 \bz0 - \kz1 \bz1
+\end{equation}
+
+Another way to write the Z gate in bra-ket notation is:
+\begin{equation}
+	Z = \begin{bmatrix}
+		1 & 0\\
+		0 & -1
+	\end{bmatrix} = \left(\frac{1}{2}\begin{bmatrix}
+		1 & -1\\
+		1 & -1
+	\end{bmatrix}\right) + \left(\frac{1}{2}\begin{bmatrix}
+		1 & 1\\
+		-1 & -1
+	\end{bmatrix}\right) = \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		1
+	\end{bmatrix}\right) \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & -1
+	\end{bmatrix}\right) + \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1\\
+		-1
+	\end{bmatrix}\right) \left(\frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & 1
+	\end{bmatrix}\right) = \kx+ \bx- + \kx- \bx+
 \end{equation}
 
 From the matrix definition, you can readily verify that
@@ -1064,10 +1238,19 @@ and
 	&= \kx+
 \end{align}
 
-Likewise, you can verify by matrix multiplication that $Z \kz0 = \kz0$ and $Z \kz1 = -\kz1$, demonstrating that $\kz0$ and $\kz1$ are indeed the Z-basis states as they are eigenstates of $Z$ with eigenvalues $+1$ and $-1$, respectively.
+In bra-ket notation, the same computation is:
+\begin{equation}
+	Z \kz+ = \left(\kx+ \bx- + \kx- \bx+\right) \kz+ = \kx+ \langle -|+ \rangle + \kx- \langle +|+ \rangle = \kx-
+\end{equation}
+and
+\begin{equation}
+	Z \kz- = \left(\kx+ \bx- + \kx- \bx+\right) \kz- = \kx+ \langle -|- \rangle + \kx- \langle +|- \rangle = \kx+
+\end{equation}
 
-To readily recall what the $Z$ gate does to these four states, we can have a picture in our head of the unit circle.
-Here the $Z$ gate is simply reflecting about the vertical dashed line below.
+Likewise, you can verify by matrix multiplication or by bra-ket notation that $Z \kz0 = \kz0$ and $Z \kz1 = -\kz1$, demonstrating that $\kz0$ and $\kz1$ are indeed the Z-basis states as they are eigenstates of the Z gate matrix with eigenvalues $+1$ and $-1$, respectively.
+
+To readily recall what the Z gate does to these four states, we can have a picture in our head of the unit circle.
+Here the Z gate is simply reflecting about the vertical dashed line below.
 \begin{figure}[H]
 	\ctikzfig{unitcirclez}
 \end{figure}
@@ -1086,7 +1269,7 @@ To apply it to any pure qubit state, we multiply that state's statevector by the
 \end{equation}
 You can verify that the eigenvectors of the Y gate are the statevectors for $\ket{+i}$ and $\ket{-i}$, the states on the y-axis of the Bloch sphere.
 
-As for what $Y$ does to the other basis vectors: Up to a global phase, it sends $\kz0$ and $\kz1$ to each other and $\kx+$ and $\kx-$ to each other.
+As for what the Y gate does to the other basis vectors: Up to a global phase, it sends $\kz0$ and $\kz1$ to each other and $\kx+$ and $\kx-$ to each other.
 
 \subsubsection{The Pauli group}
 We will now introduce the gates \{I, X, Y, Z\} as part of a \textit{group}.
@@ -1186,6 +1369,7 @@ We now also know that if we want to do any of the 16 gates in the Pauli group, w
 To give some spoiler text: the big thing we are leading up to is the \textbf{Clifford group}.  This is the bigger group that the Pauli group is a subgroup of.  The Clifford group has a generating set of three gates: $\{H, S, CX\}$, two of which ($H$ and $S$) we will learn about in the rest of this section, and the $CX$ gate we will learn in the next section.  The Clifford group is very important in quantum computing because it is the group of all the quantum gates that you can efficiently simulate with a classical computer.  Therefore, to do quantum computations we cannot efficiently simulate with a classical computer, we need to add to a generating set of the Clifford group, at least one non-Clifford gate i.e. not in the Clifford group.
 \end{note}
 
+\subsection{More one-qubit gates}
 \subsubsection{Visualizing rotation gates on the Bloch sphere}
 We will have more to say about the Pauli group later, but for now let us next look at the Bloch sphere which is where we visualize SU(2).
 This allows us to directly visualize another way.  What if instead of thinking about the Pauli matrices as ``reflecting'' about some axis on the unit circle, we thought about it as ``rotating'' halfway around the Bloch sphere?
@@ -1224,7 +1408,7 @@ We want to rotate the blue statevector on the Bloch sphere below about the z-axi
 The matrices of $X$, $Y$, and $Z$ rotation gates are like the complex (SU(2)) version of the standard 3D rotation matrices (in SO(3)) about the three axes.
 The $Z(\alpha)$ gate has the matrix\footnote{in Qiskit the $Z(\alpha)$ gate definition is the same up to a global phase of $e^{i\alpha/2}$.}
 \begin{equation}
-	Z = \begin{bmatrix}
+	Z(\alpha) = \begin{bmatrix}
 		1 & 0\\
 		0 & e^{i\alpha}
 	\end{bmatrix}
@@ -1305,7 +1489,7 @@ Back to the $H$ gate Euler decomposition.  We can see this visually on the Bloch
 
 
 \newpage
-\section{Recipe for one-qubit quantum circuits}
+\subsection{Recipe for one-qubit quantum circuits}
 If a quantum circuit were a cookbook recipe, it would have three ingredients: states, gates, and measurements.
 How are we doing on meal prep?
 \begin{itemize}
@@ -1409,6 +1593,8 @@ and
 It may seem rather cumbersome to multiply matrices each time we want to figure out what a sequence of gates is doing.  Not only is it unintuitive, but we will soon see that even with small numbers of qubits, the matrices get (exponentially) large, and therefore rapidly more computationally expensive to multiply.
 
 Thankfully, we do not have to resign ourselves to the tedium of multiplying matrices to understand what our quantum circuits are doing.  We just need to build up our toolbox so that we can use the right tool for the job.  We have already learned about how to visualize qubit states on the unit circle and on the Bloch sphere, and how to compute the probabilities of each possible measurement outcome of a one-qubit circuit using matrix multiplication.  Now, we will convert these one-qubit circuit model diagrams into ZX-calculus diagrams.  Just like we did before with rewriting AND, OR, and NOT circuit diagrams to figure out what they are doing, we can rewrite ZX-calculus diagrams to figure out what they are doing.
+
+\newpage
 
 \section{The ZX-calculus}
 To help us develop intuition for the Z- and X- bases, we will learn how to read, draw, and make deductions using \textbf{ZX-calculus} diagrams.  The qubit ZX-calculus is a pictorial language in which you can reason about all of qubit quantum computation.  As we continue learning, we will see how convenient of a tool these diagrams are.  As with the circuit model, we choose the convention of drawing and reading these diagrams from left to right.
@@ -1678,6 +1864,8 @@ This is a technique known as \textbf{quantum state tomography}.  It is very usef
 
 \textnormal{As a final note for this example, here we walked through the case where the phase is $\pi$.  In fact, these exact rewrite rule steps are the same for any phase, such as was the case in Example~\ref{ex:othercolorchange}.}
 \end{example}
+
+\newpage
 
 \section{Qubits side by side}
 Let us now take what we know about single-qubit states, and combine them to talk about multi-qubit states: quantum states of multiple qubits.
@@ -2339,7 +2527,7 @@ For fun, let us imagine that Alice and Bob are both cats.  Their qubits represen
 	\includegraphics[width=\columnwidth]{images/bellhappygrumpycat}
 \end{figure}
 \newpage
-\begin{example}
+\begin{example} \label{ex:bellmeaszz}
 	Two qubits are in the Bell state $\frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)$.  Alice takes one of the qubits and flies to Venus.  Bob takes the other qubit and flies to Mars.  Alice and Bob each measure their qubit in the Z basis.  What are the possible outcomes of their measurements?
 	\soln \textnormal{At the point of the circuit marked 1 in Figure~\ref{fig:bellhappygrumpycat}, the two-qubit state is}
 	\begin{figure}[H]
@@ -2367,7 +2555,7 @@ For fun, let us imagine that Alice and Bob are both cats.  Their qubits represen
 \end{example}
 
 This isn't specific to just measuring in the Z-basis.  We can repeat the same thought experiment, but now Alice and Bob both measure in the X-basis:
-\begin{example}
+\begin{example} \label{ex:bellmeasxx}
 	Two qubits are in the Bell state $\frac{1}{\sqrt{2}} \left(\kz{00} + \kz{11}\right)$.  Alice takes one of the qubits and flies to Venus.  Bob takes the other qubit and flies to Mars.  Alice and Bob again each measure their qubit, but this time in the X basis.  What are the possible outcomes of their measurements?
 	\soln \textnormal{This time around, we are testing for the two-qubit X-basis states: $\bx{++}$, $\bx{-+}$, $\bx{+-}$, and $\bx{--}$.  In computing the measurement probabilities directly, we can make the calculation simpler by noting that the Bell state can be rewritten in the X-basis:}
 
@@ -2407,6 +2595,8 @@ This isn't specific to just measuring in the Z-basis.  We can repeat the same th
 	\end{align}
 \end{example}
 
+If in the above two examples, one of Alice and Bob measured in the Z basis, and the other in the X basis, you can compute in the same way, albeit the computation is messier, that four measurement outcomes are all equally likely (1/4 probability).  Let's say the left qubit in the ket is measured in the Z basis, and the right qubit in the ket is measured in the X basis.  Then the four outcomes are: $\kx{0+}$, $\kx{0-}$, $\kx{1+}$, and $\kx{1-}$.
+
 Although the Bell state is symmetric with respect to both qubits, as if we swap the two qubits the state is still the Bell state, this is not apparent from its circuit diagram in Eq.~\eqref{eq:Bellstate_circuitmodel}.  In the ZX-calculus, we draw the Bell state so you can easily see it is symmetric.  Actually, we can derive what the Bell state looks like in the ZX-calculus: First we convert the Bell state circuit to a ZX-calculus diagram; then, we simplify using the rules of the ZX-calculus.
 
 When we convert the Bell state from circuit diagram to ZX diagram, we have two choices for the slant of the wire of the CX gate.  As we showed before in Eq.~\ref{eq:zxCXbendy}, either slant gives you the CX gate.
@@ -2444,7 +2634,7 @@ The cup bends the input wire(s) to the map to become output(s), while the cap be
 If you imagine the wires being pulled straight,
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\columnwidth]{images/baryanking.png}\hfill
+	\includegraphics[width=0.3\columnwidth]{images/baryanking.png}
 	\includegraphics[width=0.3\columnwidth]{images/baryanked.png}
 \end{figure}
 then the trapezoid-shaped map would be rotated $180^{\degree}$.
@@ -2495,6 +2685,56 @@ Effectively, this means that you can slide any map around a cup so that it rotat
 \end{equation}
 The same holds for sliding any map around a cap.  This allows us to slide maps along the bends of any wire like beads on a necklace.
 
+We can also do a similar trick to bend a state into a test, and vice versa.
+To think about what this is doing, recall that the transpose of a state (a column vector) is a test (a row vector), and vice versa.
+Recall that we take the transpose of a map by putting a cup and a cap on its inputs and its outputs, to bend its inputs into outputs and its outputs into inputs.
+
+Since a state has no inputs and a test has no outputs, we can bend the inputs to a test into outputs to get a state, as we did above for maps:
+\begin{equation}
+	\tikzfig{slide_state_around_cup}
+\end{equation}
+
+Likewise, we can use a cap to transpose any state to get a test:
+\begin{equation}
+	\tikzfig{slide_state_around_cap}
+\end{equation}
+
+\begin{example} \label{ex:bellmeasslide}
+	In the earlier two examples, Example~\ref{ex:bellmeaszz}~and~\ref{ex:bellmeasxx}, we considered a hypothetical situation where Alice and Bob both perform a measurement on their respective ends of a shared Bell state.
+
+	We can instead consider if just one of them, say, Alice, measured their qubit.  After that, what is the state of Bob's qubit?
+
+	\textnormal{We just have to draw the diagrams, and from there see what is happening.}
+
+	\begin{figure}[H]
+		\ctikzfig{Bellstate_measAlice}
+		\caption{\textnormal{Alice and Bob each have one of the two qubits in a Bell state, and then Alice measures her qubit in the $Z$ basis (top two lines occurring with equal probability) or the $X$ basis (bottom two lines occurring with equal probability).  By straightening the bent wire, we see that the end result is that Bob's qubit is in the exact same state that Alice observed upon measuring.}}
+	\end{figure}
+\end{example}
+
+\begin{note}
+	In this section we learned how to produce a Bell state, enabling us to entangle two qubits together.  But we can do more --- we can build quantum circuits to entangle any number of qubits together.  For instance, if we entangle qubit 1 and qubit 2, and then entangle qubit 2 and qubit 3, we can create an entangled state of three qubits, such as the GHZ state below:
+
+	\begin{figure}[H]
+		\raggedleft
+		\begin{minipage}[r]{0.4\linewidth}
+			\scalebox{0.3}{\includegraphics{images/ghz-state.jpg}}
+			\vspace{0.5em}
+		\end{minipage}
+		\begin{minipage}[l]{0.5\linewidth}
+			\begin{frame}{}
+				\scalebox{0.35}{\animategraphics[controls,width=\linewidth]{1}{images/ghz-state-simp/}{1}{6}}
+			\end{frame}
+		\end{minipage}
+		\vspace{-1em}
+		\caption{\small{\label{fig:ghz-state}We first translate component-wise the circuit for building the GHZ state $\frac{1}{\sqrt{2}} \left(\ket{000} + \ket{111}\right)$ on the left, to its corresponding ZX diagram on the right.  Then, we apply the color change and spider fusion ZX-calculus rules until there is nothing more to simplify.}}
+		\end{figure}
+
+	If we are able to do on our quantum computing hardware, just one arbitrary two-qubit entangling gate (for instance the CX gate) and enough single-qubit gates, we can do (to arbitrary precision, assuming the gates are noiseless) any type of quantum computation possible on any number of qubits.  Being able to do this is called \textbf{universal quantum computation}.  The most famous gate set that suffices for universal quantum computation is called the Clifford+$T$ gate set, which has the three Clifford gates CX, $S$, and $H$, plus the non-Clifford $T$ gate.
+
+	Besides cutting down the number of gates we ever need to just four, three of which are single-qubit gates, what is particularly special is that the Clifford group (the group of all gates which can be done by applying just CX, $S$, and $H$ gates) is the subset of quantum gates that we can efficiently simulate on classical computers.  However, the Clifford group is not enough for universal quantum computation --- hence why it is necessary to add at least one non-Clifford gate such as the $T$ gate.
+\end{note}
+
 \subsection{The Bell basis}
 The Bell state (``the cup'') is something we can easily implement on quantum computers: As we described earlier, we simply initialize the two qubits to the $\kz0$ state, then apply an $H$ gate followed by a CX gate.
 However, a complication arises when we try to implement the Bell test (``the cap'').
@@ -2516,13 +2756,13 @@ We will later show the correction needed to implement the Bell test if we measur
 This is a feature, not a bug; in fact, it will enable us to do \emph{quantum teleportation}.
 
 If our post-selection measurement outcome is $\kz{01}$, $\kz{10}$, or $\kz{11}$, respectively, we get the tests:
-\begin{equation}
+\begin{equation}\label{eq:Belltest_zx01}
 	\tikzfig{Belltest_zx01}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:Belltest_zx10}
 	\tikzfig{Belltest_zx10}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:Belltest_zx11}
 	\tikzfig{Belltest_zx11}
 \end{equation}
 
@@ -2566,35 +2806,213 @@ Applying Eq.~\eqref{eq:state-map-duality_state}, bending a wire of each of the f
 	\tikzfig{Bellmaps}
 \end{equation}
 
-The big picture is: this structure of how cups and caps interact\footnote{There is an entire field of study called \textbf{category theory} which is dedicated to studying such structures and how they interact with each other.  The ZX-calculus was developed as a graphical calculus that resulted from understanding such structure underlying qubit quantum computation.}
+The big picture is: this structure of how cups and caps interact\footnote{There is an entire field of study called \textbf{category theory} which is dedicated to studying such structures and how they interact with each other.  The ZX-calculus was developed as a graphical calculus that resulted from understanding such structure underlying qubit quantum computation.  It is not necessary to understand any category theory to use ZX-calculus, and it is nice to know that we are on solid mathematical footing.}
 is what enables us to bend wires freely.  So long as we maintain what is connected to what, adding twists and turns in the wires does not change the overall computation.  As an example, the following ZX diagrams are the same, computationally:
 \begin{equation}
 	\tikzfig{deformation-example}
 \end{equation}
 
-If you are a fan of the cartoon series Avatar: the Last Airbender, you may appreciate thinking about wire bending literally.
+If you are a fan of the cartoon series Avatar: the Last Airbender, you can feel powerful imagining yourself doing wire bending:
 \begin{figure}[H]
 	\centering
 	\includegraphics{images/wirebending.png}
 \end{figure}
 
+\newpage
 
-% Outline of this subsubsection:
-% \begin{itemize}
-% 	\item Bell state circuit diagram: last? use of matrix multiplication to get $\kz{00} + \kz{11}$ Bob flies to Mars, Alice flies to Venus, we observe them both, and Alice and Bob cat are in the same state
-% 	\item convert to ZX, simplify in ZX to get cup
-% 	\item example of Bell state coins - first example of "wire bending"	
-% \end{itemize}
+\section{Quantum teleportation}
+Drumroll\dots
 
-% As shown here where we learned how to produce a Bell state, the CX gate enables us to entangle two qubits together.  But it can do more --- the CX gate enables us to entangle any number of qubits together.  For instance, if we entangle qubit 1 and qubit 2, a d then entangle qubit 2 and qubit 3, we can create an entangled state of three qubits.
+We now have all the puzzle pieces to assemble the quantum circuit for \emph{quantum teleportation}.
+We just need to put it all together.
 
-% \subsubsection{The GHZ state}
-% %%% GHZ state ZX proof
+First of all, let's talk in general about what quantum teleportation does, and then the protocol itself.
+What quantum teleportation does is teleport a quantum state.  That is not the same as teleporting objects or people.
+While it is often used as an example in quantum information textbooks, it has many real-world applications to quantum computing, quantum communication, and quantum cryptography.
+
+To describe a situation where quantum teleportation could be useful, consider we want to have a distributed quantum computing network where we have different quantum computers connected by our quantum network, say in different countries.  For instance, maybe we have in mind a larger quantum computation to run than any one quantum computer in our network can handle alone.  Or perhaps we need to do an aggregate computation on data stored locally at each quantum computer, and we cannot transport the data between countries for data privacy reasons to not identify individuals.
+
+We can assign separate parts of the quantum computation to different quantum computers in our network at once, as well as send quantum data between them.
+Say you are manning one of the quantum computers in the network, and it computed a result that is saved in the states of your qubits --- let us call it your lab qubits.  You want to send this result to me as I man another quantum computer in the network, but you can't do that over the phone, message, or email because it is quantum data and not classical data.
+
+It is not so straightforward to send quantum states over long distances while keeping them coherent.
+In practice, many quantum computing devices need to protect their qubits inside safe from decohering all their information away, for instance due to noise in the computation caused by thermal fluctuations of the environment.  For example, some quantum computers are colder than outer space and are vacuum tight so there is no dust or other contaminants messing with your qubits.
+You can't just take your qubits out of there because they would decohere rapidly, like how a snowman taken out of a freezer in the desert melts into a puddle.
+But you also can't imagine just uprooting your whole lab where the quantum computer is, and shipping it with the qubit inside.  Basically any option that ends with you building a crazy expensive fancy shipping container to protect the qubit state inside is not worth considering.
+
+So you need a way to change the type of your lab qubit, to a type of qubit that can withstand long distance travel without decohering as badly.
+For instance, in quantum communication, we can send photons, the particles that light is made out of, through open air or through fiber optics cables.
+Each photon is a qubit because we can use, for instance by changing its phase or its polarization with optics equipment, to encode it to have any one-qubit state that we want, of the most general form in Eq.~\eqref{eq:onequbitpuregenform}.
+
+However, you cannot just measure the state of each of your lab qubits and then encode that number of photons in those respective states.
+As we have seen through examples in this text, quantum measurement tells you only partial information about the state, and it can change the state itself --- without you knowing.
+If you want to find out the state of a qubit, and you have only one qubit (that one) in that state and no other information, it is impossible for you to ever know the state.
+
+What we need here, for you to send me the states of your qubits, is some way to \emph{teleport} the states of your qubits to the states of photons that you can then send me.
+Quantum teleportation will allow you to do this.
+
+\textbf{The Quantum Teleportation protocol}
+\begin{enumerate}
+	\item Alice has a qubit whose state she wants to send to Bob.
+	\item Alice and Bob have a shared Bell state for which they each have one qubit of.
+	\item Alice does a Bell measurement between whose state she wants to teleport, and her qubit in the shared Bell state.
+	\item Alice tells Bob which of the four possible measurement outcomes she got, and Bob performs the corresponding Bell map.
+\end{enumerate}
+After the above steps, Bob ends up with the qubit that he had earlier had in the shared Bell state with Alice, now instead in the state that Alice sent him.
+In other words, before the protocol, Alice had a qubit in a certain state, and after the protocol, Bob has a qubit in that same state.
+
+Below, we show what the quantum circuit used in quantum teleportation looks like in the circuit model.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit.png}
+	\caption{This is the quantum circuit for quantum teleportation.  The two qubits above the dashed line are Alice's, and the one below is Bob's.  We will soon understand why this circuit can send the state $\Psi$ of Alice's top qubit to Bob, and what happens in the correction step to do this successfully every time.}
+\end{figure}
+
+If you look at the bottom left of this quantum circuit, you may recognize it to be a Bell state:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=4in]{images/QT-Bell-state.png}
+\end{figure}
+Likewise, the top right of the quantum teleportation circuit is a Bell measurement.
+
+This lets us break down how we view that circuit, to see where the Bell state and Bell measurement of the quantum teleportation protocol are.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit-boxed.png}
+\end{figure}
+
+We learned earlier that there are four possible outcomes of a Bell measurement.
+
+The most ideal outcome would be for Alice to measure both qubits to be in the $\kz0$ state.  Then Alice's Bell measurement implements \emph{the} Bell state, which is the cap in the ZX-calculus.
+Then we can apply the snake equation to the cup and the cap of the quantum teleportation circuit and see that Bob automatically gets the state Alice wanted to teleport to him in the first place.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit-snake.png}
+\end{figure}
 
 
-% If we are able to do on our quantum computing hardware, just one arbitrary two-qubit entangling gate and enough single-qubit gates, we can do (to be more precise, approximate to arbitrary precision) any type of quantum computation possible on any number of qubits.  Being able to do this is called \textbf{universal quantum computation}.  The most famous gate set that suffices for universal quantum computation is called the Clifford+$T$ gate set, which has the three Clifford gates CX, $S$, and $H$, plus the non-Clifford $T$ gate.
+What if Alice measures any of the three other outcomes?
 
-% Besides cutting down the number of gates we ever need to just four, three of which are single-qubit gates, what is particularly special as we noted earlier is that the Clifford group (which can be generated by CX, $S$, and $H$) is the subset of quantum gates that we can efficiently simulate on classical computers.
+First, as a refresher to what we found in Eqs.~\eqref{eq:Belltest_zx01},\eqref{eq:Belltest_zx10}, and \eqref{eq:Belltest_zx11}, when the Bell measurement outcome is instead $\kz{01}$, $\kz{10}$, or $\kz{11}$, the ZX diagrams are respectively:
+\begin{equation}
+    \tikzfig{Belltest2_zx01}
+\end{equation}
+\begin{equation}
+    \tikzfig{Belltest2_zx10}
+\end{equation}
+\begin{equation}
+    \tikzfig{Belltest2_zx11}
+\end{equation}
+
+Plugging these into our quantum teleportation circuit, we see that the circuit becomes:
+
+If Alice measured $\kz{01}$:
+\nopagebreak
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit-snake-01.png}
+\end{figure}
+
+If Alice measured $\kz{10}$:
+\nopagebreak
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit-snake-10.png}
+\end{figure}
+
+If Alice measured $\kz{11}$:
+\nopagebreak
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit-snake-11.png}
+\end{figure}
+
+Alice then tells Bob what measurement outcome she got, so that Bob knows which of these four cases happened.
+Then, Bob just needs to apply the right \emph{correction} to the state he received as follows:
+
+\begin{table}
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		Alice's measurement outcome & The correction that Bob needs to apply\\ \hline
+		\kz{00} & no correction needed\\ \hline
+		\kz{01} & Z\\ \hline
+		\kz{10} & X\\ \hline
+		\kz{11} & X Z (which, up to a global phase, is Y)\\ \hline
+	\end{tabular}	
+\end{table}
+
+Let's draw the final circuit to check that so long as Bob applies the right correction, the protocol succeeds.
+We already saw that if Alice measured $\kz{00}$, the protocol succeeds without Bob needing to do any correction.
+
+
+If Alice measured $\kz{01}$, told Bob, and Bob performed the $Z$ gate:
+\nopagebreak
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit-snake2-01.png}
+\end{figure}
+
+If Alice measured $\kz{10}$, told Bob, and Bob performed the $X$ gate:
+\nopagebreak
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit-snake2-10.png}
+\end{figure}
+
+If Alice measured $\kz{11}$, told Bob, and Bob performed the $Z$ gate then the $X$ gate:
+\nopagebreak
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{images/QT-circuit-snake2-11.png}
+\end{figure}
+
+Therefore, we have shown that (assuming no errors) the quantum teleportation protocol succeeds in sending Alice's arbitrary qubit state to Bob, no matter what Alice's measurement outcomes were.
+
+These kinds of protocols are used for sending quantum information over very large distances.
+
+% \newpage
+
+% \section*{Conclusion}
+
+% TO-DO: Explain qubit completeness
+
+% \begin{note}
+% 	An interesting question to wonder is: What if Alice never tells Bob her measurement outcomes?
+% 	Then Bob has no idea what Alice measured.
+% 	If this were a classical protocol, then if Bob does no corrections, the protocol has a 25\% chance of success and a 75\% chance of failure.
+% 	However, there is more than meets the eye because this is a quantum protocol.
+
+% 	What actually happens from Bob's perspective is the \textbf{mixture} of all four measurement outcomes.
+% 	Other than in this note, we won't get into \emph{mixed-state quantum mechanics} and stick to working with pure states.  Nevertheless, you can rest assured that all reasoning about mixed-state qubit quantum mechanics can also be done in the ZX-calculus.
+
+% 	Recall that in the Bloch sphere visualization, pure single-qubit states are on the surface of the sphere, while mixed single-qubit states are on the interior.
+% 	This is because the mixed states are mixtures (i.e. linear combinations) of pure states.
+
+% 	Any single-qubit state, pure or mixed, can be written as:
+% 	\begin{equation}
+% 		\rho = \sum_i \rho_i \ket{i} \bra{i}
+% 	\end{equation}
+% 	where each $\rho_i$ is the eigenvalue for eigenvector $\ket{i}$ of $\rho$.
+
+% 	Written in this form, $\rho$ is called a \emph{density matrix} or \emph{density operator}.
+% 	How do some of our bread and butter pure qubit states look in this form?
+% 	\begin{align}
+% 		\kz0 &\leftrightsquigarrow \kz0 \bz0 (= 1 \kz0 \bz0 + 0 \kz1 \bz1)\\
+% 		\kz1 &\leftrightsquigarrow \kz1 \bz1 (= 0 \kz0 \bz0 + 1 \kz1 \bz1)\\
+% 		\kx+ &\leftrightsquigarrow \kx+ \bx+ (= 1 \kx+ \bx+ + 0 \kx- \bx-)\\
+% 		\kx- &\leftrightsquigarrow \kx- \bx- (= 0 \kx+ \bx+ + 1 \kx- \bx-)
+% 	\end{align}
+% 	In general, for any pure state with statevector $\ket{\psi}$, its density matrix is $\ket{\psi} \bra{\psi}$.
+
+% 	Drawing these in the ZX-calculus is as you expect.  Here, for an arbitrary pure state $\psi$, we drew the pure state quantum mechanics diagram on the left, and the mixed-state quantum mechanics diagram on the right.
+% 	\begin{equation}
+% 		\tikzfig{ket_doubled}
+% 	\end{equation}
+% 	The immediate difference is that the left diagram has one wire, and the right diagram has two wires.
+% 	Note that if you apply state-map duality to the right diagram, you get both wires as output wires.
+
+% \end{note}
 
 
 
@@ -2645,7 +3063,7 @@ If you are a fan of the cartoon series Avatar: the Last Airbender, you may appre
 %	\includegraphics[width=\columnwidth]{images/Launcher_IBMQuantumLab.PNG}
 %\end{figure}
 
-%\printbibliography
+\printbibliography
 
 % \bibliographystyle{plain}
 % \bibliography{qiskit+zx}
