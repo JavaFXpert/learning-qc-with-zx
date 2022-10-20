@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small dot] (0) at (-6.25, 0.75) {};
+		\node [style=targ] (1) at (-6.25, -0.75) {\large$+$};
+		\node [style=none] (3) at (-7.5, 0.75) {};
+		\node [style=none] (4) at (-7.5, -0.75) {};
+		\node [style=none] (5) at (-3.5, 0.75) {};
+		\node [style=none] (6) at (-3.5, -0.75) {};
+		\node [style=none] (7) at (-2.75, -0.75) {$\bz1$};
+		\node [style=none] (8) at (-2.75, 0.75) {$\bz0$};
+		\node [style=box] (9) at (-4.75, 0.75) {$H$};
+		\node [style=none] (10) at (0, 0) {$\leftrightsquigarrow$};
+		\node [style=none] (31) at (3.5, 0.75) {};
+		\node [style=X phase dot] (32) at (3.5, -0.75) {$\pi$};
+		\node [style=none] (33) at (2.25, 0.75) {};
+		\node [style=none] (34) at (2.25, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (1);
+		\draw [style=simple] (0) to (3.center);
+		\draw [style=simple] (6.center) to (1);
+		\draw [style=simple] (1) to (4.center);
+		\draw [style=simple] (5.center) to (9);
+		\draw [style=simple] (9) to (0);
+		\draw [bend left=90, looseness=2.50] (31.center) to (32);
+		\draw [style=simple] (31.center) to (33.center);
+		\draw [style=simple] (32) to (34.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
